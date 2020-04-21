@@ -9,7 +9,7 @@ CREATE TABLE `authorities` (
   `authority_id` int(11) NOT NULL,
   `authority` varchar(50) NOT NULL,
   PRIMARY KEY (`authority_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 
 CREATE TABLE `users` (
@@ -23,6 +23,6 @@ CREATE TABLE `users` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   KEY `fk_user_authority_idx` (`user_authority`),
   CONSTRAINT `fk_user_authority` FOREIGN KEY (`user_authority`) REFERENCES `authorities` (`authority_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 
