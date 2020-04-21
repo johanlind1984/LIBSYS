@@ -55,8 +55,8 @@
     </div>
     <div class="form-group">
         <label for="personalNumber">Personnummer</label>
-        <input type="text" class="form-control" id="personalNumber" aria-describedby="personalNumberHelp" placeholder="Personnummer" required maxlength="12">
-        <small id="personalNumberHelp" class="form-text text-muted">Vi kommer inte att dela med oss av ditt personnummer till någon</small>
+        <input class="form-control" id="personalNumber" aria-describedby="personalNumberHelp" placeholder="Personnummer" pattern="[0-9]{12}">
+        <small id="personalNumberHelp" class="form-text text-muted">Ange personnummer i format: ÅÅÅÅMMDDNNNN</small>
     </div>
     <div class="form-group">
         <label for="phone">Telefonnummer</label>
