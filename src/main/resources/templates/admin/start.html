@@ -9,7 +9,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<table align="center">
+<div class="table-responsive" align="center">
+<table align="center" class="table">
     <td>
     <form th:action="@{/register-visitor/}" method="post">
         <button type="submit" class="btn btn-primary">Lägg till Besökare</button>
@@ -31,5 +32,6 @@
         </form>
     </td>
 </table>
+</div>
 </body>
 </html>

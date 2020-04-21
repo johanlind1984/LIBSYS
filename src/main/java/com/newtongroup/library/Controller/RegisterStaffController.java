@@ -1,5 +1,7 @@
 package com.newtongroup.library.Controller;
 
+import com.newtongroup.library.Entity.Admin;
+import com.newtongroup.library.Entity.Librarian;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,14 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RegisterStaffController {
 
     @RequestMapping("/librarian")
-    public String registerStaff(Model theModel) {
-        System.out.println("registerStaff");
-        return "register-complete";
+    public String registerLibrarian(Model theModel) {
+        System.out.println("registerLibrarian");
+        theModel.addAttribute("librarian", new Librarian());
+        return "register/register-librarian";
     }
 
     @RequestMapping("/admin")
     public String registerAdmin(Model theModel) {
         System.out.println("registerAdmin");
-        return "register-complete";
+        theModel.addAttribute("admin", new Admin());
+        return "register/register-admin";
     }
 }
