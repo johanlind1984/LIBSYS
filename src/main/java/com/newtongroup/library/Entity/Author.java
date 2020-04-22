@@ -1,6 +1,7 @@
 package com.newtongroup.library.Entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table (name="author")
@@ -17,13 +18,13 @@ public class Author {
     @Column(name="lastname")
     private String lastname;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name="book_author",
-//            joinColumns = {@JoinColumn(name="idbook_author_book_id")},
-//            inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
+    @ManyToMany
+    @JoinTable(
+            name="book_author",
+            joinColumns = {@JoinColumn(name="idbook_author_book_id")},
+            inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
 
-//    private List<Book> booklist;
+    private List<Book>bookList;
 
     public Author() {
     }
@@ -52,12 +53,12 @@ public class Author {
         this.lastname = lastname;
     }
 
-//    public List<Book> getBooklist() {
-//        return booklist;
-//    }
-//
-//    public void setBooklist(List<Book> booklist) {
-//        this.booklist = booklist;
-//    }
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
+    }
 }
 
