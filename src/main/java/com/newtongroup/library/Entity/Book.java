@@ -8,8 +8,8 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idbooks")
-    private Long id;
+    @Column(name = "book_id")
+    private Long bookId;
 
     @Column(name = "title")
     private String title;
@@ -29,12 +29,12 @@ public class Book {
     public Book () {
     }
 
-    public Long getId() {
-        return id;
+    public Long getBookId() {
+        return bookId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBookId(Long id) {
+        this.bookId = id;
     }
 
     public String getTitle() {
