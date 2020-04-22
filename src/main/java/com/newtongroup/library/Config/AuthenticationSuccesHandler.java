@@ -20,13 +20,13 @@ public class AuthenticationSuccesHandler implements AuthenticationSuccessHandler
         Set<String> authoritiesList = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 
         if(authoritiesList.contains("ROLE_ADMIN")) {
-            // logic
-        } else if (authoritiesList.contains("ROLE_LIBRARIAN")) {
-            // logic
+            httpServletResponse.sendRedirect("/admin/");
         } else if (authoritiesList.contains("ROLE_BOSS")) {
-            // logic
-        } else if (authoritiesList.contains("ROLE_USER")) {
-            // logic
+            httpServletResponse.sendRedirect("/boss/");
+        } else if (authoritiesList.contains("ROLE_LIBRARIAN")) {
+            httpServletResponse.sendRedirect("/librarian/");
+        } else if (authoritiesList.contains("ROLE_VISITOR")) {
+            httpServletResponse.sendRedirect("/visitor/");
         }
         else {
             httpServletResponse.sendRedirect("/error-processing-login/");
