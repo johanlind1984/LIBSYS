@@ -17,18 +17,23 @@
     </form>
     </td>
     <td>
-        <form th:action="@{/register/librarian/}" method="post">
+        <form th:action="@{/register-librarian/}" method="post">
             <button type="submit" class="btn btn-primary">Lägg till Bibliotikarie</button>
         </form>
     </td>
     <td>
-        <form th:action="@{/register/admin/}" method="post">
+        <form th:action="@{/register-admin/}" method="post">
             <button type="submit" class="btn btn-primary">Lägg till Administratör</button>
         </form>
     </td>
     <td>
+        <form th:action="@{/admin/delete-menu/}" method="post">
+            <button type="submit" class="btn btn-primary">Ta Bort Användare</button>
+        </form>
+    </td>
+    <td>
         <form th:action="@{/logout}" method="post">
-            <button type="submit" class="btn btn-primary">Logga ut</button>
+            <button type="submit" class="btn btn-warning">Logga ut</button>
         </form>
     </td>
 </table>

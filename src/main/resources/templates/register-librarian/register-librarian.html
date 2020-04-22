@@ -9,12 +9,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1 align="center">Lägg till besökare</h1>
-<form th:action="@{/register-visitor/save-visitor}" method="post" th:object="${userPerson}">
+<h1 align="center">Lägg till bibliotikarie</h1>
+<form th:action="@{/register-librarian/save-librarian}" method="post" th:object="${userPerson}">
     <div class="form-group">
         <label for="email">E-post address</label>
         <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Skriv din e-post"
-               th:field="${userPerson.visitor.email}" required maxlength="150">
+               th:field="${userPerson.librarian.email}" required maxlength="150">
         <small id="emailHelp" class="form-text text-muted">Vänligen fyll i din epost</small>
     </div>
     <div class="form-group">
@@ -26,40 +26,40 @@
     <div class="form-group">
         <label for="firstName">Förnamn</label>
         <input type="text" class="form-control" id="firstName" placeholder="Förnamn"
-               th:field="${userPerson.visitor.firstName}" required maxlength="150">
+               th:field="${userPerson.librarian.firstName}" required maxlength="150">
     </div>
     <div class="form-group">
         <label for="lastName">Efternamn</label>
         <input type="text" class="form-control" id="lastName" placeholder="Efternamn"
-               th:field="${userPerson.visitor.lastName}" required maxlength="150">
+               th:field="${userPerson.librarian.lastName}" required maxlength="150">
     </div>
     <div class="form-group">
         <label for="personalNumber">Personnummer</label>
         <input class="form-control" id="personalNumber" aria-describedby="personalNumberHelp"
-               th:field="${userPerson.visitor.personalNumber}"  placeholder="Personnummer" pattern="[0-9]{12}">
+               th:field="${userPerson.librarian.personalNumber}"  placeholder="Personnummer" pattern="[0-9]{12}">
         <small id="personalNumberHelp" class="form-text text-muted">Ange personnummer i format: ÅÅÅÅMMDDNNNN</small>
     </div>
     <div class="form-group">
         <label for="phone">Telefonnummer</label>
         <input type="text" class="form-control" id="phone" placeholder="Telefonnummer"
-               th:field="${userPerson.visitor.phone}" required maxlength="100" >
+               th:field="${userPerson.librarian.phone}" required maxlength="100" >
     </div>
     <div class="form-group">
         <label for="street">Gatuadress</label>
         <input type="text" class="form-control" id="street" placeholder="Gatuadress"
-               th:field="${userPerson.visitor.street}" required maxlength="100">
+               th:field="${userPerson.librarian.street}" required maxlength="100">
     </div>
     <div class="form-group">
         <label for="postalCode">Postnummer</label>
         <input type="text" class="form-control" id="postalCode" placeholder="Postnummer (endast siffror)"
-               th:field="${userPerson.visitor.postalCode}" required pattern="[0-9]{5}">
+               th:field="${userPerson.librarian.postalCode}" required pattern="[0-9]{5}">
     </div>
     <div class="form-group">
         <label for="ort">Ort</label>
         <input type="text" class="form-control" id="ort" placeholder="Ort"
-               th:field="${userPerson.visitor.city}" required maxlength="150">
+               th:field="${userPerson.librarian.city}" required maxlength="150">
     </div>
-    <button type="submit" class="btn btn-primary">Spara</button>
+    <button type="submit" class="btn btn-primary">Bekräfta</button>
 </form>
 </body>
 </html>

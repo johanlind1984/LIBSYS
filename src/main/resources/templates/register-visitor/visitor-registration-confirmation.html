@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LIBSYS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="table-responsive" align="center">
+    <table align="center" class="table">
+        <td>
+            <form th:action="@{/register-visitor/}" method="post">
+                <button type="submit" class="btn btn-primary">Lägg till Besökare</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/register-librarian/}" method="post">
+                <button type="submit" class="btn btn-primary">Lägg till Bibliotikarie</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/register-admin/}" method="post">
+                <button type="submit" class="btn btn-primary">Lägg till Administratör</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-primary">Logga ut</button>
+            </form>
+        </td>
+    </table>
+</div>
+<div class="table-responsive" align="center">
+    <h1>Besökaren är tillagd och kan nu logga in med sitt konto</h1>
+</div>
+</body>
+</html>
