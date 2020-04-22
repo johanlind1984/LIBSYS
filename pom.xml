@@ -15,7 +15,7 @@
 	<description>Library Management System</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<azure.version>2.2.0</azure.version>
 	</properties>
 
