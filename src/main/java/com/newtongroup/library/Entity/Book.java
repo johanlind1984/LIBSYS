@@ -4,8 +4,25 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "books")
-public class Book {
+public class Book extends AbstractBook {
+	
+	@Column(name="classication_system")
+	private String classificationSystem;
+	
 
+	public String getClassificationSystem() {
+		return classificationSystem;
+	}
+
+	public void setClassificationSystem(String classificationSystem) {
+		this.classificationSystem = classificationSystem;
+	}
+	
+	
+
+	
+	
+	/*
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "book_id")
@@ -76,4 +93,6 @@ public class Book {
     public void setPurchasePrice(int purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
+    
+    */
 }
