@@ -10,7 +10,23 @@
 </head>
 <body>
 <div class="table-responsive" align="center">
-    <h1>Besökaren är tillagd och kan nu logga in med sitt konto</h1>
+<table align="center" class="table">
+    <td>
+    <form th:action="@{/register-visitor/}" method="post">
+        <button type="submit" class="btn btn-primary">Lägg till Besökare</button>
+    </form>
+    </td>
+    <td>
+        <form th:action="@{/register-object/}" method="post">
+            <button type="submit" class="btn btn-primary">Lägg till Objekt</button>
+        </form>
+    </td>
+    <td>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-warning">Logga ut</button>
+        </form>
+    </td>
+</table>
 </div>
 </body>
 </html>
