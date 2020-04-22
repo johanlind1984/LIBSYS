@@ -54,5 +54,39 @@ CREATE TABLE `visitors` (
   PRIMARY KEY (`visitor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `books` (
+  `book_id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(125) DEFAULT NULL,
+  `author` varchar(55) DEFAULT NULL,
+  `isbn` varchar(13) DEFAULT NULL,
+  `publisher` varchar(100) DEFAULT NULL,
+  `purchase_price` int DEFAULT NULL,
+  PRIMARY KEY (`book_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `categories` (
+  `category_id` int NOT NULL,
+  `categorytype` varchar(115) DEFAULT NULL,
+  PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `placements` (
+  `placement_id` int NOT NULL AUTO_INCREMENT,
+  `ddk` varchar(30) DEFAULT NULL,
+  `title` varchar(155) DEFAULT NULL,
+  PRIMARY KEY (`placement_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `publishers` (
+  `publisher_id` int NOT NULL AUTO_INCREMENT,
+  `publisher` varchar(155) DEFAULT NULL,
+  PRIMARY KEY (`publisher_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `seminaries` (
+  `seminary_id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(155) DEFAULT NULL,
+  `information` varchar(255) DEFAULT NULL,
+  `occurrence` datetime DEFAULT NULL,
+  PRIMARY KEY (`seminary_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
