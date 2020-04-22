@@ -9,13 +9,10 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "book_id")
-    private Long bookId;
+    private int bookId;
 
     @Column(name = "title")
     private String title;
-
-    @Column(name = "author")
-    private String author;
 
     @Column(name = "isbn")
     private String isbn;
@@ -26,14 +23,18 @@ public class Book {
     @Column(name = "purchase_price")
     private int purchasePrice;
 
+//    @ManyToMany (mappedBy = "bookList")
+//    private List<Author> authorList;
+
+
     public Book () {
     }
 
-    public Long getBookId() {
+    public int getBookId() {
         return bookId;
     }
 
-    public void setBookId(Long id) {
+    public void setBookId(int id) {
         this.bookId = id;
     }
 
@@ -43,14 +44,6 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public String getIsbn() {
@@ -76,4 +69,12 @@ public class Book {
     public void setPurchasePrice(int purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
+
+//    public List<Author> getAuthorList() {
+//        return authorList;
+//    }
+//
+//    public void setAuthorList(List<Author> authorList) {
+//        this.authorList = authorList;
+//    }
 }
