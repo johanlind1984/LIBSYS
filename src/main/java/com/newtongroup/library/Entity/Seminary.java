@@ -15,6 +15,9 @@ public class Seminary {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "information")
+    private String information;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "occurrence")
     private java.util.Date occurrence;
@@ -36,6 +39,14 @@ public class Seminary {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public Date getOccurrence() {
