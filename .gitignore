@@ -32,5 +32,4 @@ build/
 
 ### SPRING BOOT ###
 *.properties
-*.properties
 src/main/resources/application.properties
