@@ -92,7 +92,7 @@ CREATE TABLE `seminaries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS `author` (
-  `author_id` INT NOT NULL,
+  `author_id` INT NOT NULL AUTO_INCREMENT,
   `firstname` VARCHAR(45) NOT NULL,
   `lastname` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`author_id`))
