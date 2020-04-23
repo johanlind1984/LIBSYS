@@ -28,14 +28,18 @@ public class RegisterLibrarianController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private String adminheader = "admin/adminheader.html";
+
     @RequestMapping("/")
     public String registerLibrarian(Model theModel) {
+        theModel.addAttribute("header", adminheader);
         theModel.addAttribute("userPerson", new UserPerson());
         return "register-librarian/register-librarian";
     }
 
     @RequestMapping("/save-librarian")
     public String saveLibrarianToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel) {
+        theModel.addAttribute("header", adminheader);
         Librarian librarian = librarianRepository.findById(userPerson.getLibrarian().getEmail()).orElse(null);
         if(librarian == null) {
             setLibrarianValues(userPerson);

@@ -9,7 +9,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-</div>
+<header th:insert="${header} :: header"> </header>
     <h1 align="center">Ta bort en användare ur systemet</h1>
     <form th:action="@{/admin/delete-user}">
     <div class="form-group">

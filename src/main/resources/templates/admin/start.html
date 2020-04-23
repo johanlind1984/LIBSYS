@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>LIBSYS (ADMINISTRATÖR)</title>
+    <title>LIBSYS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -9,54 +9,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">LIBSYS (ADMINISTRATÖR)</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="/register-visitor/">Registrera besökare</a></li>
-            <li><a href="/register-librarian/">Registrera bibliotikarie</a></li>
-            <li><a href="/register-admin/">Registrera administratör</a></li>
-            <li><a href="/admin/delete-menu/">Ta bort användare</a></li>
-            <li><a href="#">Rapporter</a></li>
-        </ul>
-        <div align="right">
-            <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-warning">Logga ut</button>
-            </form>
-        </div>
-    </div>
-</nav>
-<!--<div class="table-responsive" align="center">-->
-<!--<table align="center" class="table">-->
-<!--    <td>-->
-<!--    <form th:action="@{/register-visitor/}" method="post">-->
-<!--        <button type="submit" class="btn btn-primary">Lägg till Besökare</button>-->
-<!--    </form>-->
-<!--    </td>-->
-<!--    <td>-->
-<!--        <form th:action="@{/register-librarian/}" method="post">-->
-<!--            <button type="submit" class="btn btn-primary">Lägg till Bibliotikarie</button>-->
-<!--        </form>-->
-<!--    </td>-->
-<!--    <td>-->
-<!--        <form th:action="@{/register-admin/}" method="post">-->
-<!--            <button type="submit" class="btn btn-primary">Lägg till Administratör</button>-->
-<!--        </form>-->
-<!--    </td>-->
-<!--    <td>-->
-<!--        <form th:action="@{/admin/delete-menu/}" method="post">-->
-<!--            <button type="submit" class="btn btn-primary">Ta Bort Användare</button>-->
-<!--        </form>-->
-<!--    </td>-->
-<!--    <td>-->
-<!--        <form th:action="@{/logout}" method="post">-->
-<!--            <button type="submit" class="btn btn-warning">Logga ut</button>-->
-<!--        </form>-->
-<!--    </td>-->
-<!--</table>-->
-<!--</div>-->
+<header th:insert="${header} :: header"></header>
 </body>
 </html>

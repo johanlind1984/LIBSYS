@@ -26,20 +26,25 @@ public class AdminController {
     @Autowired
     private VisitorRepository visitorRepository;
 
+    private String header = "admin/adminheader.html";
+
     @RequestMapping("/")
-    public String mainView(Principal principal){
+    public String mainView(Model theModel){
+        theModel.addAttribute("header", new String(header));
         return "admin/start";
     }
 
     @RequestMapping("/delete-menu")
     public String deleteUserMenu(Model theModel) {
+        theModel.addAttribute("header", new String(header));
         theModel.addAttribute("email", new String());
         return "admin/delete-user-menu";
     }
 
     @RequestMapping("/delete-user")
-    public String deleteUser(@RequestParam(name="email") String email) {
-        System.out.println(email);
+    public String deleteUser(@RequestParam(name="email") String email,  Model theModel) {
+        theModel.addAttribute("header", new String(header));
+
         User user = userRepository.findByUsername(email);
         if(user == null) {
             return "error/email-cannot-be-found";

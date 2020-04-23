@@ -28,14 +28,18 @@ public class RegisterAdminController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private String adminheader = "admin/adminheader.html";
+
     @RequestMapping("/")
     public String registerAdmin(Model theModel) {
+        theModel.addAttribute("header", adminheader);
         theModel.addAttribute("userPerson", new UserPerson());
         return "register-admin/register-admin";
     }
 
     @RequestMapping("/save-admin")
     public String saveAdminToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel) {
+        theModel.addAttribute("header", adminheader);
         Admin admin = adminRepository.findById(userPerson.getAdmin().getEmail()).orElse(null);
         if(admin == null) {
             setAdminValues(userPerson);
@@ -47,7 +51,7 @@ public class RegisterAdminController {
     }
 
     private void setAdminValues(UserPerson userPerson) {
-        userPerson.getUser().setAuthority(userAuthorityRepository.findById((long) 3).orElse(null));
+        userPerson.getUser().setAuthority(userAuthorityRepository.findById((long) 1).orElse(null));
         userPerson.getUser().setEnabled(true);
         userPerson.getUser().setUsername(userPerson.getAdmin().getEmail());
         userPerson.getUser().setPassword(passwordEncoder.encode(userPerson.getUser().getPassword()));

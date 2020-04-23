@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.PrimaryKeyJoinColumn;
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/register-visitor")
 public class RegisterVisitorController {
@@ -31,14 +34,20 @@ public class RegisterVisitorController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private String adminheader = "admin/adminheader.html";
+    private String librarianheader = "librarian/librarianheader.html";
+
+
     @RequestMapping("/")
-    public String registerVisitor(Model theModel) {
+    public String registerVisitor(Model theModel, Principal principal) {
+        theModel.addAttribute("header", getHeader(principal));
         theModel.addAttribute("userPerson", new UserPerson());
         return "register-visitor/register-visitor";
     }
 
     @RequestMapping("/save-visitor")
-    public String saveVisitorToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel) {
+    public String saveVisitorToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel, Principal principal) {
+        theModel.addAttribute("header", getHeader(principal));
         Visitor visitor = visitorRepository.findById(userPerson.getVisitor().getEmail()).orElse(null);
         if(visitor == null) {
             setVisitorValues(userPerson);
@@ -61,4 +70,14 @@ public class RegisterVisitorController {
         userRepository.saveAndFlush(userPerson.getUser());
     }
 
+    private String getHeader(Principal principal) {
+        String header = new String();
+        if(userRepository.findByUsername(principal.getName()).getAuthority().getAuthorityName().equals("ROLE_ADMIN")) {
+            return adminheader;
+        } else if (userRepository.findByUsername(principal.getName()).getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")){
+            return librarianheader;
+        }
+
+        return header;
+    }
 }
