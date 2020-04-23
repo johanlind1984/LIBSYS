@@ -90,3 +90,20 @@ CREATE TABLE `seminaries` (
   `occurrence` datetime DEFAULT NULL,
   PRIMARY KEY (`seminary_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `author` (
+  `author_id` INT NOT NULL AUTO_INCREMENT,
+  `firstname` VARCHAR(45) NOT NULL,
+  `lastname` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`author_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE IF NOT EXISTS `book_author` (
+  `idbook_author_book_id` INT NOT NULL,
+  `idbook_author_author_id` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idbook_author_book_id`, `idbook_author_author_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
