@@ -5,45 +5,61 @@
         <title>LIBSYS</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
     <body>
-    <h1 align="center">Lägg till seminarium</h1>
 
-    <form align="center">
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlSelect2">Example multiple select</label>
-            <select multiple class="form-control" id="exampleFormControlSelect2">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Example textarea</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
-    </form>
+    <div align="center">
+        <h1>Seminarium</h1>
+        <form name="form" id="form">
+            <fieldset>
+                <legend><h2>Lägg till Seminarium</h2></legend>
+                <input name="title" id="title" placeholder="Titel">
+                <input name="date" id="date" placeholder="Datum"><br>
+                <br><textarea name="description"  id="description" placeholder="Beskrivning"
+                              row="10" cols="60"></textarea><br>
 
+                <button name="save" id="save" style="height:30px;width:80px">Spara</button>
+            </fieldset>
+        </form></div>
+
+    <style type="text/css">
+        #form fieldset{
+            width: 60%;
+            padding: 30px 30px;
+            background-color: aliceblue;
+            margin-top: 40px;
+        }
+        h1{
+            margin-top: 50px;
+        }
+        #form legend{
+            color: black;
+            border: 1px;
+        }
+        #save{
+            font-size: 15px;
+            margin-top: 30px;
+            margin-left: 400px;
+        }
+        #title{
+            width: 40%;
+            height: 25px;
+            font-size: medium;
+            margin-right: 20px;
+        }
+        #date{
+            width: 40%;
+            height: 25px;
+            font-size: medium;
+
+        }
+        #description{
+            width: 60%;
+            height: 80px;
+            font-size: medium;
+            margin-top: 20px;
+        }
+    </style>
     </body>
 </html>
