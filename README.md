@@ -27,13 +27,15 @@ CREATE TABLE `librarians` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `persons` (
-  `personal_number` varchar(45) NOT NULL,
-  `first_name` varchar(45) DEFAULT NULL,
-  `last_name` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `adress` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`personal_number`),
-  CONSTRAINT `personal_number` FOREIGN KEY (`personal_number`) REFERENCES `users` (`username`)
+  `email` varchar(150) NOT NULL,
+  `personal_number` varchar(12) DEFAULT NULL,
+  `first_name` varchar(150) DEFAULT NULL,
+  `last_name` varchar(150) DEFAULT NULL,
+  `street` varchar(150) DEFAULT NULL,
+  `postal_code` varchar(45) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `phone` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `users` (
@@ -47,7 +49,13 @@ CREATE TABLE `users` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   KEY `fk_user_authority_idx` (`user_authority`),
   CONSTRAINT `fk_user_authority` FOREIGN KEY (`user_authority`) REFERENCES `authorities` (`authority_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `visitors` (
+  `librarycard` int(11) NOT NULL AUTO_INCREMENT,
+  `visitor_id` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`librarycard`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `visitors` (
   `visitor_id` varchar(100) NOT NULL,
