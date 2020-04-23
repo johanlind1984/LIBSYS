@@ -5,8 +5,25 @@ import java.util.List;
 
 @Entity
 @Table(name = "books")
-public class Book {
+public class Book extends AbstractBook {
 
+	@Column(name="classication_system")
+	private String classificationSystem;
+
+
+	public String getClassificationSystem() {
+		return classificationSystem;
+	}
+
+	public void setClassificationSystem(String classificationSystem) {
+		this.classificationSystem = classificationSystem;
+	}
+
+
+
+
+
+	/*
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "book_id")
@@ -71,11 +88,5 @@ public class Book {
         this.purchasePrice = purchasePrice;
     }
 
-    public List<Author> getAuthorList() {
-        return authorList;
-    }
-
-    public void setAuthorList(List<Author> authorList) {
-        this.authorList = authorList;
-    }
+    */
 }
