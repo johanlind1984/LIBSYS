@@ -26,18 +26,6 @@ CREATE TABLE `librarians` (
   PRIMARY KEY (`librarian_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `persons` (
-  `email` varchar(150) NOT NULL,
-  `personal_number` varchar(12) DEFAULT NULL,
-  `first_name` varchar(150) DEFAULT NULL,
-  `last_name` varchar(150) DEFAULT NULL,
-  `street` varchar(150) DEFAULT NULL,
-  `postal_code` varchar(45) DEFAULT NULL,
-  `city` varchar(100) DEFAULT NULL,
-  `phone` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
@@ -56,6 +44,18 @@ CREATE TABLE `visitors` (
   `visitor_id` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`librarycard`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `persons` (
+  `personal_number` varchar(45) NOT NULL,
+  `first_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `adress` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`personal_number`),
+  CONSTRAINT `personal_number` FOREIGN KEY (`personal_number`) REFERENCES `users` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `visitors` (
   `visitor_id` varchar(100) NOT NULL,
@@ -96,5 +96,27 @@ CREATE TABLE `seminaries` (
   `title` varchar(155) DEFAULT NULL,
   `information` varchar(255) DEFAULT NULL,
   `occurrence` datetime DEFAULT NULL,
+  PRIMARY KEY (`seminary_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `removed_books` (
+  `book_id` int NOT NULL,
+  `title` varchar(125) DEFAULT NULL,
+  `author` varchar(55) DEFAULT NULL,
+  `isbn` varchar(13) DEFAULT NULL,
+  `publisher` varchar(100) DEFAULT NULL,
+  `purchase_price` int DEFAULT NULL,
+  `cause` varchar(255) DEFAULT NULL,
+  `deleted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`book_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `removed_seminaries` (
+  `seminary_id` int NOT NULL ,
+  `title` varchar(155) DEFAULT NULL,
+  `information` varchar(255) DEFAULT NULL,
+  `occurrence` datetime DEFAULT NULL,
+ `cause` varchar(255) DEFAULT NULL,
+  `deleted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`seminary_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
