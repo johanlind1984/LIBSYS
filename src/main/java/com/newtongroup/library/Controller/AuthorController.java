@@ -44,7 +44,7 @@ public class AuthorController {
 
         Author author = (Author) authorRepository.findAll();
 
-        if (author.getFirstname().equals(firstName) || author.getLastname().equals(lastName)) {
+        if (author.getFirstname().equals(firstName) && author.getLastname().equals(lastName)) {
             System.out.println("Författaren finns redan i registret.");
         } else {
 
