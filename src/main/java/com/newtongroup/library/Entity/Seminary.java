@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Seminary")
+@Table(name = "seminaries")
 public class Seminary {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seminary_id")
     private Long seminary_id;
 
@@ -18,9 +18,9 @@ public class Seminary {
     @Column(name = "information")
     private String information;
 
-    @Temporal(TemporalType.DATE)
+
     @Column(name = "occurrence")
-    private java.util.Date occurrence;
+    private java.sql.Date occurrence;
 
     public Seminary() {
     }
@@ -53,7 +53,7 @@ public class Seminary {
         return occurrence;
     }
 
-    public void setOccurrence(Date occurrence) {
+    public void setOccurrence(java.sql.Date occurrence) {
         this.occurrence = occurrence;
     }
 }
