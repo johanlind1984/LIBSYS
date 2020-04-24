@@ -1,6 +1,8 @@
 package com.newtongroup.library.Controller;
 
+import com.newtongroup.library.Entity.Author;
 import com.newtongroup.library.Entity.Seminary;
+import com.newtongroup.library.Repository.AuthorRepository;
 import com.newtongroup.library.Repository.BookRepository;
 import com.newtongroup.library.Repository.EBookRepository;
 import com.newtongroup.library.Repository.SeminaryRepository;
@@ -24,6 +26,9 @@ public class AddObjectController {
     @Autowired
     SeminaryRepository seminaryRepository;
 
+    @Autowired
+    AuthorRepository authorRepository;
+
     @GetMapping("/new-seminar")
     public String getSeminarForm(Model model){
         Seminary seminary=new Seminary();
@@ -34,6 +39,18 @@ public class AddObjectController {
     public String saveSeminar(Seminary seminary, Model model){
         seminaryRepository.save(seminary);
         return "redirect:/new-object/new-seminar";
+    }
+
+    @GetMapping("/new-author")
+    public String getAuthorForm(Model model){
+        Author author = new Author();
+        model.addAttribute("author",author);
+        return "object/add-author";
+    }
+    @PostMapping("/save-author")
+    public String saveAuthor(Author author, Model model){
+        authorRepository.save(author);
+        return "redirect:/new-object/new-author";
     }
 
 }
