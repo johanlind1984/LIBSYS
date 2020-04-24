@@ -1,15 +1,17 @@
 package com.newtongroup.library.Entity;
 
 import javax.persistence.Column;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
+import java.util.List;
 
 @MappedSuperclass
 public class AbstractBook extends AbstractRental {
 	
 	@Column
 	private String isbn;
-	@Column
-	private String author;
+	@ManyToMany(mappedBy = "bookList")
+	private List<Author> authorList;
 	
 	
 	public AbstractBook() {
@@ -24,17 +26,12 @@ public class AbstractBook extends AbstractRental {
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-	
-	
-	public String getAuthor() {
-		return author;
+
+	public List<Author> getAuthorList() {
+		return authorList;
 	}
-	
-	
-	public void setAuthor(String author) {
-		this.author = author;
+
+	public void setAuthorList(List<Author> authorList) {
+		this.authorList = authorList;
 	}
-	
-	
-	
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LIBSYS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:fragment="header">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">LIBSYS (BIBLIOTIKARIE)</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/librarian/">Hem</a></li>
+                <li><a href="/register-visitor/">Registrera besökare</a></li>
+                <li><a href="/add-object/">Lägg till objekt</a></li>
+            </ul>
+            <div align="right">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn btn-warning">Logga ut</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
