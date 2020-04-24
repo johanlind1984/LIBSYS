@@ -29,7 +29,7 @@ public class AuthenticationSuccesHandler implements AuthenticationSuccessHandler
             httpServletResponse.sendRedirect("/visitor/");
         }
         else {
-            httpServletResponse.sendRedirect("/error-processing-login/");
+            httpServletResponse.sendRedirect("/error/processing-login/");
         }
     }
 }

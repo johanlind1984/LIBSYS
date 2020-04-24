@@ -9,6 +9,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<header th:insert="${header} :: header"></header>
+<header th:insert="${header} :: header"> </header>
+    <h1 align="center">Ta bort en användare ur systemet</h1>
+    <form th:action="@{/admin/delete-user}">
+    <div class="form-group">
+        <label>Ange kontots e-postadress</label>
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Skriv din e-post"
+               th:name="email" required maxlength="150">
+        <button type="submit" class="btn btn-danger">Ta bort</button>
+    </div>
+    </form>
+
 </body>
 </html>

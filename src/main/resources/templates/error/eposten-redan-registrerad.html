@@ -9,6 +9,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<header th:insert="${header} :: header"></header>
+<header th:insert="${header} :: header"> </header>
+<div class="table-responsive" align="center">
+    <h1>Den epost du försökte registrera med finns redan registrerad i systemet</h1>
+    <h2>Du måste radera den existerande användaren eller registrera med en annan epost</h2>
+</div>
 </body>
 </html>
