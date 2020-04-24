@@ -26,16 +26,6 @@ CREATE TABLE `librarians` (
   PRIMARY KEY (`librarian_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE `persons` (
-  `personal_number` varchar(45) NOT NULL,
-  `first_name` varchar(45) DEFAULT NULL,
-  `last_name` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `adress` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`personal_number`),
-  CONSTRAINT `personal_number` FOREIGN KEY (`personal_number`) REFERENCES `users` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
@@ -47,7 +37,25 @@ CREATE TABLE `users` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   KEY `fk_user_authority_idx` (`user_authority`),
   CONSTRAINT `fk_user_authority` FOREIGN KEY (`user_authority`) REFERENCES `authorities` (`authority_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `visitors` (
+  `librarycard` int(11) NOT NULL AUTO_INCREMENT,
+  `visitor_id` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`librarycard`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `persons` (
+  `personal_number` varchar(45) NOT NULL,
+  `first_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `adress` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`personal_number`),
+  CONSTRAINT `personal_number` FOREIGN KEY (`personal_number`) REFERENCES `users` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `visitors` (
   `visitor_id` varchar(100) NOT NULL,
@@ -88,6 +96,29 @@ CREATE TABLE `seminaries` (
   `title` varchar(155) DEFAULT NULL,
   `information` varchar(255) DEFAULT NULL,
   `occurrence` datetime DEFAULT NULL,
+  PRIMARY KEY (`seminary_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `removed_books` (
+  `book_id` int NOT NULL,
+  `title` varchar(125) DEFAULT NULL,
+  `author` varchar(55) DEFAULT NULL,
+  `isbn` varchar(13) DEFAULT NULL,
+  `publisher` varchar(100) DEFAULT NULL,
+  `purchase_price` int DEFAULT NULL,
+  `cause` varchar(255) DEFAULT NULL,
+  `deleted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`book_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `removed_seminaries` (
+  `seminary_id` int NOT NULL ,
+  `title` varchar(155) DEFAULT NULL,
+  `information` varchar(255) DEFAULT NULL,
+  `occurrence` datetime DEFAULT NULL,
+ `cause` varchar(255) DEFAULT NULL,
+  `deleted_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`seminary_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
