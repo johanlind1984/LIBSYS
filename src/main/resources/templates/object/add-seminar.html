@@ -32,7 +32,7 @@
                 margin-top: 50px;
                 font-family: Arial;
             }
-            #occurrence{
+            #datepicker{
                 width: 20%;
                 height: 25px;
                 font-size: medium;
@@ -64,7 +64,15 @@
             }
 
         </style>
-
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $( function() {
+                $( "#datepicker" ).datepicker();
+            } );
+        </script>
     </head>
     <body>
 
@@ -75,7 +83,7 @@
                 <legend><h2>Lägg till Seminarium</h2></legend>
                 <input type="text" name="title" id="title" placeholder="Titel"
                       th:value="${seminary.title}" required>
-                <input type="date" name="occurrence" id="occurrence" placeholder="åååå-mm-dd"
+                <input type="text" name="occurrence" id="datepicker" placeholder="åååå-mm-dd"
                        th:value="${seminary.occurrence}"required>
                 <input type="startTime" name="startTime" id="startTime" placeholder="Start: hh:mm"
                        th:value="${seminary.startTime}" required>
