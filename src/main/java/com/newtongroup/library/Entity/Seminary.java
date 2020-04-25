@@ -6,7 +6,7 @@ import java.util.Date;
 @Entity
 @Table(name = "seminaries")
 public class Seminary {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seminary_id")
@@ -18,9 +18,14 @@ public class Seminary {
     @Column(name = "information")
     private String information;
 
-
     @Column(name = "occurrence")
     private java.sql.Date occurrence;
+
+    @Column(name="starttime")
+    private String startTime;
+
+    @Column(name="endtime")
+    private String endTime;
 
     public Seminary() {
     }
@@ -55,5 +60,21 @@ public class Seminary {
 
     public void setOccurrence(java.sql.Date occurrence) {
         this.occurrence = occurrence;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }

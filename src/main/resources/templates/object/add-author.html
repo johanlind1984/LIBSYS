@@ -7,10 +7,9 @@
     <meta charset="utf-8">
 
     <style type="text/css">
-        #form fieldset{
+        #form fieldset {
             width: 60%;
             padding: 30px 30px;
-            background-color: aliceblue;
             margin-top: 40px;
         }
         h1{
@@ -22,14 +21,15 @@
         }
         #save{
             font-size: 15px;
-            margin-top: 30px;
-            margin-left: 400px;
+            margin-top: 40px;
+            margin-bottom: 30px;
         }
         #firstname{
             width: 40%;
             height: 25px;
             font-size: medium;
             margin-right: 20px;
+            margin-top: 50px;
             font-family: Arial;
         }
         #lastname{
@@ -37,29 +37,23 @@
             height: 25px;
             font-size: medium;
             font-family: Arial;
-
+            margin-top: 50px;
         }
-        
     </style>
-
 </head>
 <body>
 
 <div align="center">
     <h1>Författare</h1>
     <form class=form action="/new-object/save-author" method="POST" th:object="${author}">
-        <fieldset>
+        <fieldset style="background-color: #F8F9F9" >
             <legend><h2>Lägg till Författare</h2></legend>
             <input type="text" name="firstname" id="firstname" placeholder="Förnamn"
                    th:value="${author.firstname}" required>
             <input type="text" name="lastname" id="lastname" placeholder="Efternamn"
                    th:value="${author.lastname}"required><br>
-
-
             <button type= "submit" name="save" id="save" style="height:30px;width:80px">Spara</button>
         </fieldset>
     </form></div>
-
-
 </body>
 </html>

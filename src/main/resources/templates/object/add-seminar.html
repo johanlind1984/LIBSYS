@@ -7,10 +7,9 @@
         <meta charset="utf-8">
 
         <style type="text/css">
-            #form fieldset{
+            #form fieldset {
                 width: 60%;
                 padding: 30px 30px;
-                background-color: aliceblue;
                 margin-top: 40px;
             }
             h1{
@@ -22,22 +21,39 @@
             }
             #save{
                 font-size: 15px;
-                margin-top: 30px;
-                margin-left: 400px;
+                margin-top: 40px;
+                margin-bottom: 30px;
             }
             #title{
-                width: 40%;
+                width: 35%;
                 height: 25px;
                 font-size: medium;
                 margin-right: 20px;
+                margin-top: 50px;
                 font-family: Arial;
             }
             #occurrence{
-                width: 40%;
+                width: 20%;
                 height: 25px;
                 font-size: medium;
                 font-family: Arial;
-
+                margin-top: 50px;
+            }
+            #startTime{
+                width: 10%;
+                height: 25px;
+                font-size: medium;
+                font-family: Arial;
+                margin-top: 50px;
+                margin-left: 20px;
+            }
+            #endTime{
+                width: 10%;
+                height: 25px;
+                font-size: medium;
+                font-family: Arial;
+                margin-top: 50px;
+                margin-left: 20px;
             }
             #information{
                 width: 60%;
@@ -46,6 +62,7 @@
                 margin-top: 20px;
                 font-family: Arial;
             }
+
         </style>
 
     </head>
@@ -54,12 +71,16 @@
     <div align="center">
         <h1>Seminarium</h1>
         <form class=form action="/new-object/save-seminar" method="POST" th:object="${seminary}">
-            <fieldset>
+            <fieldset style="background-color: #F8F9F9">
                 <legend><h2>Lägg till Seminarium</h2></legend>
                 <input type="text" name="title" id="title" placeholder="Titel"
                       th:value="${seminary.title}" required>
-                <input type="date" name="occurrence" id="occurrence" placeholder="Datum"
-                       th:value="${seminary.occurrence}"required><br>
+                <input type="date" name="occurrence" id="occurrence" placeholder="åååå-mm-dd"
+                       th:value="${seminary.occurrence}"required>
+                <input type="startTime" name="startTime" id="startTime" placeholder="Start: hh:mm"
+                       th:value="${seminary.startTime}" required>
+                <input type="endTime" name="endTime" id="endTime" placeholder="Slut: hh:mm"
+                       th:value="${seminary.startTime}" required><br>
                 <br><textarea type="text" name="information"  id="information" placeholder="Beskrivning"
                               row="10" cols="60"
                               th:value="${seminary.information}" required></textarea><br>
