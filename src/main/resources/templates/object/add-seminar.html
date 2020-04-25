@@ -70,7 +70,7 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
             $( function() {
-                $( "#datepicker" ).datepicker();
+                $( "#datepicker" ).datepicker({dateFormat:'yy-mm-dd'});
             } );
         </script>
     </head>
@@ -84,6 +84,7 @@
                 <input type="text" name="title" id="title" placeholder="Titel"
                       th:value="${seminary.title}" required>
                 <input type="text" name="occurrence" id="datepicker" placeholder="åååå-mm-dd"
+                       pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
                        th:value="${seminary.occurrence}"required>
                 <input type="startTime" name="startTime" id="startTime" placeholder="Start: hh:mm"
                        th:value="${seminary.startTime}" required>

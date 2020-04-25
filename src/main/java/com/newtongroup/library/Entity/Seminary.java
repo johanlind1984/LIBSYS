@@ -1,7 +1,6 @@
 package com.newtongroup.library.Entity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "seminaries")
@@ -19,7 +18,7 @@ public class Seminary {
     private String information;
 
     @Column(name = "occurrence")
-    private java.sql.Date occurrence;
+    private String occurrence;
 
     @Column(name="starttime")
     private String startTime;
@@ -54,11 +53,11 @@ public class Seminary {
         this.information = information;
     }
 
-    public Date getOccurrence() {
+    public String getOccurrence() {
         return occurrence;
     }
 
-    public void setOccurrence(java.sql.Date occurrence) {
+    public void setOccurrence(String occurrence) {
         this.occurrence = occurrence;
     }
 
