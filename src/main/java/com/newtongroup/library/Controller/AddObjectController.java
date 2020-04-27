@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping ("/new-object")
 public class AddObjectController {
@@ -57,9 +59,14 @@ public class AddObjectController {
     @GetMapping("/new-book")
     public String getBookForm(Model model){
         Book book = new Book();
+        List<Author> authorList=authorRepository.findAll();
+
         model.addAttribute("book", book);
+        model.addAttribute("authors", authorList);
         return "object/add-book";
     }
+
+
 
 //    @RequestMapping(value = "/authoesAutocomplete")
 //    @ResponseBody

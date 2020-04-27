@@ -69,7 +69,11 @@
                    th:value="${book.publisher}" required> <br>
             <label>
                 <select id="select" name="select" multiple="multiple" size="50px">
-                    <option style="color: darkgrey" value="-1">Välj författare</option>
+                    <option style="color: darkgrey" value="0">Välj författare</option>
+                    <option th:each="author:${authors}"
+                            th:value="${author.authorId}"
+                            th:text="${author.firstname}">
+                    </option>
                 </select>
             </label>
             <input type="text" multiple="multiple" name="value" id="value" placeholder="Vald författare">
