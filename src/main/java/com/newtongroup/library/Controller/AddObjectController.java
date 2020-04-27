@@ -59,6 +59,7 @@ public class AddObjectController {
     @GetMapping("/new-book")
     public String getBookForm(Model model){
         Book book = new Book();
+
         List<Author> authorList=authorRepository.findAll();
 
         model.addAttribute("book", book);
@@ -77,9 +78,9 @@ public class AddObjectController {
 //    }
 
 
-    @PostMapping("/save-book")
-    public String saveBook(Book book){
-        bookRepository.save(book);
-        return "redirect:/new-object/new-book";
-    }
+//    @PostMapping("/save-book")
+//    public String saveBook(@ModelAttribute("book") Book book, Model model){
+//        bookRepository.save(book);
+//        return "redirect:/new-object/save-book";
+//    }
 }
