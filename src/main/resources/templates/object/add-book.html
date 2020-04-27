@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang= "sv" xmlns="http://www.w3.org/1999/xhtml"
+            xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LIBSYS</title>
+
+<!--    <script type="text/javascript">-->
+<!--             $(function () {-->
+<!--                $("author.name").autocomplete({-->
+<!--                    source:"authorsAutocomplete",-->
+<!--                    minLength: 2-->
+<!--                })-->
+<!--             })-->
+<!--    </script>-->
+
+    <style type="text/css">
+        fieldset {
+            width: 85%;
+            padding: 30px 30px;
+            margin-top: 40px;
+        }
+        h1{
+            margin-top: 50px;
+        }
+        #form legend{
+            color: #000000;
+            border: 1px;
+        }
+        #save{
+            font-size: 15px;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+        #title, #isbn, #publisher, #select, #value, #purchasePrice{
+            width: 30%;
+            height: 30px;
+            font-size: medium;
+            margin-right: 20px;
+            margin-top: 50px;
+            font-family: Arial, sans-serif Helvetica;
+        }
+        #value{
+            width: 30%;
+        }
+        #purchasePrice{
+            width: 30%;
+        }
+        #description{
+            width: 60%;
+            height: 200px;
+            font-size: medium;
+            margin-top: 60px;
+            font-family: Arial, sans-serif Helvetica;
+        }
+    </style>
+</head>
+<body>
+<div align="center">
+    <h1>Bok</h1>
+    <form class=form action="/new-object/save-book" method="POST" th:object="${book}">
+        <fieldset style="background-color: #F8F9F9">
+            <legend><h2>Lägg till Bok</h2></legend>
+            <input type="text" name="title" id="title" placeholder="Titel"
+                   th:value="${book.title}" required>
+            <input type="text" name="isbn" id="isbn" placeholder="Isbn"
+                   th:value="${book.isbn}" required>
+            <input type="text" name="publisher" id="publisher" placeholder="Publiserare"
+                   th:value="${book.publisher}" required> <br>
+            <label>
+                <select id="select" name="select" multiple="multiple" size="50px">
+                    <option style="color: darkgrey" value="-1">Välj författare</option>
+                </select>
+            </label>
+            <input type="text" multiple="multiple" name="value" id="value" placeholder="Vald författare">
+            <input type="text" name="purchasePrice" id="purchasePrice" placeholder="Inköpspris"
+                   th:value="${book.purchasePrice}" required><br>
+
+            <textarea type="text" name="description" id="description" placeholder="Beskrivning" rows="10" cols="60"
+                      th:value="${book.description}" required></textarea><br>
+
+            <button type= "submit" name="save" id="save" style="height:30px;width:80px">Spara</button>
+
+        </fieldset>
+    </form></div>
+</body>
+</html>

@@ -1,24 +1,37 @@
 package com.newtongroup.library.Entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "books")
 public class Book extends AbstractBook {
 
-	@Column(name="classication_system")
-	private String classificationSystem;
+	@ManyToOne()
+	@JoinColumn(name = "book_id")
+	private Placement placement;
 
-
-	public String getClassificationSystem() {
-		return classificationSystem;
+	public Placement getPlacement() {
+		return placement;
 	}
 
-	public void setClassificationSystem(String classificationSystem) {
-		this.classificationSystem = classificationSystem;
+	public void setPlacement(Placement placement) {
+		this.placement = placement;
 	}
+
+	//	@Column(name="classification_system")
+//	private String classificationSystem;
+//
+//
+//	public String getClassificationSystem() {
+//		return classificationSystem;
+//	}
+//
+//	public void setClassificationSystem(String classificationSystem) {
+//		this.classificationSystem = classificationSystem;
+//	}
 
 
 

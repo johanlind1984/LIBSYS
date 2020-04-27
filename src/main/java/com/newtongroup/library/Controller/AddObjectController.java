@@ -1,6 +1,7 @@
 package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.Author;
+import com.newtongroup.library.Entity.Book;
 import com.newtongroup.library.Entity.Seminary;
 import com.newtongroup.library.Repository.AuthorRepository;
 import com.newtongroup.library.Repository.BookRepository;
@@ -36,7 +37,7 @@ public class AddObjectController {
         return "object/add-seminar";
     }
     @PostMapping ("/save-seminar")
-    public String saveSeminar(Seminary seminary, Model model){
+    public String saveSeminar(Seminary seminary){
         seminaryRepository.save(seminary);
         return "redirect:/new-object/new-seminar";
     }
@@ -48,9 +49,30 @@ public class AddObjectController {
         return "object/add-author";
     }
     @PostMapping("/save-author")
-    public String saveAuthor(Author author, Model model){
+    public String saveAuthor(Author author){
         authorRepository.save(author);
         return "redirect:/new-object/new-author";
     }
 
+    @GetMapping("/new-book")
+    public String getBookForm(Model model){
+        Book book = new Book();
+        model.addAttribute("book", book);
+        return "object/add-book";
+    }
+
+//    @RequestMapping(value = "/authoesAutocomplete")
+//    @ResponseBody
+//    public List<Author> authorAutocomplete(Model model, @RequestParam(value = "term", required = false, defaultValue = "") String term){
+//        Book book = new Book();
+//        List<Author> authors = new ArrayList<Author>();
+//        return book.getAuthorList();
+//    }
+
+
+    @PostMapping("/save-book")
+    public String saveBook(Book book){
+        bookRepository.save(book);
+        return "redirect:/new-object/new-book";
+    }
 }
