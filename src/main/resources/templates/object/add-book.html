@@ -4,15 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>LIBSYS</title>
-
-<!--    <script type="text/javascript">-->
-<!--             $(function () {-->
-<!--                $("author.name").autocomplete({-->
-<!--                    source:"authorsAutocomplete",-->
-<!--                    minLength: 2-->
-<!--                })-->
-<!--             })-->
-<!--    </script>-->
+    <script>
+        function df() {
+            let d = document.getElementById("select");
+            document.getElementById("value").value=d.options[d.selectedIndex].text;
+        }
+    </script>
 
     <style type="text/css">
         fieldset {
@@ -40,9 +37,10 @@
             margin-top: 50px;
             font-family: Arial, sans-serif Helvetica;
         }
-        #value{
-            width: 30%;
-        }
+        select{
+            -webkit-appearance: none;
+            -moz-appearance: none;
+         }
         #purchasePrice{
             width: 30%;
         }
@@ -65,26 +63,24 @@
                    th:value="${book.title}" required>
             <input type="text" name="isbn" id="isbn" placeholder="Isbn"
                    th:value="${book.isbn}" required>
-            <input type="text" name="publisher" id="publisher" placeholder="Publiserare"
+            <input type="text" name="publisher" id="publisher" placeholder="Utgivare"
                    th:value="${book.publisher}" required> <br>
 
-                <select th:field="${book.authorList}" id="select" name="select" multiple="multiple">
-                    <option style="color: darkgrey" value="0">Välj författare</option>
+                <select id="select" th:field="${book.authorList}"  onchange="df()"  name="select">
+                    <option style="color: darkgrey" value="1">Välj författare</option>
                     <option th:each="author:${authors}"
                             th:value="${author.authorId}"
-                            th:text="${author.firstname}">
-                    </option>
+                            th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}">
+                            </option>
                 </select>
 
-            <input type="text" multiple="multiple" name="value" id="value" placeholder="Vald författare">
+            <input type="text" name="value" id="value"  placeholder="Vald författare"></textarea>
             <input type="text" name="purchasePrice" id="purchasePrice" placeholder="Inköpspris"
                    th:value="${book.purchasePrice}" required><br>
-
             <textarea type="text" name="description" id="description" placeholder="Beskrivning" rows="10" cols="60"
                       th:value="${book.description}" required></textarea><br>
 
             <button type= "submit" name="save" id="save" style="height:30px;width:80px">Spara</button>
-
         </fieldset>
     </form></div>
 </body>
