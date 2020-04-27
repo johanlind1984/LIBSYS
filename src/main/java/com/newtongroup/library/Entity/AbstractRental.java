@@ -10,17 +10,19 @@ import javax.persistence.MappedSuperclass;
 public abstract class AbstractRental {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column
+	@Column(name="title")
 	private String title;
 	
 	@Column(name="purchase_price")
 	private String purchasePrice;
-	@Column
+
+	@Column(name="publisher")
 	private String publisher;
-	@Column
+
+	@Column(name="description")
 	private String description;
 	
 	public AbstractRental() {

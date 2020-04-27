@@ -8,8 +8,12 @@ import javax.persistence.Table;
 @Table(name="e_books")
 public class EBook extends AbstractBook {
 	
+
 	@Column(name="download_link")
 	private String downloadLink;
+
+	public EBook() {
+	}
 
 	public String getDownloadLink() {
 		return downloadLink;
@@ -18,8 +22,4 @@ public class EBook extends AbstractBook {
 	public void setDownloadLink(String downloadLink) {
 		this.downloadLink = downloadLink;
 	}
-	
-	
-	
-
 }
