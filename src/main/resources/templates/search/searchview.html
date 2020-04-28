@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.com">
+<head>
+<meta charset="UTF-8">
+
+<title>Sök</title>
+
+
+</head>
+<body>
+
+
+	<form action="#" th:action="@{/search}" method="get">
+
+		<label for="bsearch">Hitta bok:</label> <input type="search"
+			name="search" th:value="${searchText}"
+			placeholder="isbn, titel, författare"> <input type="submit"
+			value="Sök">
+
+
+	</form>
+
+	<ul>
+		<li th:each="result: ${results}"><span
+			th:text="'isbn: ' + ${result.isbn}"></span> </br> <span
+			th:text="'Titel: ' + ${result.title}"></span> </br> <span
+			th:text="'Beskrivning: ' + ${result.description}"></span> </br> <span>Författare:
+				<span th:each="author: ${result.authorList}"
+				th:text="${author.firstname} + ' ' + ${author.lastname}"> </span>
+		</span></li>
+	</ul>
+
+</body>
+</html>

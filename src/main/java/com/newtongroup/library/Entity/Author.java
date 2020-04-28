@@ -1,29 +1,36 @@
 package com.newtongroup.library.Entity;
 
 import javax.persistence.*;
+
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import java.util.List;
 
 @Entity
 @Table (name="author")
+@Indexed
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name="author_id")
     private int authorId;
 
+    @Field
     @Column(name="firstname")
     private String firstname;
 
+    @Field
     @Column(name="lastname")
     private String lastname;
 
+    @ContainedIn
     @ManyToMany
     @JoinTable(
             name="book_author",
-            joinColumns = {@JoinColumn(name="idbook_author_book_id")},
-            inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
-
+            joinColumns = {@JoinColumn(name="book_id")},
+            inverseJoinColumns = {@JoinColumn(name="author_id")})
     private List<Book>bookList;
 
     public Author() {
