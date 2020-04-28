@@ -11,26 +11,26 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 
 @MappedSuperclass
 public class AbstractBook extends AbstractRental {
-	
+
 	@Column
 	@Field
 	private String isbn;
-	
-	
+
+
 	@IndexedEmbedded
 	@ManyToMany(mappedBy = "bookList")
 	private List<Author> authorList;
-	
-	
+
+
 	public AbstractBook() {
-		
+
 	}
-	
+
 	public String getIsbn() {
 		return isbn;
 	}
-	
-	
+
+
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
