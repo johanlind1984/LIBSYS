@@ -33,3 +33,4 @@ build/
 ### SPRING BOOT ###
 *.properties
 src/main/resources/application.properties
+/data/lucene
