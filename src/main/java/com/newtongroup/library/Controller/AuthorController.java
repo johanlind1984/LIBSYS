@@ -38,8 +38,7 @@ public class AuthorController {
 
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView saveAuthor(Model model,
-                                  @RequestParam("firstName") String firstName,
+    public ModelAndView saveAuthor(@RequestParam("firstName") String firstName,
                                   @RequestParam("lastName") String lastName) {
 
         Author author = (Author) authorRepository.findAll();
