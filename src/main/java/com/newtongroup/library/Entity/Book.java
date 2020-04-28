@@ -1,16 +1,19 @@
 package com.newtongroup.library.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
 public class Book extends AbstractBook {
 
+
+
+	@ManyToMany(mappedBy = "authorList")
+	private List<Book> bookList;
+
 	@ManyToOne()
-	@JoinColumn(name = "book_id")
+	@JoinColumn(name = "placement_id")
 	private Placement placement;
 
 	public Placement getPlacement() {
@@ -19,6 +22,13 @@ public class Book extends AbstractBook {
 
 	public void setPlacement(Placement placement) {
 		this.placement = placement;
+	}
+	public List<Book> getBookList() {
+		return bookList;
+	}
+
+	public void setBookList(List<Book> bookList) {
+		this.bookList = bookList;
 	}
 
 	//	@Column(name="classification_system")

@@ -2,15 +2,14 @@ package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.Author;
 import com.newtongroup.library.Entity.Book;
+import com.newtongroup.library.Entity.Placement;
 import com.newtongroup.library.Entity.Seminary;
-import com.newtongroup.library.Repository.AuthorRepository;
-import com.newtongroup.library.Repository.BookRepository;
-import com.newtongroup.library.Repository.EBookRepository;
-import com.newtongroup.library.Repository.SeminaryRepository;
+import com.newtongroup.library.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,6 +30,9 @@ public class AddObjectController {
 
     @Autowired
     AuthorRepository authorRepository;
+
+    @Autowired
+    PlacementRepository placementRepository;
 
     @GetMapping("/new-seminar")
     public String getSeminarForm(Model model){
@@ -61,26 +63,17 @@ public class AddObjectController {
         Book book = new Book();
 
         List<Author> authorList=authorRepository.findAll();
+        List<Placement>placementList=placementRepository.findAll();
 
         model.addAttribute("book", book);
         model.addAttribute("authors", authorList);
-        return "object/add-book";
+        model.addAttribute("placements", placementList);
+        return "/object/add-book";
     }
 
-
-
-//    @RequestMapping(value = "/authoesAutocomplete")
-//    @ResponseBody
-//    public List<Author> authorAutocomplete(Model model, @RequestParam(value = "term", required = false, defaultValue = "") String term){
-//        Book book = new Book();
-//        List<Author> authors = new ArrayList<Author>();
-//        return book.getAuthorList();
-//    }
-
-
-//    @PostMapping("/save-book")
-//    public String saveBook(@ModelAttribute("book") Book book, Model model){
-//        bookRepository.save(book);
-//        return "redirect:/new-object/save-book";
-//    }
+    @PostMapping("/save-book")
+    public String saveBook(@ModelAttribute("book") Book book){
+        bookRepository.save(book);
+        return "redirect:/new-object/new-book";
+    }
 }

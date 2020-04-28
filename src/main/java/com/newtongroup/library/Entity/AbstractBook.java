@@ -1,8 +1,6 @@
 package com.newtongroup.library.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.util.List;
 
 @MappedSuperclass
@@ -11,12 +9,13 @@ public class AbstractBook extends AbstractRental {
 	@Column
 	private String isbn;
 
-	@ManyToMany(mappedBy = "bookList")
-	private List<Author> authorList;
+	@ManyToMany
+	@JoinTable(
+			name="book_author",
+			joinColumns = {@JoinColumn(name="idbook_author_book_id")},
+			inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
+	private List<Author>authorList;
 
-
-	
-	
 	public AbstractBook() {
 		
 	}
@@ -37,4 +36,5 @@ public class AbstractBook extends AbstractRental {
 	public void setAuthorList(List<Author> authorList) {
 		this.authorList = authorList;
 	}
+
 }

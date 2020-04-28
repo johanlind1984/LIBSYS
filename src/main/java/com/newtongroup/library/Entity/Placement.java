@@ -8,6 +8,7 @@ import java.util.List;
 public class Placement {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "placement_id")
     private Long placementId;
 
