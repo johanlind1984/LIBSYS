@@ -10,6 +10,7 @@ public class AbstractBook extends AbstractRental {
 	
 	@Column
 	private String isbn;
+
 	@ManyToMany(mappedBy = "bookList")
 	private List<Author> authorList;
 	
