@@ -1,10 +1,14 @@
 package com.newtongroup.library.Entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.Indexed;
+
 @Entity
+@Indexed
 @Table(name = "books")
 public class Book extends AbstractBook {
 
@@ -19,6 +23,5 @@ public class Book extends AbstractBook {
 	public void setClassificationSystem(String classificationSystem) {
 		this.classificationSystem = classificationSystem;
 	}
-
 
 }
