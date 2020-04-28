@@ -38,6 +38,7 @@ public class RegisterVisitorController {
     private String librarianheader = "librarian/librarianheader.html";
 
 
+
     @RequestMapping("/")
     public String registerVisitor(Model theModel, Principal principal) {
         theModel.addAttribute("header", getHeader(principal));

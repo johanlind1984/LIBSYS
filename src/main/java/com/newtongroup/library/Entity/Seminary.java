@@ -12,6 +12,7 @@ public class Seminary {
     @Column(name = "seminary_id")
     private Long seminary_id;
 
+
     @Column(name = "title")
     private String title;
 
@@ -21,6 +22,12 @@ public class Seminary {
     @Temporal(TemporalType.DATE)
     @Column(name = "occurrence")
     private java.util.Date occurrence;
+
+    @Column(name="starttime")
+    private String starttime;
+
+    @Column(name="endtime")
+    private String endtime;
 
     public Seminary() {
     }
@@ -56,4 +63,21 @@ public class Seminary {
     public void setOccurrence(Date occurrence) {
         this.occurrence = occurrence;
     }
+
+    public String getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(String starttime) {
+        this.starttime = starttime;
+    }
+
+    public String getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime = endtime;
+    }
+
 }
