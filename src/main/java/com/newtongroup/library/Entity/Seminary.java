@@ -54,9 +54,7 @@ public class Seminary {
         this.information = information;
     }
 
-    public String getOccurrence() {
-        return occurrence;
-    }
+    public String getOccurrence() { return occurrence; }
 
     public void setOccurrence(String occurrence) {
         this.occurrence = occurrence;

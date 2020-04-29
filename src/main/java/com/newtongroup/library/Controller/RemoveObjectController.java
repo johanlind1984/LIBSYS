@@ -140,7 +140,7 @@ public class RemoveObjectController {
     }
 
     @RequestMapping("/delete-seminary")
-    public String deleteSeminarie(@ModelAttribute("seminary") Seminary theSeminary,@ModelAttribute("removedSeminary") RemovedSeminary theRemovedSemniary, Model theModel, Principal principal){
+    public String deleteSeminarie(@ModelAttribute("seminary") Seminary theSeminary,@ModelAttribute("removedSeminary") RemovedSeminary theRemovedSeminary, Model theModel, Principal principal){
         theModel.addAttribute("header", getHeader(principal));
 
 
@@ -149,16 +149,17 @@ public class RemoveObjectController {
         List<Seminary> seminaryList = seminaryRepository.findAll();
 
         for(Seminary temp : seminaryList) {
-            if (temp.getSeminary_id() == id) {
+            if (temp.getSeminary_id().equals(id)) {
 
                 String title = temp.getTitle();
                 String information = temp.getInformation();
-                String cause = theRemovedSemniary.getCause();
-                String starttime = temp.getStarttime();
-                String endtime = temp.getEndtime();
-                java.util.Date occurrence = temp.getOccurrence();
+                String cause = theRemovedSeminary.getCause();
+                String startTime = temp.getStartTime();
+                String endTime = temp.getEndTime();
+                String occurrence = temp.getOccurrence();
 
-                RemovedSeminary removedSeminary = new RemovedSeminary(id, title, information,occurrence, starttime, endtime,  cause );
+
+                RemovedSeminary removedSeminary = new RemovedSeminary(id, title, information, occurrence, startTime, endTime, cause);
                 removedSeminaryRepository.save(removedSeminary);
 
                 seminaryRepository.delete(temp);

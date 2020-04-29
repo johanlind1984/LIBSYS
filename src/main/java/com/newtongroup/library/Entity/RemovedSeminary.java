@@ -53,6 +53,9 @@ public class RemovedSeminary {
         this.deleted_at = dtf.format(now);
     }
 
+    public RemovedSeminary(Long id, String title, String information, String occurrence, String startTime, String endTime, String cause) {
+    }
+
     public Long getSeminary_id() {
         return seminary_id;
     }
