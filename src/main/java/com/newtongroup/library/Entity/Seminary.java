@@ -11,6 +11,7 @@ public class Seminary {
     @Column(name = "seminary_id")
     private Long seminary_id;
 
+
     @Column(name = "title")
     private String title;
 
@@ -25,6 +26,12 @@ public class Seminary {
 
     @Column(name="endtime")
     private String endTime;
+
+    @Column(name="starttime")
+    private String starttime;
+
+    @Column(name="endtime")
+    private String endtime;
 
     public Seminary() {
     }

@@ -1,12 +1,18 @@
 package com.newtongroup.library.Entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 @MappedSuperclass
 public class AbstractBook extends AbstractRental {
-	
+
 	@Column
+	@Field
 	private String isbn;
 
 //	@ManyToMany
@@ -17,14 +23,14 @@ public class AbstractBook extends AbstractRental {
 //	private List<Author>authorList;
 
 	public AbstractBook() {
-		
+
 	}
-	
+
 	public String getIsbn() {
 		return isbn;
 	}
-	
-	
+
+
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}

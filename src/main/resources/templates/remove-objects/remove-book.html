@@ -14,13 +14,23 @@
 
 <h1 align="center">Ta bort bok</h1>
 
-<form align="center" action="@{/remove-object/delete-book}" method="post"  >
-    <div  class="form-group">
+
+    <form align="center" th:action="@{/remove-object/delete-book}" method="post" th:object="${book}" >
+    <div  class="form-group" >
 
         <label >Radera boken på ISBN nummer</label>
-        <input type="text" name="isbn" id="isbnID" placeholder="ISBN">
+        <input type="text" class="form-control"  id="isbn" placeholder="ISBN"
+        th:field="${book.isbn}" required maxlength="150">
 
     </div>
+
+        <div  class="form-group" th:object="${removedBook}">
+
+            <label >Motivera anledning till radering</label>
+            <input type="text" class="form-control"  id="cause" placeholder="Låg efterfrågan, skadad etc"
+                   th:field="${removedBook.cause}" required maxlength="150">
+
+        </div>
 
 
     <button type="submit" class="btn btn-primary">Spara</button>

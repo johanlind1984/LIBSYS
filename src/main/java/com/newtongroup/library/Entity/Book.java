@@ -3,7 +3,10 @@ package com.newtongroup.library.Entity;
 import javax.persistence.*;
 import java.util.List;
 
+import org.hibernate.search.annotations.Indexed;
+
 @Entity
+@Indexed
 @Table(name = "books")
 public class Book extends AbstractBook {
 
@@ -33,6 +36,13 @@ public class Book extends AbstractBook {
 		return authorList;
 	}
 
+//	public String getClassificationSystem() {
+//		return classificationSystem;
+//	}
+//
+//	public void setClassificationSystem(String classificationSystem) {
+//		this.classificationSystem = classificationSystem;
+//	}
 
 	public void setAuthorList(List<Author> authorList) {
 		this.authorList = authorList;

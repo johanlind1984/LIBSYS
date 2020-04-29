@@ -6,16 +6,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.search.annotations.Field;
+
 @MappedSuperclass
 public abstract class AbstractRental {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name="title")
 	private String title;
-	
+
 	@Column(name="purchase_price")
 	private String purchasePrice;
 
@@ -24,9 +26,9 @@ public abstract class AbstractRental {
 
 	@Column(name="description")
 	private String description;
-	
+
 	public AbstractRental() {
-		
+
 	}
 
 	public Integer getId() {
@@ -68,8 +70,8 @@ public abstract class AbstractRental {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-		
+
+
+
 
 }

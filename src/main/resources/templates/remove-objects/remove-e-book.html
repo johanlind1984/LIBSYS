@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LIBSYS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<header th:insert="${header} :: header"> </header>
+
+<h1 align="center">Ta bort bok</h1>
+
+
+<form align="center" th:action="@{/remove-object/delete-e-book}" method="post" th:object="${ebook}" >
+    <div  class="form-group" >
+
+        <label >Radera e-boken på ISBN nummer</label>
+        <input type="text" class="form-control"  id="isbn" placeholder="ISBN"
+               th:field="${ebook.isbn}" required maxlength="150">
+
+    </div>
+
+    <div  class="form-group" th:object="${removedEBook}">
+
+        <label >Motivera anledning till radering</label>
+        <input type="text" class="form-control"  id="cause" placeholder="Låg efterfrågan, skadad etc"
+               th:field="${removedEBook.cause}" required maxlength="150">
+
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Spara</button>
+</form>
+</body>
+</html>
