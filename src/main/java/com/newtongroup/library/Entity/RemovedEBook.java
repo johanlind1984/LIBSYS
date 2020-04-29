@@ -1,9 +1,6 @@
 package com.newtongroup.library.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,6 +10,7 @@ public class RemovedEBook {
 
     @Id
     @Column(name = "e_book_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int e_book_id;
 
     @Column(name="title")

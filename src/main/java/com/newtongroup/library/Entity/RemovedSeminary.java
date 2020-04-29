@@ -11,6 +11,7 @@ public class RemovedSeminary {
 
     @Id
     @Column(name = "seminary_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long seminary_id;
 
     @Column(name = "title")
@@ -18,7 +19,6 @@ public class RemovedSeminary {
 
     @Column(name = "information")
     private String information;
-
 
     @Column(name="starttime")
     private String starttime;
@@ -32,14 +32,16 @@ public class RemovedSeminary {
     @Column(name="deleted_at")
     private String deleted_at;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "occurrence")
-    private java.util.Date occurrence;
+    private String occurrence;
+
 
     public RemovedSeminary() {
     }
 
-    public RemovedSeminary(Long seminary_id, String title, String information, java.util.Date occurrence, String starttime, String endtime, String cause) {
+
+
+    public RemovedSeminary(Long id, String title, String information, String occurrence, String startTime, String endTime, String cause) {
         this.seminary_id = seminary_id;
         this.title = title;
         this.information = information;
@@ -51,9 +53,6 @@ public class RemovedSeminary {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         this.deleted_at = dtf.format(now);
-    }
-
-    public RemovedSeminary(Long id, String title, String information, String occurrence, String startTime, String endTime, String cause) {
     }
 
     public Long getSeminary_id() {
@@ -112,11 +111,11 @@ public class RemovedSeminary {
         this.deleted_at = deleted_at;
     }
 
-    public Date getOccurrence() {
+    public String getOccurrence() {
         return occurrence;
     }
 
-    public void setOccurrence(Date occurrence) {
+    public void setOccurrence(String occurrence) {
         this.occurrence = occurrence;
     }
 }
