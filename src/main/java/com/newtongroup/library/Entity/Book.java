@@ -1,9 +1,9 @@
 package com.newtongroup.library.Entity;
 
+import org.hibernate.search.annotations.Indexed;
+
 import javax.persistence.*;
 import java.util.List;
-
-import org.hibernate.search.annotations.Indexed;
 
 @Entity
 @Indexed
@@ -15,8 +15,6 @@ public class Book extends AbstractBook {
 			name="book_author",
 			joinColumns = {@JoinColumn(name="idbook_author_book_id")},
 			inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
-
-//	@ManyToMany(mappedBy = "bookList")
 	private List<Author> authorList;
 
 	@ManyToOne()
@@ -36,32 +34,8 @@ public class Book extends AbstractBook {
 		return authorList;
 	}
 
-//	public String getClassificationSystem() {
-//		return classificationSystem;
-//	}
-//
-//	public void setClassificationSystem(String classificationSystem) {
-//		this.classificationSystem = classificationSystem;
-//	}
-
 	public void setAuthorList(List<Author> authorList) {
 		this.authorList = authorList;
 	}
-	//	@Column(name="classification_system")
-//	private String classificationSystem;
-//
-//
-//	public String getClassificationSystem() {
-//		return classificationSystem;
-//	}
-//
-//	public void setClassificationSystem(String classificationSystem) {
-//		this.classificationSystem = classificationSystem;
-//	}
-
-
-
-
-
 
 }
