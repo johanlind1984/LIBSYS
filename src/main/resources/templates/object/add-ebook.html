@@ -13,7 +13,7 @@
 
 <h1 align="center">Lägg till ebok</h1>
 <div class="container">
-    <form action="/new-object/save-book" class="form-group" method="POST" th:object="${ebook}">
+    <form action="/new-object/save-ebook" class="form-group" method="POST" th:object="${ebook}">
 
 
         <label for="select">Välj författare (håll nere ctrl eller shift för att välja fler):</label>
@@ -28,34 +28,29 @@
 
         <label for="title">Titel</label>
         <input class="form-control" id="title" name="title" required
-               th:value="${book.title}" type="text">
+               th:value="${ebook.title}" type="text">
 
         <label for="isbn">Isbn</label>
         <input class="form-control" id="isbn" name="isbn" required
-               th:value="${book.isbn}" type="text">
+               th:value="${ebook.title}" type="text">
 
 
         <label for="publisher">Förlag</label>
         <input class="form-control" id="publisher"name="publisher" required
-               th:value="${book.publisher}" type="text">
+               th:value="${ebook.publisher}" type="text">
 
         <label for="purchasePrice">Inköpspris</label>
         <input class="form-control" id="purchasePrice"name="purchasePrice" required
-               th:value="${book.purchasePrice}" type="text"><br>
+               th:value="${ebook.purchasePrice}" type="text"><br>
 
-        <label for="placement">Placering</label>
-        <select class="form-control" id="placement" name="placement"
-                th:field="${book.placement}">
-            <option value="1"></option>
-            <option th:each="placement:${placements}"
-                    th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}"
-                    th:value="${placement.placementId}"></option>
-        </select>
+        <label for="downloadLink">Boklänk</label>
+        <input class="form-control" id="downloadLink"name="downloadLink" required
+               th:value="${ebook.downloadLink}" type="text">
 
         <label for="description">Beskrivning</label>
         <textarea class="form-control" id="description" name="description"
                   required rows="5"
-                  th:value="${book.description}" type="text"></textarea><br>
+                  th:value="${ebook.description}" type="text"></textarea><br>
 
 
         <button id="save" name="save" style="height:30px;width:80px" type= "submit">Spara</button>
