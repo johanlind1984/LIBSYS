@@ -13,19 +13,12 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">LIBSYS (BIBLIOTIKARIE)</a>
+                <a class="navbar-brand" href="#">LIBSYS (BESÖKARE)</a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/librarian/">Hem</a></li>
-                <li><a href="/register-visitor/">Registrera besökare</a></li>
-                <li><a href="/new-object/new-book">Lägg till bok</a></li>
-                <li><a href="/new-object/new-ebook">Lägg till E-bok</a></li>
-                <li><a href="/author/new">Lägg till författare</a></li>
-                <li><a href="/new-object/new-seminar">Lägg till Seminarium</a></li>
-                <li><a href="/admin/delete-menu/">Ta bort användare</a></li>
-                <li><a href="/remove-object/book">Ta bort bok</a></li>
-                <li><a href="/remove-object/e-book">Ta bort E-bok</a></li>
-                <li><a href="/remove-object/seminary">Ta bort seminarium</a></li>
+                <li><a href="#">Mina lånade böcker</a></li>
+                <li><a href="/search">Sök efter objekt</a></li>
             </ul>
             <div align="right">
                 <form th:action="@{/logout}" method="post">
