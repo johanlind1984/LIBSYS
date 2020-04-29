@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <h1 align="center">Bok</h1>
+    <h1 align="center">Lägg till bok</h1>
     <div class="container">
     <form action="/new-object/save-book" class="form-group" method="POST" th:object="${book}">
 
@@ -51,13 +51,6 @@
                             th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}"
                             th:value="${placement.placementId}"></option>
                 </select>
-<!--        <select id="select" th:field="${book.placement}"  onchange="df()"  name="select">-->
-<!--            <option style="color: darkgrey" value="1">Välj författare</option>-->
-<!--            <option th:each="placement:${placements}"-->
-<!--                    th:value="${placement.ddk}"-->
-<!--                    th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}">-->
-<!--            </option>-->
-        </select>
 
                 <label for="description">Beskrivning</label>
                 <textarea class="form-control" id="description" name="description"
@@ -65,9 +58,7 @@
                           th:value="${book.description}" type="text"></textarea><br>
 
 
-        <button type= "submit" name="save" id="save" style="height:30px;width:80px">Spara</button>
-
-        <!--                    <button class="btn" id="save" name="save" type= "submit">Spara</button>-->
+        <button id="save" name="save" style="height:30px;width:80px" type= "submit">Spara</button>
 
     </form>
     </div>

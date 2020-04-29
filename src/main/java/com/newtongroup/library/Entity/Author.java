@@ -18,12 +18,12 @@ public class Author {
     @Column(name="lastname")
     private String lastname;
 
-    @ManyToMany
-    @JoinTable(
-            name="book_author",
-            joinColumns = {@JoinColumn(name="idbook_author_book_id")},
-            inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
-
+//    @ManyToMany
+//    @JoinTable(
+//            name="book_author",
+//            joinColumns = {@JoinColumn(name="idbook_author_book_id")},
+//            inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
+    @ManyToMany(mappedBy = "authorList")
     private List<Book>bookList;
 
     public Author() {

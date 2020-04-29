@@ -1,9 +1,6 @@
 package com.newtongroup.library.Controller;
 
-import com.newtongroup.library.Entity.Author;
-import com.newtongroup.library.Entity.Book;
-import com.newtongroup.library.Entity.Placement;
-import com.newtongroup.library.Entity.Seminary;
+import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +31,8 @@ public class AddObjectController {
     @Autowired
     PlacementRepository placementRepository;
 
+    List<Author> authorList;
+
     @GetMapping("/new-seminar")
     public String getSeminarForm(Model model){
         Seminary seminary=new Seminary();
@@ -62,7 +61,7 @@ public class AddObjectController {
     public String getBookForm(Model model){
         Book book = new Book();
 
-        List<Author> authorList=authorRepository.findAll();
+        authorList=authorRepository.findAll();
         List<Placement>placementList=placementRepository.findAll();
 
         model.addAttribute("book", book);
@@ -75,5 +74,15 @@ public class AddObjectController {
     public String saveBook(@ModelAttribute("book") Book book){
         bookRepository.save(book);
         return "redirect:/new-object/new-book";
+    }
+    @GetMapping("/new-ebook")
+    public String getEBookForm(Model model){
+        EBook ebook = new EBook();
+
+        authorList=authorRepository.findAll();
+
+        model.addAttribute("ebook", ebook);
+        model.addAttribute("authors", authorList);
+        return "/object/add-book";
     }
 }

@@ -7,10 +7,14 @@ import java.util.List;
 @Table(name = "books")
 public class Book extends AbstractBook {
 
+	@ManyToMany()
+	@JoinTable(
+			name="book_author",
+			joinColumns = {@JoinColumn(name="idbook_author_book_id")},
+			inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
 
-
-	@ManyToMany(mappedBy = "authorList")
-	private List<Book> bookList;
+//	@ManyToMany(mappedBy = "bookList")
+	private List<Author> authorList;
 
 	@ManyToOne()
 	@JoinColumn(name = "placement_id")
@@ -23,14 +27,16 @@ public class Book extends AbstractBook {
 	public void setPlacement(Placement placement) {
 		this.placement = placement;
 	}
-	public List<Book> getBookList() {
-		return bookList;
+
+
+	public List<Author> getAuthorList() {
+		return authorList;
 	}
 
-	public void setBookList(List<Book> bookList) {
-		this.bookList = bookList;
-	}
 
+	public void setAuthorList(List<Author> authorList) {
+		this.authorList = authorList;
+	}
 	//	@Column(name="classification_system")
 //	private String classificationSystem;
 //

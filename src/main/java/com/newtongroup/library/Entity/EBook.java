@@ -7,7 +7,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="e_books")
 public class EBook extends AbstractBook {
-	
 
 	@Column(name="download_link")
 	private String downloadLink;
