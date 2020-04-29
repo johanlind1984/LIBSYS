@@ -8,12 +8,19 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        function myFunction() {
+            alert("Bok har registrerats!");
+        }
+    </script>
+
 </head>
 <body>
 
     <h1 align="center">Lägg till bok</h1>
     <div class="container">
-    <form action="/new-object/save-book" class="form-group" method="POST" th:object="${book}">
+    <form action="/new-object/save-book" class="form-group" method="POST" onsubmit="myFunction()"
+          th:object="${book}">
 
 
     <label for="select">Välj författare (håll nere ctrl eller shift för att välja fler):</label>
