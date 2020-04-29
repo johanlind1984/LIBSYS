@@ -1,10 +1,9 @@
 package com.newtongroup.library.Entity;
 
-import javax.persistence.*;
-
-import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -32,6 +31,9 @@ public class Author {
 //            inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
     @ManyToMany(mappedBy = "authorList")
     private List<Book>bookList;
+
+    @ManyToMany(mappedBy = "authorList")
+    private List<EBook>eBookList;
 
     public Author() {
     }

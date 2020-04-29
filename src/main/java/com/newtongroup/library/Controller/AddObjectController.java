@@ -83,6 +83,11 @@ public class AddObjectController {
 
         model.addAttribute("ebook", ebook);
         model.addAttribute("authors", authorList);
-        return "/object/add-book";
+        return "/object/add-ebook";
+    }
+    @PostMapping("/save-ebook")
+    public String saveEBook(@ModelAttribute("ebook") EBook eBook){
+        eBookRepository.save(eBook);
+        return "redirect:/new-object/new-ebook";
     }
 }
