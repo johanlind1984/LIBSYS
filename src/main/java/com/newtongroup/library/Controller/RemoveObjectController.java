@@ -90,8 +90,9 @@ public class RemoveObjectController {
                 String price = temp.getPurchasePrice();
                 String cause = theRemovedBook.getCause();
                 String description = temp.getDescription();
+                Long placement_id = temp.getPlacement().getPlacementId();
 
-                RemovedBook removedBook = new RemovedBook(id,title,isbn,publisher,description,price,cause);
+                RemovedBook removedBook = new RemovedBook(id,title,isbn,publisher,description,price, placement_id,cause);
                 removedBookRepository.save(removedBook);
                 System.out.println(removedBook);
 

@@ -10,6 +10,7 @@ public class RemovedBook {
 
     @Id
     @Column(name = "book_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int book_id;
 
     @Column(name="title")
@@ -27,6 +28,9 @@ public class RemovedBook {
     @Column(name="purchase_price")
     private String price;
 
+    @Column(name="placement_id")
+    private Long placement_id;
+
     @Column(name= "cause")
     private String cause;
 
@@ -36,7 +40,7 @@ public class RemovedBook {
     public RemovedBook() {
     }
 
-    public RemovedBook(int book_id, String title, String isbn, String publisher,String description, String price, String cause) {
+    public RemovedBook(int book_id, String title, String isbn, String publisher,String description, String price, Long placement_id, String cause) {
         this.book_id = book_id;
         this.title = title;
         this.isbn = isbn;
@@ -44,6 +48,7 @@ public class RemovedBook {
         this.description = description;
         this.price = price;
         this.cause = cause;
+        this.placement_id = placement_id;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         this.deleted_at = dtf.format(now);
@@ -111,5 +116,13 @@ public class RemovedBook {
 
     public void setDeleted_at(String deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public Long getPlacement_id() {
+        return placement_id;
+    }
+
+    public void setPlacement_id(Long placement_id) {
+        this.placement_id = placement_id;
     }
 }
