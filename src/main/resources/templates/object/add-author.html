@@ -2,58 +2,62 @@
 <html lang= "sv" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>LIBSYS</title>
-    <!-- Required meta tags -->
+    <title>Lägg till författare</title>
     <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <style type="text/css">
-        #form fieldset {
-            width: 60%;
-            padding: 30px 30px;
-            margin-top: 40px;
-        }
-        h1{
-            margin-top: 50px;
-        }
-        #form legend{
-            color: black;
-            border: 1px;
+        body{
+            background-color: #F8F9F9;
         }
         #save{
-            font-size: 15px;
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
             margin-top: 40px;
-            margin-bottom: 30px;
         }
-        #firstname{
-            width: 40%;
-            height: 25px;
+        #firstname, #lastname{
+            margin-bottom: 20px;
             font-size: medium;
-            margin-right: 20px;
-            margin-top: 50px;
-            font-family: Arial;
         }
-        #lastname{
-            width: 40%;
-            height: 25px;
+        #div{
+            width: 50%;
+        }
+        #labFi, #labLa{
             font-size: medium;
-            font-family: Arial;
-            margin-top: 50px;
         }
     </style>
 </head>
-<body>
 
-<div align="center">
-    <h1>Författare</h1>
-    <form class=form action="/new-object/save-author" method="POST" th:object="${author}">
-        <fieldset style="background-color: #F8F9F9" >
-            <legend><h2>Lägg till Författare</h2></legend>
-            <input type="text" name="firstname" id="firstname" placeholder="Förnamn"
-                   th:value="${author.firstname}" required>
-            <input type="text" name="lastname" id="lastname" placeholder="Efternamn"
-                   th:value="${author.lastname}"required><br>
-            <button type= "submit" name="save" id="save" style="height:30px;width:80px">Spara</button>
-        </fieldset>
-    </form></div>
+<body>
+<script>
+    function myFunction() {
+        alert("Författaren har registrerats!");
+    }
+</script>
+<h1 align="center">Lägg till författare</h1>
+<div class="container" id="div">
+
+    <form action="/new-object/save-author" class="form-group" method="POST" onsubmit="myFunction()" th:object="${author}">
+
+        <label for="firstname" id="labFi">Förnamn</label>
+        <input class="form-control" id="firstname" name="firstname"
+               required th:value="${author.firstname}" type="text">
+
+        <label for="lastname" id="labLa">Efternamn</label>
+        <input class="form-control" id="lastname" name="lastname"
+               required th:value="${author.lastname}" type="text">
+
+        <button id="save" name="save" type= "submit">Spara</button>
+    </form>
+</div>
 </body>
 </html>

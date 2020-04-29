@@ -1,95 +1,87 @@
 <!DOCTYPE html>
 <html lang= "sv" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>LIBSYS</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
+<head>
+    <title>Lägg till seminarium</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-        <style type="text/css">
-            #form fieldset {
-                width: 60%;
-                padding: 30px 30px;
-                margin-top: 40px;
-            }
-            h1{
-                margin-top: 50px;
-            }
-            #form legend{
-                color: black;
-                border: 1px;
-            }
-            #save{
-                font-size: 15px;
-                margin-top: 40px;
-                margin-bottom: 30px;
-            }
-            #title{
-                width: 35%;
-                height: 25px;
-                font-size: medium;
-                margin-right: 20px;
-                margin-top: 50px;
-                font-family: Arial;
-            }
-            #datepicker{
-                width: 20%;
-                height: 25px;
-                font-size: medium;
-                ont-family: Arial;
-                margin-top: 50px;
-            }
-            #startTime, #endTime{
-                width: 10%;
-                height: 25px;
-                font-size: medium;
-                ont-family: Arial;
-                margin-top: 50px;
-                margin-left: 20px;
-            }
-            #information{
-                width: 60%;
-                height: 80px;
-                font-size: medium;
-                margin-top: 20px;
-                font-family: Arial;
-            }
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-        </style>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script>
-            $( function() {
-                $( "#datepicker" ).datepicker({dateFormat:'yy-mm-dd'});
-            } );
-        </script>
-    </head>
-    <body>
+    <script>
+        $( function() {
+            $( "#datepicker" ).datepicker({dateFormat:'yy-mm-dd'});
+        } );
+    </script>
+    <script>
+        function myFunction() {
+            alert("Seminarium har registrerats!");
+        }
+    </script>
 
-    <div align="center">
-        <h1>Seminarium</h1>
-        <form class=form action="/new-object/save-seminar" method="POST" th:object="${seminary}">
-            <fieldset style="background-color: #F8F9F9">
-                <legend><h2>Lägg till Seminarium</h2></legend>
-                <input type="text" name="title" id="title" placeholder="Titel"
-                      th:value="${seminary.title}" required>
-                <input type="text" name="occurrence" id="datepicker" placeholder="åååå-mm-dd"
-                       pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
-                       th:value="${seminary.occurrence}"required>
-                <input type="startTime" name="startTime" id="startTime" placeholder="Start: hh:mm"
-                       th:value="${seminary.startTime}" required>
-                <input type="endTime" name="endTime" id="endTime" placeholder="Slut: hh:mm"
-                       th:value="${seminary.startTime}" required><br>
-                <br><textarea type="text" name="information"  id="information" placeholder="Beskrivning"
-                              row="10" cols="60"
-                              th:value="${seminary.information}" required></textarea><br>
+    <style type="text/css">
+        body{
+            background-color: #F8F9F9;
+        }
+        #save{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
+            margin-top: 40px;
+            text-align:center;
+        }
+        #title, #datepicker, #startTime, #endTime{
+            margin-bottom: 20px;
+            font-size: medium;
+        }
+        #div{
+            width: 50%;
+        }
+        #information{
 
-                <button type= "submit" name="save" id="save" style="height:30px;width:80px">Spara</button>
-            </fieldset>
-        </form></div>
+        }
+    </style>
 
+</head>
+<body>
+<h1>Lägg till seminarium</h1>
 
-    </body>
+<div id="div" class="container">
+    <form action="/new-object/save-seminar" class="form-group" method="POST" onsubmit="myFunction()" th:object="${seminary}">
+
+        <label for="title">Titel</label>
+        <input class="form-control" id="title" name="title" required
+               th:value="${seminary.title}" type="text">
+
+        <label for="datepicker">Datum</label>
+        <input class="form-control" id="datepicker" name="occurrence" required
+               pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+               th:value="${seminary.occurrence}" type="text">
+
+        <label for="startTime">Start tid</label>
+        <input class="form-control" id="startTime" name="startTime" required
+               th:value="${seminary.startTime}" type="text">
+
+        <label for="endTime">Slut tid</label>
+        <input class="form-control" id="endTime" name="endTime" required
+               th:value="${seminary.endTime}" type="text">
+
+        <label for="information">Beskrivning</label>
+        <textarea class="form-control" id="information" name="information"
+                  required row="40" cols="60"
+                  th:value="${seminary.information}" type="text"></textarea>
+        <button type= "submit" name="save" id="save" >Spara</button>
+    </form></div>
+</body>
 </html>

@@ -21,17 +21,11 @@ public class Seminary {
     @Column(name = "occurrence")
     private String occurrence;
 
-    @Column(name="starttime")
-    private String startTime;
-
     @Column(name="endtime")
     private String endTime;
 
     @Column(name="starttime")
-    private String starttime;
-
-    @Column(name="endtime")
-    private String endtime;
+    private String startTime;
 
     public Seminary() {
     }
