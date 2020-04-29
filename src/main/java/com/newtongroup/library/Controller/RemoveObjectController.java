@@ -31,9 +31,9 @@ public class RemoveObjectController {
     @Autowired
     private RemovedBookRepository removedBookRepository;
     @Autowired
-    RemovedEBookRepository removedEBookRepository;
+    private RemovedEBookRepository removedEBookRepository;
     @Autowired
-    RemovedSeminaryRepository removedSeminaryRepository;
+    private RemovedSeminaryRepository removedSeminaryRepository;
 
 
 
