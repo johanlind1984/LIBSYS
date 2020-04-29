@@ -1,14 +1,13 @@
 package com.newtongroup.library.Entity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-@Table(name = "Seminary")
+@Table(name = "seminaries")
 public class Seminary {
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seminary_id")
     private Long seminary_id;
 
@@ -19,15 +18,14 @@ public class Seminary {
     @Column(name = "information")
     private String information;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "occurrence")
-    private java.util.Date occurrence;
-
-    @Column(name="starttime")
-    private String starttime;
+    private String occurrence;
 
     @Column(name="endtime")
-    private String endtime;
+    private String endTime;
+
+    @Column(name="starttime")
+    private String startTime;
 
     public Seminary() {
     }
@@ -56,28 +54,27 @@ public class Seminary {
         this.information = information;
     }
 
-    public Date getOccurrence() {
+    public String getOccurrence() {
         return occurrence;
     }
 
-    public void setOccurrence(Date occurrence) {
+    public void setOccurrence(String occurrence) {
         this.occurrence = occurrence;
     }
 
-    public String getStarttime() {
-        return starttime;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setStarttime(String starttime) {
-        this.starttime = starttime;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public String getEndtime() {
-        return endtime;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setEndtime(String endtime) {
-        this.endtime = endtime;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
-
 }

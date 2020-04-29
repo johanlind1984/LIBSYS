@@ -1,15 +1,14 @@
 package com.newtongroup.library.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "placements")
 public class Placement {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "placement_id")
     private Long placementId;
 
@@ -18,6 +17,9 @@ public class Placement {
 
     @Column(name = "title")
     private String title;
+
+    @OneToMany(mappedBy = "placement")
+    private List<Book> bookList;
 
     public Placement() {
     }
@@ -44,5 +46,13 @@ public class Placement {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
     }
 }

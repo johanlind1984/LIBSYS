@@ -10,24 +10,25 @@ import org.hibernate.search.annotations.Field;
 
 @MappedSuperclass
 public abstract class AbstractRental {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@Column
-	@Field
+
+	@Column(name="title")
 	private String title;
-	
+
 	@Column(name="purchase_price")
 	private String purchasePrice;
-	@Column
+
+	@Column(name="publisher")
 	private String publisher;
-	@Column
+
+	@Column(name="description")
 	private String description;
-	
+
 	public AbstractRental() {
-		
+
 	}
 
 	public Integer getId() {
@@ -69,8 +70,8 @@ public abstract class AbstractRental {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-		
+
+
+
 
 }

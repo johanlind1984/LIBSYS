@@ -1,10 +1,9 @@
 package com.newtongroup.library.Entity;
 
-import javax.persistence.*;
-
-import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -25,13 +24,16 @@ public class Author {
     @Column(name="lastname")
     private String lastname;
 
-    @ContainedIn
-    @ManyToMany
-    @JoinTable(
-            name="book_author",
-            joinColumns = {@JoinColumn(name="book_id")},
-            inverseJoinColumns = {@JoinColumn(name="author_id")})
+//    @ManyToMany
+//    @JoinTable(
+//            name="book_author",
+//            joinColumns = {@JoinColumn(name="idbook_author_book_id")},
+//            inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
+    @ManyToMany(mappedBy = "authorList")
     private List<Book>bookList;
+
+    @ManyToMany(mappedBy = "authorList")
+    private List<EBook>eBookList;
 
     public Author() {
     }
@@ -67,5 +69,5 @@ public class Author {
     public void setBookList(List<Book> bookList) {
         this.bookList = bookList;
     }
-}
 
+}
