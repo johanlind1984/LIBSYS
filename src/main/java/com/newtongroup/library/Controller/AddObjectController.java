@@ -39,6 +39,7 @@ public class AddObjectController {
     List<Author> authorList;
 
     @GetMapping("/librarian-menu")
+//    public String getLibrarianMenu(){
     public String getLibrarianMenu(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
