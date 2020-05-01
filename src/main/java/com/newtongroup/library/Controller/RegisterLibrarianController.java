@@ -4,6 +4,7 @@ import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.UserAuthorityRepository;
 import com.newtongroup.library.Repository.UserRepository;
 import com.newtongroup.library.Repository.LibrarianRepository;
+import com.newtongroup.library.Utils.HeaderUtils;
 import com.newtongroup.library.Wrapper.UserPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/register-librarian")
@@ -31,15 +34,15 @@ public class RegisterLibrarianController {
     private String adminheader = "admin/adminheader.html";
 
     @RequestMapping("/")
-    public String registerLibrarian(Model theModel) {
-        theModel.addAttribute("header", adminheader);
+    public String registerLibrarian(Model theModel, Principal principal) {
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         theModel.addAttribute("userPerson", new UserPerson());
         return "register-librarian/register-librarian";
     }
 
     @RequestMapping("/save-librarian")
-    public String saveLibrarianToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel) {
-        theModel.addAttribute("header", adminheader);
+    public String saveLibrarianToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel, Principal principal) {
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         Librarian librarian = librarianRepository.findById(userPerson.getLibrarian().getEmail()).orElse(null);
         if(librarian == null) {
             setLibrarianValues(userPerson);
