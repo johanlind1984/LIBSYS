@@ -3,15 +3,14 @@ package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
-import com.newtongroup.library.Wrapper.UserPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -41,6 +40,10 @@ public class RemoveObjectController {
     private String librarianheader = "librarian/librarianheader.html";
 
 
+    @GetMapping("librarian-menu")
+    public String getLibrarianMenu(){
+        return "remove-objects/remove-object-menu";
+    }
 
     @RequestMapping("/book")
     public String book(Model theModel, Principal principal){
