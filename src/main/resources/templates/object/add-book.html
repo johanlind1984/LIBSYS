@@ -14,6 +14,34 @@
         }
     </script>
 
+    <style type="text/css">
+        body{
+            background-color: #F8F9F9;
+        }
+        #save{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
+            margin-top: 40px;
+            text-align:center;
+        }
+        #title, #datepicker, #startTime, #endTime{
+            margin-bottom: 20px;
+            font-size: medium;
+        }
+        #div{
+            width: 50%;
+        }
+        #information{
+
+        }
+    </style>
+
 </head>
 <header>
     <div th:fragment="header">
@@ -24,10 +52,10 @@
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/librarian/">Hem</a></li>
-                    <li><a href="/add-object/add-author/add-object-menu.html">Lägg till författare</a></li>
-                    <li><a href="/add-object/add-book/add-object-menu.html">Lägg till bok</a></li>
-                    <li><a href="/add-object/add-ebook">Lägg till ebok</a></li>
-                    <li><a href="/add-object/add-seminar">Lägg till seminarium</a></li>
+                    <li><a href="/new-object/new-author">Lägg till författare</a></li>
+<!--                    <li><a href="/add-object/add-book/add-object-menu.html">Lägg till bok</a></li>-->
+                    <li><a href="/new-object/new-ebook">Lägg till ebok</a></li>
+                    <li><a href="/new-object/new-seminar">Lägg till seminarium</a></li>
                     <li><a href="/search/">Sök</a></li>
 
                 </ul>
