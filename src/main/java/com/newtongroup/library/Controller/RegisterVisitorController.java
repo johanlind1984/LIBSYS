@@ -6,6 +6,7 @@ import com.newtongroup.library.Entity.Visitor;
 import com.newtongroup.library.Repository.UserAuthorityRepository;
 import com.newtongroup.library.Repository.UserRepository;
 import com.newtongroup.library.Repository.VisitorRepository;
+import com.newtongroup.library.Utils.HeaderUtils;
 import com.newtongroup.library.Wrapper.UserPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,14 +42,14 @@ public class RegisterVisitorController {
 
     @RequestMapping("/")
     public String registerVisitor(Model theModel, Principal principal) {
-        theModel.addAttribute("header", getHeader(principal));
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         theModel.addAttribute("userPerson", new UserPerson());
         return "register-visitor/register-visitor";
     }
 
     @RequestMapping("/save-visitor")
     public String saveVisitorToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel, Principal principal) {
-        theModel.addAttribute("header", getHeader(principal));
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         Visitor visitor = visitorRepository.findById(userPerson.getVisitor().getEmail()).orElse(null);
         if(visitor == null) {
             setVisitorValues(userPerson);
@@ -69,16 +70,5 @@ public class RegisterVisitorController {
     private void saveToDb(UserPerson userPerson) {
         visitorRepository.saveAndFlush((userPerson.getVisitor()));
         userRepository.saveAndFlush(userPerson.getUser());
-    }
-
-    private String getHeader(Principal principal) {
-        String header = new String();
-        if(userRepository.findByUsername(principal.getName()).getAuthority().getAuthorityName().equals("ROLE_ADMIN")) {
-            return adminheader;
-        } else if (userRepository.findByUsername(principal.getName()).getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")){
-            return librarianheader;
-        }
-
-        return header;
     }
 }

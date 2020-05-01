@@ -2,6 +2,7 @@ package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
+import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,8 +30,8 @@ public class AdminController {
     private String header = "admin/adminheader.html";
 
     @RequestMapping("/")
-    public String mainView(Model theModel){
-        theModel.addAttribute("header", new String(header));
+    public String mainView(Model theModel, Principal principal){
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         return "admin/start";
     }
 
@@ -42,8 +43,8 @@ public class AdminController {
     }
 
     @RequestMapping("/delete-user")
-    public String deleteUser(@RequestParam(name="email") String email,  Model theModel) {
-        theModel.addAttribute("header", new String(header));
+    public String deleteUser(@RequestParam(name="email") String email,  Model theModel, Principal principal) {
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         User user = userRepository.findByUsername(email);
         if(user == null) {

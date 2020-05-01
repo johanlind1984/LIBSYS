@@ -11,6 +11,7 @@
 <body>
 <header th:insert="${header} :: header"> </header>
 <h1 align="center">Lägg till besökare</h1>
+<div class="container" id="div">
 <form th:action="@{/register-visitor/save-visitor}" method="post" th:object="${userPerson}">
     <div class="form-group">
         <label for="email">E-post address</label>
@@ -62,5 +63,6 @@
     </div>
     <button type="submit" class="btn btn-primary">Spara</button>
 </form>
+</div>
 </body>
 </html>
