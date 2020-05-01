@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang= "sv" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lägg till objekt </title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        .img-libsys {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 5%;
+            margin-bottom: auto;
+            width: 40%;
+        }
+        .theBody{
+            background-color: #F8F9F9;
+            text-align: center;
+        }
+    </style>
+</head>
+<header>
+    <div th:fragment="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">LIBSYS (BIBLIOTEKARIE)</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/librarian/">Hem</a></li>
+                    <li><a href="/add-object/add-author/add-object-menu.html">Lägg till författare</a></li>
+                    <li><a href="/add-object/add-book/add-object-menu.html">Lägg till bok</a></li>
+                    <li><a href="/add-object/add-ebook">Lägg till ebok</a></li>
+                    <li><a href="/add-object/add-seminar">Lägg till seminarium</a></li>
+                    <li><a href="/search/">Sök</a></li>
+
+                </ul>
+                <div align="right">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-warning">Logga ut</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+<body class="theBody">
+<img class="img-libsys" src="../images/LIBSYS.png" alt="libsys" >
+<p id="date"></p>
+<script>
+    var d = new Date();
+    document.getElementById("date").innerHTML = d;
+</script>
+</body>
+</html>
