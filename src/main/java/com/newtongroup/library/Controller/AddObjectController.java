@@ -36,20 +36,17 @@ public class AddObjectController {
     @Autowired
     UserRepository userRepository;
 
-
-    Principal principal;
-
     List<Author> authorList;
 
     @GetMapping("/librarian-menu")
-    public String getLibrarianMenu(Model model){
+    public String getLibrarianMenu(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         return "object/add-object-menu";
     }
 
     @GetMapping("/new-seminar")
-    public String getSeminarForm(Model model){
+    public String getSeminarForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         Seminary seminary=new Seminary();
@@ -63,7 +60,7 @@ public class AddObjectController {
     }
 
     @GetMapping("/new-author")
-    public String getAuthorForm(Model model){
+    public String getAuthorForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         Author author = new Author();
@@ -77,7 +74,7 @@ public class AddObjectController {
     }
 
     @GetMapping("/new-book")
-    public String getBookForm(Model model){
+    public String getBookForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         Book book = new Book();
@@ -97,7 +94,7 @@ public class AddObjectController {
         return "redirect:/new-object/new-book";
     }
     @GetMapping("/new-ebook")
-    public String getEBookForm(Model model){
+    public String getEBookForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         EBook ebook = new EBook();

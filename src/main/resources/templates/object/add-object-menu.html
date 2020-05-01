@@ -24,37 +24,37 @@
         }
     </style>
 </head>
-<header>
-    <div th:fragment="header">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">LIBSYS (BIBLIOTEKARIE)</a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="/librarian/">Hem</a></li>
-                    <li><a href="/add-object/add-author/add-object-menu.html">Lägg till författare</a></li>
-                    <li><a href="/add-object/add-book/add-object-menu.html">Lägg till bok</a></li>
-                    <li><a href="/add-object/add-ebook">Lägg till ebok</a></li>
-                    <li><a href="/add-object/add-seminar">Lägg till seminarium</a></li>
-                    <li><a href="/search/">Sök</a></li>
-
-                </ul>
-                <div align="right">
-                    <form th:action="@{/logout}" method="post">
-                        <button type="submit" class="btn btn-warning">Logga ut</button>
-                    </form>
-                </div>
+<header th:insert="${header} :: header">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">LIBSYS (BIBLIOTEKARIE)</a>
             </div>
-        </nav>
-    </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/librarian/">Hem</a></li>
+                <li><a href="/register-visitor/">Registrera besökare</a></li>
+                <li><a href="/admin/delete-menu/">Ta bort användare</a></li>
+                <li><a href="/add-object/">Lägg till författare/bok/ebok/seminarie</a></li>
+                <li><a href="/remove-object/book">Ta bort bok/ebok/seminarie</a></li>
+                <li><a href="/remove-object/e-book">Sök</a></li>
+            </ul>
+            <div align="right">
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn btn-warning">Logga ut</button>
+                </form>
+            </div>
+        </div>
+    </nav>
 </header>
 <body class="theBody">
+<div align="center" action=/add-object/librarian-menu" method="get"} >
 <img class="img-libsys" src="../images/LIBSYS.png" alt="libsys" >
 <p id="date"></p>
 <script>
     var d = new Date();
     document.getElementById("date").innerHTML = d;
 </script>
+</div>
 </body>
+/add-object/librarian-menu/
 </html>

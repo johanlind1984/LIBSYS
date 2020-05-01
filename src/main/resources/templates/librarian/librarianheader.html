@@ -7,33 +7,54 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .img-libsys {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 5%;
+            margin-bottom: auto;
+            width: 40%;
+        }
+        .theBody{
+            background-color: #F8F9F9;
+            text-align: center;
+        }
+    </style>
 </head>
-<body>
-<div th:fragment="header">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">LIBSYS (BIBLIOTIKARIE)</a>
+<header>
+    <div th:fragment="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">LIBSYS (BIBLIOTEKARIE)</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/librarian/">Hem</a></li>
+                    <li><a href="/register-visitor/">Registrera besökare</a></li>
+                    <li><a href="/admin/delete-menu/">Ta bort användare</a></li>
+                    <li><a href="/add-object/librarian-menu/">Lägg till författare/bok/ebok/seminarie</a></li>
+                    <li><a href="/remove-object/book">Ta bort bok/ebok/seminarie</a></li>
+                    <li><a href="/remove-object/e-book">Sök</a></li>
+
+
+                </ul>
+                <div align="right">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-warning">Logga ut</button>
+                    </form>
+                </div>
             </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/librarian/">Hem</a></li>
-                <li><a href="/register-visitor/">Registrera besökare</a></li>
-                <li><a href="/new-object/new-book">Lägg till bok</a></li>
-                <li><a href="/new-object/new-ebook">Lägg till E-bok</a></li>
-                <li><a href="/author/new">Lägg till författare</a></li>
-                <li><a href="/new-object/new-seminar">Lägg till Seminarium</a></li>
-                <li><a href="/admin/delete-menu/">Ta bort användare</a></li>
-                <li><a href="/remove-object/book">Ta bort bok</a></li>
-                <li><a href="/remove-object/e-book">Ta bort E-bok</a></li>
-                <li><a href="/remove-object/seminary">Ta bort seminarium</a></li>
-            </ul>
-            <div align="right">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn btn-warning">Logga ut</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-</div>
+        </nav>
+    </div>
+</header>
+<body class="theBody">
+<img class="img-libsys" src="../images/LIBSYS.png" alt="libsys" >
+<p id="date"></p>
+<script>
+    var d = new Date();
+    document.getElementById("date").innerHTML = d;
+</script>
+</body>
 </body>
 </html>

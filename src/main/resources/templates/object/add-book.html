@@ -15,6 +15,31 @@
     </script>
 
 </head>
+<header>
+    <div th:fragment="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">LIBSYS (BIBLIOTEKARIE)</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/librarian/">Hem</a></li>
+                    <li><a href="/add-object/add-author/add-object-menu.html">Lägg till författare</a></li>
+                    <li><a href="/add-object/add-book/add-object-menu.html">Lägg till bok</a></li>
+                    <li><a href="/add-object/add-ebook">Lägg till ebok</a></li>
+                    <li><a href="/add-object/add-seminar">Lägg till seminarium</a></li>
+                    <li><a href="/search/">Sök</a></li>
+
+                </ul>
+                <div align="right">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-warning">Logga ut</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
 <body>
 
     <h1 align="center">Lägg till bok</h1>
