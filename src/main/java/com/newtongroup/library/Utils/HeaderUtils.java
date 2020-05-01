@@ -6,9 +6,7 @@ import java.security.Principal;
 
 public class HeaderUtils {
     public static String getHeaderString(User user) {
-
         if(user.getAuthority().getAuthorityName().equals("ROLE_ADMIN")) {
-            System.out.println("RETURNING ADMINHEADER");
             return "admin/adminheader.html";
         } else if(user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")) {
             return "librarian/librarianheader.html";
