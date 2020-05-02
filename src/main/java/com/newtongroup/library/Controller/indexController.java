@@ -11,4 +11,9 @@ public class indexController {
 
         return "landing/index";
     }
+
+    @RequestMapping("/about")
+    public String indexAbout() {
+        return "landing/why";
+    }
 }
