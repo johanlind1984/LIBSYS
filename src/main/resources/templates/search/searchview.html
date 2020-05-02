@@ -1,34 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://wwww.thymeleaf.com">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="UTF-8">
-
-<title>Sök</title>
-
-
+	<title>LIBSYS</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		body{
+			background-color: #F8F9F9;
+		}
+		#search{
+			margin-top: 30px;
+			width: 15%;
+			height: 15%;
+			font-size: medium;
+			margin-left: 43%;
+		}
+		h1{
+			margin-bottom: 60px;
+			margin-top: 40px;
+			text-align:center;
+		}
+		#l1, #l2{
+			font-size: medium;
+		}
+		#div{
+			align-items: center;
+			width: 60%;
+		}#find{
+			margin-right: 2%;
+			height: 15px;
+			text-align: right;
+				 }
+	</style>
 </head>
+<header th:insert="${header} :: header"> </header>
 <body>
-
-
-	<form action="#" th:action="@{/search}" method="get">
-
-		<label for="bsearch">Hitta bok:</label> <input type="search"
+<h1>Sök</h1>
+<div id="div" class="container" >
+	<form id="l1" action="#" th:action="@{/search}" method="get">
+		<label id="find" for="bsearch">Hitta bok:</label>
+		<input class="form-control" type="search" id="bsearch"
 			name="search" th:value="${searchText}"
-			placeholder="isbn, titel, författare"> <input type="submit"
-			value="Sök">
+			placeholder="isbn, titel, författare">
+		<input class="btn btn-warning" id="search" type="submit" value="Sök">
 
 
 	</form>
 
 	<ul>
-		<li th:each="result: ${results}"><span
+		<li id="l2" th:each="result: ${results}"><span
 			th:text="'isbn: ' + ${result.isbn}"></span> </br> <span
 			th:text="'Titel: ' + ${result.title}"></span> </br> <span
-			th:text="'Beskrivning: ' + ${result.description}"></span> </br> <span>Författare:
-				<span th:each="author: ${result.authorList}"
+			th:text="'Beskrivning: ' + ${result.description}"></span> </br>
+			<span>Författare:<span th:each="author: ${result.authorList}"
 				th:text="${author.firstname} + ' ' + ${author.lastname}"> </span>
 		</span></li>
 	</ul>
-
+	</div>
 </body>
 </html>
