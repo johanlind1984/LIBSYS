@@ -45,22 +45,6 @@ ul {
     list-style: none;
 }
 
-img {
-    display: inline-block;
-    height:90px;
-    width:70px;
-}
-
-
-.zoom {
-     background-color: var(--primary-color);
-     transition: transform .3s;
- }
-
-.zoom:hover {
-    transform: scale(5);
-}
-
 .btn {
     display: inline-block;
     border: 0;
@@ -159,10 +143,6 @@ img {
     font-size: 40px;
 }
 
-.btn:hover {
-
-}
-
 .footer {
     border-top: var(--text-color) 1px solid;
     padding: 30px;
@@ -176,3 +156,24 @@ img {
     text-align: center;
 }
 
+
+img {
+    display: inline-block;
+    height:90px;
+    width:70px;
+}
+
+
+.zoom {
+    background-color: var(--primary-color);
+    transition: transform .3s;
+}
+
+.zoom:hover {
+    transform: scale(5);
+}
+
+.login {
+    position: relative;
+    float: right;
+}
