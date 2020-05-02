@@ -1,9 +1,10 @@
-package com.newtongroup.library.Service;
+package com.newtongroup.library.Controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/")
-public class index {
+@Controller
+public class indexController {
 
     @RequestMapping("/")
     public String indexPage() {
