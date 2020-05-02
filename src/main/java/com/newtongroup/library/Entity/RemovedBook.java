@@ -10,7 +10,7 @@ public class RemovedBook {
 
     @Id
     @Column(name = "book_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private int book_id;
 
     @Column(name="title")
