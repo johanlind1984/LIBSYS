@@ -13,6 +13,7 @@ public class HeaderUtils {
         } else if(user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")) {
             return "visitor/visitorheader.html";
         }
+
         return null;
     }
 }

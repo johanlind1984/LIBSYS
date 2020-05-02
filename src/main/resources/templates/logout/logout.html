@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LIBSYS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="5;url=/" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .img-libsys {
+            position:relative;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 5%;
+            margin-bottom: auto;
+        }
+        .theBody{
+            background-color: black;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="theBody">
+<h1>Du loggas nu ut...</h1>
+<h2>Du kommer att skickas till startsidan inom 5 sekunder</h2>
+<img class="img-libsys" alt="libsys" th:src="@{/images/libsys.png}">
+<p id="date"></p>
+<script>
+    var d = new Date();
+    document.getElementById("date").innerHTML = d;
+</script>
+</body>
+</html>

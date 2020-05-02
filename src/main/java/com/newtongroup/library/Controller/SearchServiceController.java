@@ -28,8 +28,13 @@ public class SearchServiceController {
 	
 	@GetMapping()
 	public String searchForm( @RequestParam(value="search", required =false) String searchText, Model model, Principal principal){
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-		
+
+		if(principal == null) {
+			model.addAttribute("header", new String("anonymous-user/anonymousheader.html"));
+		} else {
+			model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+		}
+
 		List<Book> bResults = searchService.searchBooks(searchText);
 		List<EBook> ebResults = searchService.searchEBooks(searchText);
 		model.addAttribute("bResults", bResults);
