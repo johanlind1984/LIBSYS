@@ -10,7 +10,6 @@ public class RemovedEBook {
 
     @Id
     @Column(name = "e_book_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int e_book_id;
 
     @Column(name="title")

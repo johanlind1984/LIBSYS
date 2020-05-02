@@ -11,7 +11,6 @@ public class RemovedSeminary {
 
     @Id
     @Column(name = "seminary_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long seminary_id;
 
     @Column(name = "title")
@@ -41,7 +40,7 @@ public class RemovedSeminary {
 
 
 
-    public RemovedSeminary(Long id, String title, String information, String occurrence, String startTime, String endTime, String cause) {
+    public RemovedSeminary(Long seminary_id, String title, String information, String occurrence, String starttime, String endtime, String cause) {
         this.seminary_id = seminary_id;
         this.title = title;
         this.information = information;
