@@ -7,14 +7,17 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 @MappedSuperclass
+@Indexed
 public abstract class AbstractRental {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
+	@Field
 	@Column(name="title")
 	private String title;
 
@@ -23,7 +26,7 @@ public abstract class AbstractRental {
 
 	@Column(name="publisher")
 	private String publisher;
-
+	
 	@Column(name="description")
 	private String description;
 

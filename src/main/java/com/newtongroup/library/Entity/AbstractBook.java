@@ -1,11 +1,13 @@
 package com.newtongroup.library.Entity;
 
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
+@Indexed
 public class AbstractBook extends AbstractRental {
 
 	@Column
