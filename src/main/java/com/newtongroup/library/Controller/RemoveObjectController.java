@@ -40,8 +40,8 @@ public class RemoveObjectController {
     private String librarianheader = "librarian/librarianheader.html";
 
 
-    @GetMapping("librarian-menu")
-    public String getLibrarianMenu(){
+    @GetMapping("/menu")
+    public String getMenu(){
         return "remove-objects/remove-object-menu";
     }
 
