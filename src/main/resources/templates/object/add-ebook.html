@@ -30,15 +30,15 @@
             margin-top: 40px;
             text-align:center;
         }
-        #title, #datepicker, #startTime, #endTime{
-            margin-bottom: 20px;
+        #title,#option, #isbn, #publisher, #purchasePrice, #description,
+        #l1, #l2, #l3, #l4, #l5, #l6, #l7{
             font-size: medium;
         }
         #div{
             width: 50%;
         }
-        #information{
-
+        #li{
+            color:lightgray;
         }
     </style>
 </head>
@@ -53,7 +53,7 @@
                     <li class="active"><a href="/librarian/">Hem</a></li>
                     <li><a href="/new-object/new-author">Lägg till författare</a></li>
                     <li><a href="/new-object/new-book">Lägg till bok</a></li>
-<!--                    <li><a href="/add-object/add-ebook">Lägg till ebok</a></li>-->
+                    <li><a id="li" href="/new-object/new-ebook">Lägg till ebok</a></li>
                     <li><a href="/new-object/new-seminar">Lägg till seminarium</a></li>
                     <li><a href="/search/">Sök</a></li>
 
@@ -69,44 +69,44 @@
 </header>
 <body>
 
-<h1 align="center">Lägg till ebok</h1>
-<div class="container">
+<h1>Lägg till ebok</h1>
+<div class="container" id="div">
     <form action="/new-object/save-ebook" class="form-group" method="POST" onsubmit="myFunction()"
           th:object="${ebook}">
 
 
-        <label for="select">Välj författare (håll nere ctrl eller shift för att välja fler):</label>
+        <label id="l1" for="select">Välj författare (håll nere ctrl eller shift för att välja fler):</label>
 
         <select class="form-control" id="select"  multiple
                 name="select"  th:field="${ebook.authorList}">
 
-            <option  th:each="author:${authors}"
+            <option id="option"  th:each="author:${authors}"
                      th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}"
                      th:value="${author.authorId}"></option>
         </select>
 
-        <label for="title">Titel</label>
+        <label id="l2" for="title">Titel</label>
         <input class="form-control" id="title" name="title" required
                th:value="${ebook.title}" type="text">
 
-        <label for="isbn">Isbn</label>
+        <label id="l3" for="isbn">Isbn</label>
         <input class="form-control" id="isbn" name="isbn" required
                th:value="${ebook.title}" type="text">
 
 
-        <label for="publisher">Förlag</label>
+        <label id="l4" for="publisher">Förlag</label>
         <input class="form-control" id="publisher"name="publisher" required
                th:value="${ebook.publisher}" type="text">
 
-        <label for="purchasePrice">Inköpspris</label>
+        <label id="l5" for="purchasePrice">Inköpspris</label>
         <input class="form-control" id="purchasePrice"name="purchasePrice" required
                th:value="${ebook.purchasePrice}" type="text"><br>
 
-        <label for="downloadLink">Boklänk</label>
+        <label id="l6" for="downloadLink">Boklänk</label>
         <input class="form-control" id="downloadLink"name="downloadLink" required
                th:value="${ebook.downloadLink}" type="text">
 
-        <label for="description">Beskrivning</label>
+        <label id="l7" for="description">Beskrivning</label>
         <textarea class="form-control" id="description" name="description"
                   required rows="5"
                   th:value="${ebook.description}" type="text"></textarea><br>

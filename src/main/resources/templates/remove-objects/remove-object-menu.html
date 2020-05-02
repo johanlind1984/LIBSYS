@@ -11,14 +11,14 @@
 
     <style type="text/css">
         .img-libsys {
+            position:relative;
             display: block;
             margin-left: auto;
             margin-right: auto;
             margin-top: 5%;
             margin-bottom: auto;
-            width: 40%;
         }
-        .theBody {
+        .theBody{
             background-color: #F8F9F9;
             text-align: center;
         }
@@ -49,7 +49,8 @@
     </div>
 </header>
 <body class="theBody">
-<img class="img-libsys" src="../images/LIBSYS.png" alt="libsys" >
+<!--<img src="../../static/images/libsys.png" alt="libsys" class="img-libsys" height="500" width="500"/>-->
+<img class="img-libsys" alt="libsys" th:src="@{/images/libsys.png}">
 <p id="date"></p>
 <script>
     var d = new Date();

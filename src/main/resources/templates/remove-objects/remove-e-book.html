@@ -7,18 +7,72 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        body{
+            background-color: #F8F9F9;
+        }
+        #save{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
+            margin-top: 40px;
+            text-align:center;
+        }
+        #isbn, #cause{
+            margin-bottom: 20px;
+            font-size: medium;
+        }
+        #l1,l2{
+            font-size: medium;
+        }
+        #div{
+            width: 60%;
+            align-items: center;
+        }
+        #li{
+            color: lightgray;
+        }
+    </style>
 </head>
+<header>
+    <div th:fragment="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">LIBSYS (BIBLIOTEKARIE)</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/librarian/">Hem</a></li>
+                    <li><a href="/remove-object/book">Ta bort bok</a></li>
+                    <li><a id="li" href="/remove-object/e-book">Ta bort ebok</a></li>
+                    <li><a href="/remove-object/seminary">Ta bort seminarium</a></li>
+                    <li><a href="/search/">Sök</a></li>
 
+                </ul>
+                <div align="right">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-warning">Logga ut</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
 <body>
-<header th:insert="${header} :: header"> </header>
 
-<h1 align="center">Ta bort bok</h1>
+<h1>Ta bort ebok</h1>
 
 
-<form align="center" th:action="@{/remove-object/delete-e-book}" method="post" th:object="${ebook}" >
+<form th:action="@{/remove-object/delete-e-book}" method="post" th:object="${ebook}" >
+   <div class="container" id="div">
     <div  class="form-group" >
 
-        <label >Radera e-boken på ISBN nummer</label>
+        <label id="l1" >Radera e-boken på ISBN nummer</label>
         <input type="text" class="form-control"  id="isbn" placeholder="ISBN"
                th:field="${ebook.isbn}" required maxlength="150">
 
@@ -26,14 +80,15 @@
 
     <div  class="form-group" th:object="${removedEBook}">
 
-        <label >Motivera anledning till radering</label>
+        <label id="l2" >Motivera anledning till radering</label>
         <input type="text" class="form-control"  id="cause" placeholder="Låg efterfrågan, skadad etc"
                th:field="${removedEBook.cause}" required maxlength="150">
 
     </div>
 
 
-    <button type="submit" class="btn btn-primary">Spara</button>
+    <button id="save" type="submit" class="btn btn-primary">Spara</button>
+   </div>
 </form>
 </body>
 </html>

@@ -7,20 +7,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        .img-libsys {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 5%;
-            margin-bottom: auto;
-            width: 40%;
-        }
-        .theBody{
-            background-color: #F8F9F9;
-            text-align: center;
-        }
-    </style>
 </head>
 <header>
     <div th:fragment="header">
@@ -36,8 +22,6 @@
                     <li><a href="/new-object/librarian-menu/">Lägg till författare/bok/ebok/seminarie</a></li>
                     <li><a href="/remove-object/librarian-menu">Ta bort bok/ebok/seminarie</a></li>
                     <li><a href="/remove-object/e-book">Sök</a></li>
-
-
                 </ul>
                 <div align="right">
                     <form th:action="@{/logout}" method="post">
@@ -48,13 +32,4 @@
         </nav>
     </div>
 </header>
-<body class="theBody">
-<img class="img-libsys" src="../images/LIBSYS.png" alt="libsys" >
-<p id="date"></p>
-<script>
-    var d = new Date();
-    document.getElementById("date").innerHTML = d;
-</script>
-</body>
-</body>
 </html>
