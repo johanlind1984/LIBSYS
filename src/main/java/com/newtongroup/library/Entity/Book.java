@@ -1,15 +1,23 @@
 package com.newtongroup.library.Entity;
 
-import org.hibernate.search.annotations.Indexed;
-
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 @Entity
 @Indexed
 @Table(name = "books")
 public class Book extends AbstractBook {
 
+	@IndexedEmbedded
 	@ManyToMany()
 	@JoinTable(
 			name="book_author",
