@@ -6,10 +6,7 @@ import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -36,16 +33,33 @@ public class AddObjectController {
     @Autowired
     UserRepository userRepository;
 
+
+
     List<Author> authorList;
 
     @GetMapping("/menu")
-//    public String getLibrarianMenu(){
     public String getMenu(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         return "object/add-object-menu";
     }
+    @RequestMapping("/home")
+    public String goToHome(Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        User user=userRepository.findByUsername(principal.getName());
 
+        switch (user.getAuthority().getAuthorityName()){
+            case "ROLE_ADMIN":
+                return "redirect:/admin/";
+            case "ROLE_LIBRARIAN":
+                return "redirect:/librarian/";
+            default:
+                break;
+        }
+
+        return null;
+    }
+//
     @GetMapping("/new-seminar")
     public String getSeminarForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
