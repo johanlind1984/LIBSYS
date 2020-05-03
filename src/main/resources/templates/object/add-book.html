@@ -79,7 +79,7 @@
     <label id="l7" for="select">Välj författare (håll nere ctrl eller shift för att välja fler):</label>
 
     <select class="form-control" id="select"  multiple
-            name="select"  th:field="${book.authorList}">
+            name="select"  th:field="${book.authorList}" required>
 
         <option  th:each="author:${authors}"
                 th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}"
@@ -101,10 +101,10 @@
 
                 <label id="l4" for="purchasePrice">Inköpspris</label>
                 <input class="form-control" id="purchasePrice"name="purchasePrice" required
-                       th:value="${book.purchasePrice}" type="text"><br>
+                       th:value="${book.purchasePrice}" type="number"><br>
 
                 <label id="l5" for="placement">Placering</label>
-                <select class="form-control" id="placement" name="placement"
+                <select class="form-control" id="placement" name="placement" required
                         th:field="${book.placement}">
                     <option value="1"></option>
                     <option th:each="placement:${placements}"

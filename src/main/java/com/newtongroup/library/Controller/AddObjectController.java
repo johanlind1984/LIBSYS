@@ -2,11 +2,13 @@ package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
-import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 import java.util.List;
@@ -39,13 +41,11 @@ public class AddObjectController {
 
     @GetMapping("/menu")
     public String getMenu(Model model, Principal principal){
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         return "object/add-object-menu";
     }
     @RequestMapping("/home")
     public String goToHome(Model model, Principal principal){
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         User user=userRepository.findByUsername(principal.getName());
 
         switch (user.getAuthority().getAuthorityName()){
@@ -62,7 +62,6 @@ public class AddObjectController {
 //
     @GetMapping("/new-seminar")
     public String getSeminarForm(Model model, Principal principal){
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         Seminary seminary=new Seminary();
         model.addAttribute("seminary", seminary);
@@ -76,7 +75,6 @@ public class AddObjectController {
 
     @GetMapping("/new-author")
     public String getAuthorForm(Model model, Principal principal){
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         Author author = new Author();
         model.addAttribute("author",author);
@@ -90,7 +88,6 @@ public class AddObjectController {
 
     @GetMapping("/new-book")
     public String getBookForm(Model model, Principal principal){
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         Book book = new Book();
 
@@ -110,7 +107,6 @@ public class AddObjectController {
     }
     @GetMapping("/new-ebook")
     public String getEBookForm(Model model, Principal principal){
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         EBook ebook = new EBook();
 

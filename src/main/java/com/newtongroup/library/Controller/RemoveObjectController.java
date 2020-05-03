@@ -3,7 +3,6 @@ package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
-import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +47,6 @@ public class RemoveObjectController {
 
     @RequestMapping("/home")
     public String goToHome(Model model, Principal principal) {
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         User user = userRepository.findByUsername(principal.getName());
 
         switch (user.getAuthority().getAuthorityName()) {
