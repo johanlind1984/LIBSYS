@@ -20,12 +20,12 @@ import com.newtongroup.library.Utils.HeaderUtils;
 @Controller
 @RequestMapping("/search")
 public class SearchServiceController {
-	
+
 	@Autowired
 	private SearchService searchService;
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@GetMapping()
 	public String searchForm( @RequestParam(value="search", required =false) String searchText, Model model, Principal principal){
 
@@ -39,9 +39,9 @@ public class SearchServiceController {
 		List<EBook> ebResults = searchService.searchEBooks(searchText);
 		model.addAttribute("bResults", bResults);
 		model.addAttribute("ebResults", ebResults);
-		
+
 		model.addAttribute("search", searchText);
-		
+
 		return "/search/searchview";
 	}
 
