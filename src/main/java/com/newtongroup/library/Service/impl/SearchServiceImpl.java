@@ -1,19 +1,12 @@
 package com.newtongroup.library.Service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queryparser.flexible.standard.QueryParserUtil;
-import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.WildcardQuery;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
@@ -21,7 +14,6 @@ import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.BooleanJunction;
 import org.springframework.stereotype.Service;
 
-import com.newtongroup.library.Entity.AbstractBook;
 import com.newtongroup.library.Entity.AbstractRental;
 import com.newtongroup.library.Entity.Book;
 import com.newtongroup.library.Entity.EBook;
@@ -29,13 +21,15 @@ import com.newtongroup.library.Service.SearchService;
 
 @Service
 public class SearchServiceImpl implements SearchService {
+	
+	private static final String[] BOOK_SEARCH_FIELDS = new String[] { "isbn", "title", "authorList.firstname", "authorList.lastname" };
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	public List<Book> searchBooks(String searchText) {
 
-		FullTextQuery jpaQuery = searchBooksQuery(searchText, Book.class);
+		FullTextQuery jpaQuery = searchQuery(searchText, Book.class, BOOK_SEARCH_FIELDS);
 		List<Book> bookList = jpaQuery.getResultList();
 
 		return bookList;
@@ -43,13 +37,13 @@ public class SearchServiceImpl implements SearchService {
 	
 	public List<EBook> searchEBooks(String searchText) {
 		
-		FullTextQuery jpaQuery = searchBooksQuery(searchText, EBook.class);
+		FullTextQuery jpaQuery = searchQuery(searchText, EBook.class, BOOK_SEARCH_FIELDS);
 		List<EBook> bookList = jpaQuery.getResultList();
 		
 		return bookList;
 	}
 
-	private FullTextQuery searchBooksQuery(String searchText, Class<? extends AbstractBook> clazz) {
+	private FullTextQuery searchQuery(String searchText, Class<? extends AbstractRental> clazz, String[] fieldParams) {
 
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 
@@ -57,14 +51,11 @@ public class SearchServiceImpl implements SearchService {
 		org.hibernate.search.query.dsl.QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
 				.buildQueryBuilder().forEntity(clazz).get();
 		Query query;
-		if (null != searchText && !searchText.trim().isEmpty()) {
-
-			List<String> fields = new ArrayList<String>(
-					Arrays.asList(new String[] { "isbn", "title", "authorList.firstname", "authorList.lastname" }));
+		if (null != searchText && !searchText.trim().isEmpty() && null != fieldParams) {
 
 			BooleanJunction<?> bj = queryBuilder.bool();
 
-			for (String field : fields) {
+			for (String field : fieldParams) {
 				for (String string : searchText.split(" ")) {
 					bj.should(new WildcardQuery(new Term(field, "*" + string.trim().toLowerCase() + "*")));
 				}

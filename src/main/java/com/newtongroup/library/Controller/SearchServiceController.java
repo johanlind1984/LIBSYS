@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.newtongroup.library.Entity.AbstractBook;
 import com.newtongroup.library.Entity.Book;
 import com.newtongroup.library.Entity.EBook;
 import com.newtongroup.library.Repository.UserRepository;
@@ -27,13 +27,15 @@ public class SearchServiceController {
 	private UserRepository userRepository;
 
 	@GetMapping()
-	public String searchForm( @RequestParam(value="search", required =false) String searchText, Model model, Principal principal){
+	public String getSearchForm(Model model, Principal principal) {
+		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
+		return "/search/searchview";
+	}
 
-		if(principal == null) {
-			model.addAttribute("header", new String("anonymous-user/anonymousheader.html"));
-		} else {
-			model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-		}
+	@PostMapping()
+	public String postSearchForm(@RequestParam(value = "search", required = false) String searchText, Model model,
+			Principal principal) {
+		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
 
 		List<Book> bResults = searchService.searchBooks(searchText);
 		List<EBook> ebResults = searchService.searchEBooks(searchText);
