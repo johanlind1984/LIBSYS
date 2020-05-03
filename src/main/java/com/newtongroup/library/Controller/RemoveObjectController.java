@@ -112,10 +112,7 @@ public class RemoveObjectController {
 
                 RemovedBook removedBook = new RemovedBook(id,title,isbn,publisher,description,price, placement_id,cause);
                 removedBookRepository.save(removedBook);
-                System.out.println(removedBook);
-
                 bookRepository.delete(temp);
-                System.out.println(temp);
                 return "remove-objects/remove-book-confirmation";
             }
 
