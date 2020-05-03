@@ -3,6 +3,7 @@ package com.newtongroup.library.Controller;
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -91,7 +92,8 @@ public class AddObjectController {
 
         Book book = new Book();
 
-        authorList=authorRepository.findAll();
+        authorList=authorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
+
         List<Placement>placementList=placementRepository.findAll();
 
         model.addAttribute("book", book);
