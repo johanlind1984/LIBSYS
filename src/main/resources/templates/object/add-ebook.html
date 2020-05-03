@@ -86,28 +86,28 @@
         </select>
 
         <label id="l2" for="title">Titel</label>
-        <input class="form-control" id="title" name="title" required
+        <input class="form-control" id="title" name="title" required maxlength="255"
                th:value="${ebook.title}" type="text">
 
         <label id="l3" for="isbn">Isbn</label>
-        <input class="form-control" id="isbn" name="isbn" required
+        <input class="form-control" id="isbn" name="isbn" required maxlength="255"
                th:value="${ebook.title}" type="text">
 
 
         <label id="l4" for="publisher">Förlag</label>
-        <input class="form-control" id="publisher"name="publisher" required
+        <input class="form-control" id="publisher"name="publisher" required maxlength="255"
                th:value="${ebook.publisher}" type="text">
 
         <label id="l5" for="purchasePrice">Inköpspris</label>
-        <input class="form-control" id="purchasePrice"name="purchasePrice" required
-               th:value="${ebook.purchasePrice}" type="text"><br>
+        <input class="form-control" id="purchasePrice"name="purchasePrice" required maxlength="255" min="0"
+               th:value="${ebook.purchasePrice}" type="number"><br>
 
         <label id="l6" for="downloadLink">Boklänk</label>
-        <input class="form-control" id="downloadLink"name="downloadLink" required
+        <input class="form-control" id="downloadLink"name="downloadLink" required maxlength="1000"
                th:value="${ebook.downloadLink}" type="text">
 
         <label id="l7" for="description">Beskrivning</label>
-        <textarea class="form-control" id="description" name="description"
+        <textarea class="form-control" id="description" name="description" maxlength="5000"
                   required rows="5"
                   th:value="${ebook.description}" type="text"></textarea><br>
 

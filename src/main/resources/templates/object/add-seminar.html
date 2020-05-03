@@ -89,25 +89,25 @@
     <form action="/new-object/save-seminar" class="form-group" method="POST" onsubmit="myFunction()" th:object="${seminary}">
 
         <label id="l1" for="title">Titel</label>
-        <input class="form-control" id="title" name="title" required
+        <input class="form-control" id="title" name="title" required maxlength="255"
                th:value="${seminary.title}" type="text">
 
         <label id="l2" for="datepicker">Datum</label>
-        <input class="form-control" id="datepicker" name="occurrence" placeholder="yyyy-mm-dd" required
+        <input class="form-control" id="datepicker" name="occurrence" placeholder="yyyy-mm-dd" required maxlength="255"
                pattern="([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
                th:value="${seminary.occurrence}" type="text">
 
         <label id="l3" for="startTime">Start tid</label>
-        <input class="form-control" id="startTime" name="startTime" placeholder="hh:mm" required
+        <input class="form-control" id="startTime" name="startTime" placeholder="hh:mm" required maxlength="255"
                th:value="${seminary.startTime}" type="text">
 
         <label id="l4" for="endTime">Slut tid</label>
-        <input class="form-control" id="endTime" name="endTime" placeholder="hh:mm" required
+        <input class="form-control" id="endTime" name="endTime" placeholder="hh:mm" required maxlength="255"
                th:value="${seminary.endTime}" type="text">
 
         <label id="l5" for="information">Beskrivning</label>
         <textarea class="form-control" id="information" name="information"
-                  required row="40" cols="60"
+                  required row="40" cols="60" maxlength="5000"
                   th:value="${seminary.information}" type="text"></textarea>
         <button type= "submit" name="save" id="save" >Spara</button>
     </form></div>
