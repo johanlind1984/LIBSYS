@@ -1,15 +1,20 @@
 package com.newtongroup.library.Entity;
 
 import javax.persistence.*;
+
+import org.hibernate.search.annotations.Indexed;
+
 import java.util.List;
 
 @Entity
+@Indexed
 @Table(name="e_books")
 public class EBook extends AbstractBook {
 
 	@Column(name="download_link")
 	private String downloadLink;
-
+	
+	@Embedded
 	@ManyToMany()
 	@JoinTable(
 			name="ebook_author",

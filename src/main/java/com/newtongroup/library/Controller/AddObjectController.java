@@ -2,14 +2,13 @@ package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
+import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -31,10 +30,40 @@ public class AddObjectController {
     @Autowired
     PlacementRepository placementRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
+
+
     List<Author> authorList;
 
+    @GetMapping("/menu")
+    public String getMenu(Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
+        return "object/add-object-menu";
+    }
+    @RequestMapping("/home")
+    public String goToHome(Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        User user=userRepository.findByUsername(principal.getName());
+
+        switch (user.getAuthority().getAuthorityName()){
+            case "ROLE_ADMIN":
+                return "redirect:/admin/";
+            case "ROLE_LIBRARIAN":
+                return "redirect:/librarian/";
+            default:
+                break;
+        }
+
+        return null;
+    }
+//
     @GetMapping("/new-seminar")
-    public String getSeminarForm(Model model){
+    public String getSeminarForm(Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
         Seminary seminary=new Seminary();
         model.addAttribute("seminary", seminary);
         return "object/add-seminar";
@@ -46,7 +75,9 @@ public class AddObjectController {
     }
 
     @GetMapping("/new-author")
-    public String getAuthorForm(Model model){
+    public String getAuthorForm(Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
         Author author = new Author();
         model.addAttribute("author",author);
         return "object/add-author";
@@ -58,7 +89,9 @@ public class AddObjectController {
     }
 
     @GetMapping("/new-book")
-    public String getBookForm(Model model){
+    public String getBookForm(Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
         Book book = new Book();
 
         authorList=authorRepository.findAll();
@@ -76,7 +109,9 @@ public class AddObjectController {
         return "redirect:/new-object/new-book";
     }
     @GetMapping("/new-ebook")
-    public String getEBookForm(Model model){
+    public String getEBookForm(Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
         EBook ebook = new EBook();
 
         authorList=authorRepository.findAll();

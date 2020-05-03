@@ -48,12 +48,37 @@
         #div{
             width: 50%;
         }
-        #information{
-
+        #li{
+        color: lightgray;
         }
     </style>
 
 </head>
+<header>
+    <div th:fragment="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">LIBSYS</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a th:href="@{/new-object/home}">Hem</a></li>
+                    <li><a href="/new-object/new-author">Lägg till författare</a></li>
+                    <li><a href="/new-object/new-book">Lägg till bok</a></li>
+                    <li><a href="/new-object/new-ebook">Lägg till ebok</a></li>
+                    <li><a id="li" href="/new-object/new-seminar">Lägg till seminarium</a></li>
+                    <li><a href="/search/">Sök</a></li>
+
+                </ul>
+                <div align="right">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-warning">Logga ut</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
 <body>
 <h1>Lägg till seminarium</h1>
 

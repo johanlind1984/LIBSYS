@@ -7,8 +7,29 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .img-libsys {
+            position:relative;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 5%;
+            margin-bottom: auto;
+        }
+        .theBody{
+            background-color: black;
+            text-align: center;
+        }
+    </style>
 </head>
-<body>
 <header th:insert="${header} :: header"> </header>
+<body class="theBody">
+<!--<img src="../../static/images/libsys.png" alt="libsys" class="img-libsys" height="500" width="500"/>-->
+<img class="img-libsys" alt="libsys" th:src="@{/images/libsys.png}">
+<p id="date"></p>
+<script>
+    var d = new Date();
+    document.getElementById("date").innerHTML = d;
+</script>
 </body>
 </html>
