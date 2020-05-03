@@ -50,7 +50,7 @@ public class RegisterVisitorController {
         if(visitor == null) {
             setVisitorValues(userPerson);
             saveToDb(userPerson);
-            return "register-visitor/register-visitor";
+            return "register-visitor/visitor-registration-confirmation";
         } else {
             return "error/eposten-redan-registrerad";
         }

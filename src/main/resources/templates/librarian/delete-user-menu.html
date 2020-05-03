@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LIBSYS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        body{
+            background-color: #F8F9F9;
+        }
+        #save{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
+            margin-top: 40px;
+            text-align:center;
+        }
+        #email,
+        #l1{
+            font-size: medium;
+        }
+        #div{
+            width: 60%;
+        }
+    </style>
+</head>
+<body>
+<header th:insert="${header} :: header"></header>
+<h1>Ta bort en användare ur systemet</h1>
+<div class="container" id="div">
+    <form th:action="@{/librarian/delete-visitor}">
+        <div class="form-group">
+            <label id="l1">Ange kontots e-postadress</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                   placeholder="Skriv din e-post"
+                   th:name="email" required maxlength="150">
+            <button id="save" type="submit" class="btn btn-danger">Ta bort</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
