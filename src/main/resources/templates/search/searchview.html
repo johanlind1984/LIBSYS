@@ -41,7 +41,7 @@
 
 	<div class="container-fluid">
 		<div class="form-group">
-			<form action="#" th:action="@{/search}" method="get"
+			<form action="#" th:action="@{/search}" method="post"
 				class="form-inline">
 
 				<label for="bsearch">Hitta bok/E-bok:</label> <input
@@ -93,7 +93,7 @@
 						<h5>
 							<strong>Beskrivning:</strong>
 						</h5> <i th:text="${result.description}"></i>
-						</p> <small th:text="'Nedladdningslänk: ' + ${result.downloadLink}"></small></br>
+						</p> <small a th:text="'Nedladdningslänk: ' + ${result.downloadLink}"></small></br>
 						<small th:text="'ISBN: ' + ${result.isbn}"></small>
 					</a>
 				</div>

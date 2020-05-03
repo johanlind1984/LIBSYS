@@ -29,13 +29,15 @@ import com.newtongroup.library.Service.SearchService;
 
 @Service
 public class SearchServiceImpl implements SearchService {
+	
+	private static final String[] BOOK_SEARCH_FIELDS = new String[] { "isbn", "title", "authorList.firstname", "authorList.lastname" };
 
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	public List<Book> searchBooks(String searchText) {
 
-		FullTextQuery jpaQuery = searchBooksQuery(searchText, Book.class);
+		FullTextQuery jpaQuery = searchQuery(searchText, Book.class, BOOK_SEARCH_FIELDS);
 		List<Book> bookList = jpaQuery.getResultList();
 
 		return bookList;
@@ -43,13 +45,13 @@ public class SearchServiceImpl implements SearchService {
 	
 	public List<EBook> searchEBooks(String searchText) {
 		
-		FullTextQuery jpaQuery = searchBooksQuery(searchText, EBook.class);
+		FullTextQuery jpaQuery = searchQuery(searchText, EBook.class, BOOK_SEARCH_FIELDS);
 		List<EBook> bookList = jpaQuery.getResultList();
 		
 		return bookList;
 	}
 
-	private FullTextQuery searchBooksQuery(String searchText, Class<? extends AbstractBook> clazz) {
+	private FullTextQuery searchQuery(String searchText, Class<? extends AbstractRental> clazz, String[] fieldParams) {
 
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 
@@ -57,14 +59,11 @@ public class SearchServiceImpl implements SearchService {
 		org.hibernate.search.query.dsl.QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
 				.buildQueryBuilder().forEntity(clazz).get();
 		Query query;
-		if (null != searchText && !searchText.trim().isEmpty()) {
-
-			List<String> fields = new ArrayList<String>(
-					Arrays.asList(new String[] { "isbn", "title", "authorList.firstname", "authorList.lastname" }));
+		if (null != searchText && !searchText.trim().isEmpty() && null != fieldParams) {
 
 			BooleanJunction<?> bj = queryBuilder.bool();
 
-			for (String field : fields) {
+			for (String field : fieldParams) {
 				for (String string : searchText.split(" ")) {
 					bj.should(new WildcardQuery(new Term(field, "*" + string.trim().toLowerCase() + "*")));
 				}
