@@ -5,3 +5,4 @@ spring.datasource.password=
 spring.thymeleaf.cache=false 
 spring.jpa.properties.hibernate.search.default.directory_provider=filesystem
 spring.jpa.properties.hibernate.search.default.indexBase=./data/lucene
+server.error.whitelabel.enabled=false
