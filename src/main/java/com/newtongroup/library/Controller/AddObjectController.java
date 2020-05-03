@@ -112,7 +112,7 @@ public class AddObjectController {
 
         EBook ebook = new EBook();
 
-        authorList=authorRepository.findAll();
+        authorList=authorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
 
         model.addAttribute("ebook", ebook);
         model.addAttribute("authors", authorList);
