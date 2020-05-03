@@ -162,6 +162,10 @@ img {
     height:90px;
     width:70px;
 }
+.img-yes {
+    height: 250px;
+    width: 250px;
+}
 
 
 .zoom {
@@ -170,10 +174,17 @@ img {
 }
 
 .zoom:hover {
-    transform: scale(5);
+    transform: scale(4.5);
 }
 
 .login {
     position: relative;
     float: right;
+}
+
+.right {
+    text-align: right;
+    margin: auto;
+    width: 95%;
+    padding: 10px;
 }

@@ -12,7 +12,7 @@ public class indexController {
         return "landing/index";
     }
 
-    @RequestMapping("/about")
+    @RequestMapping("/why")
     public String indexAbout() {
         return "landing/why";
     }
