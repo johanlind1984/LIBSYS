@@ -47,10 +47,10 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">LIBSYS (BIBLIOTEKARIE)</a>
+                    <a class="navbar-brand" href="#">LIBSYS</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/librarian/">Hem</a></li>
+                    <li class="active"><a th:href="@{/new-object/home}">Hem</a></li>
                     <li><a href="/new-object/new-author">Lägg till författare</a></li>
                     <li><a href="/new-object/new-book">Lägg till bok</a></li>
                     <li><a id="li" href="/new-object/new-ebook">Lägg till ebok</a></li>
@@ -78,7 +78,7 @@
         <label id="l1" for="select">Välj författare (håll nere ctrl eller shift för att välja fler):</label>
 
         <select class="form-control" id="select"  multiple
-                name="select"  th:field="${ebook.authorList}">
+                name="select"  th:field="${ebook.authorList}" required>
 
             <option id="option"  th:each="author:${authors}"
                      th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}"
@@ -86,28 +86,28 @@
         </select>
 
         <label id="l2" for="title">Titel</label>
-        <input class="form-control" id="title" name="title" required
+        <input class="form-control" id="title" name="title" required maxlength="255"
                th:value="${ebook.title}" type="text">
 
         <label id="l3" for="isbn">Isbn</label>
-        <input class="form-control" id="isbn" name="isbn" required
+        <input class="form-control" id="isbn" name="isbn" required maxlength="255"
                th:value="${ebook.title}" type="text">
 
 
         <label id="l4" for="publisher">Förlag</label>
-        <input class="form-control" id="publisher"name="publisher" required
+        <input class="form-control" id="publisher"name="publisher" required maxlength="255"
                th:value="${ebook.publisher}" type="text">
 
         <label id="l5" for="purchasePrice">Inköpspris</label>
-        <input class="form-control" id="purchasePrice"name="purchasePrice" required
-               th:value="${ebook.purchasePrice}" type="text"><br>
+        <input class="form-control" id="purchasePrice"name="purchasePrice" required maxlength="255" min="0"
+               th:value="${ebook.purchasePrice}" type="number"><br>
 
         <label id="l6" for="downloadLink">Boklänk</label>
-        <input class="form-control" id="downloadLink"name="downloadLink" required
+        <input class="form-control" id="downloadLink"name="downloadLink" required maxlength="1000"
                th:value="${ebook.downloadLink}" type="text">
 
         <label id="l7" for="description">Beskrivning</label>
-        <textarea class="form-control" id="description" name="description"
+        <textarea class="form-control" id="description" name="description" maxlength="5000"
                   required rows="5"
                   th:value="${ebook.description}" type="text"></textarea><br>
 

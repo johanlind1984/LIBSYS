@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Digitalt bibliotek</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+          integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous"/>
+
+</head>
+<body>
+<section class="section section-top">
+
+    <a href="http://localhost:8080/login"
+       class="btn btn-primary login"
+       data-toggle="tooltip"
+       title="Tryck här för att logga in">Logga in
+        <div
+                class="content rellax login"
+                data-rellax-speed="8">
+        </div>
+    </a>
+
+    <div class="content rellax" data-rellax-speed="5">
+        <h1>Varför digitalisera ett bibliotek?</h1>
+        <a href="http://localhost:8080" class="btn btn-primary" data-toggle="tooltip"
+           title="Tryck här för att gå tillbaka">Tillbaka</a>
+    </div>
+</section>
+
+<section class="section section-stream">
+    <div class="play rellax" data-rellax-speed="3">
+        <img class="img-yes" src="/images/LIBSYS.png" alt="">
+    </div>
+    <div class="content rellax" data-rellax-speed="2">
+        <div>
+            <h2 class="secondary-text">Begynnelsen av det digitaliserade biblioteket!</h2>
+            <p>Vi inom biblioteksledningen på Biblioteken i Stan AB har de senaste åren märkt
+                att vårt gamla system inte räcker till eller stödjer oss på bästa sätt i vår
+                verksamhet. Ett bibliotek idag har utvecklats gällande de tjänster vi
+                tillhandahåller och därmed behöver vi även uppdatera vår mjukvara för att
+                stötta våra användare och vår personal. Idag handlar det inte längre bara om
+                att låna ut böcker utan även e-böcker, filmer samt att vi idag även håller olika
+                typer av kunskapsseminarier för våra besökare.
+            </p><br>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <a href="https://github.com/johanlind1984/LIBSYS">
+        <p class="right">Java Gruppen 1 ©™</p>
+    </a>
+
+</footer>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js"
+        integrity="sha256-+xf9aJnHocnmrigq2hIDJGBSAnJdF5NH+Ooe5J2PHiI=" crossorigin="anonymous"></script>
+<script>
+    //initializing rellax
+    let rellax = new Rellax('.rellax');
+    //initializing tooltip
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+</body>
+</html>

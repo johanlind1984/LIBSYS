@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://wwww.thymeleaf.com">
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-<title>Sök</title>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+	<title>Sök</title>
 
 
 </head>
+
 <body>
 	<header th:insert="${header}::header">
 		<div th:fragment="header">
@@ -30,8 +31,7 @@
 					</ul>
 					<div class="nav d-flex" align="right">
 						<form class="form-inline" th:action="@{/logout}" method="post">
-							<button type="submit" class="btn btn-warning"
-								style="margin-top: 0.5em">Logga ut</button>
+							<button type="submit" class="btn btn-warning" style="margin-top: 0.5em">Logga ut</button>
 						</form>
 					</div>
 				</div>
@@ -41,14 +41,10 @@
 
 	<div class="container-fluid">
 		<div class="form-group">
-			<form action="#" th:action="@{/search}" method="post"
-				class="form-inline">
+			<form action="#" th:action="@{/search}" method="post" class="form-inline">
 
-				<label for="bsearch">Hitta bok/E-bok:</label> <input
-					class="form-control form-control-sm ml-3 w-75" type="search"
-					name="search" th:value="${searchText}"
-					placeholder="ISBN, Titel, Författare"> <input
-					class="btn btn-primary" type="submit" value="Sök">
+				<label for="bsearch">Hitta bok/E-bok:</label> <input class="form-control form-control-sm ml-3 w-75" type="search" name="search" th:value="${searchText}" placeholder="ISBN, Titel, Författare"> <input class="btn btn-primary" type="submit"
+					value="Sök">
 
 
 			</form>
@@ -58,47 +54,44 @@
 			<div class="col">
 				<h3>Böcker</h3>
 				<div class="list-group">
-					<a th:each="result: ${bResults}" href="#"
-						class="list-group-item list-group-item-action flex-column align-items-start">
+					<a th:each="result: ${bResults}" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
 						<div class="d-flex w-100 justify-content-between">
 							<h4 class="mb-1">
 								<u><strong th:text="${result.title}"></strong></u>
 							</h4>
-							<span><strong>Författare: </strong></span><span
-								th:each="author, iterStat: ${result.authorList}"
+							<span><strong>Författare: </strong></span><span th:each="author, iterStat: ${result.authorList}"
 								th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}"></span>
 						</div>
 						<p class="mb-1">
-						<h5>
-							<strong>Beskrivning:</strong>
-						</h5> <i th:text="${result.description}"></i>
+							<h5>
+								<strong>Beskrivning:</strong>
+							</h5> <i th:text="${result.description}"></i>
 						</p> <small th:text="'ISBN: ' + ${result.isbn}"> </small>
 					</a>
 				</div>
-			</div>
-			<div class="col">
-				<h3>E-Böcker</h3>
-				<div class="list-group">
-					<a th:each="result: ${ebResults}" href="#"
-						class="list-group-item list-group-item-action flex-column align-items-start">
-						<div class="d-flex w-100 justify-content-between">
-							<h4 class="mb-1">
-								<u><strong th:text="${result.title}"></strong></u>
-							</h4>
-							<span><strong>Författare: </strong></span><span
-								th:each="author, iterStat: ${result.authorList}"
-								th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}"></span>
-						</div>
-						<p class="mb-1">
-						<h5>
-							<strong>Beskrivning:</strong>
-						</h5> <i th:text="${result.description}"></i>
-						</p> <small a th:text="'Nedladdningslänk: ' + ${result.downloadLink}"></small></br>
-						<small th:text="'ISBN: ' + ${result.isbn}"></small>
-					</a>
+				<div class="col">
+					<h3>E-Böcker</h3>
+					<div class="list-group">
+						<a th:each="result: ${ebResults}" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h4 class="mb-1">
+									<u><strong th:text="${result.title}"></strong></u>
+								</h4>
+								<span><strong>Författare: </strong></span><span th:each="author, iterStat: ${result.authorList}"
+									th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}"></span>
+							</div>
+							<p class="mb-1">
+								<h5>
+									<strong>Beskrivning:</strong>
+								</h5> <i th:text="${result.description}"></i>
+							</p> <small a th:text="'Nedladdningslänk: ' + ${result.downloadLink}"></small></br>
+							<small th:text="'ISBN: ' + ${result.isbn}"></small>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
+
 </html>

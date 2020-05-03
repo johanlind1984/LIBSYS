@@ -1,7 +1,5 @@
 package com.newtongroup.library.Controller;
 
-import com.newtongroup.library.Entity.Librarian;
-import com.newtongroup.library.Entity.User;
 import com.newtongroup.library.Entity.Visitor;
 import com.newtongroup.library.Repository.UserAuthorityRepository;
 import com.newtongroup.library.Repository.UserRepository;
@@ -14,9 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.PrimaryKeyJoinColumn;
 import java.security.Principal;
 
 @Controller

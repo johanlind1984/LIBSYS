@@ -45,11 +45,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/visitor/**").hasRole("VISITOR")
                 .antMatchers("/search/**").permitAll()
                 .antMatchers("/login*").permitAll()
+                .antMatchers("/anonymous-user/**").permitAll()
+                .antMatchers("/logout-redirect/**").permitAll()
+                .antMatchers("/logout/**").permitAll()
                 .antMatchers("/error/**").permitAll()
                 .antMatchers("/").permitAll()
                 .and()
                 .formLogin().successHandler(authenticationSuccesHandler)
-                .and().logout();
+                .and().
+                logout().
+                logoutSuccessUrl("/logout-redirect/");
     }
 
     @Bean

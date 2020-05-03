@@ -28,14 +28,14 @@ public class SearchServiceController {
 
 	@GetMapping()
 	public String getSearchForm(Model model, Principal principal) {
-		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
 		return "/search/searchview";
 	}
 
 	@PostMapping()
 	public String postSearchForm(@RequestParam(value = "search", required = false) String searchText, Model model,
 			Principal principal) {
-		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
 
 		List<Book> bResults = searchService.searchBooks(searchText);
 		List<EBook> ebResults = searchService.searchEBooks(searchText);

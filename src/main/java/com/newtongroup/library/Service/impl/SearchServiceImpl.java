@@ -1,19 +1,12 @@
 package com.newtongroup.library.Service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queryparser.flexible.standard.QueryParserUtil;
-import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.WildcardQuery;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
@@ -21,7 +14,6 @@ import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.BooleanJunction;
 import org.springframework.stereotype.Service;
 
-import com.newtongroup.library.Entity.AbstractBook;
 import com.newtongroup.library.Entity.AbstractRental;
 import com.newtongroup.library.Entity.Book;
 import com.newtongroup.library.Entity.EBook;

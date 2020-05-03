@@ -34,3 +34,7 @@ build/
 *.properties
 src/main/resources/application.properties
 /data/lucene
+com.newtongroup.library.Entity.AbstractBook
+com.newtongroup.library.Entity.Author
+com.newtongroup.library.Entity.Book
+data/lucenes/com.newtongroup.library.Entity.Book

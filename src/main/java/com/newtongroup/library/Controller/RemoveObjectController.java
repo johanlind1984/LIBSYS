@@ -45,6 +45,21 @@ public class RemoveObjectController {
         return "remove-objects/remove-object-menu";
     }
 
+    @RequestMapping("/home")
+    public String goToHome(Model model, Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+
+        switch (user.getAuthority().getAuthorityName()) {
+            case "ROLE_ADMIN":
+                return "redirect:/admin/";
+            case "ROLE_LIBRARIAN":
+                return "redirect:/librarian/";
+            default:
+                break;
+        }
+        return null;
+    }
+
     @RequestMapping("/book")
     public String book(Model theModel, Principal principal){
 
@@ -97,10 +112,7 @@ public class RemoveObjectController {
 
                 RemovedBook removedBook = new RemovedBook(id,title,isbn,publisher,description,price, placement_id,cause);
                 removedBookRepository.save(removedBook);
-                System.out.println(removedBook);
-
                 bookRepository.delete(temp);
-                System.out.println(temp);
                 return "remove-objects/remove-book-confirmation";
             }
 
