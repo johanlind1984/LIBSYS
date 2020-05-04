@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
@@ -21,6 +22,7 @@ public abstract class AbstractRental {
 	@Column(name="title")
 	private String title;
 
+	@JsonIgnore
 	@Column(name="purchase_price")
 	private String purchasePrice;
 

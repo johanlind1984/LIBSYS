@@ -2,6 +2,7 @@ package com.newtongroup.library.Entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
@@ -14,7 +15,8 @@ public class EBook extends AbstractBook {
 
 	@Column(name="download_link")
 	private String downloadLink;
-	
+
+	@JsonManagedReference
 	@IndexedEmbedded
 	@ManyToMany()
 	@JoinTable(

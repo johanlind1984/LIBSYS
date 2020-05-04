@@ -1,5 +1,7 @@
 package com.newtongroup.library.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -16,8 +18,7 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name="author_id")
     private int authorId;
-    
-    
+
     @Field
     @Column(name="firstname")
     private String firstname;
@@ -26,16 +27,12 @@ public class Author {
     @Column(name="lastname")
     private String lastname;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name="book_author",
-//            joinColumns = {@JoinColumn(name="idbook_author_book_id")},
-//            inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
-    
+    @JsonBackReference
     @ContainedIn
     @ManyToMany(mappedBy = "authorList")
     private List<Book>bookList;
-    
+
+    @JsonBackReference
     @ContainedIn
     @ManyToMany(mappedBy = "authorList")
     private List<EBook>eBookList;
