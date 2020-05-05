@@ -43,8 +43,8 @@
 		<div class="form-group">
 			<form action="#" th:action="@{/search}" method="post" class="form-inline">
 
-				<label for="bsearch">Hitta bok/E-bok:</label> <input class="form-control form-control-sm ml-3 w-75" type="search" name="search" th:value="${searchText}" placeholder="ISBN, Titel, Författare"> <input class="btn btn-primary" type="submit"
-					value="Sök">
+				<label for="bsearch">Hitta bok/E-bok:</label> <input class="form-control form-control-sm ml-3 w-75" type="search" name="search" th:hittaSePerson="${searchText}" placeholder="ISBN, Titel, Författare"> <input class="btn btn-primary" type="submit"
+					hittaSePerson="Sök">
 
 
 			</form>

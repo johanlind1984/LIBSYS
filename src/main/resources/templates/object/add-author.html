@@ -78,11 +78,11 @@
 
         <label for="firstname" id="labFi">Förnamn</label>
         <input class="form-control" id="firstname" name="firstname"
-               required th:value="${author.firstname}" type="text" maxlength="255">
+               required th:hittaSePerson="${author.firstname}" type="text" maxlength="255">
 
         <label for="lastname" id="labLa">Efternamn</label>
         <input class="form-control" id="lastname" name="lastname"
-               required th:value="${author.lastname}" type="text" maxlength="255">
+               required th:hittaSePerson="${author.lastname}" type="text" maxlength="255">
 
         <button id="save" name="save" type= "submit">Spara</button>
     </form>

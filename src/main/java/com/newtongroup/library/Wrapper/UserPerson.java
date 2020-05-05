@@ -9,6 +9,7 @@ public class UserPerson {
     private Boss boss;
     private Librarian librarian;
     private Visitor visitor;
+    private Person person;
 
     public UserPerson(User user, Admin admin) {
         this.user = user;
@@ -28,6 +29,10 @@ public class UserPerson {
     public UserPerson(User user, Visitor visitor) {
         this.user = user;
         this.visitor = visitor;
+    }
+
+    public UserPerson(Person person) {
+        this.person = person;
     }
 
     public UserPerson() {
@@ -71,5 +76,13 @@ public class UserPerson {
 
     public void setVisitor(Visitor visitor) {
         this.visitor = visitor;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }
