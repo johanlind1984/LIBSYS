@@ -83,39 +83,39 @@
 
         <option  th:each="author:${authors}"
                 th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}"
-                 th:hittaSePerson="${author.authorId}"></option>
+                 th:value="${author.authorId}"></option>
     </select>
 
                 <label id="l1" for="title">Titel</label>
                 <input class="form-control" id="title" name="title" required maxlength="255"
-                       th:hittaSePerson="${book.title}" type="text">
+                       th:value="${book.title}" type="text">
 
                 <label id="l2" for="isbn">Isbn</label>
                 <input class="form-control" id="isbn" name="isbn" required maxlength="255"
-                       th:hittaSePerson="${book.isbn}" type="text">
+                       th:value="${book.isbn}" type="text">
 
 
                 <label id="l3" for="publisher">Förlag</label>
                 <input class="form-control" id="publisher"name="publisher" required maxlength="255"
-                       th:hittaSePerson="${book.publisher}" type="text">
+                       th:value="${book.publisher}" type="text">
 
                 <label id="l4" for="purchasePrice">Inköpspris</label>
                 <input class="form-control" id="purchasePrice"name="purchasePrice" required type="number" maxlength="255" min="0"
-                       th:hittaSePerson="${book.purchasePrice}"><br>
+                       th:value="${book.purchasePrice}"><br>
 
                 <label id="l5" for="placement">Placering</label>
                 <select class="form-control" id="placement" name="placement" required
                         th:field="${book.placement}">
-                    <option hittaSePerson="1"></option>
+                    <option value="1"></option>
                     <option th:each="placement:${placements}"
                             th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}"
-                            th:hittaSePerson="${placement.placementId}"></option>
+                            th:value="${placement.placementId}"></option>
                 </select>
 
                 <label id="l6" for="description">Beskrivning</label>
                 <textarea class="form-control" id="description" name="description"
                           required rows="5" maxlength="5000"
-                          th:hittaSePerson="${book.description}" type="text"></textarea><br>
+                          th:value="${book.description}" type="text"></textarea><br>
 
 
         <button id="save" name="save" style="height:30px;width:80px" type= "submit">Spara</button>

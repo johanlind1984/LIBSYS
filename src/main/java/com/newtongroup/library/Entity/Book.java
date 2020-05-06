@@ -20,7 +20,6 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 @Table(name = "books")
 public class Book extends AbstractBook {
 
-	//@JsonIgnore
 	@JsonManagedReference
 	@IndexedEmbedded
 	@ManyToMany()
