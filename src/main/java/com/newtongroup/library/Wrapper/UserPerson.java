@@ -85,4 +85,16 @@ public class UserPerson {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    public void setPersonAsVisitor() {
+        this.visitor = new Visitor();
+        this.visitor.setFirstName(person.getFirstName());
+        this.visitor.setLastName(person.getLastName());
+        this.visitor.setPersonalNumber(person.getPersonalNumber());
+        this.visitor.setPhone(person.getPhone());
+        this.visitor.setCity(person.getCity());
+        this.visitor.setPostalCode(person.getPostalCode());
+        this.visitor.setStreet(person.getStreet());
+        this.visitor.setEmail(user.getUsername());
+    }
 }

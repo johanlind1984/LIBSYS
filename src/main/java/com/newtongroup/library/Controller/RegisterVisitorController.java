@@ -46,25 +46,43 @@ public class RegisterVisitorController {
     @RequestMapping("/save-visitor")
     public String saveVisitorToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        System.out.println("TEST IN SAVEVISIOTOR");
+        System.out.println("USER:");
+        System.out.println(userPerson.getUser().getUsername());
+        System.out.println(userPerson.getUser().getPassword());
+
+        System.out.println("PERSON:");
+
+        System.out.println(userPerson.getPerson().getFirstName());
+        System.out.println(userPerson.getPerson().getLastName());
+        System.out.println(userPerson.getPerson().getStreet());
+        System.out.println(userPerson.getPerson().getPostalCode());
+        System.out.println(userPerson.getPerson().getCity());
+        System.out.println(userPerson.getPerson().getEmail());
+        System.out.println(userPerson.getUser().getUsername());
+        System.out.println(userPerson.getUser().getPassword());
+
+        userPerson.setPersonAsVisitor();
+
         Visitor visitor = visitorRepository.findById(userPerson.getVisitor().getEmail()).orElse(null);
         if(visitor == null) {
-            setVisitorValues(userPerson);
-            saveToDb(userPerson);
+            setUserVisitorValues(userPerson);
+            saveUserPersonAsVisitorToDatabase(userPerson);
             return "register-visitor/visitor-registration-confirmation";
         } else {
             return "error/eposten-redan-registrerad";
         }
     }
 
-    private void setVisitorValues(UserPerson userPerson) {
+    private void setUserVisitorValues(UserPerson userPerson) {
         userPerson.getUser().setAuthority(userAuthorityRepository.findById((long) 4).orElse(null));
         userPerson.getUser().setEnabled(true);
         userPerson.getUser().setUsername(userPerson.getVisitor().getEmail());
         userPerson.getUser().setPassword(passwordEncoder.encode(userPerson.getUser().getPassword()));
     }
 
-    private void saveToDb(UserPerson userPerson) {
-        visitorRepository.saveAndFlush((userPerson.getVisitor()));
-        userRepository.saveAndFlush(userPerson.getUser());
+    private void saveUserPersonAsVisitorToDatabase(UserPerson userPerson) {
+        visitorRepository.save((userPerson.getVisitor()));
+        userRepository.save(userPerson.getUser());
     }
 }
