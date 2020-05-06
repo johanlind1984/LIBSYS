@@ -11,17 +11,17 @@ public class HeaderUtils {
 		if (null != p) {
 			return getHeaderString(userRepo.findByUsername(p.getName()));
 		} else {
-			return "anonymous-user/anonymousheader.html";
+			return "anonymous-user/bootstrapheader.html";
 		}
 	}
 	
     public static String getHeaderString(User user) {
         if(user.getAuthority().getAuthorityName().equals("ROLE_ADMIN")) {
-            return "admin/adminheader.html";
+            return "admin/bootstrapheader.html";
         } else if(user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")) {
-            return "librarian/librarianheader.html";
+            return "librarian/bootstrapheader.html";
         } else if(user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")) {
-            return "visitor/visitorheader.html";
+            return "visitor/bootstrapheader.html";
         }
 
         return null;

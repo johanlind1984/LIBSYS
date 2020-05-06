@@ -3,6 +3,7 @@ package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
+import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,7 +64,7 @@ public class RemoveObjectController {
     @RequestMapping("/book")
     public String book(Model theModel, Principal principal){
 
-        theModel.addAttribute("header", getHeader(principal));
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         theModel.addAttribute("book", new Book());
         theModel.addAttribute("removedBook", new RemovedBook());
 
@@ -73,8 +74,7 @@ public class RemoveObjectController {
 
     @RequestMapping("/e-book")
     public String ebook(Model theModel, Principal principal){
-
-        theModel.addAttribute("header", getHeader(principal));
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         theModel.addAttribute("ebook", new EBook());
         theModel.addAttribute("removedEBook", new RemovedEBook());
 
@@ -84,8 +84,7 @@ public class RemoveObjectController {
 
     @RequestMapping("/seminary")
     public String seminarie(Model theModel, Principal principal){
-
-        theModel.addAttribute("header", getHeader(principal));
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         theModel.addAttribute("seminary", new Seminary());
         theModel.addAttribute("removedSeminary", new RemovedSeminary());
 
@@ -95,7 +94,7 @@ public class RemoveObjectController {
 
     @RequestMapping("/delete-book")
     public String deleteBook(@ModelAttribute("book")Book theBook, @ModelAttribute("removedBook") RemovedBook theRemovedBook, Model theModel, Principal principal){
-        theModel.addAttribute("header", getHeader(principal));
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         String isbn = theBook.getIsbn();
 
         List<Book> bookList = bookRepository.findAll();
@@ -125,7 +124,7 @@ public class RemoveObjectController {
 
     @RequestMapping("/delete-e-book")
     public String deleteEBook(@ModelAttribute("EBook") EBook theEBook,  @ModelAttribute("removedEBook") RemovedEBook theRemovedEBook,Model theModel, Principal principal){
-        theModel.addAttribute("header", getHeader(principal));
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         String isbn = theEBook.getIsbn();
 
         List<EBook> bookList = eBookRepository.findAll();
@@ -157,7 +156,7 @@ public class RemoveObjectController {
 
     @RequestMapping("/delete-seminary")
     public String deleteSeminarie(@ModelAttribute("seminary") Seminary theSeminary,@ModelAttribute("removedSeminary") RemovedSeminary theRemovedSeminary, Model theModel, Principal principal){
-        theModel.addAttribute("header", getHeader(principal));
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
 
             Long id = theSeminary.getSeminary_id();
@@ -188,17 +187,4 @@ public class RemoveObjectController {
 
 
     }
-
-    private String getHeader(Principal principal) {
-        String header = new String();
-        if(userRepository.findByUsername(principal.getName()).getAuthority().getAuthorityName().equals("ROLE_ADMIN")) {
-            return adminheader;
-        } else if (userRepository.findByUsername(principal.getName()).getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")){
-            return librarianheader;
-        }
-
-        return header;
-    }
-
-
 }

@@ -2,6 +2,7 @@ package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
+import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -63,7 +64,7 @@ public class AddObjectController {
 //
     @GetMapping("/new-seminar")
     public String getSeminarForm(Model model, Principal principal){
-
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         Seminary seminary=new Seminary();
         model.addAttribute("seminary", seminary);
         return "object/add-seminar";
@@ -89,6 +90,7 @@ public class AddObjectController {
 
     @GetMapping("/new-book")
     public String getBookForm(Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         Book book = new Book();
 
@@ -109,6 +111,7 @@ public class AddObjectController {
     }
     @GetMapping("/new-ebook")
     public String getEBookForm(Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         EBook ebook = new EBook();
 
