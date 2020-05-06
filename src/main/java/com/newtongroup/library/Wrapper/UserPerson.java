@@ -97,4 +97,30 @@ public class UserPerson {
         this.visitor.setStreet(person.getStreet());
         this.visitor.setEmail(user.getUsername());
     }
+
+    public void setPersonAsLibrarian() {
+        this.librarian = new Librarian();
+        this.librarian.setFirstName(person.getFirstName());
+        this.librarian.setLastName(person.getLastName());
+        this.librarian.setPersonalNumber(person.getPersonalNumber());
+        this.librarian.setPhone(person.getPhone());
+        this.librarian.setCity(person.getCity());
+        this.librarian.setPostalCode(person.getPostalCode());
+        this.librarian.setStreet(person.getStreet());
+        this.librarian.setEmail(user.getUsername());
+    }
+
+    public void setPersonAsAdmin() {
+        this.admin = new Admin();
+        this.admin.setFirstName(person.getFirstName());
+        this.admin.setLastName(person.getLastName());
+        this.admin.setPersonalNumber(person.getPersonalNumber());
+        this.admin.setPhone(person.getPhone());
+        this.admin.setCity(person.getCity());
+        this.admin.setPostalCode(person.getPostalCode());
+        this.admin.setStreet(person.getStreet());
+        this.admin.setEmail(user.getUsername());
+    }
+
+
 }

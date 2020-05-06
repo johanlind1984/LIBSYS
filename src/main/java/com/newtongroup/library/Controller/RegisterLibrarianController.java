@@ -43,10 +43,12 @@ public class RegisterLibrarianController {
     @RequestMapping("/save-librarian")
     public String saveLibrarianToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        userPerson.setPersonAsLibrarian();
+
         Librarian librarian = librarianRepository.findById(userPerson.getLibrarian().getEmail()).orElse(null);
         if(librarian == null) {
             setLibrarianValues(userPerson);
-            saveToDb(userPerson);
+            saveUserPersonAsLibrarianToDatabase(userPerson);
             return "register-librarian/librarian-registration-confirmation";
         } else {
             return "error/eposten-redan-registrerad";
@@ -60,7 +62,7 @@ public class RegisterLibrarianController {
         userPerson.getUser().setPassword(passwordEncoder.encode(userPerson.getUser().getPassword()));
     }
 
-    private void saveToDb(UserPerson userPerson) {
+    private void saveUserPersonAsLibrarianToDatabase(UserPerson userPerson) {
         librarianRepository.saveAndFlush((userPerson.getLibrarian()));
         userRepository.saveAndFlush(userPerson.getUser());
     }
