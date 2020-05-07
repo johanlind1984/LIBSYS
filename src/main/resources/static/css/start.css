@@ -10,20 +10,24 @@
 body {
     background: var(--primary-color);
     color: var(--text-color);
-}
-.text-color {
-    color: var(--text-color);
+    font-size: 17px;
 }
 
-.admin {
+
+.prim {
     background: var(--primary-color);
 }
 
-.hover {
-    color: var(--primary-color);
-}
-
-li {
+.menu {
     background: var(--secondary--color);
+    color: var(--text-color);
 }
 
+button {
+    background: var(--primary-color);
+    margin-top: 8px;
+}
+
+button:hover {
+    background: var(--hover-color);
+}
