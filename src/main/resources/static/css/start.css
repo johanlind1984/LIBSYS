@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+:root {
+    --primary-color: #362476;
+    --secondary--color: #f5c42f;
+    --text-color: #ffffff;
+    --hover-color: #ea0202;
+}
+
+body {
+    background: var(--primary-color);
+    color: var(--text-color);
+}
+.text-color {
+    color: var(--text-color);
+}
+
+.admin {
+    background: var(--primary-color);
+}
+
+.hover {
+    color: var(--primary-color);
+}
+
+li {
+    background: var(--secondary--color);
+}
+
