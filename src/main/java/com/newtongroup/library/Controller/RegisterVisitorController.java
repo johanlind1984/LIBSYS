@@ -46,25 +46,27 @@ public class RegisterVisitorController {
     @RequestMapping("/save-visitor")
     public String saveVisitorToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        userPerson.setPersonAsVisitor();
+
         Visitor visitor = visitorRepository.findById(userPerson.getVisitor().getEmail()).orElse(null);
         if(visitor == null) {
-            setVisitorValues(userPerson);
-            saveToDb(userPerson);
+            setUserVisitorValues(userPerson);
+            saveUserPersonAsVisitorToDatabase(userPerson);
             return "register-visitor/visitor-registration-confirmation";
         } else {
             return "error/eposten-redan-registrerad";
         }
     }
 
-    private void setVisitorValues(UserPerson userPerson) {
+    private void setUserVisitorValues(UserPerson userPerson) {
         userPerson.getUser().setAuthority(userAuthorityRepository.findById((long) 4).orElse(null));
         userPerson.getUser().setEnabled(true);
         userPerson.getUser().setUsername(userPerson.getVisitor().getEmail());
         userPerson.getUser().setPassword(passwordEncoder.encode(userPerson.getUser().getPassword()));
     }
 
-    private void saveToDb(UserPerson userPerson) {
-        visitorRepository.saveAndFlush((userPerson.getVisitor()));
-        userRepository.saveAndFlush(userPerson.getUser());
+    private void saveUserPersonAsVisitorToDatabase(UserPerson userPerson) {
+        visitorRepository.save((userPerson.getVisitor()));
+        userRepository.save(userPerson.getUser());
     }
 }

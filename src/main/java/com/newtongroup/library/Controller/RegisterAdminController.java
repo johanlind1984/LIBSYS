@@ -41,12 +41,14 @@ public class RegisterAdminController {
     }
 
     @RequestMapping("/save-admin")
-    public String saveAdminToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel) {
-        theModel.addAttribute("header", adminheader);
+    public String saveAdminToDatabase(@ModelAttribute("userPerson") UserPerson userPerson, Model theModel, Principal principal) {
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        userPerson.setPersonAsAdmin();
+
         Admin admin = adminRepository.findById(userPerson.getAdmin().getEmail()).orElse(null);
         if(admin == null) {
             setAdminValues(userPerson);
-            saveToDb(userPerson);
+            saveUserPersonAsAdminToDatabase(userPerson);
             return "register-admin/admin-registration-confirmation";
         } else {
             return "error/eposten-redan-registrerad";
@@ -60,7 +62,7 @@ public class RegisterAdminController {
         userPerson.getUser().setPassword(passwordEncoder.encode(userPerson.getUser().getPassword()));
     }
 
-    private void saveToDb(UserPerson userPerson) {
+    private void saveUserPersonAsAdminToDatabase(UserPerson userPerson) {
         adminRepository.saveAndFlush((userPerson.getAdmin()));
         userRepository.saveAndFlush(userPerson.getUser());
     }

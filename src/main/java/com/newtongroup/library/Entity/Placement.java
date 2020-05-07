@@ -1,5 +1,7 @@
 package com.newtongroup.library.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class Placement {
     @Column(name = "title")
     private String title;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "placement")
     private List<Book> bookList;
 
