@@ -36,8 +36,8 @@ public class AdminController {
     }
 
     @RequestMapping("/delete-menu")
-    public String deleteUserMenu(Model theModel) {
-        theModel.addAttribute("header", new String(header));
+    public String deleteUserMenu(Model theModel, Principal principal) {
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         theModel.addAttribute("email", new String());
         return "admin/delete-user-menu";
     }
