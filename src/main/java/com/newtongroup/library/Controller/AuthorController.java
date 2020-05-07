@@ -2,11 +2,15 @@ package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.Author;
 import com.newtongroup.library.Repository.AuthorRepository;
+import com.newtongroup.library.Repository.UserRepository;
+import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.security.Principal;
 
 
 @Controller
@@ -17,6 +21,10 @@ public class AuthorController {
     @Autowired
     private AuthorRepository authorRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+
     private String header = "librarian/librarianheader.html";
 
     @RequestMapping("/")
@@ -26,13 +34,14 @@ public class AuthorController {
     }
 
     @GetMapping("/new")
-    public String NewAuthorForm(Model model) {
+    public String NewAuthorForm(Model model, Principal principal) {
 
         Author author = new Author();
 
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         model.addAttribute("author", author);
 
-        return "librarian/start";
+        return "object/add-author";
 
     }
 
