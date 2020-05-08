@@ -16,6 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/start.css}">
     <script>
         function myFunction() {
             alert("Ebok har registrerats!");
@@ -23,9 +24,6 @@
     </script>
 
     <style type="text/css">
-        body{
-            background-color: #F8F9F9;
-        }
         #save{
             margin-top: 30px;
             width: 20%;
@@ -96,7 +94,7 @@
                   th:value="${ebook.description}" type="text"></textarea><br>
 
 
-        <button id="save" name="save" style="height:30px;width:80px" type= "submit">Spara</button>
+        <button class="btn4" id="save" name="save" type= "submit">Spara</button>
 
     </form>
 </div>

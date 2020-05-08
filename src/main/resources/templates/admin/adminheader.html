@@ -5,19 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/start.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <div th:fragment="header">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
+    <nav class="prim navbar navbar-default">
+        <div class="container-fluid menu">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">LIBSYS (ADMINISTRATÖR)</a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/admin/">Hem</a></li>
-                <li><a href="/register-visitor/">Registrera besökare</a></li>
+                <li ><a href="/register-visitor/">Registrera besökare</a></li>
                 <li><a href="/register-librarian/">Registrera bibliotikarie</a></li>
                 <li><a href="/register-admin/">Registrera administratör</a></li>
                 <li><a href="/admin/delete-menu/">Ta bort användare</a></li>
@@ -29,7 +31,7 @@
 
             <div align="right">
                 <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn btn-warning">Logga ut</button>
+                    <button type="submit" class="button">Logga ut</button>
                 </form>
             </div>
         </div>

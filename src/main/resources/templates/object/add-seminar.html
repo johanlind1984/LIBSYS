@@ -16,7 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" th:href="@{/css/start.css}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -34,9 +34,6 @@
     </script>
 
     <style type="text/css">
-        body{
-            background-color: #F8F9F9;
-        }
         #save{
             margin-top: 30px;
             width: 20%;
@@ -93,7 +90,7 @@
         <textarea class="form-control" id="information" name="information"
                   required row="40" cols="60" maxlength="5000"
                   th:value="${seminary.information}" type="text"></textarea>
-        <button type= "submit" name="save" id="save" >Spara</button>
+        <button class="btn4" type= "submit" name="save" id="save" >Spara</button>
     </form></div>
 </body>
 </html>
