@@ -35,12 +35,6 @@ public class RemoveObjectController {
     @Autowired
     private RemovedSeminaryRepository removedSeminaryRepository;
 
-
-
-    private String adminheader = "admin/adminheader.html";
-    private String librarianheader = "librarian/librarianheader.html";
-
-
     @GetMapping("/menu")
     public String getMenu(){
         return "remove-objects/remove-object-menu";
