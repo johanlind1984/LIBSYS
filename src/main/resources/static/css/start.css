@@ -23,8 +23,12 @@ body {
     color: var(--text-color);
 }
 
-.search {
+.searchAdmin {
     margin-left: 210px;
+}
+
+.searchLibrarian {
+    margin-left: 369px;
 }
 
 button {
