@@ -53,16 +53,10 @@ public class RegisterVisitorController {
         if(visitor == null) {
             setUserVisitorValues(userPerson);
             saveUserPersonAsVisitorToDatabase(userPerson);
-            generateLibraryCardAndSaveToDatabase(visitor);
             return "register-visitor/visitor-registration-confirmation";
         } else {
             return "error/eposten-redan-registrerad";
         }
-    }
-
-    private void generateLibraryCardAndSaveToDatabase(Visitor visitor) {
-
-
     }
 
     private void setUserVisitorValues(UserPerson userPerson) {
