@@ -1,6 +1,8 @@
 package com.newtongroup.library.Controller;
 
+import com.newtongroup.library.Entity.LibraryCard;
 import com.newtongroup.library.Entity.Visitor;
+import com.newtongroup.library.Repository.LibraryCardRepository;
 import com.newtongroup.library.Repository.UserAuthorityRepository;
 import com.newtongroup.library.Repository.UserRepository;
 import com.newtongroup.library.Repository.VisitorRepository;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/register-visitor")
@@ -27,6 +30,9 @@ public class RegisterVisitorController {
 
     @Autowired
     private UserAuthorityRepository userAuthorityRepository;
+
+    @Autowired
+    private LibraryCardRepository libraryCardRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -47,10 +53,16 @@ public class RegisterVisitorController {
         if(visitor == null) {
             setUserVisitorValues(userPerson);
             saveUserPersonAsVisitorToDatabase(userPerson);
+            generateLibraryCardAndSaveToDatabase(visitor);
             return "register-visitor/visitor-registration-confirmation";
         } else {
             return "error/eposten-redan-registrerad";
         }
+    }
+
+    private void generateLibraryCardAndSaveToDatabase(Visitor visitor) {
+
+
     }
 
     private void setUserVisitorValues(UserPerson userPerson) {
@@ -58,6 +70,13 @@ public class RegisterVisitorController {
         userPerson.getUser().setEnabled(true);
         userPerson.getUser().setUsername(userPerson.getVisitor().getEmail());
         userPerson.getUser().setPassword(passwordEncoder.encode(userPerson.getUser().getPassword()));
+
+        ArrayList<LibraryCard> libraryCards = new ArrayList<>();
+        LibraryCard libraryCard = new LibraryCard();
+        libraryCard.setActive(true);
+        libraryCard.setVisitor(userPerson.getVisitor());
+        libraryCards.add(libraryCard);
+        userPerson.getVisitor().setLibraryCards(libraryCards);
     }
 
     private void saveUserPersonAsVisitorToDatabase(UserPerson userPerson) {
