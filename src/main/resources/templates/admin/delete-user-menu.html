@@ -15,10 +15,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/start.css}">
     <style type="text/css">
-        body{
-            background-color: #F8F9F9;
-        }
         #save{
             margin-top: 30px;
             width: 20%;
@@ -48,7 +46,7 @@
         <div class="form-group">
             <label id="l1">Ange kontots e-postadress</label>
             <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                   placeholder="Skriv din e-post"
+                   placeholder="Skriv e-postadressen för användaren som skall tas bort"
                    th:name="email" required maxlength="150">
             <button id="save" type="submit" class="btn btn-danger">Ta bort</button>
         </div>

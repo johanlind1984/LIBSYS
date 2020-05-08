@@ -22,7 +22,7 @@ public class LibrarianController {
     @Autowired
     private UserRepository userRepository;
 
-    private String header = "librarian/librarianheader.html";
+    private String header = "librarian/bootstrapheader.html";
 
     @RequestMapping("/")
     public String mainView(Model theModel, Principal principal){

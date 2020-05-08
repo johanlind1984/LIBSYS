@@ -15,10 +15,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/start.css}">
     <style type="text/css">
-        body{
-            background-color: #F8F9F9;
-        }
         #save{
             margin-top: 30px;
             width: 20%;
@@ -50,7 +48,7 @@
         <div class="form-group" align="center">
             <label id="15" for="phonenumber">Sök uppgifter via Hitta.se</label>
             <input id="phonenumber" class="form-control" type="text" th:name="phonenumber" placeholder="Telefonnummer"/>
-            <button type="submit" name="usertype" value="librarian" class="btn btn-primary">Hämta</button>
+            <button type="submit" name="usertype" value="librarian" class="btn4">Hämta</button>
         </div>
     </form>
 
@@ -109,7 +107,7 @@
             <small id="passwordHelp" class="form-text text-muted">Välj ett gärna ett starkt lösenord med stora och små
                 bokstäver, siffror och tecken</small>
         </div>
-        <button id="save" type="submit" class="btn btn-primary">Spara</button>
+        <button id="save" type="submit" class="btn4">Spara</button>
     </form>
 </div>
 </body>

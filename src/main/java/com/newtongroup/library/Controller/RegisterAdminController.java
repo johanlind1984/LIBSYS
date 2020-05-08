@@ -31,8 +31,6 @@ public class RegisterAdminController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private String adminheader = "admin/adminheader.html";
-
     @RequestMapping("/")
     public String registerAdmin(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
