@@ -24,15 +24,6 @@ public class AuthorController {
     @Autowired
     private UserRepository userRepository;
 
-
-    private String header = "librarian/librarianheader.html";
-
-    @RequestMapping("/")
-    public String mainView(Model model) {
-        model.addAttribute("header", new String(header));
-        return "librarian/start";
-    }
-
     @GetMapping("/new")
     public String NewAuthorForm(Model model, Principal principal) {
 
