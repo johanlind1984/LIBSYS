@@ -31,6 +31,17 @@ body {
     margin-left: 369px;
 }
 
+.searchVisitor {
+    margin-left: 586px;
+}
+
+.searchBtm {
+    margin-top: 5px;
+}
+.searchTop {
+    margin-top: 10px;
+}
+
 button {
     background-color: var(--primary-color);
     border-radius: 6px;
@@ -52,6 +63,15 @@ button.btn2 {
     border: 1px solid #555555;
     padding: 5px 33px;
 }
+button.btn3 {
+    background-color: var(--secondary--color);
+    border: 1px solid #555555;
+    padding: 2px 33px;
+    margin-top: 5px;
+    align-content: center;
+    display: inline-block;
+
+}
 
 button.btn1:hover {
     background: var(--hover-color);
@@ -62,3 +82,8 @@ button.btn2:hover {
     background: var(--text-color);
     color: black;
 }
+
+button.btn3:hover {
+    background: var(--text-color)
+}
+
