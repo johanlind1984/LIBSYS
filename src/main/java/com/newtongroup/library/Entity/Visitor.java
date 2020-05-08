@@ -8,7 +8,10 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name="visitor_id")
 public class Visitor extends Person{
 
+    @OneToMany(mappedBy = "visitor")
     private List<LibraryCard> libraryCards;
+
+
 
     public Visitor() {
     }
@@ -20,4 +23,5 @@ public class Visitor extends Person{
     public void setLibraryCards(List<LibraryCard> libraryCards) {
         this.libraryCards = libraryCards;
     }
+
 }
