@@ -17,6 +17,10 @@ body {
     color: var(--text-color);
 }
 
+.secondary {
+    color: var(--secondary--color);
+    text-decoration: underline;
+}
 
 .prim {
     background: var(--primary-color);
