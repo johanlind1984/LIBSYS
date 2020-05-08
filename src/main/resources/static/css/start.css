@@ -13,6 +13,10 @@ body {
     font-size: 17px;
 }
 
+.second {
+    color: var(--text-color);
+}
+
 
 .prim {
     background: var(--primary-color);
@@ -24,15 +28,15 @@ body {
 }
 
 .searchAdmin {
-    margin-left: 210px;
+    margin-left: 217px;
 }
 
 .searchLibrarian {
-    margin-left: 369px;
+    margin-left: 383px;
 }
 
 .searchVisitor {
-    margin-left: 586px;
+    margin-left: 600px;
 }
 
 .searchBtm {
@@ -63,6 +67,7 @@ button.btn2 {
     border: 1px solid #555555;
     padding: 5px 33px;
 }
+
 button.btn3 {
     background-color: var(--secondary--color);
     border: 1px solid #555555;
@@ -70,7 +75,12 @@ button.btn3 {
     margin-top: 5px;
     align-content: center;
     display: inline-block;
+}
 
+button.btn4 {
+    background-color: var(--secondary--color);
+    border: 1px solid #555555;
+    padding: 6px 33px;
 }
 
 button.btn1:hover {
@@ -87,3 +97,7 @@ button.btn3:hover {
     background: var(--text-color)
 }
 
+button.btn4:hover {
+    background: var(--text-color);
+    color: black;
+}
