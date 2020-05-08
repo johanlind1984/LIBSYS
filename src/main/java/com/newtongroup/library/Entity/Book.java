@@ -1,13 +1,9 @@
 package com.newtongroup.library.Entity;
 
 import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,6 +29,9 @@ public class Book extends AbstractBook {
 	@ManyToOne()
 	@JoinColumn(name = "placement_id")
 	private Placement placement;
+
+	@OneToMany(mappedBy = "book")
+	private List<Loan> loanedBooks;
 
 	public Placement getPlacement() {
 		return placement;
