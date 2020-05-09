@@ -8,7 +8,9 @@ import javax.persistence.*;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="email")
+    private String email;
+
     @Column(name="personal_number")
     private String personalNumber;
 
@@ -18,11 +20,18 @@ public class Person {
     @Column(name="last_name")
     private String lastName;
 
-    @Column(name="email")
-    private String email;
+    @Column(name="street")
+    private String street;
 
-    @Column(name="adress")
-    private String adress;
+    @Column(name="postal_code")
+    private String postalCode;
+
+    @Column(name="city")
+    private String city;
+
+    @Column(name="phone")
+    private String phone;
+
 
     public Person() {
     }
@@ -59,12 +68,35 @@ public class Person {
         this.email = email;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getStreet() {
+        return street;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LIBSYS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/start.css}">
+    <style type="text/css">
+        #save{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
+            margin-top: 40px;
+            text-align:center;
+        }
+        #email,
+        #l1{
+            font-size: medium;
+        }
+        #div{
+            width: 60%;
+        }
+    </style>
+</head>
+<body>
+<header th:insert="${header} :: header"></header>
+<h1>Ta bort en användare ur systemet</h1>
+<div class="container" id="div">
+    <form th:action="@{/admin/delete-user}">
+        <div class="form-group">
+            <label id="l1">Ange kontots e-postadress</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                   placeholder="Skriv e-postadressen för användaren som skall tas bort"
+                   th:name="email" required maxlength="150">
+            <button id="save" type="submit" class="btn btn-danger">Ta bort</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

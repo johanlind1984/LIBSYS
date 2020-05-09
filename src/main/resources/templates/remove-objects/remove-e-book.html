@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LIBSYS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/start.css}">
+    <style type="text/css">
+        #save{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
+            margin-top: 40px;
+            text-align:center;
+        }
+        #isbn, #cause{
+            margin-bottom: 20px;
+            font-size: medium;
+        }
+        #l1,l2{
+            font-size: medium;
+        }
+        #div{
+            width: 60%;
+            align-items: center;
+        }
+        #li{
+            color: lightgray;
+        }
+    </style>
+</head>
+<header th:insert="${header} :: header"></header>
+
+<body>
+
+<h1>Ta bort ebok</h1>
+
+
+<form th:action="@{/remove-object/delete-e-book}" method="post" th:object="${ebook}" >
+   <div class="container" id="div">
+    <div  class="form-group" >
+
+        <label id="l1" >Radera e-boken på ISBN nummer</label>
+        <input type="text" class="form-control"  id="isbn" placeholder="ISBN"
+               th:field="${ebook.isbn}" required maxlength="255">
+
+    </div>
+
+    <div  class="form-group" th:object="${removedEBook}">
+
+        <label id="l2" >Motivera anledning till radering</label>
+        <input type="text" class="form-control"  id="cause" placeholder="Låg efterfrågan, skadad etc"
+               th:field="${removedEBook.cause}" required maxlength="150">
+
+    </div>
+
+
+    <button id="save" type="submit" class="btn4">Spara</button>
+   </div>
+</form>
+</body>
+</html>

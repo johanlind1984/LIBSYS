@@ -34,16 +34,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/register-visitor/*").hasAnyRole("ADMIN", "BOSS", "LIBRARIAN")
-                .antMatchers("/admin/*", "/register/*").hasAnyRole("ADMIN", "BOSS")
+                .antMatchers("/register-visitor/**").hasAnyRole("ADMIN", "BOSS", "LIBRARIAN")
+                .antMatchers("/new-object/**").hasAnyRole("ADMIN", "BOSS", "LIBRARIAN")
+                .antMatchers("/author/**").hasAnyRole("ADMIN", "BOSS", "LIBRARIAN")
+                .antMatchers("/remove-object/**").hasAnyRole("ADMIN", "BOSS", "LIBRARIAN")
+                .antMatchers("/register-librarian/**").hasAnyRole("ADMIN", "BOSS")
+                .antMatchers("/register-admin/**").hasAnyRole( "ADMIN",  "BOSS")
+                .antMatchers("/admin/**").hasAnyRole("ADMIN", "BOSS")
                 .antMatchers("/librarian/**").hasRole("LIBRARIAN")
                 .antMatchers("/visitor/**").hasRole("VISITOR")
+                .antMatchers("/search/**").permitAll()
                 .antMatchers("/login*").permitAll()
-                .antMatchers("/search*").permitAll()
+                .antMatchers("/anonymous-user/**").permitAll()
+                .antMatchers("/logout-redirect/**").permitAll()
+                .antMatchers("/logout/**").permitAll()
+                .antMatchers("/error/**").permitAll()
                 .antMatchers("/").permitAll()
                 .and()
                 .formLogin().successHandler(authenticationSuccesHandler)
-                .and().logout();
+                .and().
+                logout().
+                logoutSuccessUrl("/logout-redirect/");
     }
 
     @Bean
