@@ -5,6 +5,7 @@
     --secondary--color: #f5c42f;
     --text-color: #c5bbec;
     --hover-color: #920d0d;
+    --focus-color: #495057;
 }
 
 body {
@@ -104,4 +105,13 @@ button.btn3:hover {
 button.btn4:hover {
     background: var(--text-color);
     color: black;
+}
+
+.focus {
+    color: var(--focus-color);
+}
+
+.search-list-item {
+	border: 0.2rem solid var(--primary-color);
+	border-radius:0.75rem !important;
 }

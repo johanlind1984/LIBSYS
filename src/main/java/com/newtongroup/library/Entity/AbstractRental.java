@@ -38,9 +38,10 @@ public abstract class AbstractRental {
 	public AbstractRental() {
 
 	}
-
+	
 	public Long getId() {
 		return id;
+
 	}
 
 	public void setId(Long id) {
