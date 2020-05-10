@@ -16,7 +16,7 @@ public abstract class AbstractRental {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private long id;
 	
 	@Field
 	@Column(name="title")
@@ -37,7 +37,7 @@ public abstract class AbstractRental {
 	}
 
 	public Integer getId() {
-		return id;
+		return (int) id;
 	}
 
 	public void setId(Integer id) {
