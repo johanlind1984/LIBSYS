@@ -1,5 +1,6 @@
 package com.newtongroup.library.Controller;
 
+import com.newtongroup.library.Entity.BookLoan;
 import com.newtongroup.library.Entity.LibraryCard;
 import com.newtongroup.library.Entity.User;
 import com.newtongroup.library.Repository.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/visitor")
@@ -39,8 +41,10 @@ public class VisitorController {
         User user = userRepository.findByUsername(principal.getName());
         LibraryCard libraryCard = visitorRepository.findById(user.getUsername()).orElse(null).getActiveLibraryCard();
         theModel.addAttribute("header", HeaderUtils.getHeaderString(user));
-        theModel.addAttribute("books", bookLoanRepository.findByLibraryCard(libraryCard));
-        theModel.addAttribute("ebooks", bookLoanRepository.findByLibraryCard(libraryCard));
+        theModel.addAttribute("bookLoans",
+                bookLoanRepository.findByLibraryCardAndIsBookReturnedOrderByDateLoanStartAsc(libraryCard, false));
+        theModel.addAttribute("ebookLoans",
+                ebookLoanRepository.findByLibraryCardAndIsEbookReturnedOrderByDateLoanStartAsc(libraryCard, false));
         return "visitor/my-loans";
     }
 

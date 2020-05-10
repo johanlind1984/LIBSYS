@@ -12,5 +12,5 @@ import java.util.List;
 @Repository
 public interface EbookLoanRepository extends JpaRepository<EbookLoan, Long> {
     EbookLoan findByEbookAndIsEbookReturned(EBook book, boolean returned);
-    List<EbookLoan> findByLibraryCard(LibraryCard libraryCard);
+    List<EbookLoan> findByLibraryCardAndIsEbookReturnedOrderByDateLoanStartAsc(LibraryCard libraryCard, boolean isBookReturned);
 }
