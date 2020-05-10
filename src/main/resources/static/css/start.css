@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+:root {
+    --primary-color: #362476;
+    --secondary--color: #f5c42f;
+    --text-color: #c5bbec;
+    --hover-color: #920d0d;
+}
+
+body {
+    background: var(--primary-color);
+    color: var(--text-color);
+    font-size: 17px;
+}
+
+.second {
+    color: var(--text-color);
+}
+
+.secondary {
+    color: var(--secondary--color);
+    text-decoration: underline;
+}
+
+.prim {
+    background: var(--primary-color);
+}
+
+.menu {
+    background: var(--secondary--color);
+    color: var(--text-color);
+}
+
+.searchAdmin {
+    margin-left: 217px;
+}
+
+.searchLibrarian {
+    margin-left: 383px;
+}
+
+.searchVisitor {
+    margin-left: 600px;
+}
+
+.searchBtm {
+    margin-top: 5px;
+}
+.searchTop {
+    margin-top: 10px;
+}
+
+button {
+    background-color: var(--primary-color);
+    border-radius: 6px;
+    padding: 5px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+button.btn1 {
+    color: var(--text-color);
+    border: 1px solid #555555;
+}
+
+button.btn2 {
+    color: var(--text-color);
+    border: 1px solid #555555;
+    padding: 5px 33px;
+}
+
+button.btn3 {
+    background-color: var(--secondary--color);
+    border: 1px solid #555555;
+    padding: 2px 33px;
+    margin-top: 5px;
+    align-content: center;
+    display: inline-block;
+}
+
+button.btn4 {
+    background-color: var(--secondary--color);
+    border: 1px solid #555555;
+    padding: 6px 33px;
+}
+
+button.btn1:hover {
+    background: var(--hover-color);
+    color: var(--text-color);
+}
+
+button.btn2:hover {
+    background: var(--text-color);
+    color: black;
+}
+
+button.btn3:hover {
+    background: var(--text-color)
+}
+
+button.btn4:hover {
+    background: var(--text-color);
+    color: black;
+}

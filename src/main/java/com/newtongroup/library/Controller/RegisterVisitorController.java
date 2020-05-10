@@ -31,11 +31,6 @@ public class RegisterVisitorController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private String adminheader = "admin/adminheader.html";
-    private String librarianheader = "librarian/librarianheader.html";
-
-
-
     @RequestMapping("/")
     public String registerVisitor(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));

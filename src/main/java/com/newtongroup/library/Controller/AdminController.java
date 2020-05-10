@@ -27,8 +27,6 @@ public class AdminController {
     @Autowired
     private VisitorRepository visitorRepository;
 
-//    private String header = "admin/adminheader.html";
-
     @RequestMapping("/")
     public String mainView(Model theModel, Principal principal){
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));

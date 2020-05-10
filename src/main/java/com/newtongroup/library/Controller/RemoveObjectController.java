@@ -35,7 +35,6 @@ public class RemoveObjectController {
     private RemovedSeminaryRepository removedSeminaryRepository;
 
 
-
     @RequestMapping("/book")
     public String book(Model theModel, Principal principal){
 
