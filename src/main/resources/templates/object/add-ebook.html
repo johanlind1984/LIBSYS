@@ -5,6 +5,10 @@
     <title>Lägg till ebok</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <link href="/css/tail.select-light.css" rel="stylesheet">
+    <script src="/script/tail.select-full.min.js"></script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -43,8 +47,12 @@
         #div{
             width: 50%;
         }
-        #li{
-            color:lightgray;
+        .tail-select input {
+            -webkit-user-select: text;
+            -khtml-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
     </style>
 </head>
@@ -56,16 +64,17 @@
     <form action="/new-object/save-ebook" class="form-group" method="POST" onsubmit="myFunction()"
           th:object="${ebook}">
 
-
-        <label id="l1" for="select">Välj författare (håll nere ctrl eller shift för att välja fler):</label>
-
-        <select class="form-control" id="select"  multiple
-                name="select"  th:field="${ebook.authorList}" required>
-
-            <option id="option"  th:each="author:${authors}"
-                     th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}"
-                     th:value="${author.authorId}"></option>
-        </select>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <label id="l1" for="select">Författare:</label>
+                    <select multiple id="select" th:field="${ebook.authorList}" required>
+                        <option th:each="author:${authors}"
+                                th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}"
+                                th:value="${author.authorId}"></option>
+                    </select>
+                </div>
+            </div><br>
 
         <label id="l2" for="title">Titel</label>
         <input class="form-control" id="title" name="title" required maxlength="255"
@@ -92,7 +101,18 @@
         <textarea class="form-control" id="description" name="description" maxlength="5000"
                   required rows="5"
                   th:value="${ebook.description}" type="text"></textarea><br>
-
+        </div>
+            <script>
+                tail.select('#select', {
+                    search: true,
+                    multiLimit: 15,
+                    hideSelected: true,
+                    hideDisabled: true,
+                    multiShowCount: false,
+                    multiContainer: true,
+                    placeholder: 'Välj författare'
+                });
+            </script>
 
         <button class="btn4" id="save" name="save" type= "submit">Spara</button>
 
