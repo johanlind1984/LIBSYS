@@ -42,7 +42,6 @@
                 <th scope="col">Boktitel</th>
                 <th scope="col">Utlåningsdatum</th>
                 <th scope="col">Tillbakalämningsdatum</th>
-                <th scope="col">Registrerad tillbakalämning</th>
             </tr>
             </thead>
             <tbody>
@@ -50,7 +49,6 @@
                 <td th:text="${bookLoan.book.title}"></td>
                 <td th:text="${bookLoan.dateLoanStart}"></td>
                 <td th:text="${bookLoan.dateLoanEnd}"></td>
-                <td th:text="${bookLoan.dateReturned}"></td>
             </tr>
             </tbody>
         </table>
@@ -66,7 +64,6 @@
                 <th scope="col">Boktitel</th>
                 <th scope="col">Utlåningsdatum</th>
                 <th scope="col">Tillbakalämningsdatum</th>
-                <th scope="col">Registrerad tillbakalämning</th>
             </tr>
             </thead>
             <tbody>
@@ -74,7 +71,6 @@
                 <td th:text="${ebookLoans.ebook.title}"></td>
                 <td th:text="${ebookLoans.dateLoanStart}"></td>
                 <td th:text="${ebookLoans.dateLoanEnd}"></td>
-                <td th:text="${ebookLoans .dateReturned}"></td>
             </tr>
             </tbody>
         </table>

@@ -38,7 +38,7 @@ public abstract class AbstractRental {
 	public AbstractRental() {
 
 	}
-	
+
 	public Long getId() {
 		return id;
 
