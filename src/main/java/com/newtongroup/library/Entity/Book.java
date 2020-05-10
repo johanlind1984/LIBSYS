@@ -1,12 +1,9 @@
 package com.newtongroup.library.Entity;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -31,7 +28,7 @@ public class Book extends AbstractBook {
 	private Placement placement;
 
 	@OneToMany(mappedBy = "book")
-	private List<Loan> loanedBooks;
+	private List<CurrentLoan> loanedBooks;
 
 	public Placement getPlacement() {
 		return placement;

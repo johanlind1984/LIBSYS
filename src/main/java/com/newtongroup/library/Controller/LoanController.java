@@ -40,16 +40,14 @@ public class LoanController {
 
         if(doesVisitorHaveActiveLibraryCard(visitor) || book == null) {
             return "error/error-book-or-no-active-librarycard";
-        }
+    }
 
         if(!book.isAvailable()) {
             return "error/book-is-not-available";
         }
 
-        Loan loanToRegister = getLoan(book, visitor);
-        loanRepository.save(loanToRegister);
-
-        // Glöm inte logik för att spara ett opersonifierat lån.
+        CurrentLoan currentLoanToRegister = getLoan(book, visitor);
+        loanRepository.save(currentLoanToRegister);
 
         return "loan/loan-success";
 
@@ -59,16 +57,16 @@ public class LoanController {
         return visitor.getActiveLibraryCard() == null;
     }
 
-    private Loan getLoan(Book book, Visitor visitor) {
-        Loan loanToRegister = new Loan();
+    private CurrentLoan getLoan(Book book, Visitor visitor) {
+        CurrentLoan currentLoanToRegister = new CurrentLoan();
         Calendar calendar = Calendar.getInstance();
         LibraryCard libraryCard = visitor.getActiveLibraryCard();
         book.setAvailable(false);
-        loanToRegister.setBook(book);
-        loanToRegister.setDateLoanStart(new Date(calendar.getTime().getTime()));
-        loanToRegister.setLibraryCard(libraryCard);
+        currentLoanToRegister.setBook(book);
+        currentLoanToRegister.setDateLoanStart(new Date(calendar.getTime().getTime()));
+        currentLoanToRegister.setLibraryCard(libraryCard);
         calendar.add(Calendar.MONTH,1 );
-        loanToRegister.setDateLoanEnd(new Date(calendar.getTime().getTime()));
-        return  loanToRegister;
+        currentLoanToRegister.setDateLoanEnd(new Date(calendar.getTime().getTime()));
+        return currentLoanToRegister;
     }
 }

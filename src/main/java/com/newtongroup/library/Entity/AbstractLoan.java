@@ -3,20 +3,14 @@ package com.newtongroup.library.Entity;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 
-@Entity
-@Table(name = "loans")
-public class Loan {
+@MappedSuperclass
+public class AbstractLoan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @ManyToOne()
-    @JoinColumn(name = "librarycardnumber")
-    private LibraryCard libraryCard;
 
     @ManyToOne()
     @JoinColumn(name="book_id")
@@ -31,15 +25,7 @@ public class Loan {
     @Column(name = "returned")
     private Date returned;
 
-    public Loan() {
-    }
-
-    public LibraryCard getLibraryCard() {
-        return libraryCard;
-    }
-
-    public void setLibraryCard(LibraryCard libraryCard) {
-        this.libraryCard = libraryCard;
+    public AbstractLoan() {
     }
 
     public Book getBook() {

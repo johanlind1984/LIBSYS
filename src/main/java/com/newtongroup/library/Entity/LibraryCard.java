@@ -16,7 +16,7 @@ public class LibraryCard {
     private boolean isActive;
 
     @OneToMany(mappedBy = "libraryCard")
-    private List<Loan> loanList;
+    private List<CurrentLoan> currentLoanList;
 
     @ManyToOne()
     @JoinColumn(name="visitor_id")
@@ -43,12 +43,12 @@ public class LibraryCard {
         isActive = active;
     }
 
-    public List<Loan> getLoanList() {
-        return loanList;
+    public List<CurrentLoan> getCurrentLoanList() {
+        return currentLoanList;
     }
 
-    public void setLoanList(List<Loan> loanList) {
-        this.loanList = loanList;
+    public void setCurrentLoanList(List<CurrentLoan> currentLoanList) {
+        this.currentLoanList = currentLoanList;
     }
 
     public Visitor getVisitor() {
