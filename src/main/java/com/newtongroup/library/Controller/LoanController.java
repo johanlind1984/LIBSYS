@@ -1,9 +1,6 @@
 package com.newtongroup.library.Controller;
 
-import com.newtongroup.library.Entity.Book;
-import com.newtongroup.library.Entity.LibraryCard;
-import com.newtongroup.library.Entity.Loan;
-import com.newtongroup.library.Entity.User;
+import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.BookRepository;
 import com.newtongroup.library.Repository.LoanRepository;
 import com.newtongroup.library.Repository.UserRepository;
@@ -38,27 +35,40 @@ public class LoanController {
     @RequestMapping("/register-loan")
     public String registerLoan(@RequestParam("bookId") Integer bookId, Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-        User user = userRepository.findByUsername(principal.getName());
-        System.out.println(user.getUsername());
-        System.out.println(visitorRepository.findById(principal.getName()).orElse(null).getFirstName());
         Book book = bookrepository.findById((bookId)).orElse(null);
+        Visitor visitor = visitorRepository.findById(principal.getName()).orElse(null);
 
-        if(visitorRepository.findById(principal.getName()).orElse(null).getActiveLibraryCard() == null
-        || book == null) {
+        if(doesVisitorHaveActiveLibraryCard(visitor) || book == null) {
             return "error/error-book-or-no-active-librarycard";
         }
 
+        if(!book.isAvailable()) {
+            return "error/book-is-not-available";
+        }
+
+        Loan loanToRegister = getLoan(book, visitor);
+        loanRepository.save(loanToRegister);
+
+        // Glöm inte logik för att spara ett opersonifierat lån.
+
+        return "loan/loan-success";
+
+    }
+
+    private boolean doesVisitorHaveActiveLibraryCard(Visitor visitor) {
+        return visitor.getActiveLibraryCard() == null;
+    }
+
+    private Loan getLoan(Book book, Visitor visitor) {
         Loan loanToRegister = new Loan();
         Calendar calendar = Calendar.getInstance();
-        LibraryCard libraryCard = visitorRepository.findById(principal.getName()).orElse(null).getActiveLibraryCard();
-        loanToRegister.setBook(bookrepository.findById(bookId).orElse(null));
+        LibraryCard libraryCard = visitor.getActiveLibraryCard();
+        book.setAvailable(false);
+        loanToRegister.setBook(book);
         loanToRegister.setDateLoanStart(new Date(calendar.getTime().getTime()));
         loanToRegister.setLibraryCard(libraryCard);
         calendar.add(Calendar.MONTH,1 );
         loanToRegister.setDateLoanEnd(new Date(calendar.getTime().getTime()));
-        loanRepository.save(loanToRegister);
-
-        return "loan/loan-success";
-
+        return  loanToRegister;
     }
 }

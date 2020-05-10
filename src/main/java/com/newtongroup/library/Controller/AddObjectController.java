@@ -106,6 +106,7 @@ public class AddObjectController {
 
     @PostMapping("/save-book")
     public String saveBook(@ModelAttribute("book") Book book){
+        book.setAvailable(true);
         bookRepository.save(book);
         return "redirect:/new-object/new-book";
     }
@@ -123,6 +124,7 @@ public class AddObjectController {
     }
     @PostMapping("/save-ebook")
     public String saveEBook(@ModelAttribute("ebook") EBook eBook){
+        eBook.setAvailable(true);
         eBookRepository.save(eBook);
         return "redirect:/new-object/new-ebook";
     }

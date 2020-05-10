@@ -32,6 +32,9 @@ public abstract class AbstractRental {
 	@Column(name="description")
 	private String description;
 
+	@Column(name="isAvailable")
+	private boolean isAvailable;
+
 	public AbstractRental() {
 
 	}
@@ -76,7 +79,11 @@ public abstract class AbstractRental {
 		this.description = description;
 	}
 
+	public boolean isAvailable() {
+		return isAvailable;
+	}
 
-
-
+	public void setAvailable(boolean available) {
+		isAvailable = available;
+	}
 }
