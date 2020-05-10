@@ -41,27 +41,7 @@ public class AddObjectController {
 
     List<Author> authorList;
 
-    @GetMapping("/menu")
-    public String getMenu(Model model, Principal principal){
 
-        return "object/add-object-menu";
-    }
-    @RequestMapping("/home")
-    public String goToHome(Model model, Principal principal){
-        User user=userRepository.findByUsername(principal.getName());
-
-        switch (user.getAuthority().getAuthorityName()){
-            case "ROLE_ADMIN":
-                return "redirect:/admin/";
-            case "ROLE_LIBRARIAN":
-                return "redirect:/librarian/";
-            default:
-                break;
-        }
-
-        return null;
-    }
-//
     @GetMapping("/new-seminar")
     public String getSeminarForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
@@ -77,7 +57,7 @@ public class AddObjectController {
 
     @GetMapping("/new-author")
     public String getAuthorForm(Model model, Principal principal){
-
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         Author author = new Author();
         model.addAttribute("author",author);
         return "object/add-author";
