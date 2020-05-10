@@ -23,4 +23,6 @@ public class CurrentLoan extends AbstractLoan{
     public void setLibraryCard(LibraryCard libraryCard) {
         this.libraryCard = libraryCard;
     }
+
+
 }

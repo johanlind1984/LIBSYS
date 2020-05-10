@@ -2,7 +2,7 @@ package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.BookRepository;
-import com.newtongroup.library.Repository.LoanRepository;
+import com.newtongroup.library.Repository.CurrentLoanRepository;
 import com.newtongroup.library.Repository.UserRepository;
 import com.newtongroup.library.Repository.VisitorRepository;
 import com.newtongroup.library.Utils.HeaderUtils;
@@ -30,7 +30,7 @@ public class LoanController {
     private UserRepository userRepository;
 
     @Autowired
-    private LoanRepository loanRepository;
+    private CurrentLoanRepository currentLoanRepository;
 
     @RequestMapping("/register-loan")
     public String registerLoan(@RequestParam("bookId") Integer bookId, Model theModel, Principal principal) {
@@ -40,17 +40,35 @@ public class LoanController {
 
         if(doesVisitorHaveActiveLibraryCard(visitor) || book == null) {
             return "error/error-book-or-no-active-librarycard";
-    }
+        }
 
         if(!book.isAvailable()) {
             return "error/book-is-not-available";
         }
 
         CurrentLoan currentLoanToRegister = getLoan(book, visitor);
-        loanRepository.save(currentLoanToRegister);
+        currentLoanRepository.save(currentLoanToRegister);
 
         return "loan/loan-success";
 
+    }
+
+    @RequestMapping("/return-book")
+    private String returnBook(@RequestParam(name="bookId") Integer bookId, Model theModel, Principal principal) {
+        // söka upp boken, söka upp lånet, sätta boolean som tillbakalämnad på lånet, sätta boken som tillgänglig.
+        Book bookToReturn = bookrepository.findById(bookId).orElse(null);
+
+        if(bookToReturn == null) {
+            return "error/error-book-or-no-active-librarycard";
+        }
+
+        CurrentLoan loan = currentLoanRepository.findByBookAndIsBookReturned(bookToReturn, false);
+        loan.setDateReturned(new Date(Calendar.getInstance().getTime().getTime()));
+        loan.setBookReturned(true);
+        bookToReturn.setAvailable(true);
+        //bookrepository.save(bookToReturn);
+        currentLoanRepository.save(loan);
+        return "loan/returned-success";
     }
 
     private boolean doesVisitorHaveActiveLibraryCard(Visitor visitor) {
@@ -67,6 +85,7 @@ public class LoanController {
         currentLoanToRegister.setLibraryCard(libraryCard);
         calendar.add(Calendar.MONTH,1 );
         currentLoanToRegister.setDateLoanEnd(new Date(calendar.getTime().getTime()));
+        currentLoanToRegister.setBookReturned(false);
         return currentLoanToRegister;
     }
 }

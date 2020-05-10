@@ -12,18 +12,21 @@ public class AbstractLoan {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="book_id")
     private Book book;
 
-    @Column(name = "datelonestart")
+    @Column(name = "date_lonestart")
     private Date dateLoanStart;
 
-    @Column(name = "dateloanend")
+    @Column(name = "date_loanend")
     private Date dateLoanEnd;
 
-    @Column(name = "returned")
-    private Date returned;
+    @Column(name = "date_returned")
+    private Date dateReturned;
+
+    @Column(name = "isBookReturned")
+    private Boolean isBookReturned;
 
     public AbstractLoan() {
     }
@@ -52,12 +55,12 @@ public class AbstractLoan {
         this.dateLoanEnd = dateLoanEnd;
     }
 
-    public Date getReturned() {
-        return returned;
+    public Date getDateReturned() {
+        return dateReturned;
     }
 
-    public void setReturned(Date returned) {
-        this.returned = returned;
+    public void setDateReturned(Date dateReturned) {
+        this.dateReturned = dateReturned;
     }
 
     public Long getId() {
@@ -66,5 +69,13 @@ public class AbstractLoan {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean getBookReturned() {
+        return isBookReturned;
+    }
+
+    public void setBookReturned(Boolean bookReturned) {
+        isBookReturned = bookReturned;
     }
 }
