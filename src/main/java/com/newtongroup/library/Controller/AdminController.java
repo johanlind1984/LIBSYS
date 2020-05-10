@@ -29,9 +29,6 @@ public class AdminController {
     private VisitorRepository visitorRepository;
 
     @Autowired
-    private RemovedUserLoanRepository removedUserLoanRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @RequestMapping("/")

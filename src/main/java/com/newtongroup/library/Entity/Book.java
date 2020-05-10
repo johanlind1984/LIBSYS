@@ -28,7 +28,10 @@ public class Book extends AbstractBook {
 	private Placement placement;
 
 	@OneToMany(mappedBy = "book")
-	private List<CurrentLoan> loanedBooks;
+	private List<BookLoan> loanedBooks;
+
+	@OneToMany(mappedBy = "ebook")
+	private List<EbookLoan> loanedEbooks;
 
 	public Placement getPlacement() {
 		return placement;

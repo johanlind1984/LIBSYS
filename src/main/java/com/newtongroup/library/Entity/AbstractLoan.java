@@ -9,12 +9,12 @@ public class AbstractLoan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "loan_id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="book_id")
-    private Book book;
+    @ManyToOne()
+    @JoinColumn(name = "librarycardnumber")
+    private LibraryCard libraryCard;
 
     @Column(name = "date_lonestart")
     private Date dateLoanStart;
@@ -25,18 +25,16 @@ public class AbstractLoan {
     @Column(name = "date_returned")
     private Date dateReturned;
 
-    @Column(name = "isBookReturned")
-    private Boolean isBookReturned;
-
     public AbstractLoan() {
     }
 
-    public Book getBook() {
-        return book;
+
+    public LibraryCard getLibraryCard() {
+        return libraryCard;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setLibraryCard(LibraryCard libraryCard) {
+        this.libraryCard = libraryCard;
     }
 
     public Date getDateLoanStart() {
@@ -71,11 +69,4 @@ public class AbstractLoan {
         this.id = id;
     }
 
-    public Boolean getBookReturned() {
-        return isBookReturned;
-    }
-
-    public void setBookReturned(Boolean bookReturned) {
-        isBookReturned = bookReturned;
-    }
 }
