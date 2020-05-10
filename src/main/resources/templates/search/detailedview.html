@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://wwww.thymeleaf.com">
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" th:href="@{/css/start.css}">
+<title>Detaljer</title>
+
+
+</head>
+
+<body>
+	<header th:insert="${header}::header">
+		<div th:fragment="header">
+			<nav class="navbar navbar-default menu">
+				<div class="container-fluid menu">
+					<div class="navbar-header menu">
+						<a class="navbar-brand menu" href="#">LIBSYS ()</a>
+					</div>
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="/librarian/">Hem</a></li>
+						<li><a id="li" href="/new-object/new-author">Lägg till
+								författare</a></li>
+						<li><a href="/new-object/new-book">Lägg till bok</a></li>
+						<li><a href="/new-object/new-ebook">Lägg till ebok</a></li>
+						<li><a href="/new-object/new-seminar">Lägg till
+								seminarium</a></li>
+						<li><a class="searchTop" href="/search/">Sök</a></li>
+
+					</ul>
+					<div class="nav d-flex" align="right">
+						<form class="form-inline" th:action="@{/logout}" method="post">
+							<button type="submit" class="btn1" style="margin-top: 0.5em">Logga
+								ut</button>
+						</form>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+
+
+
+
+
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<br />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<form action="#" th:action="@{/search}" method="post"
+					class="form-inline">
+					<input type="hidden" name="search" th:value="${searchText}">
+					<button class="btn3" type="submit"><strong>&#8701;</strong> Tillbaka</button>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<br />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<h2 th:text="${book.title}"></h2>
+
+				<ul class="list-group focus">
+					<li class="list-group-item">Författare: <span
+						th:each="author, iterStat: ${book.authorList}"
+						th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}">
+					</span>
+					</li>
+					<li class="list-group-item"
+						th:text="'Beskrivning: ' + ${book.description}" />
+					<li class="list-group-item"
+						th:text="'Utgivare: ' + ${book.publisher}" />
+					<li class="list-group-item"
+						th:text="'Placering: ' + ${book.placement.title} + ', ' + ${book.placement.ddk}" />
+					<li class="list-group-item" th:text="'ISBN: ' + ${book.isbn}" />
+
+					<li class="list-group-item">
+						<div class="btn-group">
+							<a class="mx-2 my-2">
+								<button class="btn3">Låna</button>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
