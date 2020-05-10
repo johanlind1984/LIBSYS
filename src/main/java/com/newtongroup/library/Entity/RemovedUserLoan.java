@@ -11,20 +11,12 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "deleted_visitor_loans")
-public class DeletedUserLoan extends AbstractLoan {
-
-    @Transient
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+public class RemovedUserLoan extends AbstractLoan {
 
     @Column(name="library_card")
     private String libraryCard;
 
-    public DeletedUserLoan() {
-    }
-
-    public void hashLibraryCard(LibraryCard libraryCard) {
-        this.libraryCard = passwordEncoder.encode("" + libraryCard.getLibraryCardNumber());
+    public RemovedUserLoan() {
     }
 
     public String getLibraryCard() {

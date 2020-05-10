@@ -33,7 +33,7 @@ public class LoanController {
     private CurrentLoanRepository currentLoanRepository;
 
     @RequestMapping("/register-loan")
-    public String registerLoan(@RequestParam("bookId") Integer bookId, Model theModel, Principal principal) {
+    public String registerLoan(@RequestParam("bookId") Long bookId, Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         Book book = bookrepository.findById((bookId)).orElse(null);
         Visitor visitor = visitorRepository.findById(principal.getName()).orElse(null);
@@ -54,7 +54,7 @@ public class LoanController {
     }
 
     @RequestMapping("/return-book")
-    private String returnBook(@RequestParam(name="bookId") Integer bookId, Model theModel, Principal principal) {
+    private String returnBook(@RequestParam(name="bookId") Long bookId, Model theModel, Principal principal) {
         // söka upp boken, söka upp lånet, sätta boolean som tillbakalämnad på lånet, sätta boken som tillgänglig.
         Book bookToReturn = bookrepository.findById(bookId).orElse(null);
 
