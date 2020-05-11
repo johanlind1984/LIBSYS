@@ -43,13 +43,11 @@ public class LoanController {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         Visitor visitor = visitorRepository.findById(principal.getName()).orElse(null);
 
-        System.out.println(doesVisitorHaveActiveLibraryCard(visitor));
         if(!doesVisitorHaveActiveLibraryCard(visitor)) {
             return "error/error-book-or-no-active-librarycard";
         }
 
         if(bookId != null) {
-            System.out.println("in BOOK");
             Book book = bookrepository.findById((bookId)).orElse(null);
             if(!book.isAvailable()) {
                 return "error/book-is-not-available";
@@ -58,8 +56,6 @@ public class LoanController {
             bookLoanRepository.save(bookLoan);
 
         } else if (eBookId != null) {
-            System.out.println("in E--------BOOK");
-
             EBook ebook = eBookRepository.findById((eBookId)).orElse(null);
             if(!ebook.isAvailable()) {
                 return "error/book-is-not-available";
@@ -67,11 +63,18 @@ public class LoanController {
             EbookLoan ebookLoan = getLoan(ebook, visitor);
             ebookLoanRepository.save(ebookLoan);
         } else {
-            return "error/error-book-or-no-active-librarycard";
+            return "error/book-or-no-active-librarycard";
         }
 
         return "loan/loan-success";
 
+    }
+
+    @RequestMapping("/input-book-to-return")
+    private String prepareToReturnBook(Model theModel, Principal principal) {
+        System.out.println(principal.getName());
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        return "loan/return-book";
     }
 
     @RequestMapping("/return-book")
@@ -87,7 +90,7 @@ public class LoanController {
             BookLoan loan = bookLoanRepository.findByBookAndIsBookReturned(bookToReturn, false);
 
             if(loan == null) {
-                return "error/error-book-or-no-active-librarycard";
+                return "error/book-or-no-active-librarycard";
             }
 
             bookToReturn.setAvailable(true);
@@ -100,7 +103,7 @@ public class LoanController {
             EbookLoan loan = ebookLoanRepository.findByEbookAndIsEbookReturned(bookToReturn, false);
 
             if(loan == null) {
-                return "error/error-book-or-no-active-librarycard";
+                return "error/book-or-no-active-librarycard";
             }
 
             bookToReturn.setAvailable(true);
@@ -109,10 +112,10 @@ public class LoanController {
             ebookLoanRepository.save(loan);
 
         } else {
-            return "error/error-book-or-no-active-librarycard";
+            return "error/book-or-no-active-librarycard";
         }
 
-        return "loan/returned-success";
+        return "loan/return-success";
     }
 
     private boolean doesVisitorHaveActiveLibraryCard(Visitor visitor) {
