@@ -57,7 +57,10 @@
 	<div class="container-fluid">
 		<div class="container">
 			<div class="row">
-			<div class="col"><br/><h2>Vad söker du?</h2></div>
+				<div class="col">
+					<br />
+					<h2>Vad söker du?</h2>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col">
@@ -65,8 +68,7 @@
 						<form action="#" th:action="@{/search}" method="post"
 							class="form-inline">
 
-							<input
-								class="searchBtm form-control form-control-sm w-50"
+							<input class="searchBtm form-control form-control-sm w-50"
 								type="search" name="search" th:value="${search}"
 								placeholder="ISBN, Titel, Författare"> &nbsp;
 							<button class="btn3" type="submit">Sök</button>
@@ -75,9 +77,9 @@
 				</div>
 			</div>
 			<div class="row">
-			<div class="col">
-			<br/>
-			</div>
+				<div class="col">
+					<br />
+				</div>
 			</div>
 		</div>
 
@@ -87,7 +89,7 @@
 					<h3>Böcker</h3>
 					<div class="list-group container search-list-item ml-n2">
 						<a th:each="result: ${bResults}"
-							th:href="@{/search/{id}/detailedview?searchText={searchText}(id=${result.id},searchText=${search})}"
+							th:href="@{/search/book/{id}/detailedview?searchText={searchText}(id=${result.id},searchText=${search})}"
 							class="search-list-item list-group-item list-group-item-action flex-column align-items-start">
 							<div class="row">
 								<div class="col d-flex justify-content-left">
@@ -133,7 +135,7 @@
 					<h3>E-Böcker</h3>
 					<div class="list-group container search-list-item ml-n2">
 						<a th:each="result: ${ebResults}"
-							th:href="@{/search/{id}/detailedview(id=${result.id})}"
+							th:href="@{/search/ebook/{id}/detailedview(id=${result.id})}"
 							class="search-list-item list-group-item list-group-item-action flex-column align-items-start">
 							<div class="row">
 								<div class="col d-flex justify-content-left">
@@ -164,11 +166,15 @@
 							</div>
 							<div class="row">
 								<div class="col-9">
-									<br /> <small th:text="'ISBN: ' + ${result.isbn}"></small> <small
-										th:text="'Nedladdningslänk: ' + ${result.downloadLink}"></small>
+									<br /> <small th:text="'ISBN: ' + ${result.isbn}"></small></br>
+
 								</div>
 								<div class="col">
-									<button class="btn3">Låna</button>
+									<form th:
+									action="${result.downloadLink}" method="GET"
+										class="form-inline">
+										<button type="submit" class="btn3">Låna</button>
+									</form>
 								</div>
 							</div>
 						</a>

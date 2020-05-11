@@ -22,6 +22,7 @@ import com.newtongroup.library.Service.SearchService;
 @Service
 public class SearchServiceImpl implements SearchService {
 	
+	
 	private static final String[] BOOK_SEARCH_FIELDS = new String[] { "isbn", "title", "authorList.firstname", "authorList.lastname" };
 
 	@PersistenceContext
