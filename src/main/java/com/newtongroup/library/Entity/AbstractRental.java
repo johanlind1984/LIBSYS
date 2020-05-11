@@ -16,7 +16,7 @@ public abstract class AbstractRental {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@Field
 	@Column(name="title")
@@ -32,15 +32,19 @@ public abstract class AbstractRental {
 	@Column(name="description")
 	private String description;
 
+	@Column(name="isAvailable")
+	private boolean isAvailable;
+
 	public AbstractRental() {
 
 	}
 
-	public Integer getId() {
-		return (int) id;
+	public Long getId() {
+		return id;
+
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -76,7 +80,11 @@ public abstract class AbstractRental {
 		this.description = description;
 	}
 
+	public boolean isAvailable() {
+		return isAvailable;
+	}
 
-
-
+	public void setAvailable(boolean available) {
+		isAvailable = available;
+	}
 }
