@@ -30,33 +30,71 @@ public class LoanController {
     private BookLoanRepository bookLoanRepository;
 
     @Autowired
-    private  EbookLoanRepository ebookLoanRepository;
+    private EbookLoanRepository ebookLoanRepository;
 
     @Autowired
     private EBookRepository eBookRepository;
 
-    @RequestMapping("/")
-    public String loanhome(Model theModel, Principal principal){
+    @Autowired
+    private LibraryCardRepository libraryCardRepository;
+
+    @RequestMapping("/visitor")
+    public String loanvisitor(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         return "loan/register-book";
     }
 
+    @RequestMapping("/librarian")
+    public String loanlibrarian(Model theModel, Principal principal) {
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
+        return "loan/register-book-librarian";
+    }
+
     @RequestMapping("/register-loan")
     public String registerLoan(@RequestParam(value = "bookId", required = false) Long bookId,
-                               @RequestParam(name="eBookId", required = false) Long eBookId,
+                               @RequestParam(name = "eBookId", required = false) Long eBookId,
+                               @RequestParam(name = "librarycardnumber", required = false) Long librarycardnumber,
                                Model theModel, Principal principal) {
 
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-        Visitor visitor = visitorRepository.findById(principal.getName()).orElse(null);
 
-        if(!doesVisitorHaveActiveLibraryCard(visitor)) {
+
+        User user = userRepository.findByUsername(principal.getName());
+
+        switch (getRole(user)) {
+
+            case "visitor":
+                Visitor visitor = visitorRepository.findById(principal.getName()).orElse(null);
+                registerLoan(visitor, bookId, eBookId);
+                break;
+
+            case "librarian":
+                LibraryCard libraryCard = libraryCardRepository.findById(librarycardnumber).orElse(null);
+
+                if (libraryCard != null) {
+                    Visitor visitor1 = libraryCard.getVisitor();
+                    registerLoan(visitor1, bookId, eBookId);
+                    break;
+                }
+
+
+        }
+
+
+        return "loan/loan-success";
+
+    }
+
+    public String registerLoan(Visitor visitor, Long bookId, Long eBookId) {
+        if (!doesVisitorHaveActiveLibraryCard(visitor)) {
             return "error/error-book-or-no-active-librarycard";
         }
 
-        if(bookId != null) {
+        if (bookId != null) {
             Book book = bookrepository.findById((bookId)).orElse(null);
-            if(!book.isAvailable()) {
+            if (!book.isAvailable()) {
                 return "error/book-is-not-available";
             }
             BookLoan bookLoan = getLoan(book, visitor);
@@ -64,7 +102,7 @@ public class LoanController {
 
         } else if (eBookId != null) {
             EBook ebook = eBookRepository.findById((eBookId)).orElse(null);
-            if(!ebook.isAvailable()) {
+            if (!ebook.isAvailable()) {
                 return "error/book-is-not-available";
             }
             EbookLoan ebookLoan = getLoan(ebook, visitor);
@@ -72,11 +110,17 @@ public class LoanController {
         } else {
             return "error/book-or-no-active-librarycard";
         }
-
         return "loan/loan-success";
-
     }
 
+    private String getRole(User user) {
+        if (user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")) {
+            return "visitor";
+        } else if (user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")) {
+            return "librarian";
+        }
+        return null;
+    }
 
 
     private boolean doesVisitorHaveActiveLibraryCard(Visitor visitor) {
@@ -91,7 +135,7 @@ public class LoanController {
         currentLoanToRegister.setBook(book);
         currentLoanToRegister.setDateLoanStart(new Date(calendar.getTime().getTime()));
         currentLoanToRegister.setLibraryCard(libraryCard);
-        calendar.add(Calendar.MONTH,1 );
+        calendar.add(Calendar.MONTH, 1);
         currentLoanToRegister.setDateLoanEnd(new Date(calendar.getTime().getTime()));
         currentLoanToRegister.setBookReturned(false);
         return currentLoanToRegister;
@@ -105,7 +149,7 @@ public class LoanController {
         currentLoanToRegister.setEbook(book);
         currentLoanToRegister.setDateLoanStart(new Date(calendar.getTime().getTime()));
         currentLoanToRegister.setLibraryCard(libraryCard);
-        calendar.add(Calendar.MONTH,1 );
+        calendar.add(Calendar.MONTH, 1);
         currentLoanToRegister.setDateLoanEnd(new Date(calendar.getTime().getTime()));
         currentLoanToRegister.setEbookReturned(false);
         return currentLoanToRegister;
