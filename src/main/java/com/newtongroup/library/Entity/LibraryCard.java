@@ -16,7 +16,10 @@ public class LibraryCard {
     private boolean isActive;
 
     @OneToMany(mappedBy = "libraryCard")
-    private List<Loan> loanList;
+    private List<BookLoan> bookLoans;
+
+    @OneToMany(mappedBy = "libraryCard")
+    private List<EbookLoan> ebookLoans;
 
     @ManyToOne()
     @JoinColumn(name="visitor_id")
@@ -43,12 +46,20 @@ public class LibraryCard {
         isActive = active;
     }
 
-    public List<Loan> getLoanList() {
-        return loanList;
+    public List<BookLoan> getBookLoans() {
+        return bookLoans;
     }
 
-    public void setLoanList(List<Loan> loanList) {
-        this.loanList = loanList;
+    public void setBookLoans(List<BookLoan> bookLoans) {
+        this.bookLoans = bookLoans;
+    }
+
+    public List<EbookLoan> getEbookLoans() {
+        return ebookLoans;
+    }
+
+    public void setEbookLoans(List<EbookLoan> ebookLoans) {
+        this.ebookLoans = ebookLoans;
     }
 
     public Visitor getVisitor() {

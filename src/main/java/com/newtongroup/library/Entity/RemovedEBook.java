@@ -10,7 +10,7 @@ public class RemovedEBook {
 
     @Id
     @Column(name = "e_book_id")
-    private int e_book_id;
+    private Long e_book_id;
 
     @Column(name="title")
     private String title;
@@ -39,7 +39,7 @@ public class RemovedEBook {
     public RemovedEBook() {
     }
 
-    public RemovedEBook(int e_book_id, String title, String isbn, String publisher, String description, String price, String download_link, String cause) {
+    public RemovedEBook(Long e_book_id, String title, String isbn, String publisher, String description, String price, String download_link, String cause) {
         this.e_book_id = e_book_id;
         this.title = title;
         this.isbn = isbn;
@@ -53,11 +53,11 @@ public class RemovedEBook {
         this.deleted_at = dtf.format(now);
     }
 
-    public int getE_book_id() {
+    public Long getE_book_id() {
         return e_book_id;
     }
 
-    public void setE_book_id(int e_book_id) {
+    public void setE_book_id(Long e_book_id) {
         this.e_book_id = e_book_id;
     }
 

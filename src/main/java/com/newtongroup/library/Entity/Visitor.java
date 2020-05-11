@@ -8,10 +8,8 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name="visitor_id")
 public class Visitor extends Person{
 
-    @OneToMany(mappedBy = "visitor")
+    @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
     private List<LibraryCard> libraryCards;
-
-
 
     public Visitor() {
     }
@@ -22,6 +20,17 @@ public class Visitor extends Person{
 
     public void setLibraryCards(List<LibraryCard> libraryCards) {
         this.libraryCards = libraryCards;
+    }
+
+    public LibraryCard getActiveLibraryCard() {
+
+        for (LibraryCard card : libraryCards) {
+            if(card.isActive()) {
+                return card;
+            }
+        }
+
+        return null;
     }
 
 }

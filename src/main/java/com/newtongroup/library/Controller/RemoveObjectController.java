@@ -75,7 +75,7 @@ public class RemoveObjectController {
 
         for(Book temp : bookList){
             if(temp.getIsbn().equals(isbn)){
-                int id = temp.getId();
+                Long id = temp.getId();
                 String title = temp.getTitle();
                 String publisher = temp.getPublisher();
                 String price = temp.getPurchasePrice();
@@ -105,7 +105,7 @@ public class RemoveObjectController {
 
         for(EBook temp : bookList){
             if(temp.getIsbn().equals(isbn)){
-                int id = temp.getId();
+                Long id = temp.getId();
                 String title = temp.getTitle();
                 String publisher = temp.getPublisher();
                 String price = temp.getPurchasePrice();

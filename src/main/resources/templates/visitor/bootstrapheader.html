@@ -18,7 +18,7 @@
     <style>
 
     </style>
-    <title>Admin</title>
+    <title>Visitor</title>
 </head>
 <body>
 <div th:fragment="header">
@@ -32,7 +32,13 @@
         <div class="menu collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mina Lånade böcker</a>
+                    <a class="nav-link" href="/visitor/my-loans">Mina Lånade böcker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8080/loan/register-loan?bookId=1">Testa låna bok 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8080/loan/return-book?bookId=1">Testa lämna tillbaka bok 1</a>
                 </li>
                 <form class="form-inline" th:action="@{/search}" method="post">
                     <input class="searchVisitor form-control mr-sm-2" name="search" type="search" placeholder="bok / seminarium" aria-label="Search">
