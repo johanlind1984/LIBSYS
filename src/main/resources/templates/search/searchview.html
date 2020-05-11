@@ -121,7 +121,9 @@
 									<br /> <small th:text="'ISBN: ' + ${result.isbn}"></small>
 								</div>
 								<div class="col">
-									<button class="btn3">Låna</button>
+									<form th:action="@{/loan/register-loan}">
+									<button type="submit" class="btn3" th:name="bookId" th:value="${result.id}">Låna</button>
+									</form>
 								</div>
 							</div>
 						</a>
@@ -168,7 +170,9 @@
 										th:text="'Nedladdningslänk: ' + ${result.downloadLink}"></small>
 								</div>
 								<div class="col">
-									<button class="btn3">Låna</button>
+									<form th:action="@{/loan/register-loan}">
+										<button type="submit" class="btn3" th:name="eBookId" th:value="${result.id}">Låna</button>
+									</form>
 								</div>
 							</div>
 						</a>
