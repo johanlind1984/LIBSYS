@@ -29,11 +29,33 @@
 </head>
 <body>
 <header th:insert="${header} :: header"></header>
+
 <br><br>
 
-<div class="table-responsive" align="center">
-    <h1>Tack!</h1>
-    <p>Returen är nu registrerad!</p>
+<div class="container" align="center">
+    <h2>Låna bok</h2>
+    <form th:action="@{/loan/register-loan}">
+        <div class="form-group">
+            <label>Bokens ID står på bokens etikett som finns på bokens baksida</label>
+            <input type="number" class="form-control" id="bookId" aria-describedby="emailHelp"
+                   placeholder="ID"
+                   th:name="bookId" required maxlength="20">
+            <button id="book" type="submit" class="btn btn-primary">Låna Bok</button>
+        </div>
+    </form>
+
+    <br>
+    <br>
+
+    <form th:action="@{/loan/register-loan}">
+        <div class="form-group">
+            <label>E-Bokens ID står på förstasidan i den elektroniska boken</label>
+            <input type="number" class="form-control" id="ebookId" aria-describedby="emailHelp"
+                   placeholder="ID"
+                   th:name="eBookId" required maxlength="20">
+            <button id="ebook" type="submit" class="btn btn-primary">Låna E-Bok</button>
+        </div>
+    </form>
 </div>
 </body>
 </html>

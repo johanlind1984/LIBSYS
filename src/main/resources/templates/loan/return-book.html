@@ -34,7 +34,7 @@
 
 <div class="container" align="center">
     <h2>Återlämning</h2>
-    <form th:action="@{/loan/return-book}">
+    <form th:action="@{/librarian/return-book}">
         <div class="form-group">
             <label>Bokens ID står på bokens etikett som finns på bokens baksida</label>
             <input type="number" class="form-control" id="bookId" aria-describedby="emailHelp"
@@ -47,7 +47,7 @@
     <br>
     <br>
 
-    <form th:action="@{/loan/return-book}">
+    <form th:action="@{/librarian/return-book}">
         <div class="form-group">
             <label>E-Bokens ID står på förstasidan i den elektroniska boken</label>
             <input type="number" class="form-control" id="ebookId" aria-describedby="emailHelp"
