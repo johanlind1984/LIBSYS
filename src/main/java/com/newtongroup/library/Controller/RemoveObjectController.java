@@ -5,10 +5,10 @@ import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
 import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -33,6 +33,8 @@ public class RemoveObjectController {
     private RemovedEBookRepository removedEBookRepository;
     @Autowired
     private RemovedSeminaryRepository removedSeminaryRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
 
 
     @RequestMapping("/book")
@@ -160,5 +162,31 @@ public class RemoveObjectController {
         return "error/id-error";
 
 
+    }
+    @GetMapping ("/author")
+    public String getAuthorForm (Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
+        List <Author>authorList=authorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
+
+        Author author= new Author();
+
+        model.addAttribute("authors", authorList);
+        model.addAttribute("author", author);
+        return "remove-objects/remove-author";
+    }
+
+
+//    @PostMapping("/delete-author")
+//    public String deleteAuthor(@RequestParam (value="author.authorId") Integer authorId){
+//        Author authorToRemove=authorRepository.findById(author.getAuthorId()).orElse(null);
+//        authorRepository.delete(authorToRemove);
+//        return "redirect:/remove-object/author";
+//    }
+    @DeleteMapping(value = "/delete-author")
+    public String deleteAuthor(@PathVariable(value = "authorId") Integer authorId) {
+
+        authorRepository.deleteById(authorId);
+        return "redirect:remove-object/author";
     }
 }
