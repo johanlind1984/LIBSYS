@@ -127,7 +127,7 @@
 													class="btn3" th:name="bookId" th:value="${result.id}">Låna</button>
 												<button th:unless="${result.available}" type="submit"
 													class="btn3 disabled"
-													th:value="${result.id}">Låna</button>
+													th:value="${result.id}" disabled>Låna</button>
 											</form>
 										</div>
 									</div>
@@ -189,7 +189,7 @@
 													class="btn3" th:name="eBookId" th:value="${result.id}">Låna</button>
 												<button th:unless="${result.available}" type="submit"
 													class="btn3 disabled"
-													th:value="${result.id}">Låna</button>
+													th:value="${result.id}" disabled>Låna</button>
 											</form>
 										</div>
 									</div>
