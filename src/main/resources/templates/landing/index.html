@@ -34,9 +34,11 @@
     </div>
     <div class="content rellax" data-rellax-speed="3">
         <div class="search_box">
-            <label>
-                <input type="text" placeholder="Sök efter böcker/e-böcker/seminarium i vårt bibliotek!">
-            </label>
+            <form action="#" th:action="@{/search}" method="post" class="form-inline">
+                <label>
+                    <input type="search" name="search" th:value="${search}"  placeholder="Sök efter böcker/e-böcker/seminarium i vårt bibliotek!">
+                </label>
+            </form>
             <i class="fas fa-search"></i>
         </div>
         <div>
