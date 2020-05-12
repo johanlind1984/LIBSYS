@@ -32,8 +32,8 @@ public abstract class AbstractRental {
 	@Column(name="description")
 	private String description;
 
-	@Column(name="isAvailable", columnDefinition="BIT DEFAULT 1")
-	private boolean isAvailable = true;
+	@Column(name="isAvailable")
+	private boolean isAvailable;
 
 	public AbstractRental() {
 
