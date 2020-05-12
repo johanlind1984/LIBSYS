@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.newtongroup.library.Entity.Book;
 import com.newtongroup.library.Entity.EBook;
 import com.newtongroup.library.Repository.BookRepository;
+import com.newtongroup.library.Repository.EBookRepository;
 import com.newtongroup.library.Repository.UserRepository;
 import com.newtongroup.library.Service.SearchService;
 import com.newtongroup.library.Utils.HeaderUtils;
@@ -30,6 +31,8 @@ public class SearchServiceController {
 	private UserRepository userRepository;
 	@Autowired
 	private BookRepository bookRepository;
+	@Autowired
+	private EBookRepository ebookRepository;
 
 	@GetMapping()
 	public String getSearchForm(Model model, Principal principal) {
@@ -51,15 +54,30 @@ public class SearchServiceController {
 
 		return "/search/searchview";
 	}
-	
-	@GetMapping("/{id}/detailedview")
-	public String getDetailedView(@PathVariable("id")long id, @RequestParam(value = "searchText", required = false) String searchText, Model model, Principal principal) {
+
+	@GetMapping("/book/{id}/detailedview")
+	public String getBookView(@PathVariable("id") long id,
+			@RequestParam(value = "searchText", required = false) String searchText, Model model, Principal principal) {
 		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
 		model.addAttribute("searchText", searchText != null ? searchText : "");
 		Optional<Book> book = bookRepository.findById(id);
-		model.addAttribute("book", book.isPresent() ? book.get() : null);
-		
+
+		model.addAttribute("book", book.orElse(null));
+
 		return book.isPresent() ? "/search/detailedview" : "/error/id-error";
+
+	}
+	
+	@GetMapping("/ebook/{id}/detailedview")
+	public String getEBookView(@PathVariable("id") long id,
+			@RequestParam(value = "searchText", required = false) String searchText, Model model, Principal principal) {
+		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
+		model.addAttribute("searchText", searchText != null ? searchText : "");
+		Optional<EBook> eBook = ebookRepository.findById(id);
+		
+		model.addAttribute("book", eBook.orElse(null));
+		
+		return eBook.isPresent() ? "/search/detailedview" : "/error/id-error";
 		
 	}
 

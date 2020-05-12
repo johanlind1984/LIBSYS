@@ -82,6 +82,13 @@ button.btn3 {
     display: inline-block;
 }
 
+button.btn3.disabled {
+    background-color: var(--light);
+	color: var(--gray);
+	border: 1px solid var(--gray);
+    cursor: default;
+}
+
 button.btn4 {
     background-color: var(--secondary--color);
     border: 1px solid #555555;
@@ -100,6 +107,13 @@ button.btn2:hover {
 
 button.btn3:hover {
     background: var(--text-color)
+}
+
+button.btn3.disabled:hover {
+    background-color: var(--light);
+	color: var(--gray);
+	border: 1px solid var(--gray);
+    cursor: default;
 }
 
 button.btn4:hover {

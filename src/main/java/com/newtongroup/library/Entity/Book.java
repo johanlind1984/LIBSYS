@@ -2,11 +2,19 @@ package com.newtongroup.library.Entity;
 
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
+
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Indexed
@@ -30,8 +38,15 @@ public class Book extends AbstractBook {
 	@OneToMany(mappedBy = "book")
 	private List<BookLoan> loanedBooks;
 
-	@OneToMany(mappedBy = "ebook")
-	private List<EbookLoan> loanedEbooks;
+	
+
+	public List<BookLoan> getLoanedBooks() {
+		return loanedBooks;
+	}
+
+	public void setLoanedBooks(List<BookLoan> loanedBooks) {
+		this.loanedBooks = loanedBooks;
+	}
 
 	public Placement getPlacement() {
 		return placement;
