@@ -107,6 +107,7 @@
                    required rows="5" maxlength="5000"
                    th:value="${book.description}" type="text"></textarea><br>
      </div>
+        <button id="save" name="save" class="btn4" type= "submit">Spara</button>
         <script>
             tail.select('#select', {
                 search: true,
@@ -118,7 +119,6 @@
                 placeholder: 'Välj författare'
             });
         </script>
-        <button id="save" name="save" style="height:30px;width:80px" type= "submit">Spara</button>
 
     </form>
     </div>
