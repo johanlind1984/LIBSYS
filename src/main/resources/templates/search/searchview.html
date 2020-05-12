@@ -2,13 +2,24 @@
 <html lang="en" xmlns:th="http://wwww.thymeleaf.com">
 
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<link rel="stylesheet" th:href="@{/css/start.css}">
-	<title>Sök</title>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" th:href="@{/css/start.css}">
+<title>Sök</title>
 
 
 </head>
@@ -54,9 +65,12 @@
 			<div class="row">
 				<div class="col">
 					<div class="form-group">
-						<form action="#" th:action="@{/search}" method="post" class="form-inline">
+						<form action="#" th:action="@{/search}" method="post"
+							class="form-inline">
 
-							<input class="searchBtm form-control form-control-sm w-50" type="search" name="search" th:value="${search}" placeholder="ISBN, Titel, Författare"> &nbsp;
+							<input class="searchBtm form-control form-control-sm w-50"
+								type="search" name="search" th:value="${search}"
+								placeholder="ISBN, Titel, Författare"> &nbsp;
 							<button class="btn3" type="submit">Sök</button>
 						</form>
 					</div>
@@ -74,7 +88,9 @@
 				<div class="col">
 					<h3>Böcker</h3>
 					<div class="list-group container search-list-item ml-n2">
-						<a th:each="result: ${bResults}" th:href="@{/search/book/{id}/detailedview?searchText={searchText}(id=${result.id},searchText=${search})}" class="search-list-item list-group-item list-group-item-action flex-column align-items-start">
+						<a th:each="result: ${bResults}"
+							th:href="@{/search/book/{id}/detailedview?searchText={searchText}(id=${result.id},searchText=${search})}"
+							class="search-list-item list-group-item list-group-item-action flex-column align-items-start">
 							<div class="row">
 								<div class="col d-flex justify-content-left">
 									<h4 class="mb-1 center">
@@ -97,18 +113,34 @@
 								<div class="col-2"></div>
 								<div class="col-3">
 									<span class="float-left"><strong>Författare: </strong></span><br />
-									<span class="float-left" th:each="author, iterStat: ${result.authorList}" th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}"><br /></span>
+									<span class="float-left"
+										th:each="author, iterStat: ${result.authorList}"
+										th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}"><br /></span>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-9">
-									<br /> <small th:text="'ISBN: ' + ${result.isbn}"></small>
+									<div class="row">
+										<div class="col mt-3">
+											<form th:action="@{/loan/register-loan}">
+												<button th:if="${result.available}" type="submit"
+													class="btn3" th:name="bookId" th:value="${result.id}">Låna</button>
+												<button th:unless="${result.available}" type="submit"
+													class="btn3 disabled" th:name="bookId"
+													th:value="${result.id}">Låna</button>
+											</form>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col mt-1 ml-1">
+											<p class="text-danger" th:unless="${result.available}"
+												th:text="'Utlånad'"></p>
+											<p class="text-success" th:if="${result.available}"
+												th:text="'Tillgänglig'"></p>
+										</div>
+									</div>
 								</div>
-								<div class="col">
-									<form th:action="@{/loan/register-loan}">
-										<button type="submit" class="btn3" th:name="bookId" th:value="${result.id}">Låna</button>
-									</form>
-								</div>
+								<div class="col"></div>
 							</div>
 						</a>
 					</div>
@@ -118,7 +150,9 @@
 				<div class="col">
 					<h3>E-Böcker</h3>
 					<div class="list-group container search-list-item ml-n2">
-						<a th:each="result: ${ebResults}" th:href="@{/search/ebook/{id}/detailedview(id=${result.id})}" class="search-list-item list-group-item list-group-item-action flex-column align-items-start">
+						<a th:each="result: ${ebResults}"
+							th:href="@{/search/ebook/{id}/detailedview(id=${result.id})}"
+							class="search-list-item list-group-item list-group-item-action flex-column align-items-start">
 							<div class="row">
 								<div class="col d-flex justify-content-left">
 									<h4 class="mb-1 center">
@@ -141,17 +175,23 @@
 								<div class="col-2"></div>
 								<div class="col-3">
 									<span class="float-left"><strong>Författare: </strong></span><br />
-									<span class="float-left" th:each="author, iterStat: ${result.authorList}" th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}"><br /></span>
+									<span class="float-left"
+										th:each="author, iterStat: ${result.authorList}"
+										th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}"><br /></span>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-9">
-									<br /> <small th:text="'ISBN: ' + ${result.isbn}"></small></br>
+									<br />
+									<p class="text-danger" th:unless="${book.available}">Tillgänglig</p>
+									<p class="text-success" th:if="${book.available}">Utlånad</p>
+									</br>
 
 								</div>
 								<div class="col">
 									<form th:action="@{/loan/register-loan}">
-										<button type="submit" class="btn3" th:name="eBookId" th:value="${result.id}">Låna</button>
+										<button type="submit" class="btn3" th:name="eBookId"
+											th:value="${result.id}">Låna</button>
 									</form>
 								</div>
 							</div>
