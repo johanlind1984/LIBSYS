@@ -20,7 +20,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-    <link rel="stylesheet" th:href="@{/css/start.css}">
+    <link   rel="stylesheet" th:href="@{/css/start.css}">
 <!--    <script>-->
 <!--        function myFunction() {-->
 <!--            alert("Bok har registrerats!");-->
@@ -61,7 +61,7 @@
 
     <h1 align="center">Radera författare</h1>
     <div class="container" id="div">
-    <form action="/remove-object/delete-author" class="form-group" method="DELETE" th:object="${author}">
+    <form action="/remove-object/author" class="form-group" method="GET" th:object="${author}">
 <!--          onsubmit="myFunction()"-->
 
      <div class="container mt-5">
@@ -86,7 +86,7 @@
                 placeholder: 'Välj författare'
             });
         </script>
-         <button id="save" name="save" class="btn4" type= "submit">Radera</button>
+         <button th:href="@{/remove-object/delete-author(authorid=${author.authorId})}" id="save" name="save" class="btn4" type= "submit">Delete</button>
 
 
     </form>
