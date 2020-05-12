@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="tail.select-bootstrap4.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -16,11 +17,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" th:href="@{/css/start.css}">
     <style type="text/css">
-        body{
-            background-color: #F8F9F9;
-        }
+
         #save{
             margin-top: 30px;
             width: 20%;
@@ -67,7 +66,7 @@
         <input class="form-control" id="lastname" name="lastname"
                required th:value="${author.lastname}" type="text" maxlength="255">
 
-        <button id="save" name="save" type= "submit">Spara</button>
+        <button class="btn4" id="save" name="save" type= "submit">Spara</button>
     </form>
 </div>
 </body>

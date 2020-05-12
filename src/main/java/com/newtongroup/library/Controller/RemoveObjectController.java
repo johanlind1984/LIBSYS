@@ -7,7 +7,6 @@ import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,31 +34,6 @@ public class RemoveObjectController {
     @Autowired
     private RemovedSeminaryRepository removedSeminaryRepository;
 
-
-
-    private String adminheader = "admin/adminheader.html";
-    private String librarianheader = "librarian/librarianheader.html";
-
-
-    @GetMapping("/menu")
-    public String getMenu(){
-        return "remove-objects/remove-object-menu";
-    }
-
-    @RequestMapping("/home")
-    public String goToHome(Model model, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
-
-        switch (user.getAuthority().getAuthorityName()) {
-            case "ROLE_ADMIN":
-                return "redirect:/admin/";
-            case "ROLE_LIBRARIAN":
-                return "redirect:/librarian/";
-            default:
-                break;
-        }
-        return null;
-    }
 
     @RequestMapping("/book")
     public String book(Model theModel, Principal principal){
@@ -101,7 +75,7 @@ public class RemoveObjectController {
 
         for(Book temp : bookList){
             if(temp.getIsbn().equals(isbn)){
-                int id = temp.getId();
+                Long id = temp.getId();
                 String title = temp.getTitle();
                 String publisher = temp.getPublisher();
                 String price = temp.getPurchasePrice();
@@ -131,7 +105,7 @@ public class RemoveObjectController {
 
         for(EBook temp : bookList){
             if(temp.getIsbn().equals(isbn)){
-                int id = temp.getId();
+                Long id = temp.getId();
                 String title = temp.getTitle();
                 String publisher = temp.getPublisher();
                 String price = temp.getPurchasePrice();

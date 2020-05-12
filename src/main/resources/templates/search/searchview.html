@@ -2,20 +2,24 @@
 <html lang="en" xmlns:th="http://wwww.thymeleaf.com">
 
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-			crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-			integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-			crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-			integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-			crossorigin="anonymous"></script>
-
-	<title>Sök</title>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" th:href="@{/css/start.css}">
+<title>Sök</title>
 
 
 </head>
@@ -23,10 +27,10 @@
 <body>
 	<header th:insert="${header}::header">
 		<div th:fragment="header">
-			<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="#">LIBSYS ()</a>
+			<nav class="navbar navbar-default menu">
+				<div class="container-fluid menu">
+					<div class="navbar-header menu">
+						<a class="navbar-brand menu" href="#">LIBSYS ()</a>
 					</div>
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="/librarian/">Hem</a></li>
@@ -36,12 +40,13 @@
 						<li><a href="/new-object/new-ebook">Lägg till ebok</a></li>
 						<li><a href="/new-object/new-seminar">Lägg till
 								seminarium</a></li>
-						<li><a href="/search/">Sök</a></li>
+						<li><a class="searchTop" href="/search/">Sök</a></li>
 
 					</ul>
 					<div class="nav d-flex" align="right">
 						<form class="form-inline" th:action="@{/logout}" method="post">
-							<button type="submit" class="btn btn-warning" style="margin-top: 0.5em">Logga ut</button>
+							<button type="submit" class="btn1" style="margin-top: 0.5em">Logga
+								ut</button>
 						</form>
 					</div>
 				</div>
@@ -50,56 +55,131 @@
 	</header>
 
 	<div class="container-fluid">
-		<div class="form-group">
-			<form action="#" th:action="@{/search}" method="post" class="form-inline">
+		<div class="container">
+			<div class="row">
+			<div class="col"><br/><h2>Vad söker du?</h2></div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="form-group">
+						<form action="#" th:action="@{/search}" method="post"
+							class="form-inline">
 
-				<label for="bsearch">Hitta bok/E-bok:</label> <input class="form-control form-control-sm ml-3 w-75" type="search" name="search" th:value="${searchText}" placeholder="ISBN, Titel, Författare"> <input class="btn btn-primary" type="submit"
-					value="Sök">
-
-
-			</form>
+							<input
+								class="searchBtm form-control form-control-sm w-50"
+								type="search" name="search" th:value="${search}"
+								placeholder="ISBN, Titel, Författare"> &nbsp;
+							<button class="btn3" type="submit">Sök</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			<div class="col">
+			<br/>
+			</div>
+			</div>
 		</div>
 
-		<div class="container row">
-			<div class="col">
-				<h3>Böcker</h3>
-				<div class="list-group">
-					<a th:each="result: ${bResults}" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-						<div class="d-flex w-100 justify-content-between">
-							<h4 class="mb-1">
-								<u><strong th:text="${result.title}"></strong></u>
-							</h4>
-							<span><strong>Författare: </strong></span><span th:each="author, iterStat: ${result.authorList}"
-								th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}"></span>
-						</div>
-						<p class="mb-1">
-							<h5>
-								<strong>Beskrivning:</strong>
-							</h5> <i th:text="${result.description}"></i>
-						</p> <small th:text="'ISBN: ' + ${result.isbn}"> </small>
-					</a>
-				</div>
+		<div class="container">
+			<div class="row">
 				<div class="col">
-					<h3>E-Böcker</h3>
-					<div class="list-group">
-						<a th:each="result: ${ebResults}" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-							<div class="d-flex w-100 justify-content-between">
-								<h4 class="mb-1">
-									<u><strong th:text="${result.title}"></strong></u>
-								</h4>
-								<span><strong>Författare: </strong></span><span th:each="author, iterStat: ${result.authorList}"
-									th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}"></span>
+					<h3>Böcker</h3>
+					<div class="list-group container search-list-item ml-n2">
+						<a th:each="result: ${bResults}"
+							th:href="@{/search/{id}/detailedview?searchText={searchText}(id=${result.id},searchText=${search})}"
+							class="search-list-item list-group-item list-group-item-action flex-column align-items-start">
+							<div class="row">
+								<div class="col d-flex justify-content-left">
+									<h4 class="mb-1 center">
+										<u><strong th:text="${result.title}"></strong></u>
+									</h4>
+								</div>
 							</div>
-							<p class="mb-1">
-								<h5>
-									<strong>Beskrivning:</strong>
-								</h5> <i th:text="${result.description}"></i>
-							</p> <small a th:text="'Nedladdningslänk: ' + ${result.downloadLink}"></small></br>
-							<small th:text="'ISBN: ' + ${result.isbn}"></small>
+
+							<div class="row">
+								<br />
+							</div>
+							<div class="row">
+								<div class="col-7 min-vh-50">
+									<h5>
+										<strong>Beskrivning:</strong>
+									</h5>
+
+									<i th:text="${result.description}"></i>
+								</div>
+								<div class="col-2"></div>
+								<div class="col-3">
+									<span class="float-left"><strong>Författare: </strong></span><br />
+									<span class="float-left"
+										th:each="author, iterStat: ${result.authorList}"
+										th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}"><br /></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-9">
+									<br /> <small th:text="'ISBN: ' + ${result.isbn}"></small>
+								</div>
+								<div class="col">
+									<form th:action="@{/loan/register-loan}">
+									<button type="submit" class="btn3" th:name="bookId" th:value="${result.id}">Låna</button>
+									</form>
+								</div>
+							</div>
 						</a>
 					</div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col">
+					<h3>E-Böcker</h3>
+					<div class="list-group container search-list-item ml-n2">
+						<a th:each="result: ${ebResults}"
+							th:href="@{/search/{id}/detailedview(id=${result.id})}"
+							class="search-list-item list-group-item list-group-item-action flex-column align-items-start">
+							<div class="row">
+								<div class="col d-flex justify-content-left">
+									<h4 class="mb-1 center">
+										<u><strong th:text="${result.title}"></strong></u>
+									</h4>
+								</div>
+							</div>
+
+							<div class="row">
+								<br />
+							</div>
+							<div class="row">
+								<div class="col-7 min-vh-50">
+									<h5>
+										<strong>Beskrivning:</strong>
+									</h5>
+
+									<i th:text="${result.description}"></i>
+								</div>
+								<div class="col-2"></div>
+								<div class="col-3">
+									<span class="float-left"><strong>Författare: </strong></span><br />
+									<span class="float-left"
+										th:each="author, iterStat: ${result.authorList}"
+										th:text="!${iterStat.last} ? ${author.firstname} + ' ' + ${author.lastname} + ', ' : ${author.firstname} + ' ' + ${author.lastname}"><br /></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-9">
+									<br /> <small th:text="'ISBN: ' + ${result.isbn}"></small> <small
+										th:text="'Nedladdningslänk: ' + ${result.downloadLink}"></small>
+								</div>
+								<div class="col">
+									<form th:action="@{/loan/register-loan}">
+										<button type="submit" class="btn3" th:name="eBookId" th:value="${result.id}">Låna</button>
+									</form>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </body>
