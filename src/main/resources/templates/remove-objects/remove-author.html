@@ -61,17 +61,16 @@
 
     <h1 align="center">Radera författare</h1>
     <div class="container" id="div">
-    <form action="#" th:action="@{'/remove-object/delete-author/{id}'(id=${author.authorId})}" class="form-group" th:method="post"
-          th:field="*{authorId}"
+    <form action="/remove-object/delete-author" class="form-group"
           th:object="${author}">
-        <input type="hidden" name="_method" value="delete"/>
+<!--        <input type="hidden" name="_method" value="delete"/>-->
 <!--          onsubmit="myFunction()"-->
 
      <div class="container mt-5">
          <div class="row">
              <div class="col-md-6">
                  <label id="l1" for="select">Författare:</label>
-             <select id="select" th:object="${authors}" required>
+             <select id="select" name= "authorId" th:object="${authors}" required>
                  <option th:each="author:${authors}"
                          th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}"
                          th:value="${author.authorId}"></option>
@@ -81,7 +80,7 @@
              </div>
          </div>
      </div>
-         <button  id="save" class="btn4" type= "submit">Delete</button>
+         <button  th:value="${author.authorId}" id="save" class="btn4" type= "submit">Delete</button>
     </form>
     </div>
     <script>
