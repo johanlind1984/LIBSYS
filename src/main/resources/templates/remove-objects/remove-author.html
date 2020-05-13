@@ -74,15 +74,24 @@
                  <option th:each="author:${authors}"
                          th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}"
                          th:value="${author.authorId}"></option>
-
              </select>
 
              </div>
          </div>
      </div>
-         <button  th:value="${author.authorId}" id="save" class="btn4" type= "submit">Delete</button>
+         <button  th:value="${author.authorId}" onclick="return ConfirmDelete()" id="save" class="btn4" type="submit">Radera</button>
     </form>
     </div>
+    <script>
+        function ConfirmDelete()
+        {
+            var x = confirm("Är du säker på att du vill radera författaren?");
+            if (x)
+                return true;
+            else
+                return false;
+        }
+    </script>
     <script>
         tail.select('#select', {
             search: true,
