@@ -175,24 +175,32 @@ public class RemoveObjectController {
         model.addAttribute("author", author);
         return "remove-objects/remove-author";
     }
+    @GetMapping ("/delete-author")
+    public String deleteAuthor(@ModelAttribute (name = "author") Author author, Principal principal, Model model) {
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        Author authorToRemove = authorRepository.getOne(author.getAuthorId());
+        boolean isAuthorNotInABookList=authorToRemove.getBookList().isEmpty()&&authorToRemove.geteBookList().isEmpty();
+        if (isAuthorNotInABookList) {
+            authorRepository.delete(author);
+            return "redirect:/remove-object/author";
+        }
+        return "error/author-could-not-be-removed";
+    }
 
 
-//    @PostMapping("/delete-author")
-//    public String deleteAuthor(@RequestParam (value="author.authorId") Integer authorId){
-//        Author authorToRemove=authorRepository.findById(author.getAuthorId()).orElse(null);
-//        authorRepository.delete(authorToRemove);
-//        return "redirect:/remove-object/author";
-//    }
-//
- @GetMapping ("/delete-author")
-public String deleteAuthor(@ModelAttribute (name = "author") Author author) {
-        authorRepository.delete(author);
-     System.out.println(author.getAuthorId());
-        return "redirect:/remove-object/author";
-//    Author authorToRemove = authorRepository.findById(authorId)
-//            .orElseThrow();
-//
-//    authorRepository.delete(authorToRemove);
-//    return "redirect:/remove-object/author";
+//        authorRepository.delete(author);
+
+
+
+//       for(Book book:author.getBookList()){
+//           System.out.println(book.getTitle());
+//       }return null;
+
+//        if (!listOfBooksWithAuthor.contains(bookRepository.findAll())&& listOfBooksWithAuthor!=(null)) {
+
+//        }else {
+//            return "error/test-error";
+//        }
+
 }
-}
+

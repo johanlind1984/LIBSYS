@@ -1,7 +1,6 @@
 package com.newtongroup.library.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -72,4 +71,11 @@ public class Author {
         this.bookList = bookList;
     }
 
+    public List<EBook> geteBookList() {
+        return eBookList;
+    }
+
+    public void seteBookList(List<EBook> eBookList) {
+        this.eBookList = eBookList;
+    }
 }
