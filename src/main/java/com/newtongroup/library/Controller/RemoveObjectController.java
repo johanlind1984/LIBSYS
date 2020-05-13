@@ -184,12 +184,17 @@ public class RemoveObjectController {
 //        return "redirect:/remove-object/author";
 //    }
 //
-@DeleteMapping("/delete-author/{authorid}")
-public String deleteAuthor(@PathVariable(value = "authorid") Integer authorId) {
-//    Author author = authorRepository.findById(authorId)
-//            .orElseThrow();
+@RequestMapping(value = "/delete-author/{id}", method = RequestMethod.DELETE)
+//@ResponseBody
+public String deleteAuthor(@PathVariable ("id")Integer authorId) {
 
-    authorRepository.deleteById(authorId);
-    return "redirect:/remove-object/author";
+    System.out.println(authorId);
+        authorRepository.deleteById(authorId);
+        return "redirect:/remove-object/author";
+//    Author authorToRemove = authorRepository.findById(authorId)
+//            .orElseThrow();
+//
+//    authorRepository.delete(authorToRemove);
+//    return "redirect:/remove-object/author";
 }
 }

@@ -61,7 +61,10 @@
 
     <h1 align="center">Radera författare</h1>
     <div class="container" id="div">
-    <form action="/remove-object/author" class="form-group" method="GET" th:object="${author}">
+    <form action="#" th:action="@{'/remove-object/delete-author/{id}'(id=${author.authorId})}" class="form-group" th:method="post"
+          th:field="*{authorId}"
+          th:object="${author}">
+        <input type="hidden" name="_method" value="delete"/>
 <!--          onsubmit="myFunction()"-->
 
      <div class="container mt-5">
@@ -78,19 +81,16 @@
              </div>
          </div>
      </div>
-
-        <script>
-            tail.select('#select', {
-                search: true,
-                deselect: true,
-                placeholder: 'Välj författare'
-            });
-        </script>
-         <button th:href="@{/remove-object/delete-author(authorid=${author.authorId})}" id="save" name="save" class="btn4" type= "submit">Delete</button>
-
-
+         <button  id="save" class="btn4" type= "submit">Delete</button>
     </form>
     </div>
+    <script>
+        tail.select('#select', {
+            search: true,
+            deselect: true,
+            placeholder: 'Välj författare'
+        });
+    </script>
 </body>
 </html>
 
