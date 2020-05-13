@@ -71,6 +71,7 @@
 				<form action="#" th:action="@{/search}" method="post"
 					class="form-inline">
 					<input type="hidden" name="search" th:value="${searchText}">
+					<input type="hidden" name="categories" th:value="${selectedCategories}">
 					<button class="btn3" type="submit">
 						<strong>&#8701;</strong> Tillbaka
 					</button>
