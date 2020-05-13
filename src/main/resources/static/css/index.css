@@ -202,8 +202,10 @@ img {
 }
 
 .img-yes {
-    height: 450px;
-    width: 450px;
+    position: relative;
+    height: 340px;
+    width: 340px;
+
 }
 
 
