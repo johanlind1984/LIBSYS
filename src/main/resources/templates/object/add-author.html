@@ -33,7 +33,6 @@
             margin-top: 40px;
         }
         #firstname, #lastname{
-            margin-bottom: 20px;
             font-size: medium;
         }
         #div{
@@ -69,7 +68,7 @@
         <input class="form-control" id="birthyear" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)"
                name="birthYear" placeholder="yyyy"
                required th:value="${author.birthYear}" type="text" maxlength = "4" min = "1" max = "9999">
-
+        <br>
         <button class="btn4" id="save" name="save" type= "submit">Spara</button>
     </form>
 </div>

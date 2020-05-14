@@ -47,7 +47,6 @@
             text-align:center;
         }
         #title, #datepicker, #startTime, #endTime{
-            margin-bottom: 20px;
             font-size: medium;
         }
         #div{
@@ -90,6 +89,7 @@
         <textarea class="form-control" id="information" name="information"
                   required row="40" cols="60" maxlength="5000"
                   th:value="${seminary.information}" type="text"></textarea>
+        <br>
         <button class="btn4" type= "submit" name="save" id="save" >Spara</button>
     </form></div>
 </body>

@@ -17,30 +17,31 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
     <style type="text/css">
-        #save{
+        #save {
             margin-top: 30px;
             width: 20%;
             height: 10%;
             margin-left: 43%;
             font-size: medium;
         }
-        h1{
+
+        h1 {
             margin-bottom: 60px;
             margin-top: 40px;
-            text-align:center;
+            text-align: center;
         }
-        #isbn, #cause{
+
+        #isbn, #cause {
             margin-bottom: 20px;
             font-size: medium;
         }
-        #l1,l2{
-            font-size: medium;
-        }
-        #div{
+
+        #div {
             width: 60%;
             align-items: center;
         }
-        #li{
+
+        #li {
             color: lightgray;
         }
     </style>
@@ -52,49 +53,50 @@
 <h1>Ta bort ebok</h1>
 
 
-<form th:action="@{/remove-object/delete-e-book}" method="post" th:object="${ebook}" >
-   <div class="container" id="div">
-    <div  class="form-group" >
+<form th:action="@{/remove-object/delete-e-book}" method="post" th:object="${ebook}">
+    <div class="container" id="div">
+        <div class="form-group">
 
-        <label id="l1" >Radera e-boken på ISBN nummer</label>
-        <input type="text" class="form-control"  id="isbn" placeholder="ISBN"
-               th:field="${ebook.isbn}" required maxlength="255">
+            <label id="l1">Radera e-boken på ISBN nummer</label>
+            <input type="text" class="form-control" id="isbn" placeholder="ISBN"
+                   th:field="${ebook.isbn}" required maxlength="255">
 
+        </div>
+
+        <div class="form-group" th:object="${removedEBook}">
+
+            <label id="l2">Motivera anledning till radering</label>
+            <input type="text" class="form-control" id="cause" placeholder="Låg efterfrågan, skadad etc"
+                   th:field="${removedEBook.cause}" required maxlength="150">
+
+        </div>
+
+
+        <button type="button" class="btn4" data-toggle="modal" data-target="#modalDialog">
+            Ta bort
+        </button>
+
+        <div class="modal fade" id="modalDialog" tabindex="-1" role="dialog" aria-labelledby="modalDialogTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">VARNING!!!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Är du säker på att du vill ta bort boken? Det går inte att ångra denna åtgärd.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Avbryt</button>
+                        <button type="submit" class="btn btn-danger">Ta bort</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div  class="form-group" th:object="${removedEBook}">
-
-        <label id="l2" >Motivera anledning till radering</label>
-        <input type="text" class="form-control"  id="cause" placeholder="Låg efterfrågan, skadad etc"
-               th:field="${removedEBook.cause}" required maxlength="150">
-
-    </div>
-
-
-       <button type="button" class="btn4" data-toggle="modal" data-target="#modalDialog">
-           Ta bort
-       </button>
-
-       <div class="modal fade" id="modalDialog" tabindex="-1" role="dialog" aria-labelledby="modalDialogTitle" aria-hidden="true">
-           <div class="modal-dialog modal-dialog-centered" role="document">
-               <div class="modal-content">
-                   <div class="modal-header">
-                       <h5 class="modal-title" id="exampleModalLongTitle">VARNING!!!</h5>
-                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                           <span aria-hidden="true">&times;</span>
-                       </button>
-                   </div>
-                   <div class="modal-body">
-                       Är du säker på att du vill ta bort boken? Det går inte att ångra denna åtgärd.
-                   </div>
-                   <div class="modal-footer">
-                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Avbryt</button>
-                       <button type="submit" class="btn btn-danger">Ta bort</button>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </div>
 </form>
 </body>
 </html>
