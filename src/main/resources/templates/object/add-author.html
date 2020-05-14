@@ -46,15 +46,11 @@
 </head>
 <header th:insert="${header} :: header"> </header>
 <body>
-<script>
-    function myFunction() {
-        alert("Författaren har registrerats!");
-    }
-</script>
+
 <h1 align="center">Lägg till författare</h1>
 <div class="container" id="div">
 
-    <form action="/new-object/save-author" class="form-group" method="POST" onsubmit="myFunction()" th:object="${author}">
+    <form action="/author/save-author" class="form-group" method="POST" th:object="${author}">
 
         <label for="firstname" id="labFi">Förnamn</label>
         <input class="form-control" id="firstname" name="firstname"

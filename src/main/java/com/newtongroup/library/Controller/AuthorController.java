@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.List;
 
 
 @Controller
@@ -25,33 +25,32 @@ public class AuthorController {
     private UserRepository userRepository;
 
     @GetMapping("/new")
-    public String NewAuthorForm(Model model, Principal principal) {
+    public String getAuthorForm(Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         Author author = new Author();
-
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-        model.addAttribute("author", author);
+        model.addAttribute("author",author);
 
         return "object/add-author";
-
     }
 
+    @PostMapping("/save-author")
+    public String saveAuthor(@RequestParam("firstname") String firstName,
+                             @RequestParam("lastname") String lastName,
+                             @RequestParam ("birthYear") String birthYear,
+                             Model model, Principal principal,  Author author) {
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView saveAuthor(@RequestParam("firstName") String firstName,
-                                  @RequestParam("lastName") String lastName) {
+        List<Author> authorList = authorRepository.findAll();
+        for (Author authors : authorList) {
+            if (authors.getFirstname().equals(firstName) && lastName.equals(authors.getLastname()) && birthYear.equals(authors.getBirthYear())) {
+                return "error/author-already-exist";
+            } else {
+                authorRepository.save(author);
+                return "object/author-confirmation";
 
-        Author author = (Author) authorRepository.findAll();
-
-        if (firstName.equals(author.getFirstname()) && lastName.equals(author.getLastname())) {
-            System.out.println("Författaren finns redan i registret.");
-        } else {
-
-            author.setFirstname(firstName);
-            author.setLastname(lastName);
-
-            authorRepository.save(author);
+            }
         }
-        return new ModelAndView("redirect:/author/");
+        return "redirect:/author/new";
     }
 }
