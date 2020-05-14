@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+    #safari { background-color: var(--primary-color) }
+}
 
 :root {
     --primary-color: #362476;
@@ -116,15 +120,14 @@ ul {
 }
 
 .section-stream .search_box input[type="search"] {
-    -webkit-user-select: text;
     width: 100%;
     padding: 20px 60px 20px 20px;
     box-sizing: border-box;
-    background: rgba(0,0,0,0.3);
+    background: rgba(255, 255, 255, 0.2);
     border: 2px solid var(--secondary--color);
     border-radius: 10px;
     font-size: 18px;
-    color: #ffffff;
+    color: #1d1d1d;
     outline: none;
 }
 
@@ -252,7 +255,7 @@ img {
 }
 
 ::-webkit-input-placeholder {
-    color: var(--secondary--color);
+    color: #1d1d1d;
 }
 
 ::-moz-placeholder {
