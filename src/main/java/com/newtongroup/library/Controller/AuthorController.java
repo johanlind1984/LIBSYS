@@ -7,7 +7,10 @@ import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -39,18 +42,18 @@ public class AuthorController {
                              @RequestParam("lastname") String lastName,
                              @RequestParam ("birthYear") String birthYear,
                              Model model, Principal principal,  Author author) {
+
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
-        List<Author> authorList = authorRepository.findAll();
-        for (Author authors : authorList) {
-            if (authors.getFirstname().equals(firstName) && lastName.equals(authors.getLastname()) && birthYear.equals(authors.getBirthYear())) {
-                return "error/author-already-exist";
-            } else {
-                authorRepository.save(author);
-                return "object/author-confirmation";
+        List<Author> authors = authorRepository.findAll();
+        for(Author author1: authors){
+            boolean existsAuthor= author1.getFirstname().equals(firstName)&&author1.getLastname().equals(lastName)&&author1.getBirthYear().equals(birthYear);
 
+            if (existsAuthor) {
+                return "error/author-already-exist";
             }
         }
-        return "redirect:/author/new";
+        authorRepository.save(author);
+        return "object/author-confirmation";
     }
 }
