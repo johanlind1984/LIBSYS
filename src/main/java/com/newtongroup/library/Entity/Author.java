@@ -26,6 +26,10 @@ public class Author {
     @Column(name="lastname")
     private String lastname;
 
+    @Field
+    @Column(name="birthyear")
+    private String birthYear;
+
     @JsonBackReference
     @ContainedIn
     @ManyToMany(mappedBy = "authorList")
@@ -77,5 +81,13 @@ public class Author {
 
     public void seteBookList(List<EBook> eBookList) {
         this.eBookList = eBookList;
+    }
+
+    public String getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(String birthYear) {
+        this.birthYear = birthYear;
     }
 }

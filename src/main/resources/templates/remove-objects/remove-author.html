@@ -21,11 +21,6 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <link   rel="stylesheet" th:href="@{/css/start.css}">
-<!--    <script>-->
-<!--        function myFunction() {-->
-<!--            alert("Bok har registrerats!");-->
-<!--        }-->
-<!--    </script>-->
 
     <style type="text/css">
 
@@ -72,7 +67,7 @@
                  <label id="l1" for="select">Författare:</label>
              <select id="select" name= "authorId" th:object="${authors}" required>
                  <option th:each="author:${authors}"
-                         th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}"
+                         th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}+${author.birthYear+'&nbsp;'}"
                          th:value="${author.authorId}"></option>
              </select>
 
