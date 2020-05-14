@@ -24,9 +24,41 @@ public class EBook extends AbstractBook {
 			joinColumns = {@JoinColumn(name="idebook_author_ebook_id")},
 			inverseJoinColumns = {@JoinColumn(name="idebook_author_author_id")})
 	private List<Author> authorList;
+	
+
+	@OneToMany(mappedBy = "ebook")
+	private List<EbookLoan> loanedEbooks;
+	
+	@JsonManagedReference
+	@ManyToOne()
+	@JoinColumn(name = "placement_id")
+	private Placement placement;
+	
+	
+
+	public Placement getPlacement() {
+		return placement;
+	}
+
+
+	public void setPlacement(Placement placement) {
+		this.placement = placement;
+	}
+
 
 	public EBook() {
 	}
+	
+	
+	public List<EbookLoan> getLoanedEbooks() {
+		return loanedEbooks;
+	}
+
+
+	public void setLoanedEbooks(List<EbookLoan> loanedEbooks) {
+		this.loanedEbooks = loanedEbooks;
+	}
+
 
 	public String getDownloadLink() {
 		return downloadLink;

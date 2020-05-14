@@ -9,7 +9,6 @@
           integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous"/>
 
 
-
 </head>
 <body>
 <section class="section section-top">
@@ -17,10 +16,7 @@
        class="btn btn-primary login"
        data-toggle="tooltip"
        title="Tryck här för att logga in">Logga in
-        <div
-                class="content rellax login"
-                data-rellax-speed="8">
-        </div>
+        <div class="content rellax login" data-rellax-speed="8"></div>
     </a>
     <div class="content rellax" data-rellax-speed="5">
         <h1>Välkommen till det digitaliserade biblioteket</h1>
@@ -30,18 +26,34 @@
 </section>
 
 <section class="section section-stream">
-    <div class="play rellax" data-rellax-speed="3">
-        <img class="img-yes" src="/images/LIBSYS.png" alt="">
+    <div class="play rellax" data-rellax-speed="-3.7">
+        <img class="img-yes" src="https://i.imgur.com/guZCuFD.png" alt="">
     </div>
-    <div class="content rellax" data-rellax-speed="2">
-        <div>
-            <h2 class="secondary-text">Nyheter</h2>
-            <p>Här finner du alla nyheter som angår biblioteket.</p>
+    <div class="content rellax" data-rellax-speed="3">
+        <div class="search_box">
+            <form action="#" th:action="@{/search}" method="post" class="form-inline">
+                <label>
+                    <input type="search" name="search" th:value="${search}"  placeholder="Sök efter böcker/e-böcker/seminarium i vårt bibliotek!">
+                </label>
+            </form>
+            <i class="fas fa-search"></i>
         </div>
         <div>
+            <h2 class="secondary-text">Nyheter</h2>
+            <p>Vi har fått en sökruta mitt i flödet på hemsidan! häftigt, va!?</p>
+        </div>
+        <div class="weekly-content">
             <h2 class="secondary-text">Veckans bok!</h2>
-            <p>Sagan om ringen - J. R. R. Tolkien</p>
-            <img class="img zoom" src="https://i.imgur.com/Xb3sNxr.jpg" alt="">
+            <p class="text-decoration-underline">Sagan om ringen - J. R. R. Tolkien</p>
+            <div>
+                <img class="img zoom" src="https://i.imgur.com/Xb3sNxr.jpg" alt="">
+                    <p>Sagan om Ringen berättar historien om den unge hoben Frodo som ärver en tillsynes oskyldig ring
+                        av sin kusin, Bilbo. Frodo upptäcker att ringens ursprunglige skapare, den onde trollkarlen
+                        Sauron, desperat letar efter ringen. För det är en ring med mycket onda krafter som kan göra det
+                        möjligt för Sauron att förslava innevånarna i landet som kallas Midgård. Det finns bara en utväg
+                        - att förstöra ringen i Domedagsklyftan. Ett litet utvalt sällskap med hoben Frodo i spetsen ger
+                        sig iväg på det ödesdigra uppdraget, en vandring fylld av äventyr och fasor.</p>
+                </div>
         </div>
     </div>
 </section>
@@ -78,7 +90,7 @@
        title="Klicka här"
        class="clickable rellax btn-1" data-rellax-speed="3">
         <div class="rellax" data-rellax-speed="0">
-            <i class="fas fa-search fa-3x secondary-text"></i>
+            <i class="fas fa-search-plus fa-3x secondary-text"></i>
             <h2>Sök<span class="secondary-text dot">.</span></h2>
             <p><span>Klicka här kan du söka efter böcker, e-böcker och seminarium som finns i biblioteket.
                 Vi har böcker från hela världens hörn och kanter.</span>
@@ -128,7 +140,7 @@
 
 <footer class="footer">
     <a href="https://github.com/johanlind1984/LIBSYS">
-   <p class="right">Java Gruppen 1 ©™</p>
+        <p class="right">Java Gruppen 1 ©™</p>
     </a>
 
 </footer>

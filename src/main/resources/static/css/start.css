@@ -6,6 +6,7 @@
     --text-color: #c5bbec;
     --hover-color: #920d0d;
     --focus-color: #495057;
+    --button-color: #a59a9a;
 }
 
 body {
@@ -41,7 +42,7 @@ body {
 }
 
 .searchVisitor {
-    margin-left: 600px;
+    margin-left: 524px;
 }
 
 .searchBtm {
@@ -82,6 +83,13 @@ button.btn3 {
     display: inline-block;
 }
 
+button.btn3.disabled {
+    background-color: var(--button-color);
+	color: var(--focus-color);
+	border: 1px solid var(--focus-color);
+    cursor: default;
+}
+
 button.btn4 {
     background-color: var(--secondary--color);
     border: 1px solid #555555;
@@ -100,6 +108,13 @@ button.btn2:hover {
 
 button.btn3:hover {
     background: var(--text-color)
+}
+
+button.btn3.disabled:hover {
+    background-color: var(--button-color);
+	color: var(--focus-color);
+	border: 1px solid var(--focus-color);
+    cursor: default;
 }
 
 button.btn4:hover {
