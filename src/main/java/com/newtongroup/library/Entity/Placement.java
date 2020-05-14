@@ -3,9 +3,13 @@ package com.newtongroup.library.Entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+
+import org.hibernate.search.annotations.Indexed;
+
 import java.util.List;
 
 @Entity
+@Indexed
 @Table(name = "placements")
 public class Placement {
 
@@ -23,12 +27,21 @@ public class Placement {
     @JsonBackReference
     @OneToMany(mappedBy = "placement")
     private List<Book> bookList;
+    
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "placement")
+    private List<EBook> ebookList;
 
     public Placement() {
     }
 
     public Long getPlacementId() {
         return placementId;
+    }
+    
+    public String getIdString() {
+    	return placementId.toString();
     }
 
     public void setPlacementId(Long placementId) {

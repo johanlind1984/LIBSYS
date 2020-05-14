@@ -29,7 +29,22 @@ public class EBook extends AbstractBook {
 	@OneToMany(mappedBy = "ebook")
 	private List<EbookLoan> loanedEbooks;
 	
+	@JsonManagedReference
+	@ManyToOne()
+	@JoinColumn(name = "placement_id")
+	private Placement placement;
 	
+	
+
+	public Placement getPlacement() {
+		return placement;
+	}
+
+
+	public void setPlacement(Placement placement) {
+		this.placement = placement;
+	}
+
 
 	public EBook() {
 	}
