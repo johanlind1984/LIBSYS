@@ -61,9 +61,9 @@ public class SearchServiceImpl implements SearchService {
 
 			for (EBook book : results) {
 
-				String categoryName = book.getPlacement().getTitle();
+				long categoryId = book.getPlacement().getPlacementId();
 
-				if (categories.contains(categoryName)) {
+				if (categories.contains(String.valueOf(categoryId))) {
 					filteredResults.add(book);
 				}
 			}
