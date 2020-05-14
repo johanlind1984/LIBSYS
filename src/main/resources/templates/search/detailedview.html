@@ -71,6 +71,7 @@
 				<form action="#" th:action="@{/search}" method="post"
 					class="form-inline">
 					<input type="hidden" name="search" th:value="${searchText}">
+					<input type="hidden" name="categories" th:value="${selectedCategories}">
 					<button class="btn3" type="submit">
 						<strong>&#8701;</strong> Tillbaka
 					</button>
@@ -98,13 +99,15 @@
 					<li class="list-group-item"
 						th:text="'Utgivare: ' + ${book.publisher}" />
 
+						
+					<li class="list-group-item" th:if="${book.ebook}"th:text="'Kategori: ' + ${book.placement.title}">
+					</li>
+					<li class="list-group-item" th:text="'ISBN: ' + ${book.isbn}" />
 					<li th:unless="${book.ebook}" class="list-group-item"
-						th:text="'Placering: ' + ${book.placement.title} + ', ' + ${book.placement.ddk}" />
+						th:text="'Kategori: ' + ${book.placement.title} + ', ' + ${book.placement.ddk}" />
 					<li th:if="${book.ebook}" class="list-group-item">
 						NedladdningsLänk: <a th:href="@{http://www.google.com}"
 						th:text="${book.downloadLink}"></a>
-					</li>
-					<li class="list-group-item" th:text="'ISBN: ' + ${book.isbn}" />
 					<li class="text-danger list-group-item"
 						th:unless="${book.available}" th:text="'Utlånad'" />
 					<li class="text-success list-group-item" th:if="${book.available}"
