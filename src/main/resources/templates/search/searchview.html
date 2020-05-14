@@ -3,10 +3,14 @@
 
 <head>
 <meta charset="UTF-8">
+<link href="/css/tail.select-light.css" rel="stylesheet">
+<script src="/script/tail.select-full.min.js"></script>
+
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
@@ -18,6 +22,34 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
+
+<style type="text/css">
+.tail-select-container .select-handle {
+	color: var(--primary-color);
+	background-color: var(--text-color);
+	font-size: 14.844px;
+	font-weight: normal;
+	background-color: var(--text-color);
+}
+.tail-select mark {
+	background-color: var(--text-color);
+}
+</style>
+<script>
+	document.addEventListener("DOMContentLoaded", function(event) {
+		tail.select('#categories', {
+			search : true,
+			multiLimit : 15,
+			hideSelected : true,
+			hideDisabled : true,
+			multiShowCount : false,
+			multiContainer : true,
+			placeholder : 'Välj Kategori (Frivilligt)',
+			width : "60%",
+			classNames : ""
+		});
+	});
+</script>
 <link rel="stylesheet" th:href="@{/css/start.css}">
 <title>Sök</title>
 
@@ -62,25 +94,38 @@
 					<h2>Vad söker du?</h2>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col">
-					<div class="form-group">
-						<form action="#" th:action="@{/search}" method="post"
-							class="form-inline">
+			<form action="#" th:action="@{/search}" method="post" class="">
+				<div class="row">
+					<div class="col">
+						<div class="form-group form-inline">
 
 							<input class="searchBtm form-control form-control-sm w-50"
 								type="search" name="search" th:value="${search}"
 								placeholder="ISBN, Titel, Författare"> &nbsp;
 							<button class="btn3" type="submit">Sök</button>
-						</form>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<br />
+				<div class="row">
+					<div class="col">
+						<select id="categories" multiple searchable="Search here.."
+							name="categories">
+							<th:block th:each="placement : ${placements}">
+								<option
+									th:selected="${null!=selectedCategories and selectedCategories.contains(placement.idString)}"
+									th:value="${placement.placementId}"
+									th:text="${placement.title}"></option>
+
+							</th:block>
+						</select>
+						<div class="row">
+							<div class="col">
+								<br />
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 
 		<div class="container">
@@ -89,7 +134,7 @@
 					<h3>Böcker</h3>
 					<div class="list-group container search-list-item ml-n2">
 						<a th:each="result: ${bResults}"
-							th:href="@{/search/book/{id}/detailedview?searchText={searchText}(id=${result.id},searchText=${search})}"
+							th:href="@{/search/book/{id}/detailedview?searchText={searchText}&categories={categories}(id=${result.id},searchText=${search}, categories=${selectedCategories})}"
 							class="search-list-item list-group-item list-group-item-action flex-column align-items-start">
 							<div class="row">
 								<div class="col d-flex justify-content-left">
@@ -126,8 +171,7 @@
 												<button th:if="${result.available}" type="submit"
 													class="btn3" th:name="bookId" th:value="${result.id}">Låna</button>
 												<button th:unless="${result.available}" type="submit"
-													class="btn3 disabled"
-													th:value="${result.id}">Låna</button>
+													class="btn3 disabled" th:value="${result.id}" disabled>Låna</button>
 											</form>
 										</div>
 									</div>
@@ -151,7 +195,7 @@
 					<h3>E-Böcker</h3>
 					<div class="list-group container search-list-item ml-n2">
 						<a th:each="result: ${ebResults}"
-							th:href="@{/search/ebook/{id}/detailedview?searchText={searchText}(id=${result.id},searchText=${search})}"
+							th:href="@{/search/ebook/{id}/detailedview?searchText={searchText}&categories={categories}(id=${result.id},searchText=${search},categories=${selectedCategories})}"
 							class="search-list-item list-group-item list-group-item-action flex-column align-items-start">
 							<div class="row">
 								<div class="col d-flex justify-content-left">
@@ -188,8 +232,7 @@
 												<button th:if="${result.available}" type="submit"
 													class="btn3" th:name="eBookId" th:value="${result.id}">Låna</button>
 												<button th:unless="${result.available}" type="submit"
-													class="btn3 disabled"
-													th:value="${result.id}">Låna</button>
+													class="btn3 disabled" th:value="${result.id}" disabled>Låna</button>
 											</form>
 										</div>
 									</div>

@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -30,13 +29,24 @@ public class Book extends AbstractBook {
 			inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
 	private List<Author> authorList;
 
+
+	@OneToMany(mappedBy = "book")
+	private List<BookLoan> loanedBooks;
+	
 	@JsonManagedReference
 	@ManyToOne()
 	@JoinColumn(name = "placement_id")
 	private Placement placement;
+	
+	
 
-	@OneToMany(mappedBy = "book")
-	private List<BookLoan> loanedBooks;
+	public Placement getPlacement() {
+		return placement;
+	}
+
+	public void setPlacement(Placement placement) {
+		this.placement = placement;
+	}
 
 	
 
@@ -48,13 +58,6 @@ public class Book extends AbstractBook {
 		this.loanedBooks = loanedBooks;
 	}
 
-	public Placement getPlacement() {
-		return placement;
-	}
-
-	public void setPlacement(Placement placement) {
-		this.placement = placement;
-	}
 
 
 	public List<Author> getAuthorList() {
