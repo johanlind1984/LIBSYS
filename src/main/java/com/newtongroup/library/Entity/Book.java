@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
@@ -30,6 +31,7 @@ public class Book extends AbstractBook {
 	private List<Author> authorList;
 
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "book")
 	private List<BookLoan> loanedBooks;
 	
