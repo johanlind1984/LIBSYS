@@ -22,8 +22,13 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
     <script>
-        function myFunction() {
-            alert("Ebok har registrerats!");
+        function Confirm()
+        {
+            var x = confirm("Registrera ebok");
+            if (x)
+                return true;
+            else
+                return false;
         }
     </script>
 
@@ -130,7 +135,7 @@
             });
         </script>
 
-        <button class="btn4" id="save" name="save" type= "submit">Spara</button>
+        <button class="btn4" onclick="return Confirm()" id="save" name="save" type= "submit">Spara</button>
 
     </form>
 </div>

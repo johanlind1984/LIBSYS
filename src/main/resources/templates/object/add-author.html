@@ -18,7 +18,16 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
-
+    <script>
+        function Confirm()
+        {
+            var x = confirm("Registrera författare");
+            if (x)
+                return true;
+            else
+                return false;
+        }
+    </script>
     <style type="text/css">
 
         #save{
@@ -66,7 +75,7 @@
                name="birthYear" placeholder="yyyy"
                required th:value="${author.birthYear}" type="text" maxlength = "4" min = "1" max = "9999">
 
-        <button class="btn4" id="save" name="save" type= "submit">Spara</button>
+        <button class="btn4" id="save" onclick="return Confirm()" name="save" type= "submit">Spara</button>
     </form>
 </div>
 <script>

@@ -55,6 +55,6 @@ public class AuthorController {
             }
         }
         authorRepository.save(author);
-        return "object/author-confirmation";
+        return "redirect:/author/new";
     }
 }

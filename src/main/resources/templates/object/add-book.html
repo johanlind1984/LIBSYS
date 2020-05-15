@@ -22,8 +22,13 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
     <script>
-        function myFunction() {
-            alert("Bok har registrerats!");
+        function Confirm()
+        {
+            var x = confirm("Registrera bok");
+            if (x)
+                return true;
+            else
+                return false;
         }
     </script>
 
@@ -62,7 +67,7 @@
 
     <h1 align="center">Lägg till bok</h1>
     <div class="container" id="div">
-    <form action="/new-object/save-book" class="form-group" method="POST" onsubmit="myFunction()"
+    <form action="/new-object/save-book" class="form-group" method="POST"
           th:object="${book}">
      <div class="container mt-5">
          <div class="row">
@@ -76,8 +81,8 @@
              </div>
          </div>
          <label id="l5" for="placement">Placering</label><br>
-         <select class="form-control" id="placement" name="placement"  required
-                 th:field="${book.placement}">
+         <select id="placement" name="placement"
+                 th:field="${book.placement}" required>
              <option th:each="placement:${placements}"
                      th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}"
                      th:value="${placement.placementId}"></option>
@@ -105,7 +110,7 @@
                    required rows="5" maxlength="5000"
                    th:value="${book.description}" type="text"></textarea><br>
      </div>
-        <button id="save" name="save" class="btn4" type= "submit">Spara</button>
+        <button id="save" name="save" class="btn4" onclick="return Confirm()" type= "submit">Spara</button>
         <script>
             tail.select('#select', {
                 search: true,
