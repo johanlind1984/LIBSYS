@@ -89,17 +89,20 @@
          </select><br>
 
          <label id="l1" for="title">Titel</label>
-         <input class="form-control" id="title" name="title" required maxlength="255"
-                th:value="${book.title}" type="text">
+         <input class="form-control" id="title" name="title"  maxlength="255"
+                th:value="${book.title}" type="text" required>
+
 
          <label id="l2" for="isbn">Isbn</label>
-         <input class="form-control" id="isbn" name="isbn" required maxlength="255"
-                th:value="${book.isbn}" type="text">
+         <input class="form-control" id="isbn" name="isbn"  maxlength="255"
+                th:value="${book.isbn}" type="text" required>
+
 
 
          <label id="l3" for="publisher">Förlag</label>
-         <input class="form-control" id="publisher"name="publisher" required maxlength="255"
-                th:value="${book.publisher}" type="text">
+         <input class="form-control" id="publisher"name="publisher"  maxlength="255"
+                th:value="${book.publisher}" type="text" required >
+
 
          <label id="l4" for="purchasePrice">Inköpspris</label>
          <input class="form-control" id="purchasePrice"name="purchasePrice" required type="number" maxlength="255" min="0"
@@ -107,9 +110,11 @@
 
          <label id="l6" for="description">Beskrivning</label>
          <textarea class="form-control" id="description" name="description"
-                   required rows="5" maxlength="5000"
+                   required rows="5" maxlength="5000" onkeyup="checkDescription()"
                    th:value="${book.description}" type="text"></textarea><br>
+         <div id="warning"></div>
      </div>
+
         <button id="save" name="save" class="btn4" onclick="return Confirm()" type= "submit">Spara</button>
         <script>
             tail.select('#select', {
@@ -129,6 +134,17 @@
                 placeholder: 'Välj placering'
             });
         </script>
+        <script>
+            function checkDescription() {
+                var stringLength = document.getElementById('description').value.length;
+                if (stringLength >= 4999) {
+                    document.getElementById('warning').innerText = "Max antal tecken är 5000"
+                } else {
+                    document.getElementById('warning').innerText = ""
+                }
+            }
+        </script>
+
     </form>
     </div>
 </body>
