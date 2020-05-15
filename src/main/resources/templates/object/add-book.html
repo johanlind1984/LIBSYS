@@ -70,7 +70,7 @@
                  <label id="l7" for="select">Författare:</label>
              <select multiple id="select" th:field="${book.authorList}" required>
                  <option th:each="author:${authors}"
-                         th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}"
+                         th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}+${author.birthYear+'&nbsp;'}"
                          th:value="${author.authorId}"></option>
              </select>
              </div>
@@ -119,7 +119,6 @@
                 placeholder: 'Välj författare'
             });
         </script>
-
     </form>
     </div>
 </body>

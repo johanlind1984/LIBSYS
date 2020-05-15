@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang= "sv" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Ta bort objekt </title>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>LIBSYS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/start.css}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -18,25 +18,23 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
     <style type="text/css">
-        .img-libsys {
-            position:relative;
-            display: block;
-            margin: 5% auto auto;
+
+        a{font-size: medium}
+        h1{font-size: 100px;
+            margin-top: 15%;
+            color: var(--secondary--color);
         }
-        .theBody{
-            text-align: center;
-        }
+        p{ font-size: large}
     </style>
 </head>
+<body>
 <header th:insert="${header} :: header"></header>
 
-<body class="theBody">
-<!--<img src="../../static/images/libsys.png" alt="libsys" class="img-libsys" height="500" width="500"/>-->
-<img class="img-libsys" alt="libsys" th:src="@{/images/libsys.png}">
-<p id="date"></p>
-<script>
-    var d = new Date();
-    document.getElementById("date").innerHTML = d;
-</script>
+<br><br>
+
+<div class="table-responsive" align="center">
+    <h2>Inte giltigt kortnummer</h2>
+
+</div>
 </body>
 </html>

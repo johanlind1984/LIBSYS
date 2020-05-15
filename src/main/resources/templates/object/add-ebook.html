@@ -70,7 +70,7 @@
                     <label id="l1" for="select">Författare:</label>
                     <select multiple id="select" th:field="${ebook.authorList}" required>
                         <option th:each="author:${authors}"
-                                th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}"
+                                th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}+${author.birthYear+'&nbsp;'}"
                                 th:value="${author.authorId}"></option>
                     </select>
                 </div>
@@ -91,7 +91,16 @@
 
         <label id="l5" for="purchasePrice">Inköpspris</label>
         <input class="form-control" id="purchasePrice"name="purchasePrice" required maxlength="255" min="0"
-               th:value="${ebook.purchasePrice}" type="number"><br>
+               th:value="${ebook.purchasePrice}" type="text">
+
+            <label id="l8" for="placement">Placering</label>
+            <select class="form-control" id="placement" name="placement" required
+                    th:field="${ebook.placement}">
+                <option value="1"></option>
+                <option th:each="placement:${placements}"
+                        th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}"
+                        th:value="${placement.placementId}"></option>
+            </select>
 
         <label id="l6" for="downloadLink">Boklänk</label>
         <input class="form-control" id="downloadLink"name="downloadLink" required maxlength="1000"

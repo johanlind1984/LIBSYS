@@ -5,10 +5,10 @@ import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
 import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -33,6 +33,8 @@ public class RemoveObjectController {
     private RemovedEBookRepository removedEBookRepository;
     @Autowired
     private RemovedSeminaryRepository removedSeminaryRepository;
+    @Autowired
+    private AuthorRepository authorRepository;
 
 
     @RequestMapping("/book")
@@ -161,4 +163,44 @@ public class RemoveObjectController {
 
 
     }
+    @GetMapping ("/author")
+    public String getAuthorForm (Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
+        List <Author>authorList=authorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
+
+        Author author= new Author();
+
+        model.addAttribute("authors", authorList);
+        model.addAttribute("author", author);
+        return "remove-objects/remove-author";
+    }
+    @GetMapping ("/delete-author")
+    public String deleteAuthor(@ModelAttribute (name = "author") Author author, Principal principal, Model model) {
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        Author authorToRemove = authorRepository.getOne(author.getAuthorId());
+        boolean isAuthorNotInABookList=authorToRemove.getBookList().isEmpty()&&authorToRemove.geteBookList().isEmpty();
+        if (isAuthorNotInABookList) {
+            authorRepository.delete(author);
+            return "redirect:/remove-object/author";
+        }
+        return "error/author-could-not-be-removed";
+    }
+
+
+//        authorRepository.delete(author);
+
+
+
+//       for(Book book:author.getBookList()){
+//           System.out.println(book.getTitle());
+//       }return null;
+
+//        if (!listOfBooksWithAuthor.contains(bookRepository.findAll())&& listOfBooksWithAuthor!=(null)) {
+
+//        }else {
+//            return "error/test-error";
+//        }
+
 }
+

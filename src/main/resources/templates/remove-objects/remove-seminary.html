@@ -17,27 +17,31 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
     <style type="text/css">
-        #save{
+        #save {
             margin-top: 30px;
             width: 20%;
             height: 10%;
             margin-left: 43%;
             font-size: medium;
         }
-        h1{
+
+        h1 {
             margin-bottom: 60px;
             margin-top: 40px;
-            text-align:center;
+            text-align: center;
         }
-        #seminary_id, #cause{
+
+        #seminary_id, #cause {
             margin-bottom: 20px;
             font-size: medium;
         }
-        #div{
+
+        #div {
             width: 60%;
             align-items: center;
         }
-        #li{
+
+        #li {
             color: lightgray;
         }
     </style>
@@ -50,30 +54,31 @@
 <h1>Ta bort seminarium</h1>
 
 
-<form id="form" th:action="@{/remove-object/delete-seminary}" method="post" th:object="${seminary}" >
+<form id="form" th:action="@{/remove-object/delete-seminary}" method="post" th:object="${seminary}">
     <div class="container" id="div">
-    <div class="form-group" >
+        <div class="form-group">
 
-        <label id="l1" >Radera seminarium på id nummer</label>
-        <input type="number"  class="form-control" id="seminary_id" placeholder="ID"
-               th:field="${seminary.seminary_id}" >
+            <label id="l1">Radera seminarium på id nummer</label>
+            <input type="number" class="form-control" id="seminary_id" placeholder="ID"
+                   th:field="${seminary.seminary_id}">
 
-    </div>
+        </div>
 
-    <div id="div1"  class="form-group" th:object="${removedSeminary}">
+        <div id="div1" class="form-group" th:object="${removedSeminary}">
 
-        <label id="l2" >Motivera anledning till radering</label>
-        <input type="text" class="form-control"  id="cause" placeholder="Låg efterfrågan, skadad etc"
-               th:field="${removedSeminary.cause}" required maxlength="150">
+            <label id="l2">Motivera anledning till radering</label>
+            <input type="text" class="form-control" id="cause" placeholder="Låg efterfrågan, skadad etc"
+                   th:field="${removedSeminary.cause}" required maxlength="150">
 
-    </div>
+        </div>
 
 
         <button type="button" class="btn4" data-toggle="modal" data-target="#modalDialog">
             Ta bort
         </button>
 
-        <div class="modal fade" id="modalDialog" tabindex="-1" role="dialog" aria-labelledby="modalDialogTitle" aria-hidden="true">
+        <div class="modal fade" id="modalDialog" tabindex="-1" role="dialog" aria-labelledby="modalDialogTitle"
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

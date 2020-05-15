@@ -195,7 +195,7 @@
 					<h3>E-Böcker</h3>
 					<div class="list-group container search-list-item ml-n2">
 						<a th:each="result: ${ebResults}"
-							th:href="@{/search/ebook/{id}/detailedview?searchText={searchText}&categories={categories}(id=${result.id},searchText=${search}, categories=${selectedCategories})}"
+							th:href="@{/search/ebook/{id}/detailedview?searchText={searchText}&categories={categories}(id=${result.id},searchText=${search},categories=${selectedCategories})}"
 							class="search-list-item list-group-item list-group-item-action flex-column align-items-start">
 							<div class="row">
 								<div class="col d-flex justify-content-left">

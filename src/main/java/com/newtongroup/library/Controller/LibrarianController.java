@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 
 @Controller
 @RequestMapping("/librarian")
@@ -34,6 +35,8 @@ public class LibrarianController {
 
     @Autowired
     private EBookRepository eBookRepository;
+
+
 
     private String header = "librarian/bootstrapheader.html";
 
@@ -114,5 +117,8 @@ public class LibrarianController {
 
         return "loan/return-success";
     }
+
+
+
 
 }

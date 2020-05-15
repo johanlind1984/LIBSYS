@@ -96,10 +96,13 @@ public class AddObjectController {
 
         EBook ebook = new EBook();
 
+        List<Placement>placementList=placementRepository.findAll();
+
         authorList=authorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
 
         model.addAttribute("ebook", ebook);
         model.addAttribute("authors", authorList);
+        model.addAttribute("placements", placementList);
         return "/object/add-ebook";
     }
     @PostMapping("/save-ebook")
