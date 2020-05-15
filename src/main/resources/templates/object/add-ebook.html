@@ -112,9 +112,10 @@
                th:value="${ebook.downloadLink}" type="text">
 
         <label id="l7" for="description">Beskrivning</label>
-        <textarea class="form-control" id="description" name="description" maxlength="5000"
+        <textarea class="form-control" id="description" name="description" maxlength="5000" onkeyup="checkDescription()"
                   required rows="5"
                   th:value="${ebook.description}" type="text"></textarea><br>
+            <div id="warning"></div>
         </div>
             <script>
                 tail.select('#select', {
@@ -133,6 +134,16 @@
                 deselect: true,
                 placeholder: 'Välj placering'
             });
+        </script>
+        <script>
+            function checkDescription() {
+                var stringLength = document.getElementById('description').value.length;
+                if (stringLength >= 4999) {
+                    document.getElementById('warning').innerText = "Max antal tecken är 5000"
+                } else {
+                    document.getElementById('warning').innerText = ""
+                }
+            }
         </script>
 
         <button class="btn4" onclick="return Confirm()" id="save" name="save" type= "submit">Spara</button>
