@@ -67,14 +67,21 @@
      <div class="container mt-5">
          <div class="row">
              <div class="col-md-6">
-                 <label id="l7" for="select">Författare:</label>
+                 <label id="l7" for="select">Författare:</label><br>
              <select multiple id="select" th:field="${book.authorList}" required>
                  <option th:each="author:${authors}"
                          th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}+${author.birthYear+'&nbsp;'}"
                          th:value="${author.authorId}"></option>
              </select>
              </div>
-         </div><br>
+         </div>
+         <label id="l5" for="placement">Placering</label><br>
+         <select class="form-control" id="placement" name="placement"  required
+                 th:field="${book.placement}">
+             <option th:each="placement:${placements}"
+                     th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}"
+                     th:value="${placement.placementId}"></option>
+         </select><br>
 
          <label id="l1" for="title">Titel</label>
          <input class="form-control" id="title" name="title" required maxlength="255"
@@ -93,15 +100,6 @@
          <input class="form-control" id="purchasePrice"name="purchasePrice" required type="number" maxlength="255" min="0"
                 th:value="${book.purchasePrice}"><br>
 
-         <label id="l5" for="placement">Placering</label>
-         <select class="form-control" id="placement" name="placement" required
-                 th:field="${book.placement}">
-             <option value="1"></option>
-             <option th:each="placement:${placements}"
-                     th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}"
-                     th:value="${placement.placementId}"></option>
-         </select>
-
          <label id="l6" for="description">Beskrivning</label>
          <textarea class="form-control" id="description" name="description"
                    required rows="5" maxlength="5000"
@@ -117,6 +115,13 @@
                 multiShowCount: false,
                 multiContainer: true,
                 placeholder: 'Välj författare'
+            });
+        </script>
+        <script>
+            tail.select('#placement', {
+                search: true,
+                deselect: true,
+                placeholder: 'Välj placering'
             });
         </script>
     </form>

@@ -47,7 +47,8 @@ public class AuthorController {
 
         List<Author> authors = authorRepository.findAll();
         for(Author author1: authors){
-            boolean existsAuthor= author1.getFirstname().equals(firstName)&&author1.getLastname().equals(lastName)&&author1.getBirthYear().equals(birthYear);
+            boolean existsAuthor= author1.getFirstname().equalsIgnoreCase(firstName)&&author1.getLastname().equalsIgnoreCase(lastName)&&
+                    author1.getBirthYear().equalsIgnoreCase(birthYear);
 
             if (existsAuthor) {
                 return "error/author-already-exist";

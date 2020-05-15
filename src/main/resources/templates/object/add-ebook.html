@@ -67,14 +67,21 @@
         <div class="container mt-5">
             <div class="row">
                 <div class="col-md-6">
-                    <label id="l1" for="select">Författare:</label>
+                    <label id="l1" for="select">Författare:</label><br>
                     <select multiple id="select" th:field="${ebook.authorList}" required>
                         <option th:each="author:${authors}"
                                 th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}+${author.birthYear+'&nbsp;'}"
                                 th:value="${author.authorId}"></option>
                     </select>
                 </div>
-            </div><br>
+            </div>
+            <label id="l8" for="placement">Placering</label><br>
+            <select class="form-control" id="placement" name="placement" required
+                    th:field="${ebook.placement}">
+                <option th:each="placement:${placements}"
+                        th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}"
+                        th:value="${placement.placementId}"></option>
+            </select><br>
 
         <label id="l2" for="title">Titel</label>
         <input class="form-control" id="title" name="title" required maxlength="255"
@@ -93,14 +100,7 @@
         <input class="form-control" id="purchasePrice"name="purchasePrice" required maxlength="255" min="0"
                th:value="${ebook.purchasePrice}" type="text">
 
-            <label id="l8" for="placement">Placering</label>
-            <select class="form-control" id="placement" name="placement" required
-                    th:field="${ebook.placement}">
-                <option value="1"></option>
-                <option th:each="placement:${placements}"
-                        th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}"
-                        th:value="${placement.placementId}"></option>
-            </select>
+
 
         <label id="l6" for="downloadLink">Boklänk</label>
         <input class="form-control" id="downloadLink"name="downloadLink" required maxlength="1000"
@@ -122,6 +122,13 @@
                     placeholder: 'Välj författare'
                 });
             </script>
+        <script>
+            tail.select('#placement', {
+                search: true,
+                deselect: true,
+                placeholder: 'Välj placering'
+            });
+        </script>
 
         <button class="btn4" id="save" name="save" type= "submit">Spara</button>
 
