@@ -1,6 +1,8 @@
 package com.newtongroup.library.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity

@@ -59,37 +59,48 @@ public class LoanController {
                                Model theModel, Principal principal) {
 
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-
-
         User user = userRepository.findByUsername(principal.getName());
 
-        switch (getRole(user)) {
 
-            case "visitor":
-                Visitor visitor = visitorRepository.findById(principal.getName()).orElse(null);
-                registerLoan(visitor, bookId, eBookId);
-                break;
+        Book tempbook = bookrepository.findById(bookId).orElse(null);
 
-            case "librarian":
-                LibraryCard libraryCard = libraryCardRepository.findById(librarycardnumber).orElse(null);
+        if(user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")){
+            LibraryCard tempcard = libraryCardRepository.findById(librarycardnumber).orElse(null);
+            if(tempcard == null ){
+                return "error/book-or-no-active-librarycard";
+            }
 
-                if (libraryCard != null) {
-                    Visitor visitor1 = libraryCard.getVisitor();
-                    registerLoan(visitor1, bookId, eBookId);
-                    break;
-                }
-
-
+        }
+        if(tempbook == null){
+            return "error/book-or-no-active-librarycard";
         }
 
 
-        return "loan/loan-success";
+        if(user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")){
+
+            Visitor visitor = visitorRepository.findById(principal.getName()).orElse(null);
+
+           String result = registerLoan(visitor, bookId, eBookId);
+            return result;
+
+        } else if(user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")){
+            LibraryCard libraryCard = libraryCardRepository.findById(librarycardnumber).orElse(null);
+
+            if (libraryCard != null) {
+                Visitor visitor1 = libraryCard.getVisitor();
+               String result = registerLoan(visitor1, bookId, eBookId);
+               return result;
+
+            }
+        }
+
+        return "/error";
 
     }
 
     public String registerLoan(Visitor visitor, Long bookId, Long eBookId) {
-        if (!doesVisitorHaveActiveLibraryCard(visitor)) {
-            return "error/error-book-or-no-active-librarycard";
+        if (doesVisitorHaveActiveLibraryCard(visitor) == false) {
+            return "error/book-or-no-active-librarycard";
         }
 
         if (bookId != null) {
@@ -124,7 +135,13 @@ public class LoanController {
 
 
     private boolean doesVisitorHaveActiveLibraryCard(Visitor visitor) {
-        return visitor.getActiveLibraryCard() != null;
+
+                if(visitor.getActiveLibraryCard() == null) {
+                    return false;
+                }
+                return true;
+
+
     }
 
     private BookLoan getLoan(Book book, Visitor visitor) {

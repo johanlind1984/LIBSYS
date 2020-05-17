@@ -25,6 +25,12 @@ public class LibraryCard {
     @JoinColumn(name="visitor_id")
     private Visitor visitor;
 
+    @ManyToOne()
+    @JoinColumn(name="lock_id")
+    private Lock lock;
+
+
+
 
 
     public LibraryCard() {
@@ -68,5 +74,13 @@ public class LibraryCard {
 
     public void setVisitor(Visitor visitor) {
         this.visitor = visitor;
+    }
+
+    public Lock getLock() {
+        return lock;
+    }
+
+    public void setLock(Lock lock) {
+        this.lock = lock;
     }
 }
