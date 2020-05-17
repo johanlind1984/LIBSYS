@@ -34,7 +34,7 @@ body {
 }
 
 .searchAdmin {
-    margin-left: 217px;
+    margin-left: 48px;
 }
 
 .searchLibrarian {
@@ -48,6 +48,7 @@ body {
 .searchBtm {
     margin-top: 5px;
 }
+
 .searchTop {
     margin-top: 10px;
 }
@@ -134,4 +135,3 @@ button.btn4:hover {
 	border: 0.2rem solid var(--primary-color);
 	border-radius:0.75rem !important;
 }
-
