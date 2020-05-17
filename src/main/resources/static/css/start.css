@@ -38,7 +38,7 @@ body {
 }
 
 .searchLibrarian {
-    margin-left: 383px;
+    margin-left: 193px;
 }
 
 .searchVisitor {
@@ -50,6 +50,10 @@ body {
 }
 .searchTop {
     margin-top: 10px;
+}
+
+.addSpace {
+    margin-top: 35px;
 }
 
 button {
@@ -130,3 +134,4 @@ button.btn4:hover {
 	border: 0.2rem solid var(--primary-color);
 	border-radius:0.75rem !important;
 }
+

@@ -7,7 +7,15 @@
     <link rel="stylesheet" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
           integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous"/>
-
+<style>
+    .tail-select input {
+        -webkit-user-select: text;
+        -khtml-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+    }
+</style>
 
 </head>
 <body>
@@ -34,9 +42,10 @@
             <form action="#" th:action="@{/search}" method="post" class="form-inline">
                 <label>
                     <input type="search" name="search" th:value="${search}"  placeholder="Sök efter böcker/e-böcker/seminarium i vårt bibliotek!">
+                    <i class="fas fa-search"></i>
                 </label>
             </form>
-            <i class="fas fa-search"></i>
+
         </div>
         <div>
             <h2 class="secondary-text">Nyheter</h2>

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -61,6 +63,21 @@ public class AdminController {
                     librarianRepository.deleteById(email);
                     break;
                 case "ROLE_VISITOR":
+                    Visitor visitor = visitorRepository.findById(user.getUsername()).orElse(null);
+
+                    for (BookLoan bookLoan : visitor.getActiveLibraryCard().getBookLoans()) {
+                        if(!bookLoan.getBookReturned()) {
+                            List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
+                                    .stream()
+                                    .filter(loan -> loan.getBookReturned() == false)
+                                    .collect(Collectors.toList());
+
+                            theModel.addAttribute("visitor", visitor);
+                            theModel.addAttribute("bookLoans", bookLoans);
+                            return "admin/delete-failed-user-has-loans";
+                        }
+                    }
+
                     hashAllUSerData(user);
                     break;
                 default:

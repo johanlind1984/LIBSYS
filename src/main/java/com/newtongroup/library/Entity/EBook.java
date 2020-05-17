@@ -1,5 +1,8 @@
 package com.newtongroup.library.Entity;
 
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -25,7 +28,8 @@ public class EBook extends AbstractBook {
 	private List<Author> authorList;
 	
 
-	@OneToMany(mappedBy = "ebook")
+	@JsonIgnore
+	@OneToMany(mappedBy = "ebook", cascade = CascadeType.ALL)
 	private List<EbookLoan> loanedEbooks;
 	
 	@JsonManagedReference
