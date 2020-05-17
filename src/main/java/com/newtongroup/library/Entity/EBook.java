@@ -25,7 +25,7 @@ public class EBook extends AbstractBook {
 	private List<Author> authorList;
 	
 
-	@OneToMany(mappedBy = "ebook", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "ebook")
 	private List<EbookLoan> loanedEbooks;
 	
 	@JsonManagedReference
