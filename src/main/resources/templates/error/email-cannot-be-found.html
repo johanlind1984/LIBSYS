@@ -16,12 +16,18 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
+    <style>
+        h2 {
+            margin-top: 15%;
+            color: var(--secondary--color);
+        }
+    </style>
 </head>
 <body>
 <header th:insert="${header} :: header"> </header>
 
 <div class="table-responsive" align="center">
-    <h1>Eposten du angivit finns inte registrerad i systemet och kunde därför inte tas bort</h1>
+    <h2>Eposten du angivit finns inte registrerad i systemet och kunde därför inte tas bort</h2>
 </div>
 </body>
 </html>

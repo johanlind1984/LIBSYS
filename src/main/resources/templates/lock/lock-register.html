@@ -66,10 +66,8 @@
     <form th:action="@{/lock/doLock}" class="form-group" onsubmit="myFunction()" >
 
             <div class="container mt-5">
-                <div class="row">
-                    <div class="col-md-6">
+                    <div style="width: 35%">
                         <div th:object="${libraryCard}">
-
                         <label id="l7" for="select">Bibliotekskort:</label>
                         <select  class="form-control" id="select" name="libraryCard"  required>
                             <option th:each="libraryCard:${libraryCards}"
@@ -80,12 +78,9 @@
                         </select>
                         </div>
                     </div>
-                </div><br>
-
-            <br>
             <br>
         <div th:object="${lock}">
-            <label id="l5" for="lock">Motviera anledning till spärrning</label>
+            <label id="l5" for="lock">Motivera anledning till spärrning</label>
             <select class="form-control" id="lock" name="lock" required>
                 <option value="1"></option>
                 <option th:each="lock:${locks}"
@@ -93,7 +88,7 @@
                         th:value="${lock.lockId}"></option>
             </select>
 
-            <button id="save" type="submit" class="btn btn-primary">Spärra</button>
+            <button id="save" type="submit" class="btn4">Spärra</button>
         </div>
         </div>
 
