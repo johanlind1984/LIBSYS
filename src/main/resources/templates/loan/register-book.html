@@ -29,6 +29,7 @@
 
     <style type="text/css">
 
+
        #save{
             margin-top: 30px;
             width: 20%;
@@ -58,6 +59,16 @@
             -moz-user-select: text;
             -ms-user-select: text;
             user-select: text;
+
+        h1 {
+            font-size: 100px;
+            margin-top: 15%;
+            color: var(--secondary--color);
+        }
+
+        h2 {
+            color: var(--secondary--color);
+
         }
     </style>
 </head>
@@ -70,7 +81,7 @@
     <h2>Låna bok</h2>
 
     <form th:action="@{/loan/register-loan}"class="form-group" th:object="${book}">
-        <div>
+       
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
@@ -89,7 +100,16 @@
 
             </div>
 
-        </div>
+<!--=======-->
+<!--    <form th:action="@{/loan/register-loan}">-->
+<!--        <div class="form-group">-->
+<!--            <label>Bokens ID står på bokens etikett som finns på bokens baksida</label>-->
+<!--            <input type="number" class="form-control" id="bookId" aria-describedby="emailHelp"-->
+<!--                   placeholder="ID"-->
+<!--                   th:name="bookId" required maxlength="20">-->
+<!--            <button id="book" type="submit" class="btn4 addSpace">Låna Bok</button>-->
+<!--&gt;>>>>>> Alpha-->
+<!--        </div>-->
 
 
 
@@ -123,6 +143,17 @@
 <!--            <button id="saves" type="submit" class="btn4">Låna E-Bok</button>-->
 <!--        </div>-->
 <!--    </form>-->
+
+<!--    <form th:action="@{/loan/register-loan}">-->
+<!--        <div class="form-group">-->
+<!--            <label>E-Bokens ID står på förstasidan i den elektroniska boken</label>-->
+<!--            <input type="number" class="form-control" id="ebookId" aria-describedby="emailHelp"-->
+<!--                   placeholder="ID"-->
+<!--                   th:name="eBookId" required maxlength="20">-->
+<!--            <button id="ebook" type="submit" class="btn4 addSpace">Låna E-Bok</button>-->
+<!--        </div>-->
+<!--    </form>-->
+
 </div>
 </body>
 </html>
