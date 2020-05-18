@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LIBSYS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/start.css}">
+    <style type="text/css">
+        #save{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
+            margin-top: 40px;
+            text-align:center;
+        }
+        #email, #password, #firstName, #lastName, #personalNumber,#phone, #street, #postalCode, #ort,
+        #l1, #l2, #l3, #l4, #l5, #l6, #l7, #l8, #l9{
+            font-size: medium;
+        }
+        #div{
+            width: 60%;
+        }
+
+    </style>
+</head>
+<header th:insert="${header} :: header"></header>
+<body>
+<h1>Uppdatera administratör</h1>
+<div class="container" id="div">
+
+    <form th:action="@{/hitta-se-api/search-person-by-phone}">
+        <div class="form-group" align="center">
+            <label id="15" for="phonenumber">Sök uppgifter via Hitta.se</label>
+            <input id="phonenumber" class="form-control" type="text" th:name="phonenumber" placeholder="Telefonnummer"/>
+            <button type="submit" name="usertype" field="admin" class="btn4 addSpace">Hämta</button>
+        </div>
+    </form>
+
+    <br><br>
+
+    <form th:action="@{/update/savechanges-admin}" method="post" th:object="${userPerson}">
+
+        <input type="hidden" class="form-control" id="emailOrigin" placeholder="Telefonnummer"
+               th:field="${userPerson.admin.email}" required maxlength="100">
+
+        <div class="form-group">
+            <label id="l6" for="phone">Telefonnummer</label>
+            <input type="text" class="form-control" id="phone" placeholder="Telefonnummer"
+                   th:field="${userPerson.admin.phone}" required maxlength="100">
+        </div>
+
+        <div class="form-group">
+            <label id="l3" for="firstName">Förnamn</label>
+            <input type="text" class="form-control" id="firstName" placeholder="Förnamn"
+                   th:field="${userPerson.admin.firstName}" required maxlength="150">
+        </div>
+        <div class="form-group">
+            <label id="l4" for="lastName">Efternamn</label>
+            <input type="text" class="form-control" id="lastName" placeholder="Efternamn"
+                   th:field="${userPerson.admin.lastName}" required maxlength="150">
+        </div>
+        <div class="form-group">
+            <label id="l7" for="street">Gatuadress</label>
+            <input type="text" class="form-control" id="street" placeholder="Gatuadress"
+                   th:field="${userPerson.admin.street}" required maxlength="100">
+        </div>
+        <div class="form-group">
+            <label id="l8" for="postalCode">Postnummer</label>
+            <input type="text" class="form-control" id="postalCode" placeholder="Postnummer (endast siffror)"
+                   th:field="${userPerson.admin.postalCode}" required pattern="[0-9]{5}">
+        </div>
+        <div class="form-group">
+            <label id="l9" for="ort">Ort</label>
+            <input type="text" class="form-control" id="ort" placeholder="Ort"
+                   th:field="${userPerson.admin.city}" required maxlength="150">
+        </div>
+        <div class="form-group">
+            <label id="l5" for="personalNumber">Personnummer</label>
+            <input class="form-control" id="personalNumber" aria-describedby="personalNumberHelp"
+                   th:field="${userPerson.admin.personalNumber}" placeholder="Personnummer" pattern="[0-9]{12}">
+            <small id="personalNumberHelp" class="form-text text-muted">Ange personnummer i format: ÅÅÅÅMMDDNNNN</small>
+        </div>
+        <div class="form-group">
+            <input type="hidden" class="form-control" id="email" aria-describedby="emailHelp"
+                   placeholder="Skriv din e-post"
+                   th:field="${userPerson.user.username}" required maxlength="150">
+<!--            <small id="emailHelp" class="form-text text-muted">Vänligen fyll i din epost</small>-->
+        </div>
+        <div class="form-group">
+            <label id="l2" for="password">Lösenord</label>
+            <input type="password" class="form-control" id="password" aria-describedby="passwordHelp"
+                   th:field="${userPerson.user.password}" placeholder="Lösenord" required maxlength="50">
+            <small id="passwordHelp" class="form-text text-muted">Välj ett gärna ett starkt lösenord med stora och små
+                bokstäver, siffror och tecken</small>
+        </div>
+        <button id="save" type="submit" class="btn4">Spara</button>
+    </form>
+</div>
+</body>
+</html>
