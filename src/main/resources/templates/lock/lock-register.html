@@ -63,7 +63,7 @@
 
 <h1 align="center">Spärra kort</h1>
 <div class="container" id="div">
-    <form th:action="@{/lock/doLock}" class="form-group" onsubmit="myFunction()" >
+    <form th:action="@{/lock/doLock}" class="form-group">
 
             <div class="container mt-5">
                 <div class="row">
@@ -71,29 +71,32 @@
                         <div th:object="${libraryCard}">
 
                         <label id="l7" for="select">Bibliotekskort:</label>
-                        <select  class="form-control" id="select" name="libraryCard"  required>
+                            <br>
+                        <select  class="form-control" id="select" name="libraryCard"  required >
                             <option th:each="libraryCard:${libraryCards}"
-                                    th:text="${libraryCard.libraryCardNumber}"
+                                    th:text="${libraryCard.libraryCardNumber +'&nbsp;' +'&nbsp;' +'&nbsp;'}+${libraryCard.visitor.email+'&nbsp;'}"
 
                                     th:value="${libraryCard.libraryCardNumber}"></option>
 
                         </select>
                         </div>
                     </div>
-                </div><br>
+                </div>
+                <br>
 
             <br>
             <br>
         <div th:object="${lock}">
-            <label id="l5" for="lock">Motviera anledning till spärrning</label>
-            <select class="form-control" id="lock" name="lock" required>
-                <option value="1"></option>
+            <label id="l5" for="lock">Motivera anledning till spärrning:</label>
+            <br>
+            <select class="form-control" id="lock" name="lock"  deselect = "true" required>
+
                 <option th:each="lock:${locks}"
                         th:text="${lock.cause}"
                         th:value="${lock.lockId}"></option>
             </select>
 
-            <button id="save" type="submit" class="btn btn-primary">Spärra</button>
+            <button id="save" type="submit" class="btn4">Spärra</button>
         </div>
         </div>
 
@@ -102,6 +105,7 @@
                 search: true,
                 multiLimit: 15,
                 hideSelected: true,
+                deselect: true,
                 hideDisabled: true,
                 multiShowCount: false,
                 multiContainer: true,
