@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang= "sv" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="sv" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Lägg till bok</title>
@@ -29,29 +29,32 @@
 
     <style type="text/css">
 
-          #save{
-            margin-top: 30px;
+        #save {
+            margin-top: 10px;
             width: 20%;
             height: 10%;
-            margin-left: 43%;
+            margin-left: 40.31%;
             font-size: medium;
-        }
-          #saves{
-            margin-top: 30px;
-            width: 20%;
-            height: 10%;
-            margin-left: 43%;
-            font-size: medium;
-        }
-        h1{
-            margin-bottom: 60px;
-            margin-top: 40px;
-            text-align:center;
         }
 
-        #div{
+        #saves {
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+
+        h1 {
+            margin-bottom: 60px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        #div {
             width: 40%;
         }
+
         .tail-select input {
             -webkit-user-select: text;
             -khtml-user-select: text;
@@ -68,86 +71,61 @@
 
 <h2 align="center">Låna bok</h2>
 <div class="container" id="div ">
-
-
-    <form th:action="@{/loan/register-loan}"class="form-group" th:object="${libraryCard}">
-
-<div>
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-6">
-
-
-
+    <form th:action="@{/loan/register-loan}" class="form-group" th:object="${libraryCard}">
+        <div style="align-content: center">
+            <div style="padding-bottom: 15px; padding-top: 35px;">
+                <div style="margin-left: 39%">
                         <label id="l7" for="select">Välj bibliotekskort</label>
                         <br>
-                        <select  class="form-control" id="select" name="libraryCard"  required>
+                        <select class="form-control" id="select" name="libraryCard" required>
                             <option th:each="libraryCard:${libraryCardList}"
                                     th:text="${libraryCard.visitor.email+'&nbsp;' +'&nbsp;' +'&nbsp;'}+${libraryCard.libraryCardNumber+'&nbsp;'}"
-
                                     th:value="${libraryCard.libraryCardNumber}"></option>
-
                         </select>
-
-
                 </div>
-
             </div>
-
-
-        </div>
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-6">
-                    <div th:object="${book}">
-
-
-                        <label id="l8" for="select2">Välj bok</label>
-                        <br>
-                        <select  class="form-control" id="select2" name="book"  required>
-                            <option th:each="book:${bookList}"
-                                    th:text="${book.title+'&nbsp;' +'&nbsp;' +'&nbsp;'}+${book.id+'&nbsp;'}"
-
-                                    th:value="${book.id}"></option>
-
-                        </select>
-
+            <div>
+                <div style="padding-bottom: 15px; padding-top: 35px;">
+                    <div style="margin-left: 39%">
+                        <div th:object="${book}">
+                            <label id="l8" for="select2">Välj bok</label>
+                            <br>
+                            <select class="form-control" id="select2" name="book" required>
+                                <option th:each="book:${bookList}"
+                                        th:text="${book.title+'&nbsp;' +'&nbsp;' +'&nbsp;'}+${book.id+'&nbsp;'}"
+                                        th:value="${book.id}"></option>
+                            </select>
+                        </div>
                     </div>
-
                 </div>
-
             </div>
-
-
-
+            <script>
+                tail.select('#select', {
+                    search: true,
+                    multiLimit: 15,
+                    hideSelected: true,
+                    deselect: true,
+                    hideDisabled: true,
+                    multiShowCount: false,
+                    multiContainer: true,
+                    placeholder: 'Välj bibliotekskort'
+                });
+            </script>
+            <script>
+                tail.select('#select2', {
+                    search: true,
+                    multiLimit: 15,
+                    hideSelected: true,
+                    deselect: true,
+                    hideDisabled: true,
+                    multiShowCount: false,
+                    multiContainer: true,
+                    placeholder: 'Välj bok'
+                });
+            </script>
+            <br>
+            <button type="sumbit" id="save" class="btn4">Låna bok</button>
         </div>
-        <script>
-            tail.select('#select', {
-                search: true,
-                multiLimit: 15,
-                hideSelected: true,
-                deselect: true,
-                hideDisabled: true,
-                multiShowCount: false,
-                multiContainer: true,
-                placeholder: 'Välj bibliotekskort'
-            });
-        </script>
-        <script>
-            tail.select('#select2', {
-                search: true,
-                multiLimit: 15,
-                hideSelected: true,
-                deselect: true,
-                hideDisabled: true,
-                multiShowCount: false,
-                multiContainer: true,
-                placeholder: 'Välj bok'
-            });
-        </script>
-    <br>
-    <button type="sumbit" id="save" class="btn4">Låna bok</button>
-</div>
 
     </form>
 
@@ -156,23 +134,22 @@
     <br>
 
 
+    <!--    <form th:action="@{/loan/register-loan}" th:object="${libraryCard}">-->
+    <!--        <div class="form-group">-->
 
-<!--    <form th:action="@{/loan/register-loan}" th:object="${libraryCard}">-->
-<!--        <div class="form-group">-->
-
-<!--            <label>Ange bibliotekskortsnummer</label>-->
-<!--            <input type="number" class="form-control" id="librarycardnumber2" aria-describedby="emailHelp"-->
-<!--                   placeholder="Bibliotekkortsnummer"-->
-<!--                   th:field="${libraryCard.libraryCardNumber}" required maxlength="20">-->
+    <!--            <label>Ange bibliotekskortsnummer</label>-->
+    <!--            <input type="number" class="form-control" id="librarycardnumber2" aria-describedby="emailHelp"-->
+    <!--                   placeholder="Bibliotekkortsnummer"-->
+    <!--                   th:field="${libraryCard.libraryCardNumber}" required maxlength="20">-->
 
 
-<!--            <label>E-Bokens ID står på förstasidan i den elektroniska boken</label>-->
-<!--            <input type="number" class="form-control" id="ebookId" aria-describedby="emailHelp"-->
-<!--                   placeholder="ID"-->
-<!--                   th:name="eBookId" required maxlength="20">-->
-<!--            <button id="saves" type="submit" class="btn4 addSpace">Låna E-Bok</button>-->
-<!--        </div>-->
-<!--    </form>-->
+    <!--            <label>E-Bokens ID står på förstasidan i den elektroniska boken</label>-->
+    <!--            <input type="number" class="form-control" id="ebookId" aria-describedby="emailHelp"-->
+    <!--                   placeholder="ID"-->
+    <!--                   th:name="eBookId" required maxlength="20">-->
+    <!--            <button id="saves" type="submit" class="btn4 addSpace">Låna E-Bok</button>-->
+    <!--        </div>-->
+    <!--    </form>-->
 </div>
 </body>
 </html>
