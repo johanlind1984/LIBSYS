@@ -40,6 +40,9 @@ public class Author {
     @ManyToMany(mappedBy = "authorList")
     private List<EBook>eBookList;
 
+    @ManyToMany(mappedBy = "authorList")
+    private List<RemovedBook>removedBookList;
+
     public Author() {
     }
 

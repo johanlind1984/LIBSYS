@@ -68,35 +68,48 @@ public class RemoveObjectController {
         return "remove-objects/remove-seminary";
     }
 
-    @RequestMapping("/delete-book")
-    public String deleteBook(@ModelAttribute("book")Book theBook, @ModelAttribute("removedBook") RemovedBook theRemovedBook, Model theModel, Principal principal){
+    @GetMapping("/delete-book")
+    public String deleteBook(@ModelAttribute(name="book")Book theBook, @ModelAttribute(name="removedBook") RemovedBook theRemovedBook, Model theModel, Principal principal){
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-        String isbn = theBook.getIsbn();
 
-        List<Book> bookList = bookRepository.findAll();
+        Book book=bookRepository.getOne(.getId());
 
-        for(Book temp : bookList){
-            if(temp.getIsbn().equals(isbn)){
-                Long id = temp.getId();
-                String title = temp.getTitle();
-                String publisher = temp.getPublisher();
-                String price = temp.getPurchasePrice();
-                String cause = theRemovedBook.getCause();
-                String description = temp.getDescription();
-                Long placement_id = temp.getPlacement().getPlacementId();
+//        String isbn = theBook.getIsbn();
 
-                RemovedBook removedBook = new RemovedBook(id,title,isbn,publisher,description,price, placement_id,cause);
+        //List<Book> bookList = bookRepository.findAll();
+
+        RemovedBook removedBook= new RemovedBook(book.getId(), book.getTitle(), book.getIsbn(), book.getPublisher(),book.getDescription(),
+                                   book.getPurchasePrice(), book.getPlacement().getPlacementId(),theRemovedBook.getCause(),book.getAuthorList() );
+
+
+
+
+
+
+//        for(Book temp : bookList){
+//            if(temp.getIsbn().equals(isbn)){
+//                Long id = temp.getId();
+//                String title = temp.getTitle();
+//                String publisher = temp.getPublisher();
+//                String price = temp.getPurchasePrice();
+//                String cause = theRemovedBook.getCause();
+//                String description = temp.getDescription();
+//                Long placement_id = temp.getPlacement().getPlacementId();
+//                List<Author> authors=temp.getAuthorList();
+//
+//
+//                RemovedBook removedBook = new RemovedBook(id,title,isbn,publisher,description,price, placement_id,cause, authors);
                 removedBookRepository.save(removedBook);
-                bookRepository.delete(temp);
+                bookRepository.delete(book);
                 return "remove-objects/remove-book-confirmation";
             }
 
 
 
-        }
 
-        return "error/isbn-error";
-    }
+
+//        return "error/isbn-error";
+//    }
 
     @RequestMapping("/delete-e-book")
     public String deleteEBook(@ModelAttribute("EBook") EBook theEBook,  @ModelAttribute("removedEBook") RemovedEBook theRemovedEBook,Model theModel, Principal principal){
@@ -188,19 +201,7 @@ public class RemoveObjectController {
     }
 
 
-//        authorRepository.delete(author);
 
-
-
-//       for(Book book:author.getBookList()){
-//           System.out.println(book.getTitle());
-//       }return null;
-
-//        if (!listOfBooksWithAuthor.contains(bookRepository.findAll())&& listOfBooksWithAuthor!=(null)) {
-
-//        }else {
-//            return "error/test-error";
-//        }
 
 }
 
