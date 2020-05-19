@@ -70,9 +70,8 @@
           th:object="${ebook}">
 
         <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-6">
-                    <label id="l1" for="select">Författare:</label><br>
+                <div style="width: 35%">
+                    <label id="l1" for="select">Författare:</label>
                     <select multiple id="select" th:field="${ebook.authorList}" required>
                         <option th:each="author:${authors}"
                                 th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}+${author.birthYear+'&nbsp;'}"
@@ -152,6 +151,3 @@
 </div>
 </body>
 </html>
-
-
-
