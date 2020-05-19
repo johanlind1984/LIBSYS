@@ -35,8 +35,8 @@
 <br><br>
 
 <div class="container">
-    <h2>Sök Besökare</h2>
-    <p>Filtrera via namn, epost eller bibliotekskortsnummer:</p>
+    <h2>Lånerapport Besökare - Sök besökare</h2>
+    <p>Filtrera via epost, bibliotekskortsnummer eller namn:</p>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
     <table class="table table-bordered table-striped">
@@ -56,8 +56,8 @@
             <td th:text="${visitor.email}"></td>
             <td th:text="${visitor.activeLibraryCard.libraryCardNumber}"></td>
             <td>
-                <form th:action="@{/update/visitor-form}">
-                    <button class="btn4" type="submit" th:name="visitorId" th:value="${visitor.email}">Uppdatera</button>
+                <form th:action="@{/report/visitor-loans}">
+                    <button class="btn4" type="submit" th:name="visitorId" th:value="${visitor.personId}">Se lån</button>
                 </form>
             </td>
         </tr>
