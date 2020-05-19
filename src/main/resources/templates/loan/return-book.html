@@ -29,31 +29,32 @@
 
     <style type="text/css">
 
+        #save {
+            margin-top: 10px;
+            width: 20%;
+            height: 10%;
+            margin-left: 40.31%;
+            font-size: medium;
+        }
 
-
-         #save{
+        #saves {
             margin-top: 30px;
             width: 20%;
             height: 10%;
             margin-left: 43%;
             font-size: medium;
         }
-         #saves{
-            margin-top: 30px;
-            width: 20%;
-            height: 10%;
-            margin-left: 43%;
-            font-size: medium;
-        }
-        h1{
+
+        h1 {
             margin-bottom: 60px;
             margin-top: 40px;
-            text-align:center;
+            text-align: center;
         }
 
-        #div{
+        #div {
             width: 40%;
         }
+
         .tail-select input {
             -webkit-user-select: text;
             -khtml-user-select: text;
@@ -61,6 +62,7 @@
             -ms-user-select: text;
             user-select: text;
         }
+
     </style>
 </head>
 <body>
@@ -72,32 +74,23 @@
 <div class="container" id="div">
 
     <form th:action="@{/librarian/return-book}" class="form-group">
-
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-6">
+        <div style="align-content: center">
+            <div style="padding-bottom: 15px; padding-top: 35px;">
+                <div style="margin-left: 33%">
                     <div th:object="${book}">
-
-
                         <label id="l7" for="select">Bok id:</label>
                         <br>
                         <select  class="form-control" id="select" name="book"  required>
                             <option th:each="book:${bookList}"
                                     th:text="${book.id}"
-
                                     th:value="${book.id}"></option>
 
                         </select>
-
                     </div>
-
                 </div>
-
             </div>
-
             <br>
             <button  id="save" type="submit" class="btn4">Godkänn</button>
-
         </div>
         <script>
             tail.select('#select', {
