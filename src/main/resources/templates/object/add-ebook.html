@@ -70,7 +70,8 @@
           th:object="${ebook}">
 
         <div class="container mt-5">
-                <div style="width: 35%">
+                <div class="row">
+                    <div class="col-md-6">
                     <label id="l1" for="select">Författare:</label>
                     <select multiple id="select" th:field="${ebook.authorList}" required>
                         <option th:each="author:${authors}"
@@ -124,14 +125,16 @@
                     hideDisabled: true,
                     multiShowCount: false,
                     multiContainer: true,
-                    placeholder: 'Välj författare'
+                    placeholder: 'Välj författare',
+                    width: 400
                 });
             </script>
         <script>
             tail.select('#placement', {
                 search: true,
                 deselect: true,
-                placeholder: 'Välj placering'
+                placeholder: 'Välj placering',
+                width: 400
             });
         </script>
         <script>
