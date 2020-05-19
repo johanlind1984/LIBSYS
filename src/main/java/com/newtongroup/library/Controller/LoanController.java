@@ -15,6 +15,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/loan")
@@ -211,7 +212,11 @@ public class LoanController {
     }
 
     private List<LibraryCard> getActiveCardList(){
-        List<LibraryCard> tempList = libraryCardRepository.findAll();
+        List<LibraryCard> tempList = libraryCardRepository.findAll()
+                .stream()
+                .filter(card -> card.getVisitor().isActive() == true)
+                .collect(Collectors.toList());
+
         List<LibraryCard> libraryCardList = new ArrayList<>();
 
         for(LibraryCard temp : tempList){
