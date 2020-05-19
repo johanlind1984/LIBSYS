@@ -121,7 +121,7 @@ public class RepositoryTest {
         entityManager.flush();
 
         Book bookToTest = bookRepository.findById((long) 1).orElse(null);
-        Visitor visitorToTest = visitorRepository.findById("palle@palle.se").orElse(null);
+        Visitor visitorToTest = visitorRepository.findByEmail("palle@palle.se");
         BookLoan bookLoanToTest = bookLoanRepository.findById((long) 1).orElse(null);
 
         assertThat(visitorToTest.getCity()).isEqualTo(visitor.getCity());

@@ -43,7 +43,7 @@ public class RegisterLibrarianController {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         userPerson.setPersonAsLibrarian();
 
-        Librarian librarian = librarianRepository.findById(userPerson.getLibrarian().getEmail()).orElse(null);
+        Librarian librarian = librarianRepository.findByEmail(userPerson.getLibrarian().getEmail());
         if(librarian == null) {
             setLibrarianValues(userPerson);
             saveUserPersonAsLibrarianToDatabase(userPerson);

@@ -96,6 +96,7 @@ public class UserPerson {
         this.visitor.setPostalCode(person.getPostalCode());
         this.visitor.setStreet(person.getStreet());
         this.visitor.setEmail(user.getUsername());
+        this.visitor.setActive(true);
     }
 
     public void setPersonAsLibrarian() {

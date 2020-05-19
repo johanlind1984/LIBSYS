@@ -57,13 +57,15 @@ public class AdminController {
         } else {
             switch (user.getAuthority().getAuthorityName()) {
                 case "ROLE_ADMIN":
-                    adminRepository.deleteById(email);
+                    Admin admin = adminRepository.findByEmail(email);
+                    adminRepository.deleteById(admin.getPersonId());;
                     break;
                 case "ROLE_LIBRARIAN":
-                    librarianRepository.deleteById(email);
+                    Librarian librarian = librarianRepository.findByEmail(email);
+                    librarianRepository.deleteById(librarian.getPersonId());
                     break;
                 case "ROLE_VISITOR":
-                    Visitor visitor = visitorRepository.findById(user.getUsername()).orElse(null);
+                    Visitor visitor = visitorRepository.findByEmail(user.getUsername());
 
                     for (BookLoan bookLoan : visitor.getActiveLibraryCard().getBookLoans()) {
                         if(!bookLoan.getBookReturned()) {
@@ -91,7 +93,7 @@ public class AdminController {
     }
 
     private void hashAllUSerData(User user) {
-        Visitor visitor = visitorRepository.findById(user.getUsername()).orElse(null);
+        Visitor visitor = visitorRepository.findByEmail(user.getUsername());
         visitor.setFirstName(passwordEncoder.encode(visitor.getFirstName()));
         visitor.setLastName(passwordEncoder.encode(visitor.getLastName()));
         visitor.setStreet(passwordEncoder.encode(visitor.getStreet()));
@@ -99,6 +101,8 @@ public class AdminController {
         visitor.setCity(passwordEncoder.encode(visitor.getCity()));
         visitor.setPhone(passwordEncoder.encode(visitor.getPhone()));
         visitor.setPersonalNumber(passwordEncoder.encode(visitor.getPersonalNumber()));
+        visitor.setEmail(passwordEncoder.encode(visitor.getEmail()));
+        visitor.setActive(false);
         visitorRepository.save(visitor);
     }
 

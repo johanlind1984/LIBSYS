@@ -5,11 +5,14 @@ import java.util.List;
 
 @Entity
 @Table(name="visitors")
-@PrimaryKeyJoinColumn(name="visitor_id")
+@PrimaryKeyJoinColumn(name="person_id")
 public class Visitor extends Person{
 
     @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
     private List<LibraryCard> libraryCards;
+
+    @Column(name="is_active")
+    private boolean isActive;
 
     public Visitor() {
     }
@@ -20,6 +23,14 @@ public class Visitor extends Person{
 
     public void setLibraryCards(List<LibraryCard> libraryCards) {
         this.libraryCards = libraryCards;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public LibraryCard getActiveLibraryCard() {

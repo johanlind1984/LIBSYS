@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VisitorRepository extends UserTypeRepository<Visitor> {
-
+    Visitor findByEmail(String email);
+    String deleteByEmail(String email);
 }
