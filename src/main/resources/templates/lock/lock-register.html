@@ -63,26 +63,35 @@
 
 <h1 align="center">Spärra kort</h1>
 <div class="container" id="div">
-    <form th:action="@{/lock/doLock}" class="form-group" onsubmit="myFunction()" >
+    <form th:action="@{/lock/doLock}" class="form-group">
 
             <div class="container mt-5">
                     <div style="width: 35%">
                         <div th:object="${libraryCard}">
                         <label id="l7" for="select">Bibliotekskort:</label>
-                        <select  class="form-control" id="select" name="libraryCard"  required>
+                            <br>
+                        <select  class="form-control" id="select" name="libraryCard"  required >
                             <option th:each="libraryCard:${libraryCards}"
-                                    th:text="${libraryCard.libraryCardNumber}"
+                                    th:text="${libraryCard.libraryCardNumber +'&nbsp;' +'&nbsp;' +'&nbsp;'}+${libraryCard.visitor.email+'&nbsp;'}"
 
                                     th:value="${libraryCard.libraryCardNumber}"></option>
 
                         </select>
                         </div>
                     </div>
+
+                </div>
+                <br>
+
+            <br>
+            <br>
+     
             <br>
         <div th:object="${lock}">
             <label id="l5" for="lock">Motivera anledning till spärrning</label>
             <select class="form-control" id="lock" name="lock" required>
-                <option value="1"></option>
+               
+
                 <option th:each="lock:${locks}"
                         th:text="${lock.cause}"
                         th:value="${lock.lockId}"></option>
@@ -90,13 +99,14 @@
 
             <button id="save" type="submit" class="btn4">Spärra</button>
         </div>
-        </div>
+
 
         <script>
             tail.select('#select', {
                 search: true,
                 multiLimit: 15,
                 hideSelected: true,
+                deselect: true,
                 hideDisabled: true,
                 multiShowCount: false,
                 multiContainer: true,
