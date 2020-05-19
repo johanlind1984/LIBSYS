@@ -115,7 +115,7 @@ public class LoanController {
 
         if(user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")){
 
-            Visitor visitor = visitorRepository.findById(principal.getName()).orElse(null);
+            Visitor visitor = visitorRepository.findByEmail(principal.getName());
 
            String result = registerLoan(visitor, bookId, eBookId);
             return result;

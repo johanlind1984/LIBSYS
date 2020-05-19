@@ -8,6 +8,10 @@ import javax.persistence.*;
 public class Person {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="person_id")
+    Long personId;
+
     @Column(name="email")
     private String email;
 
@@ -36,7 +40,15 @@ public class Person {
     public Person() {
     }
 
-	public String getFirstName() {
+    public Long getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
+    }
+
+    public String getFirstName() {
         return firstName;
     }
 

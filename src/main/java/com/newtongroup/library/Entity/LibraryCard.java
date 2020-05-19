@@ -22,7 +22,7 @@ public class LibraryCard {
     private List<EbookLoan> ebookLoans;
 
     @ManyToOne()
-    @JoinColumn(name="visitor_id")
+    @JoinColumn(name="librarycard_person_id")
     private Visitor visitor;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

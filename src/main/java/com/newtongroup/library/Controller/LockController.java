@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/lock")
@@ -38,7 +39,10 @@ public class LockController {
     private String returnDoLock(Model theModel, Principal principal){
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
-        List<LibraryCard> libraryCardsList = libraryCardRepository.findAll();
+        List<LibraryCard> libraryCardsList = libraryCardRepository.findAll()
+                .stream()
+                .filter(card -> card.getVisitor().isActive() == true)
+                .collect(Collectors.toList());
 
         List<Lock> locksList = lockRepository.findAll();
         List<Unlock> unlocksList = unlockRepository.findAll();
