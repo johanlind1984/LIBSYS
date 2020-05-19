@@ -35,6 +35,7 @@
         th {
             color: var(--secondary--color);
         }
+
     </style>
 </head>
 <body>
@@ -43,27 +44,29 @@
 <br><br>
 
 <div class="container">
-    <h2>Administratörer</h2>
-    <p>Filtrera via epost:</p>
+    <h2>Lånerapport Besökare - Sök besökare</h2>
+    <p>Filtrera via epost, bibliotekskortsnummer eller namn:</p>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>Förnamn</th>
-            <th>Efternamn</th>
+            <th>Efternman</th>
             <th>Epost</th>
-            <th>Uppdatera</th>
+            <th>Bibliotekskortsnummer</th>
+            <th>Se lån</th>
         </tr>
         </thead>
         <tbody id="myTable">
-        <tr th:each="admin: ${admins}">
-            <td th:text="${admin.firstName}"></td>
-            <td th:text="${admin.lastName}"></td>
-            <td th:text="${admin.email}"></td>
+        <tr th:each="visitor: ${visitors}">
+            <td th:text="${visitor.firstName}"></td>
+            <td th:text="${visitor.lastName}"></td>
+            <td th:text="${visitor.email}"></td>
+            <td th:text="${visitor.activeLibraryCard.libraryCardNumber}"></td>
             <td>
-                <form th:action="@{/update/admin-form}">
-                    <button class="btn4" type="submit" th:name="adminId" th:value="${admin.email}">Uppdatera</button>
+                <form th:action="@{/report/visitor-loans}">
+                    <button class="btn4" type="submit" th:name="visitorId" th:value="${visitor.personId}">Se lån</button>
                 </form>
             </td>
         </tr>

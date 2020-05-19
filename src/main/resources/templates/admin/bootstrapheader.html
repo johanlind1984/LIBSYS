@@ -73,18 +73,30 @@
                         <a class="dropdown-item" href="/remove-object/author">Författare</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/loan/librarian">Låna bok</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navBarReports" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Rapporter
+                    </a>
+                    <div class="dropdown-menu menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/report/visitor-search">Besökare</a>
+                        <a class="dropdown-item" href="/report/removed-books">Böcker</a>
+                        <a class="dropdown-item" href="#">Tillagda objekt</a>
+                    </div>
                 </li>
 
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/lock/">Spärra kort</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="customerActivities" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Kundaktivitet
+                    </a>
+                    <div class="dropdown-menu menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/loan/librarian">Låna bok</a>
+                        <a class="dropdown-item" href="/lock/">Spärra kort</a>
+                    </div>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Rapporter</a>
-                </li>
                 <form class="form-inline" th:action="@{/search}" method="post">
                     <input class="searchAdmin form-control mr-sm-2" name="search" type="search" placeholder="bok / seminarium" aria-label="Search">
                     <button class="btn2" type="submit">Sök</button>
