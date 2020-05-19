@@ -27,6 +27,14 @@
         h2 {
             color: var(--secondary--color);
         }
+
+        td, tr {
+            color: var(--text-color);
+        }
+
+        th {
+            color: var(--secondary--color);
+        }
     </style>
 </head>
 <body>
@@ -42,12 +50,16 @@
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
+            <th>Förnamn</th>
+            <th>Efternamn</th>
             <th>Epost</th>
             <th>Uppdatera</th>
         </tr>
         </thead>
         <tbody id="myTable">
         <tr th:each="admin: ${admins}">
+            <td th:text="${admin.firstName}"></td>
+            <td th:text="${admin.lastName}"></td>
             <td th:text="${admin.email}"></td>
             <td>
                 <form th:action="@{/update/admin-form}">
