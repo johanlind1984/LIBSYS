@@ -18,7 +18,16 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
-
+    <script>
+        function Confirm()
+        {
+            var x = confirm("Registrera författare");
+            if (x)
+                return true;
+            else
+                return false;
+        }
+    </script>
     <style type="text/css">
 
         #save{
@@ -45,15 +54,11 @@
 </head>
 <header th:insert="${header} :: header"> </header>
 <body>
-<script>
-    function myFunction() {
-        alert("Författaren har registrerats!");
-    }
-</script>
+
 <h1 align="center">Lägg till författare</h1>
 <div class="container" id="div">
 
-    <form action="/new-object/save-author" class="form-group" method="POST" onsubmit="myFunction()" th:object="${author}">
+    <form action="/author/save-author" class="form-group" method="POST" th:object="${author}">
 
         <label for="firstname" id="labFi">Förnamn</label>
         <input class="form-control" id="firstname" name="firstname"
@@ -68,8 +73,8 @@
         <input class="form-control" id="birthyear" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)"
                name="birthYear" placeholder="yyyy"
                required th:value="${author.birthYear}" type="text" maxlength = "4" min = "1" max = "9999">
-        <br>
-        <button class="btn4" id="save" name="save" type= "submit">Spara</button>
+
+        <button class="btn4" id="save" onclick="return Confirm()" name="save" type= "submit">Spara</button>
     </form>
 </div>
 <script>
