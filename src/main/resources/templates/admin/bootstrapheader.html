@@ -82,9 +82,17 @@
                     <a class="nav-link" href="/lock/">Spärra kort</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/report/removed-books">Rapporter</a>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropReport" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Rapporter
+                    </a>
+                    <div class="dropdown-menu menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="/report/removed-books">Bok</a>
+                    </div>
                 </li>
+
                 <form class="form-inline" th:action="@{/search}" method="post">
                     <input class="searchAdmin form-control mr-sm-2" name="search" type="search" placeholder="bok / seminarium" aria-label="Search">
                     <button class="btn2" type="submit">Sök</button>
