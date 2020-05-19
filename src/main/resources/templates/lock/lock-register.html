@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang= "sv" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="sv" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lägg till bok</title>
+    <title>Bibliotekskortshantering</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
 
@@ -29,25 +29,29 @@
 
     <style type="text/css">
 
-        #save{
+        #save {
             margin-top: 30px;
             width: 20%;
             height: 10%;
             margin-left: 43%;
             font-size: medium;
         }
-        h1{
+
+        h1 {
             margin-bottom: 60px;
             margin-top: 40px;
-            text-align:center;
+            text-align: center;
         }
-        #title, #isbn, #publisher, #purchasePrice, #placement,#description,
-        #l1, #l2, #l3, #l4, #l5, #l6, #l7{
+
+        #title, #isbn, #publisher, #purchasePrice, #placement, #description,
+        #l1, #l2, #l3, #l4, #l5, #l6, #l7 {
             font-size: medium;
         }
-        #div{
+
+        #div {
             width: 50%;
         }
+
         .tail-select input {
             -webkit-user-select: text;
             -khtml-user-select: text;
@@ -61,43 +65,63 @@
 <header th:insert="${header} :: header"></header>
 
 
-<h1 align="center">Spärra kort</h1>
+<h1 align="center">Bibliotekskortshantering</h1>
+<div class="container" id="div">
+    <form th:action="@{/lock/doUnlock}" class="form-group">
+        <div class="container mt5">
+            <div style="width: 35%">
+                <div th:object="${libraryCard}">
+                    <h3 class="secondary-text">Lås upp bibliotekskort</h3>
+                    <label id="l7" for="select">Bibliotekskort:</label>
+                    <br>
+                    <select class="form-control" id="select" name="libraryCard" required>
+                        <option th:each="libraryCard:${libraryCards}"
+                                th:text="${libraryCard.libraryCardNumber +'&nbsp;' +'&nbsp;' +'&nbsp;'}+${libraryCard.visitor.email+'&nbsp;'}"
+                                th:value="${libraryCard.libraryCardNumber}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="addPadding" th:object="${unlock}">
+            <label id="l5" for="unlock">Motivera anledning till upplåsning</label>
+            <select class="form-control" id="unlock" name="unlock" required>
+                <option th:each="unlock:${unlocks}"
+                        th:text="${unlock.cause}"
+                        th:value="${unlock.unlockId}"></option>
+            </select>
+
+            <button id="save" type="submit" class="btn4">Lås upp</button>
+        </div>
+    </form>
+</div>
+<br>
 <div class="container" id="div">
     <form th:action="@{/lock/doLock}" class="form-group">
-
-            <div class="container mt-5">
-                    <div style="width: 35%">
-                        <div th:object="${libraryCard}">
-                        <label id="l7" for="select">Bibliotekskort:</label>
-                            <br>
-                        <select  class="form-control" id="select" name="libraryCard"  required >
-                            <option th:each="libraryCard:${libraryCards}"
-                                    th:text="${libraryCard.libraryCardNumber +'&nbsp;' +'&nbsp;' +'&nbsp;'}+${libraryCard.visitor.email+'&nbsp;'}"
-
-                                    th:value="${libraryCard.libraryCardNumber}"></option>
-
-                        </select>
-                        </div>
-                    </div>
-
+        <div class="container mt-5">
+            <div style="width: 35%">
+                <div th:object="${libraryCard}">
+                    <h3 class="secondary-text">Spärra bibliotekskort</h3>
+                    <label id="l7" for="select">Bibliotekskort:</label>
+                    <br>
+                    <select class="form-control" id="select" name="libraryCard" required>
+                        <option th:each="libraryCard:${libraryCards}"
+                                th:text="${libraryCard.libraryCardNumber +'&nbsp;' +'&nbsp;' +'&nbsp;'}+${libraryCard.visitor.email+'&nbsp;'}"
+                                th:value="${libraryCard.libraryCardNumber}"></option>
+                    </select>
                 </div>
-                <br>
-
-            <br>
-            <br>
-     
-            <br>
-        <div th:object="${lock}">
+            </div>
+        </div>
+        <br>
+        <div class="addPadding" th:object="${lock}">
             <label id="l5" for="lock">Motivera anledning till spärrning</label>
-            <select class="form-control" id="lock" name="lock" required>
-               
-
+            <select class="form-control" style="padding-left: 15px" id="lock" name="lock" required>
                 <option th:each="lock:${locks}"
                         th:text="${lock.cause}"
                         th:value="${lock.lockId}"></option>
             </select>
 
-            <button id="save" type="submit" class="btn4">Spärra</button>
+            <button id="save" type="submit" class="btn btn-danger">Spärra</button>
         </div>
 
 

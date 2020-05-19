@@ -25,9 +25,13 @@ public class LibraryCard {
     @JoinColumn(name="visitor_id")
     private Visitor visitor;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="lock_id")
     private Lock lock;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="unlock_id")
+    private Unlock unlock;
 
 
 
@@ -80,7 +84,9 @@ public class LibraryCard {
         return lock;
     }
 
-    public void setLock(Lock lock) {
-        this.lock = lock;
-    }
+    public void setLock(Lock lock) { this.lock = lock; }
+
+    public Unlock getUnlock() { return unlock; }
+
+    public void setUnlock(Unlock unlock) { this.unlock = unlock; }
 }

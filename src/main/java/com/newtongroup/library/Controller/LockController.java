@@ -3,6 +3,7 @@ package com.newtongroup.library.Controller;
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.LibraryCardRepository;
 import com.newtongroup.library.Repository.LockRepository;
+import com.newtongroup.library.Repository.UnlockRepository;
 import com.newtongroup.library.Repository.UserRepository;
 import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class LockController {
     @Autowired
     LockRepository lockRepository;
 
+    @Autowired
+    UnlockRepository unlockRepository;
+
     @RequestMapping("/")
     private String returnDoLock(Model theModel, Principal principal){
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
@@ -37,11 +41,14 @@ public class LockController {
         List<LibraryCard> libraryCardsList = libraryCardRepository.findAll();
 
         List<Lock> locksList = lockRepository.findAll();
+        List<Unlock> unlocksList = unlockRepository.findAll();
 
         theModel.addAttribute("libraryCards", libraryCardsList);
         theModel.addAttribute("locks", locksList);
+        theModel.addAttribute("unlocks", unlocksList);
         theModel.addAttribute("libraryCard", new LibraryCard());
         theModel.addAttribute("lock", new Lock());
+        theModel.addAttribute("unlock", new Unlock());
 
         return "lock/lock-register";
     }
@@ -49,7 +56,7 @@ public class LockController {
 
 
     @RequestMapping("/doLock")
-    public String saveBook(@ModelAttribute("lock") Lock lock,
+    public String Lock(@ModelAttribute("lock") Lock lock,
             @ModelAttribute("libraryCard") LibraryCard libraryCard,
             Model theModel, Principal principal){
 
@@ -68,24 +75,47 @@ public class LockController {
             return "error/not-valid-cause";
         }
 
-
-        setCardToFalseAndSetLock(tempLibraryCard, lock);
-
-        theModel.addAttribute("libraryCardNumber", cardID);
-        return "lock/lock-succesfull";
-
+        if (!libraryCard.isActive()) {
+            return "error/not-valid-card-already-locked";
+        } else {
+            setCardToFalseAndSetLock(tempLibraryCard, lock);
+            theModel.addAttribute("libraryCardNumber", cardID);
+            return "lock/lock-succesfull";
+        }
     }
 
+    @RequestMapping("/doUnlock")
+    public String Unlock(@ModelAttribute("unlock") Unlock unlock,
+                       @ModelAttribute("libraryCard") LibraryCard libraryCard,
+                         Model theModel, Principal principal) {
+        theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
+        Long cardID = libraryCard.getLibraryCardNumber();
+        LibraryCard tempLibraryCard = libraryCardRepository.getOne(cardID);
 
 
+        if (libraryCard.isActive()) {
+            return "error/not-valid-card-already-unlocked";
+        } else {
+            setCardToTrueAndSetUnlock(tempLibraryCard, unlock);
+            theModel.addAttribute("libraryCardNumber", cardID);
+            return "lock/unlock-successful";
+        }
+    }
+
+    private void setCardToTrueAndSetUnlock(LibraryCard libraryCard, Unlock unlock){
+        libraryCard.setActive(true);
+        libraryCard.setUnlock(unlock);
+        libraryCard.setLock(null);
 
 
-
-
+        libraryCardRepository.save(libraryCard);
+    }
 
     private void setCardToFalseAndSetLock(LibraryCard libraryCard, Lock lock){
         libraryCard.setActive(false);
         libraryCard.setLock(lock);
+        libraryCard.setUnlock(null);
 
 
         libraryCardRepository.save(libraryCard);
