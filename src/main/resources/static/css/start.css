@@ -101,6 +101,13 @@ button.btn4 {
     padding: 6px 33px;
 }
 
+button.btn5 {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+    border: 1px solid #555555;
+    padding: 6px 33px;
+}
+
 button.btn1:hover {
     background: var(--hover-color);
     color: var(--text-color);
@@ -127,6 +134,11 @@ button.btn4:hover {
     color: black;
 }
 
+button.btn5:hover {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+}
+
 .focus {
     color: var(--focus-color);
 }
@@ -134,4 +146,12 @@ button.btn4:hover {
 .search-list-item {
 	border: 0.2rem solid var(--primary-color);
 	border-radius:0.75rem !important;
+}
+
+.addPadding {
+    padding-left: 15px;
+}
+
+.secondary-text {
+    color: var(--secondary--color)
 }
