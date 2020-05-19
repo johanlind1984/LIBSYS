@@ -6,12 +6,15 @@ import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 @Controller
 @RequestMapping("/loan")
@@ -42,6 +45,12 @@ public class LoanController {
     public String loanvisitor(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
+        List<Book> bookList = getActiveBookList();
+        Book book = new Book();
+
+
+        theModel.addAttribute("book", book);
+        theModel.addAttribute("bookList", bookList);
         return "loan/register-book";
     }
 
@@ -49,20 +58,48 @@ public class LoanController {
     public String loanlibrarian(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
+
+
+
+
+        LibraryCard libraryCard = new LibraryCard();
+        Book book = new Book();
+
+        List<LibraryCard> libraryCardList = getActiveCardList();
+        List<Book> bookList = getActiveBookList();
+
+
+
+
+
+        theModel.addAttribute("book", book);
+        theModel.addAttribute("libraryCard", libraryCard);
+        theModel.addAttribute("libraryCardList", libraryCardList);
+        theModel.addAttribute("bookList", bookList);
         return "loan/register-book-librarian";
     }
 
     @RequestMapping("/register-loan")
-    public String registerLoan(@RequestParam(value = "bookId", required = false) Long bookId,
+    public String registerLoan(@RequestParam(value = "bookId", required = false) Long bookIdTEST,
                                @RequestParam(name = "eBookId", required = false) Long eBookId,
-                               @RequestParam(name = "librarycardnumber", required = false) Long librarycardnumber,
+                               @RequestParam(name = "librarycardnumber", required = false) Long librarycardnumberTEST,
+                               @ModelAttribute("libraryCard") LibraryCard libraryCard,
+                               @ModelAttribute("book") Book book,
                                Model theModel, Principal principal) {
 
+
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
         User user = userRepository.findByUsername(principal.getName());
 
+        Long librarycardnumber = libraryCard.getLibraryCardNumber();
+        Long bookId = book.getId();
 
-        Book tempbook = bookrepository.findById(bookId).orElse(null);
+
+        System.out.println(librarycardnumber);
+        System.out.println(bookId);
+        System.out.println(eBookId);
+        //Book tempbook = bookrepository.findById(bookId).orElse(null);
 
         if(user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")){
             LibraryCard tempcard = libraryCardRepository.findById(librarycardnumber).orElse(null);
@@ -71,9 +108,9 @@ public class LoanController {
             }
 
         }
-        if(tempbook == null){
-            return "error/book-or-no-active-librarycard";
-        }
+//        if(tempbook == null){
+//            return "error/book-or-no-active-librarycard";
+//        }
 
 
         if(user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")){
@@ -84,10 +121,10 @@ public class LoanController {
             return result;
 
         } else if(user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")){
-            LibraryCard libraryCard = libraryCardRepository.findById(librarycardnumber).orElse(null);
+            LibraryCard libraryCard1 = libraryCardRepository.findById(librarycardnumber).orElse(null);
 
-            if (libraryCard != null) {
-                Visitor visitor1 = libraryCard.getVisitor();
+            if (libraryCard1 != null) {
+                Visitor visitor1 = libraryCard1.getVisitor();
                String result = registerLoan(visitor1, bookId, eBookId);
                return result;
 
@@ -113,7 +150,8 @@ public class LoanController {
 
         } else if (eBookId != null) {
             EBook ebook = eBookRepository.findById((eBookId)).orElse(null);
-            if (!ebook.isAvailable()) {
+
+            if (!ebook.isAvailable() ) {
                 return "error/book-is-not-available";
             }
             EbookLoan ebookLoan = getLoan(ebook, visitor);
@@ -170,5 +208,29 @@ public class LoanController {
         currentLoanToRegister.setDateLoanEnd(new Date(calendar.getTime().getTime()));
         currentLoanToRegister.setEbookReturned(false);
         return currentLoanToRegister;
+    }
+
+    private List<LibraryCard> getActiveCardList(){
+        List<LibraryCard> tempList = libraryCardRepository.findAll();
+        List<LibraryCard> libraryCardList = new ArrayList<>();
+
+        for(LibraryCard temp : tempList){
+            if(temp.isActive()){
+                libraryCardList.add(temp);
+            }
+        }
+        return libraryCardList;
+    }
+
+    private List<Book> getActiveBookList(){
+        List<Book> tempList = bookrepository.findAll();
+        List<Book> bookList = new ArrayList<>();
+
+        for(Book temp : tempList){
+            if(temp.isAvailable()){
+                bookList.add(temp);
+            }
+        }
+        return bookList;
     }
 }

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang= "sv" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>LIBSYS</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/css/start.css}">
+    <title>Låna bok</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <link href="/css/tail.select-light.css" rel="stylesheet">
+    <script src="/script/tail.select-full.min.js"></script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -17,7 +21,45 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
+    <script>
+        function myFunction() {
+            alert("Kort har spärrats!");
+        }
+    </script>
+
     <style type="text/css">
+
+
+       #save{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+         #saves{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
+            margin-top: 40px;
+            text-align:center;
+        }
+
+        #div{
+            width: 40%;
+        }
+        .tail-select input {
+            -webkit-user-select: text;
+            -khtml-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+
         h1 {
             font-size: 100px;
             margin-top: 15%;
@@ -26,6 +68,7 @@
 
         h2 {
             color: var(--secondary--color);
+
         }
     </style>
 </head>
@@ -34,30 +77,83 @@
 
 <br><br>
 
-<div class="container" align="center">
+<div class="container" id="div">
     <h2>Låna bok</h2>
-    <form th:action="@{/loan/register-loan}">
-        <div class="form-group">
-            <label>Bokens ID står på bokens etikett som finns på bokens baksida</label>
-            <input type="number" class="form-control" id="bookId" aria-describedby="emailHelp"
-                   placeholder="ID"
-                   th:name="bookId" required maxlength="20">
-            <button id="book" type="submit" class="btn4 addSpace">Låna Bok</button>
-        </div>
+
+    <form th:action="@{/loan/register-loan}"class="form-group" th:object="${book}">
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+
+
+                    <label id="l8" for="select">Välj bok</label>
+                    <br>
+                    <select  class="form-control" id="select" name="book"  required>
+                        <option th:each="book:${bookList}"
+                                th:text="${book.title+'&nbsp;' +'&nbsp;' +'&nbsp;'}+${book.id+'&nbsp;'}"
+
+                                th:value="${book.id}"></option>
+
+                    </select>
+
+
+            </div>
+
+<!--=======-->
+<!--    <form th:action="@{/loan/register-loan}">-->
+<!--        <div class="form-group">-->
+<!--            <label>Bokens ID står på bokens etikett som finns på bokens baksida</label>-->
+<!--            <input type="number" class="form-control" id="bookId" aria-describedby="emailHelp"-->
+<!--                   placeholder="ID"-->
+<!--                   th:name="bookId" required maxlength="20">-->
+<!--            <button id="book" type="submit" class="btn4 addSpace">Låna Bok</button>-->
+<!--&gt;>>>>>> Alpha-->
+<!--        </div>-->
+
+
+
+    </div>
+        <script>
+            tail.select('#select', {
+                search: true,
+                multiLimit: 15,
+                hideSelected: true,
+                deselect: true,
+                hideDisabled: true,
+                multiShowCount: false,
+                multiContainer: true,
+                placeholder: 'Välj bok'
+            });
+        </script>
+        <br>
+        <button id="save" type="submit"  class="btn4">Låna bok</button>
+    </div>
     </form>
 
     <br>
     <br>
 
-    <form th:action="@{/loan/register-loan}">
-        <div class="form-group">
-            <label>E-Bokens ID står på förstasidan i den elektroniska boken</label>
-            <input type="number" class="form-control" id="ebookId" aria-describedby="emailHelp"
-                   placeholder="ID"
-                   th:name="eBookId" required maxlength="20">
-            <button id="ebook" type="submit" class="btn4 addSpace">Låna E-Bok</button>
-        </div>
-    </form>
+<!--    <form th:action="@{/loan/register-loan}">-->
+<!--        <div class="form-group">-->
+<!--            <label>E-Bokens ID står på förstasidan i den elektroniska boken</label>-->
+<!--            <input type="number" class="form-control" id="ebookId" aria-describedby="emailHelp"-->
+<!--                   placeholder="ID"-->
+<!--                   th:name="eBookId" required maxlength="20">-->
+<!--            <button id="saves" type="submit" class="btn4">Låna E-Bok</button>-->
+<!--        </div>-->
+<!--    </form>-->
+
+<!--    <form th:action="@{/loan/register-loan}">-->
+<!--        <div class="form-group">-->
+<!--            <label>E-Bokens ID står på förstasidan i den elektroniska boken</label>-->
+<!--            <input type="number" class="form-control" id="ebookId" aria-describedby="emailHelp"-->
+<!--                   placeholder="ID"-->
+<!--                   th:name="eBookId" required maxlength="20">-->
+<!--            <button id="ebook" type="submit" class="btn4 addSpace">Låna E-Bok</button>-->
+<!--        </div>-->
+<!--    </form>-->
+
 </div>
 </body>
 </html>

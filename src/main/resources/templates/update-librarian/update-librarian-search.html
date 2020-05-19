@@ -18,13 +18,15 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
     <style type="text/css">
-
-        a{font-size: medium}
-        h1{font-size: 100px;
+        h1 {
+            font-size: 100px;
             margin-top: 15%;
             color: var(--secondary--color);
         }
-        p{ font-size: large}
+
+        h2 {
+            color: var(--secondary--color);
+        }
     </style>
 </head>
 <body>
@@ -32,10 +34,40 @@
 
 <br><br>
 
-<div class="table-responsive" align="center">
-    <h1>Godkänt</h1>
-    <p>Kortet är nu spärrat!</p>
-
+<div class="container">
+    <h2>Bibliotikarier</h2>
+    <p>Filtrera via epost:</p>
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Epost</th>
+            <th>Uppdatera</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        <tr th:each="librarian: ${librarians}">
+            <td th:text="${librarian.email}"></td>
+            <td>
+                <form th:action="@{/update/librarian-form}">
+                    <button class="btn4" type="submit" th:name="librarianId" th:value="${librarian.email}">Uppdatera</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 </body>
 </html>
