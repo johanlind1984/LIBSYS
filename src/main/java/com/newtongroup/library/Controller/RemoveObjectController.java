@@ -188,19 +188,5 @@ public class RemoveObjectController {
     }
 
 
-//        authorRepository.delete(author);
-
-
-
-//       for(Book book:author.getBookList()){
-//           System.out.println(book.getTitle());
-//       }return null;
-
-//        if (!listOfBooksWithAuthor.contains(bookRepository.findAll())&& listOfBooksWithAuthor!=(null)) {
-
-//        }else {
-//            return "error/test-error";
-//        }
-
 }
 
