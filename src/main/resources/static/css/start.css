@@ -5,6 +5,8 @@
     --secondary--color: #f5c42f;
     --text-color: #c5bbec;
     --hover-color: #920d0d;
+    --focus-color: #495057;
+    --button-color: #a59a9a;
 }
 
 body {
@@ -32,22 +34,27 @@ body {
 }
 
 .searchAdmin {
-    margin-left: 217px;
+    margin-left: 48px;
 }
 
 .searchLibrarian {
-    margin-left: 383px;
+    margin-left: 37px;
 }
 
 .searchVisitor {
-    margin-left: 600px;
+    margin-left: 514px;
 }
 
 .searchBtm {
     margin-top: 5px;
 }
+
 .searchTop {
     margin-top: 10px;
+}
+
+.addSpace {
+    margin-top: 35px;
 }
 
 button {
@@ -81,8 +88,22 @@ button.btn3 {
     display: inline-block;
 }
 
+button.btn3.disabled {
+    background-color: var(--button-color);
+	color: var(--focus-color);
+	border: 1px solid var(--focus-color);
+    cursor: default;
+}
+
 button.btn4 {
     background-color: var(--secondary--color);
+    border: 1px solid #555555;
+    padding: 6px 33px;
+}
+
+button.btn5 {
+    background-color: var(--hover-color);
+    color: var(--text-color);
     border: 1px solid #555555;
     padding: 6px 33px;
 }
@@ -101,7 +122,36 @@ button.btn3:hover {
     background: var(--text-color)
 }
 
+button.btn3.disabled:hover {
+    background-color: var(--button-color);
+	color: var(--focus-color);
+	border: 1px solid var(--focus-color);
+    cursor: default;
+}
+
 button.btn4:hover {
     background: var(--text-color);
     color: black;
+}
+
+button.btn5:hover {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+}
+
+.focus {
+    color: var(--focus-color);
+}
+
+.search-list-item {
+	border: 0.2rem solid var(--primary-color);
+	border-radius:0.75rem !important;
+}
+
+.addPadding {
+    padding-left: 15px;
+}
+
+.secondary-text {
+    color: var(--secondary--color)
 }

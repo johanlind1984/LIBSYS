@@ -41,27 +41,7 @@ public class AddObjectController {
 
     List<Author> authorList;
 
-    @GetMapping("/menu")
-    public String getMenu(Model model, Principal principal){
 
-        return "object/add-object-menu";
-    }
-    @RequestMapping("/home")
-    public String goToHome(Model model, Principal principal){
-        User user=userRepository.findByUsername(principal.getName());
-
-        switch (user.getAuthority().getAuthorityName()){
-            case "ROLE_ADMIN":
-                return "redirect:/admin/";
-            case "ROLE_LIBRARIAN":
-                return "redirect:/librarian/";
-            default:
-                break;
-        }
-
-        return null;
-    }
-//
     @GetMapping("/new-seminar")
     public String getSeminarForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
@@ -73,19 +53,6 @@ public class AddObjectController {
     public String saveSeminar(Seminary seminary){
         seminaryRepository.save(seminary);
         return "redirect:/new-object/new-seminar";
-    }
-
-    @GetMapping("/new-author")
-    public String getAuthorForm(Model model, Principal principal){
-
-        Author author = new Author();
-        model.addAttribute("author",author);
-        return "object/add-author";
-    }
-    @PostMapping("/save-author")
-    public String saveAuthor(Author author){
-        authorRepository.save(author);
-        return "redirect:/new-object/new-author";
     }
 
     @GetMapping("/new-book")
@@ -106,6 +73,7 @@ public class AddObjectController {
 
     @PostMapping("/save-book")
     public String saveBook(@ModelAttribute("book") Book book){
+        book.setAvailable(true);
         bookRepository.save(book);
         return "redirect:/new-object/new-book";
     }
@@ -115,14 +83,18 @@ public class AddObjectController {
 
         EBook ebook = new EBook();
 
+        List<Placement>placementList=placementRepository.findAll();
+
         authorList=authorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
 
         model.addAttribute("ebook", ebook);
         model.addAttribute("authors", authorList);
+        model.addAttribute("placements", placementList);
         return "/object/add-ebook";
     }
     @PostMapping("/save-ebook")
     public String saveEBook(@ModelAttribute("ebook") EBook eBook){
+        eBook.setAvailable(true);
         eBookRepository.save(eBook);
         return "redirect:/new-object/new-ebook";
     }

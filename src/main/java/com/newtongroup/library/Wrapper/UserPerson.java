@@ -96,6 +96,19 @@ public class UserPerson {
         this.visitor.setPostalCode(person.getPostalCode());
         this.visitor.setStreet(person.getStreet());
         this.visitor.setEmail(user.getUsername());
+        this.visitor.setActive(true);
+    }
+
+    public void setVisitorAsPerson() {
+        this.person = new Person();
+        this.person.setFirstName(visitor.getFirstName());
+        this.person.setLastName(visitor.getLastName());
+        this.person.setPersonalNumber(visitor.getPersonalNumber());
+        this.person.setPhone(visitor.getPhone());
+        this.person.setCity(visitor.getCity());
+        this.person.setPostalCode(visitor.getPostalCode());
+        this.person.setStreet(visitor.getStreet());
+        this.person.setEmail(visitor.getEmail());
     }
 
     public void setPersonAsLibrarian() {

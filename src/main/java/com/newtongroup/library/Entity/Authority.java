@@ -10,7 +10,7 @@ public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="authority_id")
-    private long autorityId;
+    private Long autorityId;
 
     @Column(name="authority")
     private String authorityName;

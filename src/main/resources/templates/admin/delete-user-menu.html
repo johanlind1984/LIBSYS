@@ -48,7 +48,30 @@
             <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
                    placeholder="Skriv e-postadressen för användaren som skall tas bort"
                    th:name="email" required maxlength="150">
-            <button id="save" type="submit" class="btn btn-danger">Ta bort</button>
+
+            <button type="button" class="btn btn-danger addSpace" data-toggle="modal" data-target="#modalDialog">
+                Ta bort
+            </button>
+
+            <div class="modal fade" id="modalDialog" tabindex="-1" role="dialog" aria-labelledby="modalDialogTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">VARNING!!!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Är du säker på att du vill ta bort användaren? Det går inte att ångra denna åtgärd.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Avbryt</button>
+                            <button type="submit" class="btn btn-danger">Ta bort</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </div>

@@ -1,5 +1,6 @@
 package com.newtongroup.library.Service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -21,11 +22,55 @@ import com.newtongroup.library.Service.SearchService;
 
 @Service
 public class SearchServiceImpl implements SearchService {
-	
-	private static final String[] BOOK_SEARCH_FIELDS = new String[] { "isbn", "title", "authorList.firstname", "authorList.lastname" };
+
+	private static final String[] BOOK_SEARCH_FIELDS = new String[] { "isbn", "title", "authorList.firstname",
+			"authorList.lastname" };
 
 	@PersistenceContext
 	private EntityManager entityManager;
+
+
+	public List<Book> filterBooksOnCategories(String searchText, List<String> categories) {
+
+		List<Book> results = searchBooks(searchText);
+		boolean hasCategoryFilter = categories != null && !categories.isEmpty();
+
+		if (hasCategoryFilter) {
+			List<Book> filteredResults = new ArrayList<Book>();
+
+			for (Book book : results) {
+
+				long categoryId = book.getPlacement().getPlacementId();
+
+				if (categories.contains(String.valueOf(categoryId))) {
+					filteredResults.add(book);
+				}
+			}
+			results = filteredResults;
+		}
+		return results;
+	}
+
+	public List<EBook> filterEBooksOnCategories(String searchText, List<String> categories) {
+
+		List<EBook> results = searchEBooks(searchText);
+		boolean hasCategoryFilter = categories != null && !categories.isEmpty();
+
+		if (hasCategoryFilter) {
+			List<EBook> filteredResults = new ArrayList<EBook>();
+
+			for (EBook book : results) {
+
+				long categoryId = book.getPlacement().getPlacementId();
+
+				if (categories.contains(String.valueOf(categoryId))) {
+					filteredResults.add(book);
+				}
+			}
+			results = filteredResults;
+		}
+		return results;
+	}
 
 	public List<Book> searchBooks(String searchText) {
 
@@ -34,12 +79,12 @@ public class SearchServiceImpl implements SearchService {
 
 		return bookList;
 	}
-	
+
 	public List<EBook> searchEBooks(String searchText) {
-		
+
 		FullTextQuery jpaQuery = searchQuery(searchText, EBook.class, BOOK_SEARCH_FIELDS);
 		List<EBook> bookList = jpaQuery.getResultList();
-		
+
 		return bookList;
 	}
 
@@ -66,8 +111,7 @@ public class SearchServiceImpl implements SearchService {
 			query = queryBuilder.all().createQuery();
 		}
 
-		org.hibernate.search.jpa.FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(query,
-				clazz);
+		org.hibernate.search.jpa.FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(query, clazz);
 
 		return fullTextQuery;
 

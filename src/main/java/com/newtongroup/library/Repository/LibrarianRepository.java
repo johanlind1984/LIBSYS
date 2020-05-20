@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LibrarianRepository extends JpaRepository<Librarian, String> {
-
+public interface LibrarianRepository extends UserTypeRepository<Librarian> {
+    Librarian findByEmail(String email);
+    String deleteByEmail(String email);
 }

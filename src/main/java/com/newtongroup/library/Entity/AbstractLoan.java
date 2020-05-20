@@ -3,35 +3,31 @@ package com.newtongroup.library.Entity;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 
-@Entity
-@Table(name = "loans")
-public class Loan {
+@MappedSuperclass
+public class AbstractLoan {
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "loan_id")
     private Long id;
 
     @ManyToOne()
     @JoinColumn(name = "librarycardnumber")
     private LibraryCard libraryCard;
 
-    @ManyToOne()
-    @JoinColumn(name="book_id")
-    private Book book;
-
-    @Column(name = "datelonestart")
+    @Column(name = "date_lonestart")
     private Date dateLoanStart;
 
-    @Column(name = "dateloanend")
+    @Column(name = "date_loanend")
     private Date dateLoanEnd;
 
-    @Column(name = "returned")
-    private Date returned;
+    @Column(name = "date_returned")
+    private Date dateReturned;
 
-    public Loan() {
+    public AbstractLoan() {
     }
+
 
     public LibraryCard getLibraryCard() {
         return libraryCard;
@@ -39,14 +35,6 @@ public class Loan {
 
     public void setLibraryCard(LibraryCard libraryCard) {
         this.libraryCard = libraryCard;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
     }
 
     public Date getDateLoanStart() {
@@ -65,12 +53,12 @@ public class Loan {
         this.dateLoanEnd = dateLoanEnd;
     }
 
-    public Date getReturned() {
-        return returned;
+    public Date getDateReturned() {
+        return dateReturned;
     }
 
-    public void setReturned(Date returned) {
-        this.returned = returned;
+    public void setDateReturned(Date dateReturned) {
+        this.dateReturned = dateReturned;
     }
 
     public Long getId() {
@@ -80,4 +68,5 @@ public class Loan {
     public void setId(Long id) {
         this.id = id;
     }
+
 }

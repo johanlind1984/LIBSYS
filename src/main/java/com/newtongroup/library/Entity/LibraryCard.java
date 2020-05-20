@@ -16,11 +16,24 @@ public class LibraryCard {
     private boolean isActive;
 
     @OneToMany(mappedBy = "libraryCard")
-    private List<Loan> loanList;
+    private List<BookLoan> bookLoans;
+
+    @OneToMany(mappedBy = "libraryCard")
+    private List<EbookLoan> ebookLoans;
 
     @ManyToOne()
-    @JoinColumn(name="visitor_id")
+    @JoinColumn(name="librarycard_person_id")
     private Visitor visitor;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="lock_id")
+    private Lock lock;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name="unlock_id")
+    private Unlock unlock;
+
+
 
 
 
@@ -43,12 +56,20 @@ public class LibraryCard {
         isActive = active;
     }
 
-    public List<Loan> getLoanList() {
-        return loanList;
+    public List<BookLoan> getBookLoans() {
+        return bookLoans;
     }
 
-    public void setLoanList(List<Loan> loanList) {
-        this.loanList = loanList;
+    public void setBookLoans(List<BookLoan> bookLoans) {
+        this.bookLoans = bookLoans;
+    }
+
+    public List<EbookLoan> getEbookLoans() {
+        return ebookLoans;
+    }
+
+    public void setEbookLoans(List<EbookLoan> ebookLoans) {
+        this.ebookLoans = ebookLoans;
     }
 
     public Visitor getVisitor() {
@@ -58,4 +79,14 @@ public class LibraryCard {
     public void setVisitor(Visitor visitor) {
         this.visitor = visitor;
     }
+
+    public Lock getLock() {
+        return lock;
+    }
+
+    public void setLock(Lock lock) { this.lock = lock; }
+
+    public Unlock getUnlock() { return unlock; }
+
+    public void setUnlock(Unlock unlock) { this.unlock = unlock; }
 }
