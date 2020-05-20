@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -93,17 +95,18 @@ public class AdminController {
     }
 
     private void hashAllUSerData(User user) {
+        long timeHash = System.currentTimeMillis() / 1000L;
         Visitor visitor = visitorRepository.findByEmail(user.getUsername());
-        visitor.setFirstName(passwordEncoder.encode(visitor.getFirstName()));
-        visitor.setLastName(passwordEncoder.encode(visitor.getLastName()));
-        visitor.setStreet(passwordEncoder.encode(visitor.getStreet()));
-        visitor.setPostalCode(passwordEncoder.encode(visitor.getPostalCode()));
-        visitor.setCity(passwordEncoder.encode(visitor.getCity()));
-        visitor.setPhone(passwordEncoder.encode(visitor.getPhone()));
-        visitor.setPersonalNumber(passwordEncoder.encode(visitor.getPersonalNumber()));
-        visitor.setEmail(passwordEncoder.encode(visitor.getEmail()));
+        visitor.setFirstName(passwordEncoder.encode(visitor.getFirstName() + timeHash));
+        visitor.setLastName(passwordEncoder.encode(visitor.getLastName() + timeHash));
+        visitor.setStreet(passwordEncoder.encode(visitor.getStreet() + timeHash));
+        visitor.setPostalCode(passwordEncoder.encode(visitor.getPostalCode() + timeHash));
+        visitor.setCity(passwordEncoder.encode(visitor.getCity() + timeHash));
+        visitor.setPhone(passwordEncoder.encode(visitor.getPhone() + timeHash));
+        visitor.setPersonalNumber(passwordEncoder.encode(visitor.getPersonalNumber() + timeHash));
+        visitor.setEmail(passwordEncoder.encode(visitor.getEmail() + timeHash));
+        visitor.getActiveLibraryCard().setActive(false);
         visitor.setActive(false);
         visitorRepository.save(visitor);
     }
-
 }
