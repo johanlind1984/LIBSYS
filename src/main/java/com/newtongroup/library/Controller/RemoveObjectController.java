@@ -72,33 +72,12 @@ public class RemoveObjectController {
     public String deleteBook(@ModelAttribute(name="book")Book theBook, @ModelAttribute(name="removedBook") RemovedBook theRemovedBook, Model theModel, Principal principal){
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
-        Book book=bookRepository.getOne(.getId());
+        Book book=bookRepository.findByIsbn(theBook.getIsbn());
 
-//        String isbn = theBook.getIsbn();
-
-        //List<Book> bookList = bookRepository.findAll();
 
         RemovedBook removedBook= new RemovedBook(book.getId(), book.getTitle(), book.getIsbn(), book.getPublisher(),book.getDescription(),
                                    book.getPurchasePrice(), book.getPlacement().getPlacementId(),theRemovedBook.getCause(),book.getAuthorList() );
 
-
-
-
-
-
-//        for(Book temp : bookList){
-//            if(temp.getIsbn().equals(isbn)){
-//                Long id = temp.getId();
-//                String title = temp.getTitle();
-//                String publisher = temp.getPublisher();
-//                String price = temp.getPurchasePrice();
-//                String cause = theRemovedBook.getCause();
-//                String description = temp.getDescription();
-//                Long placement_id = temp.getPlacement().getPlacementId();
-//                List<Author> authors=temp.getAuthorList();
-//
-//
-//                RemovedBook removedBook = new RemovedBook(id,title,isbn,publisher,description,price, placement_id,cause, authors);
                 removedBookRepository.save(removedBook);
                 bookRepository.delete(book);
                 return "remove-objects/remove-book-confirmation";

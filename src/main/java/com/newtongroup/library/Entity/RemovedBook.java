@@ -40,7 +40,7 @@ public class RemovedBook {
     @ManyToMany()
     @JoinTable(
             name="removedbook_author",
-            joinColumns = {@JoinColumn(name="removedbook_id")},
+            joinColumns = {@JoinColumn(name="book_id")},
             inverseJoinColumns = {@JoinColumn(name="author_id")})
     private List<Author> authorList;
 

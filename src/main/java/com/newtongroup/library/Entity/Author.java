@@ -93,4 +93,12 @@ public class Author {
     public void setBirthYear(String birthYear) {
         this.birthYear = birthYear;
     }
+
+    public List<RemovedBook> getRemovedBookList() {
+        return removedBookList;
+    }
+
+    public void setRemovedBookList(List<RemovedBook> removedBookList) {
+        this.removedBookList = removedBookList;
+    }
 }
