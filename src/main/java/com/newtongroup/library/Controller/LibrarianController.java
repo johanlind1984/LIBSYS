@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -93,6 +94,17 @@ public class LibrarianController {
     private String prepareToReturnBook(Model theModel, Principal principal) {
         System.out.println(principal.getName());
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
+        List<Book> bookList = getActiveBookList();
+
+
+        Book book = new Book();
+
+
+
+        theModel.addAttribute("bookList", bookList);
+        theModel.addAttribute("book", book);
+
         return "loan/return-book";
     }
 
@@ -149,5 +161,17 @@ public class LibrarianController {
         visitor.setEmail(passwordEncoder.encode(visitor.getEmail()));
         visitor.setActive(false);
         visitorRepository.save(visitor);
+    }
+
+    private List<Book> getActiveBookList(){
+        List<Book> tempList = bookrepository.findAll();
+        List<Book> bookList = new ArrayList<>();
+
+        for(Book temp : tempList){
+            if(!temp.isAvailable()){
+                bookList.add(temp);
+            }
+        }
+        return bookList;
     }
 }
