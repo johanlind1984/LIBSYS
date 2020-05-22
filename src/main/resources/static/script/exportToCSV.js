@@ -54,8 +54,11 @@ $(document).ready(function () {
         }
     }
     $( "#export" ).click( function (event) {
-        var outputFile = window.prompt( "Ange ett namn för din CSV-fil" ) || 'export';
+        var outputFile = window.prompt( "Ange ett namn för din CSV-fil" );
+        if(outputFile == null){
+            return false
+        }else{
         outputFile = outputFile.replace( '.csv', '' ) + '.csv'
-        exportTableToCSV.apply( this, [$( '#dvData > table' ), outputFile] );
+        exportTableToCSV.apply( this, [$( '#dvData > table' ), outputFile] );}
     });
 });

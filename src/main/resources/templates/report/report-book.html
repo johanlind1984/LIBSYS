@@ -18,13 +18,6 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
     <script type="text/javascript" src="/script/exportToCSV.js"></script>
-    <script>
-        $( "#export" ).click( function (event) {
-            var outputFile = window.prompt( "Ange ett namn för din CSV-fil" ) || 'export';
-            outputFile = outputFile.replace( '.csv', '' ) + '.csv'
-            exportTableToCSV.apply( this, [$( '#dvData > table' ), outputFile] );
-        });
-    </script>
     <style type="text/css">
         h1 {
             font-size: 100px;
