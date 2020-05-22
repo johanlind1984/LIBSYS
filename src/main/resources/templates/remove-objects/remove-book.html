@@ -54,7 +54,7 @@
 <h1>Ta bort bok</h1>
 
 
-<form th:action="@{/remove-object/delete-book}" method="post" th:object="${book}">
+<form th:action="@{/remove-object/delete-book}" th:object="${book}">
     <div class="container" id="div">
         <div class="form-group">
 
