@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -109,11 +110,15 @@ public class LibrarianController {
     }
 
     @RequestMapping("/return-book")
-    private String returnBook(@RequestParam(name="bookId", required = false) Long bookId,
+    private String returnBook(@RequestParam(name="bookId", required = false) Long bookIdTEST,
                               @RequestParam(name="eBookId", required = false) Long eBookId,
+                              @ModelAttribute("book") Book book,
+                              @ModelAttribute("bookLoan") BookLoan bookLoan,
                               Model theModel, Principal principal) {
 
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        Long bookId = bookLoan.getBook().getId();
+        System.out.println(bookId);
 
 
         if(bookId != null) {

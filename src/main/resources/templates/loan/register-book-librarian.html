@@ -79,7 +79,7 @@
                         <br>
                         <select class="form-control" id="select" name="libraryCard" required>
                             <option th:each="libraryCard:${libraryCardList}"
-                                    th:text="${libraryCard.visitor.email+'&nbsp;' +'&nbsp;' +'&nbsp;'}+${libraryCard.libraryCardNumber+'&nbsp;'}"
+                                    th:text="${libraryCard.libraryCardNumber+'&nbsp;' +'&nbsp;' +'&nbsp;'}+${libraryCard.visitor.email+'&nbsp;'}"
                                     th:value="${libraryCard.libraryCardNumber}"></option>
                         </select>
                 </div>
@@ -92,7 +92,7 @@
                             <br>
                             <select class="form-control" id="select2" name="book" required>
                                 <option th:each="book:${bookList}"
-                                        th:text="${book.title+'&nbsp;' +'&nbsp;' +'&nbsp;'}+${book.id+'&nbsp;'}"
+                                        th:text="${book.id+'&nbsp;' +'&nbsp;' +'&nbsp;'}+${book.title+'&nbsp;'}"
                                         th:value="${book.id}"></option>
                             </select>
                         </div>
