@@ -46,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/update/visitor**").hasAnyRole( "ADMIN",  "BOSS", "LIBRARIAN")
                 .antMatchers("/update/admin**").hasAnyRole( "ADMIN",  "BOSS")
                 .antMatchers("/update/librarian**").hasAnyRole( "ADMIN",  "BOSS")
+                .antMatchers("/report/**").hasAnyRole( "ADMIN",  "BOSS")
                 .antMatchers("/admin/**").hasAnyRole("ADMIN", "BOSS")
                 .antMatchers("/librarian/**").hasRole("LIBRARIAN")
                 .antMatchers("/visitor/**").hasRole("VISITOR")
