@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -93,15 +95,30 @@ public class LibrarianController {
     private String prepareToReturnBook(Model theModel, Principal principal) {
         System.out.println(principal.getName());
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
+        List<Book> bookList = getActiveBookList();
+
+
+        Book book = new Book();
+
+
+
+        theModel.addAttribute("bookList", bookList);
+        theModel.addAttribute("book", book);
+
         return "loan/return-book";
     }
 
     @RequestMapping("/return-book")
-    private String returnBook(@RequestParam(name="bookId", required = false) Long bookId,
+    private String returnBook(@RequestParam(name="bookId", required = false) Long bookIdTEST,
                               @RequestParam(name="eBookId", required = false) Long eBookId,
+                              @ModelAttribute("book") Book book,
+                              @ModelAttribute("bookLoan") BookLoan bookLoan,
                               Model theModel, Principal principal) {
 
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        Long bookId = bookLoan.getBook().getId();
+        System.out.println(bookId);
 
 
         if(bookId != null) {
@@ -149,5 +166,17 @@ public class LibrarianController {
         visitor.setEmail(passwordEncoder.encode(visitor.getEmail()));
         visitor.setActive(false);
         visitorRepository.save(visitor);
+    }
+
+    private List<Book> getActiveBookList(){
+        List<Book> tempList = bookrepository.findAll();
+        List<Book> bookList = new ArrayList<>();
+
+        for(Book temp : tempList){
+            if(!temp.isAvailable()){
+                bookList.add(temp);
+            }
+        }
+        return bookList;
     }
 }

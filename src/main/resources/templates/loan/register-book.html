@@ -91,7 +91,7 @@
                     <br>
                     <select  class="form-control" id="select" name="book"  required>
                         <option th:each="book:${bookList}"
-                                th:text="${book.title+'&nbsp;' +'&nbsp;' +'&nbsp;'}+${book.id+'&nbsp;'}"
+                                th:text="${book.id+'&nbsp;' +'&nbsp;' +'&nbsp;'}+${book.title+'&nbsp;'}"
 
                                 th:value="${book.id}"></option>
 
