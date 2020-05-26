@@ -72,7 +72,7 @@ public class RemoveObjectController {
     public String deleteBook(@ModelAttribute(name="book")Book theBook, @ModelAttribute(name="removedBook") RemovedBook theRemovedBook, Model theModel, Principal principal){
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
-        boolean doesIdAlreadyExist=bookRepository.findById(theBook.getId())!=null;
+        boolean doesIdAlreadyExist= bookRepository.findById(theBook.getId()).isPresent();
         if(doesIdAlreadyExist){
             Book book=bookRepository.getOne(theBook.getId());
 
@@ -85,8 +85,10 @@ public class RemoveObjectController {
                 bookRepository.delete(book);
                 return "remove-objects/remove-book-confirmation";
             }
-//        return "error/isbn-error";
-//    }
+            return "error/id-error";
+
+
+    }
 
     @RequestMapping("/delete-e-book")
     public String deleteEBook(@ModelAttribute("EBook") EBook theEBook,  @ModelAttribute("removedEBook") RemovedEBook theRemovedEBook,Model theModel, Principal principal){

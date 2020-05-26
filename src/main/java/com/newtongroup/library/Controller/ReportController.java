@@ -1,8 +1,8 @@
 package com.newtongroup.library.Controller;
 
+import com.newtongroup.library.Entity.Book;
 import com.newtongroup.library.Entity.LibraryCard;
 import com.newtongroup.library.Entity.RemovedBook;
-import com.newtongroup.library.Entity.User;
 import com.newtongroup.library.Entity.Visitor;
 import com.newtongroup.library.Repository.*;
 import com.newtongroup.library.Utils.HeaderUtils;
@@ -35,8 +35,25 @@ public class ReportController {
     @Autowired
     private VisitorRepository visitorRepository;
 
-    @GetMapping ("/removed-books")
+    @Autowired
+    private BookRepository bookRepository;
+
+    @GetMapping ("/added-books")
     public String getBookReport (Model model, Principal principal){
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
+        List<Book> bookList=bookRepository.findAll();
+        Book book=new Book();
+
+        model.addAttribute("bookList", bookList);
+        model.addAttribute("book", book);
+
+        return "report/report-added-books";
+
+    }
+
+    @GetMapping ("/removed-books")
+    public String getRemovedBookReport (Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         List<RemovedBook>removedBookList=removedBookRepository.findAll();
@@ -45,7 +62,7 @@ public class ReportController {
         model.addAttribute("removedBookList", removedBookList);
         model.addAttribute("removedBook", removedBook);
 
-        return "report/report-book";
+        return "report/report-removed-book";
 
     }
 
