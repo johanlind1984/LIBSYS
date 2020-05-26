@@ -40,9 +40,6 @@ public class Author {
     @ManyToMany(mappedBy = "authorList")
     private List<EBook>eBookList;
 
-    @ManyToMany(mappedBy = "authorList")
-    private List<RemovedBook>removedBookList;
-
     public Author() {
     }
 
@@ -94,11 +91,4 @@ public class Author {
         this.birthYear = birthYear;
     }
 
-    public List<RemovedBook> getRemovedBookList() {
-        return removedBookList;
-    }
-
-    public void setRemovedBookList(List<RemovedBook> removedBookList) {
-        this.removedBookList = removedBookList;
-    }
 }

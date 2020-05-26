@@ -76,7 +76,7 @@ public class RemoveObjectController {
 
 
         RemovedBook removedBook= new RemovedBook(book.getId(), book.getTitle(), book.getIsbn(), book.getPublisher(),book.getDescription(),
-                                   book.getPurchasePrice(), book.getPlacement().getPlacementId(),theRemovedBook.getCause(),book.getAuthorList() );
+                                   book.getPurchasePrice(), book.getPlacement().getPlacementId(),theRemovedBook.getCause() );
 
                 removedBookRepository.save(removedBook);
                 bookRepository.delete(book);

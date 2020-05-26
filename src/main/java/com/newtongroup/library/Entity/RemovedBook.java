@@ -1,9 +1,11 @@
 package com.newtongroup.library.Entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @Entity
 @Table(name = "removed_books")
@@ -37,18 +39,10 @@ public class RemovedBook {
     @Column(name="deleted_at")
     private String deleted_at;
 
-    @ManyToMany()
-    @JoinTable(
-            name="removedbook_author",
-            joinColumns = {@JoinColumn(name="book_id")},
-            inverseJoinColumns = {@JoinColumn(name="author_id")})
-    private List<Author> authorList;
-
     public RemovedBook() {
     }
 
-    public RemovedBook(Long book_id, String title, String isbn, String publisher,String description, String price, Long placement_id, String cause,
-                        List<Author> authorList) {
+    public RemovedBook(Long book_id, String title, String isbn, String publisher,String description, String price, Long placement_id, String cause) {
         this.book_id = book_id;
         this.title = title;
         this.isbn = isbn;
@@ -60,7 +54,6 @@ public class RemovedBook {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         this.deleted_at = dtf.format(now);
-        this.authorList=authorList;
 
     }
 
@@ -136,11 +129,4 @@ public class RemovedBook {
         this.placement_id = placement_id;
     }
 
-    public List<Author> getAuthorList() {
-        return authorList;
-    }
-
-    public void setAuthorList(List<Author> authorList) {
-        this.authorList = authorList;
-    }
 }
