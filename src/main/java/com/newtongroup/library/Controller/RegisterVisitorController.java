@@ -49,7 +49,7 @@ public class RegisterVisitorController {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         userPerson.setPersonAsVisitor();
 
-        Visitor visitor = visitorRepository.findById(userPerson.getVisitor().getEmail()).orElse(null);
+        Visitor visitor = visitorRepository.findByEmail(userPerson.getVisitor().getEmail());
         if(visitor == null) {
             setUserVisitorValues(userPerson);
             saveUserPersonAsVisitorToDatabase(userPerson);

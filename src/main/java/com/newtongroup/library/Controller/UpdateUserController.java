@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/update")
@@ -42,13 +43,13 @@ public class UpdateUserController {
     @RequestMapping("/visitor")
     public String updateVisitor(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-        theModel.addAttribute("visitors", visitorRepository.findAll());
+        theModel.addAttribute("visitors", visitorRepository.findByIsActive(true));
         return "update-visitor/update-visitor-search";
     }
 
     @RequestMapping("/visitor-form")
     public String visitorForm(@RequestParam(name = "visitorId", required = false) String visiorId, Model theModel, Principal principal) {
-        Visitor visitor = visitorRepository.findById(visiorId).orElse(null);
+        Visitor visitor = visitorRepository.findByEmail(visiorId);
         User user = userRepository.findByUsername(visiorId);
         UserPerson userPerson = new UserPerson();
         userPerson.setVisitor(visitor);
@@ -77,7 +78,7 @@ public class UpdateUserController {
 
     @RequestMapping("/librarian-form")
     public String librarianForm(@RequestParam(name = "librarianId", required = false) String visiorId, Model theModel, Principal principal) {
-        Librarian librarian = librarianRepository.findById(visiorId).orElse(null);
+        Librarian librarian = librarianRepository.findByEmail(visiorId);
         User user = userRepository.findByUsername(visiorId);
         UserPerson userPerson = new UserPerson();
         userPerson.setLibrarian(librarian);
@@ -106,7 +107,7 @@ public class UpdateUserController {
 
     @RequestMapping("/admin-form")
     public String adminForm(@RequestParam(name = "adminId", required = false) String visiorId, Model theModel, Principal principal) {
-        Admin admin = adminRepository.findById(visiorId).orElse(null);
+        Admin admin = adminRepository.findByEmail(visiorId);
         User user = userRepository.findByUsername(visiorId);
         UserPerson userPerson = new UserPerson();
         userPerson.setAdmin(admin);

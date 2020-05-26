@@ -58,9 +58,9 @@
     <div class="container" id="div">
         <div class="form-group">
 
-            <label id="l1">Radera boken på ID</label>
-            <input type="text" class="form-control" id="book_id" placeholder="ID"
-                   th:field="${book.id}" required>
+            <label id="l1">Radera boken med hjälp av bokens idnummer</label>
+            <input type="text" class="form-control" id="id" placeholder="Id"
+                   th:field="${book.id}" required maxlength="255">
 
         </div>
 

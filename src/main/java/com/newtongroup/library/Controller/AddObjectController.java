@@ -55,19 +55,6 @@ public class AddObjectController {
         return "redirect:/new-object/new-seminar";
     }
 
-    @GetMapping("/new-author")
-    public String getAuthorForm(Model model, Principal principal){
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-        Author author = new Author();
-        model.addAttribute("author",author);
-        return "object/add-author";
-    }
-    @PostMapping("/save-author")
-    public String saveAuthor(Author author){
-        authorRepository.save(author);
-        return "redirect:/new-object/new-author";
-    }
-
     @GetMapping("/new-book")
     public String getBookForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));

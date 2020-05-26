@@ -27,6 +27,14 @@
         h2 {
             color: var(--secondary--color);
         }
+
+        td, tr {
+            color: var(--text-color);
+        }
+
+        th {
+            color: var(--secondary--color);
+        }
     </style>
 </head>
 <body>
@@ -36,18 +44,22 @@
 
 <div class="container">
     <h2>Bibliotikarier</h2>
-    <p>Filtrera via epost:</p>
+    <p>Filtrera via epost eller namn:</p>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
+            <th>Förnamn</th>
+            <th>Efternamn</th>
             <th>Epost</th>
             <th>Uppdatera</th>
         </tr>
         </thead>
         <tbody id="myTable">
         <tr th:each="librarian: ${librarians}">
+            <td th:text="${librarian.firstName}"></td>
+            <td th:text="${librarian.lastName}"></td>
             <td th:text="${librarian.email}"></td>
             <td>
                 <form th:action="@{/update/librarian-form}">

@@ -6,6 +6,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="admins")
-@PrimaryKeyJoinColumn(name="admin_id")
+@PrimaryKeyJoinColumn(name="person_id")
 public class Admin extends Person{
 }

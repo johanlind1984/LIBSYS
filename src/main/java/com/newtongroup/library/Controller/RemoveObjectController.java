@@ -72,7 +72,10 @@ public class RemoveObjectController {
     public String deleteBook(@ModelAttribute(name="book")Book theBook, @ModelAttribute(name="removedBook") RemovedBook theRemovedBook, Model theModel, Principal principal){
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
-        Book book=bookRepository.getOne(theBook.getId());
+        boolean doesIdAlreadyExist=bookRepository.findById(theBook.getId())!=null;
+        if(doesIdAlreadyExist){
+            Book book=bookRepository.getOne(theBook.getId());
+
 
 
         RemovedBook removedBook= new RemovedBook(book.getId(), book.getTitle(), book.getIsbn(), book.getPublisher(),book.getDescription(),
@@ -178,4 +181,3 @@ public class RemoveObjectController {
 
 
 }
-
