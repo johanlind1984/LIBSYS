@@ -18,6 +18,8 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
     <script type="text/javascript" src="/script/exportToCSV.js"></script>
+    <script src="/script/sort-table.min.js"></script>
+
     <style type="text/css">
         h1 {
             font-size: 100px;
@@ -52,15 +54,15 @@
     <div class="table" align="center">
         <h3>Böcker</h3>
         <div id="dvData">
-        <table id="dataTable" class="table table-hover">
+        <table id="demo1" class="js-sort-table">
             <thead>
             <tr>
-                <th scope="col">Boktitel</th>
-                <th scope="col">Förlag</th>
-                <th scope="col">Isbn</th>
-                <th scope="col">Pris</th>
-                <th scope="col">Borttagen</th>
-                <th scope="col">Anledning</th>
+                <th class="js-sort-string: sort by string" scope="col">Boktitel</th>
+                <th class="js-sort-string: sort by string" scope="col">Förlag</th>
+                <th class="js-sort-number" scope="col">Isbn</th>
+                <th class="js-sort-number" scope="col">Pris</th>
+                <th class="js-sort-date" scope="col">Borttagen</th>
+                <th class="js-sort-string: sort by string" scope="col">Anledning</th>
             </tr>
             </thead>
             <tbody>
