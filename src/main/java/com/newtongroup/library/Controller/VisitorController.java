@@ -39,7 +39,7 @@ public class VisitorController {
     @RequestMapping("/my-loans")
     public String myLoans(Model theModel, Principal principal){
         User user = userRepository.findByUsername(principal.getName());
-        LibraryCard libraryCard = visitorRepository.findById(user.getUsername()).orElse(null).getActiveLibraryCard();
+        LibraryCard libraryCard = visitorRepository.findByEmail(user.getUsername()).getActiveLibraryCard();
         theModel.addAttribute("header", HeaderUtils.getHeaderString(user));
         theModel.addAttribute("bookLoans",
                 bookLoanRepository.findByLibraryCardAndIsBookReturnedOrderByDateLoanStartAsc(libraryCard, false));

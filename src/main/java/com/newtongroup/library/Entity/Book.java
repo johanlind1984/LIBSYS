@@ -1,7 +1,16 @@
 package com.newtongroup.library.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
@@ -22,17 +31,15 @@ public class Book extends AbstractBook {
 			inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
 	private List<Author> authorList;
 
-
-	@JsonIgnore
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
 	private List<BookLoan> loanedBooks;
-	
+
 	@JsonManagedReference
 	@ManyToOne()
 	@JoinColumn(name = "placement_id")
 	private Placement placement;
-	
-	
+
+
 
 	public Placement getPlacement() {
 		return placement;
@@ -42,7 +49,7 @@ public class Book extends AbstractBook {
 		this.placement = placement;
 	}
 
-	
+
 
 	public List<BookLoan> getLoanedBooks() {
 		return loanedBooks;

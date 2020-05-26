@@ -22,8 +22,13 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
     <script>
-        function myFunction() {
-            alert("Ebok har registrerats!");
+        function Confirm()
+        {
+            var x = confirm("Registrera ebok");
+            if (x)
+                return true;
+            else
+                return false;
         }
     </script>
 
@@ -65,7 +70,8 @@
           th:object="${ebook}">
 
         <div class="container mt-5">
-                <div style="width: 35%">
+                <div class="row">
+                    <div class="col-md-6">
                     <label id="l1" for="select">Författare:</label>
                     <select multiple id="select" th:field="${ebook.authorList}" required>
                         <option th:each="author:${authors}"
@@ -73,7 +79,14 @@
                                 th:value="${author.authorId}"></option>
                     </select>
                 </div>
-                <br>
+            </div>
+            <label id="l8" for="placement">Placering</label><br>
+            <select  id="placement" name="placement" required
+                    th:field="${ebook.placement}">
+                <option th:each="placement:${placements}"
+                        th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}"
+                        th:value="${placement.placementId}"></option>
+            </select><br>
 
         <label id="l2" for="title">Titel</label>
         <input class="form-control" id="title" name="title" required maxlength="255"
@@ -92,23 +105,17 @@
         <input class="form-control" id="purchasePrice"name="purchasePrice" required maxlength="255" min="0"
                th:value="${ebook.purchasePrice}" type="text">
 
-            <label id="l8" for="placement">Placering</label>
-            <select class="form-control" id="placement" name="placement" required
-                    th:field="${ebook.placement}">
-                <option value="1"></option>
-                <option th:each="placement:${placements}"
-                        th:text="${placement.ddk+'&nbsp;'}+${placement.title+'&nbsp;'}"
-                        th:value="${placement.placementId}"></option>
-            </select>
+
 
         <label id="l6" for="downloadLink">Boklänk</label>
         <input class="form-control" id="downloadLink"name="downloadLink" required maxlength="1000"
                th:value="${ebook.downloadLink}" type="text">
 
         <label id="l7" for="description">Beskrivning</label>
-        <textarea class="form-control" id="description" name="description" maxlength="5000"
+        <textarea class="form-control" id="description" name="description" maxlength="5000" onkeyup="checkDescription()"
                   required rows="5"
                   th:value="${ebook.description}" type="text"></textarea><br>
+            <div id="warning"></div>
         </div>
             <script>
                 tail.select('#select', {
@@ -118,16 +125,32 @@
                     hideDisabled: true,
                     multiShowCount: false,
                     multiContainer: true,
-                    placeholder: 'Välj författare'
+                    placeholder: 'Välj författare',
+                    width: 400
                 });
             </script>
+        <script>
+            tail.select('#placement', {
+                search: true,
+                deselect: true,
+                placeholder: 'Välj placering',
+                width: 400
+            });
+        </script>
+        <script>
+            function checkDescription() {
+                var stringLength = document.getElementById('description').value.length;
+                if (stringLength >= 4999) {
+                    document.getElementById('warning').innerText = "Max antal tecken är 5000"
+                } else {
+                    document.getElementById('warning').innerText = ""
+                }
+            }
+        </script>
 
-        <button class="btn4" id="save" name="save" type= "submit">Spara</button>
+        <button class="btn4" onclick="return Confirm()" id="save" name="save" type= "submit">Spara</button>
 
     </form>
 </div>
 </body>
 </html>
-
-
-

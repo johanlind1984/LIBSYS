@@ -43,7 +43,7 @@ public class RegisterAdminController {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         userPerson.setPersonAsAdmin();
 
-        Admin admin = adminRepository.findById(userPerson.getAdmin().getEmail()).orElse(null);
+        Admin admin = adminRepository.findByEmail(userPerson.getAdmin().getEmail());
         if(admin == null) {
             setAdminValues(userPerson);
             saveUserPersonAsAdminToDatabase(userPerson);

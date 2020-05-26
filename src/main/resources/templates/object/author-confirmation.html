@@ -19,32 +19,21 @@
     <link rel="stylesheet" th:href="@{/css/start.css}">
     <style type="text/css">
 
-        h1 {
-            font-size: 60px;
+        a{font-size: medium}
+        h1{font-size: 100px;
             margin-top: 15%;
             color: var(--secondary--color);
         }
-
-        h2 {
-            font-size: large;
-            color: var(--text-color)
-        }
-
-        h3 {
-            font-size: medium;
-            color: var(--text-color);
-        }
-
+        p{ font-size: large}
     </style>
 </head>
 <body>
 <header th:insert="${header} :: header"></header>
+
 <br><br>
 
 <div class="table-responsive" align="center">
-    <h1>Tack!</h1>
-    <h2>Returen är nu registrerad!</h2>
-    <h3 style="text-decoration-line: underline"><a href="javascript:history.back()">Gå tillbaka</a></h3>
+    <h2>Författaren är registrerad</h2>
 </div>
 </body>
 </html>
