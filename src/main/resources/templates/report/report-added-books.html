@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>LIBSYS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/start.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/start.css}">
+    <script type="text/javascript" src="/script/exportToCSV.js"></script>
+    <script src="/script/sort-table.min.js"></script>
+
+    <style type="text/css">
+        h1 {
+            font-size: 100px;
+            margin-top: 15%;
+            color: var(--secondary--color);
+        }
+
+        h3 {
+            color: var(--secondary--color);
+        }
+
+        td, tr {
+            color: var(--text-color);
+        }
+
+        th {
+            color: var(--secondary--color);
+        }
+        #export{
+            color: var(--secondary--color);
+        }
+        #demo1{
+            width: 110%;
+        }
+    </style>
+</head>
+<body>
+<header th:insert="${header} :: header"></header>
+<br><br>
+<div class="container" id="div">
+    <div class='button'>
+        <a href="#" id ="export" role='button'>Exportera data till CSV-fil
+        </a>
+    </div>
+    <div class="table" align="center">
+        <h3>Tillagda böcker</h3>
+        <div id="dvData">
+            <table id="demo1" class="js-sort-table">
+                <thead>
+                <tr>
+                    <th class="js-sort-string: sort by string" scope="col">Boktitel</th>
+                    <th class="js-sort-string: sort by string" scope="col">Förlag</th>
+                    <th class="js-sort-number" scope="col">Isbn</th>
+                    <th class="js-sort-number" scope="col">Pris</th>
+                    <th class="js-sort-string: sort by string">Kategori</th>
+                    <th class="js-sort-date: sort by date">Tillagd</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="books: ${bookList}">
+                    <td th:text="${books.title}"></td>
+                    <td th:text="${books.publisher}"></td>
+                    <td th:text="${books.isbn}"></td>
+                    <td th:text="${books.purchasePrice}"></td>
+                    <td th:text="${books.placement.title}"></td>
+                    <td th:text="${books.date}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+</div>
+</body>
+</html>
