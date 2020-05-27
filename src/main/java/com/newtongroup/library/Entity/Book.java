@@ -1,16 +1,6 @@
 package com.newtongroup.library.Entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
@@ -38,6 +28,10 @@ public class Book extends AbstractBook {
 	@ManyToOne()
 	@JoinColumn(name = "placement_id")
 	private Placement placement;
+
+	@Column(name = "date_added")
+	private String date;
+
 
 
 
@@ -67,6 +61,13 @@ public class Book extends AbstractBook {
 
 	public void setAuthorList(List<Author> authorList) {
 		this.authorList = authorList;
+	}
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date=date;
 	}
 
 }

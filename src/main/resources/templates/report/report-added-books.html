@@ -41,6 +41,9 @@
         #export{
             color: var(--secondary--color);
         }
+        #demo1{
+            width: 110%;
+        }
     </style>
 </head>
 <body>
@@ -62,6 +65,7 @@
                     <th class="js-sort-number" scope="col">Isbn</th>
                     <th class="js-sort-number" scope="col">Pris</th>
                     <th class="js-sort-string: sort by string">Kategori</th>
+                    <th class="js-sort-date: sort by date">Tillagd</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -71,6 +75,7 @@
                     <td th:text="${books.isbn}"></td>
                     <td th:text="${books.purchasePrice}"></td>
                     <td th:text="${books.placement.title}"></td>
+                    <td th:text="${books.date}"></td>
                 </tr>
                 </tbody>
             </table>
