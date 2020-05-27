@@ -17,6 +17,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
+    <script type="text/javascript" src="/script/exportToCSV.js"></script>
     <style type="text/css">
         h1 {
             font-size: 100px;
@@ -35,6 +36,9 @@
         th {
             color: var(--secondary--color);
         }
+        #export{
+            color: var(--secondary--color);
+        }
 
     </style>
 </head>
@@ -48,6 +52,11 @@
     <p>Filtrera via epost, bibliotekskortsnummer eller namn:</p>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
     <br>
+    <div class='button'>
+        <a href="#" id ="export" role='button'>Exportera data till CSV-fil
+        </a>
+    </div>
+    <div id="dvData">
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
@@ -72,6 +81,7 @@
         </tr>
         </tbody>
     </table>
+</div>
 </div>
 
 <script>

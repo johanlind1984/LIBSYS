@@ -17,6 +17,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
+    <script type="text/javascript" src="/script/exportToCSV.js"></script>
     <style type="text/css">
         h1 {
             font-size: 100px;
@@ -35,6 +36,9 @@
         th {
             color: var(--secondary--color);
         }
+        #export{
+            color: var(--secondary--color);
+        }
     </style>
 </head>
 <body>
@@ -42,7 +46,11 @@
 
 <br><br>
 <div class="container" id="div">
-
+    <div class='button'>
+        <a href="#" id ="export" role='button'>Exportera data till CSV-fil
+        </a>
+    </div>
+    <div id="dvData">
     <div class="table-responsive" align="center">
         <h3 th:text="${visitor.firstName} + ' ' + ${visitor.lastName}"></h3>
         <br>
@@ -64,6 +72,7 @@
             </tr>
             </tbody>
         </table>
+    </div>
     </div>
     <br>
     <br>
