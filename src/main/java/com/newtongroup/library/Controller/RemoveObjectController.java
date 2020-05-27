@@ -178,8 +178,4 @@ public class RemoveObjectController {
         }
         return "error/author-could-not-be-removed";
     }
-
-
-
-
 }
