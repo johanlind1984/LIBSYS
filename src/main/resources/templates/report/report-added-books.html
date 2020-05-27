@@ -41,6 +41,9 @@
         #export{
             color: var(--secondary--color);
         }
+        #demo1{
+            width: 110%;
+        }
     </style>
 </head>
 <body>
@@ -52,32 +55,32 @@
         </a>
     </div>
     <div class="table" align="center">
-        <h3>Borttagna böcker</h3>
+        <h3>Tillagda böcker</h3>
         <div id="dvData">
-        <table id="demo1" class="js-sort-table">
-            <thead>
-            <tr>
-                <th class="js-sort-string: sort by string" scope="col">Boktitel</th>
-                <th class="js-sort-string: sort by string" scope="col">Förlag</th>
-                <th class="js-sort-number" scope="col">Isbn</th>
-                <th class="js-sort-number" scope="col">Pris</th>
-                <th class="js-sort-date" scope="col">Borttagen</th>
-                <th class="js-sort-string: sort by string" scope="col">Anledning</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="removedBooks: ${removedBookList}">
-                <td th:text="${removedBooks.title}"></td>
-                <td th:text="${removedBooks.publisher}"></td>
-                <td th:text="${removedBooks.isbn}"></td>
-                <td th:text="${removedBooks.price}"></td>
-                <td th:text="${removedBooks.deleted_at}"></td>
-                <td th:text="${removedBooks.cause}"></td>
-            </tr>
-            </tbody>
-        </table>
+            <table id="demo1" class="js-sort-table">
+                <thead>
+                <tr>
+                    <th class="js-sort-string: sort by string" scope="col">Boktitel</th>
+                    <th class="js-sort-string: sort by string" scope="col">Förlag</th>
+                    <th class="js-sort-number" scope="col">Isbn</th>
+                    <th class="js-sort-number" scope="col">Pris</th>
+                    <th class="js-sort-string: sort by string">Kategori</th>
+                    <th class="js-sort-date: sort by date">Tillagd</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="books: ${bookList}">
+                    <td th:text="${books.title}"></td>
+                    <td th:text="${books.publisher}"></td>
+                    <td th:text="${books.isbn}"></td>
+                    <td th:text="${books.purchasePrice}"></td>
+                    <td th:text="${books.placement.title}"></td>
+                    <td th:text="${books.date}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
     <br>
 </div>
 </body>
