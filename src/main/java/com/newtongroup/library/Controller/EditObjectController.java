@@ -93,7 +93,7 @@ public class EditObjectController {
 	@PostMapping("/edit-author")
 	public String updateAuthor(Author author, Model model, Principal principal) {
 		ar.save(author);
-		return "redirect:/search/edit-author/" + author.getAuthorId() + "?success=true";
+		return "redirect:/edit-object/edit-author/" + author.getAuthorId() + "?success=true";
 	}
 
 }
