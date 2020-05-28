@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang= "sv" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Uppdatera bok</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <link href="/css/tail.select-light.css" rel="stylesheet">
+    <script src="/script/tail.select-full.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/start.css}">
+    <script>
+        function Confirm()
+        {
+            var x = confirm("Registrera bok");
+            if (x)
+                return true;
+            else
+                return false;
+        }
+    </script>
+
+    <style type="text/css">
+
+        #save{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
+            margin-top: 40px;
+            text-align:center;
+        }
+        #title, #isbn, #publisher, #purchasePrice, #placement,#description,
+        #l1, #l2, #l3, #l4, #l5, #l6, #l7{
+            font-size: medium;
+        }
+        #div{
+            width: 50%;
+        }
+        .tail-select input {
+            -webkit-user-select: text;
+            -khtml-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+    </style>
+</head>
+<header th:insert="${header} :: header"> </header>
+<body>
+
+    <h1 align="center">Ändra</h1>
+    <div class="container" id="div">
+    
+		<div class="row">
+			<div class="col">
+				<form action="#" th:action="@{/search/book/{id}/detailedview(id=${id})}" method="GET"
+					class="form-inline">
+					<input type="hidden" name="search" th:value="${searchText}">
+					<button class="mb-2 btn3" type="submit">
+						<strong>&#8701;</strong> Tillbaka
+					</button>
+				</form>
+			</div>
+			
+			<div class="col" th:if="${message}">
+				<div class="alert alert-success" role="alert" th:text="${message}">
+				</div>
+			</div>
+		</div>
+    <form action="/edit-object/edit-book" class="form-group" method="POST"
+          th:object="${book}">
+	<input type="hidden" th:field="*{id}">
+	<input type="hidden" th:field="*{available}">
+     <div class="container mt-5">
+         <div class="row">
+             <div class="col-md-6">
+                 <label id="l7" for="select">Författare:</label><br>
+             <select multiple id="authorSelect" th:field="*{authorList}" required>
+                 <option th:each="author:${authors}"
+                         th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}+${author.birthYear+'&nbsp;'}"
+                         th:value="${author.authorId}"></option>
+             </select>
+             </div>
+         </div>
+         <label id="l5" for="placement">Placering</label><br>
+         <select id="placement"
+                 th:field="*{placement}" required>
+             <option th:each="placementchoice:${placements}"
+                     th:text="${placementchoice.ddk+'&nbsp;'}+${placementchoice.title+'&nbsp;'}"
+                     th:value="${placementchoice.placementId}"></option>
+         </select><br>
+
+         <label id="l1" for="title">Titel</label>
+         <input class="form-control" maxlength="255"
+                th:field="*{title}" type="text" required>
+
+
+         <label id="l2" for="isbn">Isbn</label>
+         <input class="form-control" maxlength="255"
+                th:field="*{isbn}" type="text" required>
+
+
+
+         <label id="l3" for="publisher">Förlag</label>
+         <input class="form-control" maxlength="255"
+                th:field="*{publisher}" type="text" required >
+
+
+         <label id="l4" for="purchasePrice">Inköpspris</label>
+         <input class="form-control" required type="number" maxlength="255" min="0"
+                th:field="*{purchasePrice}"><br>
+
+         <label id="l6" for="description">Beskrivning</label>
+         <textarea class="form-control"
+                   required rows="5" maxlength="5000" onkeyup="checkDescription()"
+                   th:field="*{description}" type="text"></textarea><br>
+         <div id="warning"></div>
+        <button class="btn4" type="submit">Spara ändringar</button>
+     </div>
+
+        <script>
+            tail.select('#authorSelect', {
+                search: true,
+                multiLimit: 15,
+                hideSelected: true,
+                hideDisabled: true,
+                multiShowCount: false,
+                multiContainer: true,
+                placeholder: 'Välj författare'
+            });
+        </script>
+        <script>
+            tail.select('#placement', {
+                search: true,
+                deselect: true,
+                placeholder: 'Välj placering'
+            });
+        </script>
+        <script>
+            function checkDescription() {
+                var stringLength = document.getElementById('description').value.length;
+                if (stringLength >= 4999) {
+                    document.getElementById('warning').innerText = "Max antal tecken är 5000"
+                } else {
+                    document.getElementById('warning').innerText = ""
+                }
+            }
+        </script>
+
+    </form>
+    </div>
+</body>
+</html>

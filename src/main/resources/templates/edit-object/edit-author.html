@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang= "sv" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ändra</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="tail.select-bootstrap4.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/start.css}">
+    <script>
+        function Confirm()
+        {
+            var x = confirm(Författare uppdaterad");
+            if (x)
+                return true;
+            else
+                return false;
+        }
+    </script>
+    <style type="text/css">
+
+        #save{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
+            margin-top: 40px;
+        }
+        #firstname, #lastname{
+            font-size: medium;
+        }
+        #div{
+            width: 50%;
+        }
+        #labFi, #labLa, #labBi{
+            font-size: medium;
+        }
+    </style>
+</head>
+<header th:insert="${header} :: header"> </header>
+<body>
+
+<h1 align="center">Ändra</h1>
+<div class="container" id="div">
+
+
+		<div class="row">
+			<div class="col">
+				<form action="#" th:action="@{/search/author}" method="post"
+					class="form-inline">
+					<input type="hidden" name="search" th:value="${searchText}">
+					<button class="mb-5 btn3" type="submit">
+						<strong>&#8701;</strong> Tillbaka
+					</button>
+				</form>
+			</div>
+			<div class="col" th:if="${message}">
+				<div class="alert alert-success" role="alert" th:text="${message}">
+				</div>
+			</div>
+		</div>
+
+		
+    <form action="/edit-object/edit-author" class="form-group" method="POST" th:object="${author}">
+	    <input type="hidden" th:field="*{authorId}">
+
+        <label for="firstname" id="labFi">Förnamn</label>
+        <input class="form-control" id="firstname" name="firstname"
+               required th:field="*{firstname}" type="text" maxlength="255">
+
+        <label for="lastname" id="labLa">Efternamn</label>
+        <input class="form-control" id="lastname" name="lastname"
+               required th:field="*{lastname}" type="text" maxlength="255">
+
+        <label for="birthyear" id="labBi">Födelseår</label>
+
+        <input class="form-control" id="birthyear" onkeypress="return isNumeric(event)" oninput="maxLengthCheck(this)"
+               name="birthYear" placeholder="yyyy"
+               required th:field="*{birthYear}" type="text" maxlength = "4" min = "1" max = "9999">
+
+        <button class="mt-2 btn4" type= "submit">Spara</button>
+    </form>
+</div>
+<script>
+    function maxLengthCheck(object) {
+        if (object.value.length > object.maxLength)
+            object.value = object.value.slice(0, object.maxLength)
+    }
+
+    function isNumeric (evt) {
+        var theEvent = evt || window.event;
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode (key);
+        var regex = /[0-9]|\./;
+        if ( !regex.test(key) ) {
+            theEvent.returnValue = false;
+            if(theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang= "sv" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista författare</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="tail.select-bootstrap4.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/start.css}">
+    <style type="text/css">
+
+        #save{
+            margin-top: 30px;
+            width: 20%;
+            height: 10%;
+            margin-left: 43%;
+            font-size: medium;
+        }
+        h1{
+            margin-bottom: 60px;
+            margin-top: 40px;
+        }
+        #firstname, #lastname{
+            font-size: medium;
+        }
+        #div{
+            width: 50%;
+        }
+        #labFi, #labLa, #labBi{
+            font-size: medium;
+        }
+    </style>
+</head>
+<header th:insert="${header} :: header"> </header>
+<body>
+
+<h1 align="center">Författare</h1>
+<div class="container" id="div">
+
+<div class="container-fluid">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<br />
+					<h2></h2>
+				</div>
+			</div>
+			<form action="#" th:action="@{/search/author}" method="post" class="">
+				<div class="row">
+					<div class="col">
+						<div class="form-group form-inline">
+
+							<input class="searchBtm form-control form-control-sm w-50"
+								type="search" name="search" th:value="${search}"
+								placeholder="Namn, efternamn"> &nbsp;
+							<button class="btn3" type="submit">Sök</button>
+						</div>
+					</div>
+				</div>
+				</form>
+
+  <div class="list-group">
+  <a th:each="result: ${results}" th:href="@{/edit-object/edit-author/{id}?searchText={searchText}(id=${result.authorId}, searchText=${search})}" class="list-group-item list-group-item-action">
+  	<span th:text="${result.firstname}"></span>
+  	<span th:text="${result.lastname} + ',' " ></span>
+  	<span th:text="${result.birthYear}"></span>
+  
+  </a>
+</div>
+  
+</div>
+</body>
+</html>

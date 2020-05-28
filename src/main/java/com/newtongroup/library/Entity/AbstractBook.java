@@ -30,7 +30,7 @@ public class AbstractBook extends AbstractRental {
 		this.isbn = isbn;
 	}
 
-	
+
 	public boolean isEbook() {
 		return getClass().equals(EBook.class);
 	}
