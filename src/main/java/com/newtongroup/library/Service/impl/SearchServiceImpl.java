@@ -16,6 +16,7 @@ import org.hibernate.search.query.dsl.BooleanJunction;
 import org.springframework.stereotype.Service;
 
 import com.newtongroup.library.Entity.AbstractRental;
+import com.newtongroup.library.Entity.Author;
 import com.newtongroup.library.Entity.Book;
 import com.newtongroup.library.Entity.EBook;
 import com.newtongroup.library.Service.SearchService;
@@ -23,8 +24,12 @@ import com.newtongroup.library.Service.SearchService;
 @Service
 public class SearchServiceImpl implements SearchService {
 
-	private static final String[] BOOK_SEARCH_FIELDS = new String[] { "isbn", "title", "authorList.firstname",
+	private static final String[] BOOK_SEARCH_FIELDS = new String[] 
+			{ "isbn", "title", "authorList.firstname",
 			"authorList.lastname" };
+	
+	private static final String[] AUTHOR_SEARCH_FIELDS = new String[] 
+			{"firstname", "lastname"};
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -86,6 +91,43 @@ public class SearchServiceImpl implements SearchService {
 		List<EBook> bookList = jpaQuery.getResultList();
 
 		return bookList;
+	}
+	
+	public List<Author> searchAuthor(String searchText) {
+		FullTextQuery jpaQuery = searchQuery(searchText, AUTHOR_SEARCH_FIELDS);
+		List<Author> authorList = jpaQuery.getResultList();
+		
+		return authorList;
+	
+	}
+	
+	private FullTextQuery searchQuery(String searchText , String[] fieldParams) {
+
+		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+
+		// Create hibernate search dsl for the entity
+		org.hibernate.search.query.dsl.QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory()
+				.buildQueryBuilder().forEntity(Author.class).get();
+		Query query;
+		if (null != searchText && !searchText.trim().isEmpty() && null != fieldParams) {
+
+			BooleanJunction<?> bj = queryBuilder.bool();
+
+			for (String field : fieldParams) {
+				for (String string : searchText.split(" ")) {
+					bj.should(new WildcardQuery(new Term(field, "*" + string.trim().toLowerCase() + "*")));
+				}
+			}
+			query = bj.createQuery();
+
+		} else {
+			query = queryBuilder.all().createQuery();
+		}
+
+		org.hibernate.search.jpa.FullTextQuery fullTextQuery = fullTextEntityManager.createFullTextQuery(query, Author.class);
+
+		return fullTextQuery;
+
 	}
 
 	private FullTextQuery searchQuery(String searchText, Class<? extends AbstractRental> clazz, String[] fieldParams) {

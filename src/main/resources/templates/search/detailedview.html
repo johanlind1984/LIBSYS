@@ -71,7 +71,6 @@
 				<form action="#" th:action="@{/search}" method="post"
 					class="form-inline">
 					<input type="hidden" name="search" th:value="${searchText}">
-					<input type="hidden" name="categories" th:value="${selectedCategories}">
 					<button class="btn3" type="submit">
 						<strong>&#8701;</strong> Tillbaka
 					</button>
@@ -115,6 +114,8 @@
 					<li class="list-group-item">
 						<div class="btn-group">
 							<form th:action="@{/loan/register-loan}">
+							
+							
 								<button th:if="${book.available and book.ebook}" type="submit"
 									class="btn3" th:name="eBookId" th:value="${book.id}">Låna</button>
 									
@@ -123,7 +124,14 @@
 									
 								<button th:unless="${book.available}" type="submit"
 									class="btn3 disabled" th:value="${book.id}" disabled>Låna</button>
+								
 							</form>
+							<a th:href="@{/edit-object/edit-book/{id}(id=${book.id})}">
+								
+								<button th:unless="${visitor}" class="ml-2 btn3">Ändra</button>
+								
+							
+							</a>
 						</div>
 					</li>
 				</ul>
