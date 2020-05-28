@@ -78,10 +78,16 @@
 					</button>
 				</form>
 			</div>
+			
+			<div class="col" th:if="${message}">
+				<div class="alert alert-success" role="alert" th:text="${message}">
+				</div>
+			</div>
 		</div>
     <form action="/edit-object/edit-book" class="form-group" method="POST"
           th:object="${book}">
 	<input type="hidden" th:field="*{id}">
+	<input type="hidden" th:field="*{available}">
      <div class="container mt-5">
          <div class="row">
              <div class="col-md-6">
@@ -126,9 +132,9 @@
                    required rows="5" maxlength="5000" onkeyup="checkDescription()"
                    th:field="*{description}" type="text"></textarea><br>
          <div id="warning"></div>
+        <button class="btn4" type="submit">Spara ändringar</button>
      </div>
 
-        <button class="btn4" type="submit">Spara ändringar</button>
         <script>
             tail.select('#authorSelect', {
                 search: true,

@@ -37,21 +37,31 @@ public class EditObjectController {
 
 	@Autowired
 	AuthorRepository ar;
-	
 
 	@GetMapping({ "/edit-book/{id}" })
-	public String bookInfo(Model model, Principal principal, @PathVariable("id") long id) {
+	public String bookInfo(
+			Model model, 
+			Principal principal, 
+			@PathVariable("id") 
+			long id,
+			@RequestParam(name = "success", required = false, defaultValue = "false") 
+			boolean success
+		) {
+	
 		model.addAttribute("header", HeaderUtils.getHeaderString(ur, principal));
 		Optional<Book> book = br.findById(id);
 
 		List<Author> authors = ar.findAll();
 		List<Placement> placements = pr.findAll();
-		
 
 		model.addAttribute("book", book);
-		
+
 		model.addAttribute("placements", placements);
 		model.addAttribute("authors", authors);
+
+		if (success) {
+			model.addAttribute("message", "Bok har blivit uppdaterad!");
+		}
 
 		return "/edit-object/edit-book";
 	}
@@ -59,30 +69,31 @@ public class EditObjectController {
 	@PostMapping("/edit-book")
 	public String updateBook(Book book) {
 		br.save(book);
-		return "redirect:/search/book/" + book.getId() + "/detailedview";
+		return "redirect:/edit-object/edit-book/" + book.getId() + "?success=true";
 	}
-	
-	
+
 	@GetMapping("edit-author/{id}")
-	public String authorInfo(Model model, Principal principal, @PathVariable("id") int id, 
-			@RequestParam(value = "searchText", required = false) String searchText) {
+	public String authorInfo(Model model, Principal principal, @PathVariable("id") int id,
+			@RequestParam(value = "searchText", required = false) String searchText,
+			@RequestParam(name = "success", required = false, defaultValue = "false") boolean success) {
 		model.addAttribute("header", HeaderUtils.getHeaderString(ur, principal));
-		
+
 		Optional<Author> author = ar.findById(id);
 		model.addAttribute("author", author);
 		model.addAttribute("searchText", searchText != null ? searchText : "");
-		
+
+		if (success) {
+			model.addAttribute("message", "Författare har blivit uppdaterad!");
+		}
+
 		return "/edit-object/edit-author";
-		
+
 	}
-	
+
 	@PostMapping("/edit-author")
-	public String updateAuthor(Author author) {
+	public String updateAuthor(Author author, Model model, Principal principal) {
 		ar.save(author);
-		
-		return "redirect:/author"
-				+ "/find-author";
+		return "redirect:/search/edit-author/" + author.getAuthorId() + "?success=true";
 	}
-	
 
 }

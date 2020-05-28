@@ -69,8 +69,13 @@
 					</button>
 				</form>
 			</div>
+			<div class="col" th:if="${message}">
+				<div class="alert alert-success" role="alert" th:text="${message}">
+				</div>
+			</div>
 		</div>
 
+		
     <form action="/edit-object/edit-author" class="form-group" method="POST" th:object="${author}">
 	    <input type="hidden" th:field="*{authorId}">
 
