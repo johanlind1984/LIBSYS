@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -73,7 +75,11 @@ public class AddObjectController {
 
     @PostMapping("/save-book")
     public String saveBook(@ModelAttribute("book") Book book){
+
         book.setAvailable(true);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        book.setDate(dtf.format(now));
         bookRepository.save(book);
         return "redirect:/new-object/new-book";
     }

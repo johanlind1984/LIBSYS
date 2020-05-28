@@ -77,11 +77,11 @@
             <div style="padding-bottom: 15px; padding-top: 35px;">
                 <div style="margin-left: 33.5%">
                     <div th:object="${book}">
-                        <label id="l7" for="select">Bok id:</label>
+                        <label id="l7" for="select">Välj bok:</label>
                         <br>
                         <select class="form-control" id="select" name="book" required>
                             <option th:each="book:${bookList}"
-                                    th:text="${book.id}"
+                                    th:text="${book.id+'&nbsp;' +'&nbsp;' +'&nbsp;'}+${book.title+'&nbsp;'}"
                                     th:value="${book.id}"></option>
                         </select>
                     </div>

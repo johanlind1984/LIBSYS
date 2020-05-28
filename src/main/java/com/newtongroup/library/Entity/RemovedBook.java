@@ -1,6 +1,9 @@
 package com.newtongroup.library.Entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -51,6 +54,7 @@ public class RemovedBook {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         this.deleted_at = dtf.format(now);
+
     }
 
     public Long getBook_id() {
@@ -124,4 +128,5 @@ public class RemovedBook {
     public void setPlacement_id(Long placement_id) {
         this.placement_id = placement_id;
     }
+
 }

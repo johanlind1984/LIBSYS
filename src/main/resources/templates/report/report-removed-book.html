@@ -18,6 +18,8 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/start.css}">
     <script type="text/javascript" src="/script/exportToCSV.js"></script>
+    <script src="/script/sort-table.min.js"></script>
+
     <style type="text/css">
         h1 {
             font-size: 100px;
@@ -43,67 +45,40 @@
 </head>
 <body>
 <header th:insert="${header} :: header"></header>
-
 <br><br>
 <div class="container" id="div">
     <div class='button'>
         <a href="#" id ="export" role='button'>Exportera data till CSV-fil
         </a>
     </div>
-    <div id="dvData">
-    <div class="table-responsive" align="center">
-        <h3 th:text="${visitor.firstName} + ' ' + ${visitor.lastName}"></h3>
-        <br>
-        <h3>Lånade Böcker</h3>
-
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Boktitel</th>
-                <th scope="col">Utlåningsdatum</th>
-                <th scope="col">Tillbakalämningsdatum</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="bookLoan: ${bookLoans}">
-                <td th:text="${bookLoan.book.title}"></td>
-                <td th:text="${bookLoan.dateLoanStart}"></td>
-                <td th:text="${bookLoan.dateLoanEnd}"></td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="table" align="center">
+        <h3>Borttagna böcker</h3>
+        <div id="dvData">
+            <table id="demo1" class="js-sort-table">
+                <thead>
+                <tr>
+                    <th class="js-sort-string: sort by string" scope="col">Boktitel</th>
+                    <th class="js-sort-string: sort by string" scope="col">Förlag</th>
+                    <th class="js-sort-number" scope="col">Isbn</th>
+                    <th class="js-sort-number" scope="col">Pris</th>
+                    <th class="js-sort-date" scope="col">Borttagen</th>
+                    <th class="js-sort-string: sort by string" scope="col">Anledning</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="removedBooks: ${removedBookList}">
+                    <td th:text="${removedBooks.title}"></td>
+                    <td th:text="${removedBooks.publisher}"></td>
+                    <td th:text="${removedBooks.isbn}"></td>
+                    <td th:text="${removedBooks.price}"></td>
+                    <td th:text="${removedBooks.deleted_at}"></td>
+                    <td th:text="${removedBooks.cause}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    </div>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-
-    <div class="table-responsive" align="center">
-        <h3>Lånade E-Böcker</h3>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Boktitel</th>
-                <th scope="col">Utlåningsdatum</th>
-                <th scope="col">Tillbakalämningsdatum</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="ebookLoans: ${ebookLoans}">
-                <td th:text="${ebookLoans.ebook.title}"></td>
-                <td th:text="${ebookLoans.dateLoanStart}"></td>
-                <td th:text="${ebookLoans.dateLoanEnd}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-        <form>
-            <button type="submit" class="btn4" formaction="/report/visitor-search">Gå tillbaka till sökvyn</button>
-        </form>
-    </div>
 </div>
 </body>
 </html>

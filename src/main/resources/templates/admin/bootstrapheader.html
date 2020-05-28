@@ -90,20 +90,10 @@
                         Rapporter
                     </a>
                     <div class="dropdown-menu menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/report/visitor-search">Besökare</a>
-                        <a class="dropdown-item" href="/report/removed-books">Böcker</a>
-                        <a class="dropdown-item" href="#">Tillagda objekt</a>
-                    </div>
-                </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="customerActivities" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        Kundaktivitet
-                    </a>
-                    <div class="dropdown-menu menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/loan/librarian">Låna bok</a>
-                        <a class="dropdown-item" href="/lock/">Spärra kort</a>
+                        <a class="dropdown-item" href="/report/visitor-search">Besökare</a>
+                        <a class="dropdown-item" href="/report/removed-books">Borttagna böcker</a>
+                        <a class="dropdown-item" href="/report/added-books">Tillagda böcker</a>
                     </div>
                 </li>
 
@@ -114,9 +104,6 @@
 
             </ul>
         </div>
-
-
-
 
         <div align="right">
             <form th:action="@{/logout}" method="post">
