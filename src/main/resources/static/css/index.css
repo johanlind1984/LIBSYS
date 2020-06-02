@@ -280,6 +280,15 @@ img {
     margin-left: 220px;
 }
 
+.studyLink {
+    position: relative;
+    color: var(--secondary--color);
+}
+.studyLink:hover {
+    text-decoration: underline;
+    color: #1e6eff;
+}
+
 .text-color {
     color: var(--text-color);
 }

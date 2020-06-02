@@ -15,15 +15,15 @@
     <a href="/login"
        class="btn btn-primary login"
        data-toggle="tooltip"
-       title="Tryck här för att logga in">Logga in
+       title="Klicka här för att logga in">Logga in
         <div class="content rellax login" data-rellax-speed="8">
         </div>
     </a>
 
     <div class="content rellax" data-rellax-speed="5">
-        <h1 style="margin-top: 50px">Teamet bakom tjänsten</h1>
+        <h1 style="margin-top: 75px">Teamet bakom tjänsten</h1>
         <a href="http://localhost:8080" class="btn btn-primary" data-toggle="tooltip"
-           title="Tryck här för att gå tillbaka">Tillbaka</a>
+           title="Klicka här för att gå tillbaka">Tillbaka</a>
     </div>
 </section>
 
@@ -35,8 +35,11 @@
         <div>
             <h1 class="secondary-text">THIS IS US!</h1>
             <p>Nedan finner du information om teamet som åstadkommit denna tjänst!<br>
-                Samtliga sex teammedlemmar studerar Systemutveckling Java på Newton Yrkeshögskola och söker
-                praktikplats till hösten 2020. <br><i style="margin-left: 400px;" class="fas fa-arrow-down fa-3x secondary-text" ></i></p>
+                Samtliga sex teammedlemmar studerar
+                <a class="studyLink" data-toggle="tooltip" title="Klicka här för att se studieplanen" href="https://i.imgur.com/5powmFn.png">Systemutveckling Java</a>
+                på Newton Yrkeshögskola och söker praktikplats till hösten 2020.
+                <br>
+                <i style="margin-left: 400px;" class="fas fa-arrow-down fa-3x secondary-text" ></i></p>
         </div>
 
     </div>
@@ -196,7 +199,7 @@
     //initializing tooltip
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
-    })
+    });
 </script>
 </body>
 </html>
