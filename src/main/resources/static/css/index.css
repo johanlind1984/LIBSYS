@@ -87,7 +87,6 @@ ul {
 .section-top {
     min-height: 500px;
     background: url('https://i.imgur.com/JLCdOVD.jpg') no-repeat center center/cover;
-
 }
 
 .section-top h1 {
@@ -101,6 +100,11 @@ ul {
     right: 20px;
     width: 55%;
 }
+
+.rearrange-top {
+    margin-top: -400px;
+}
+
 
 .section-stream {
     min-height: 860px;
@@ -186,7 +190,7 @@ ul {
 }
 
 .footer {
-    border-top: var(--text-color) 1px solid;
+    border-top: var(--secondary--color) 1px solid;
     padding: 30px;
     margin-top: 20px;
 }
@@ -209,9 +213,7 @@ img {
     position: relative;
     height: 340px;
     width: 340px;
-
 }
-
 
 .zoom {
     background-color: var(--primary-color);
@@ -253,6 +255,35 @@ img {
     margin-left: 15px;
     display: block;
 }
+
+.links {
+    color: var(--secondary--color);
+    font-weight: bold;
+}
+
+.links:hover {
+    color: var(--text-color);
+    font-size: 20px;
+}
+
+.links:active {
+    color: black;
+}
+
+.links:visited {
+    color: purple;
+}
+
+.profileLinks {
+    float: left;
+    margin-right: 140px;
+    margin-left: 220px;
+}
+
+.text-color {
+    color: var(--text-color);
+}
+
 
 ::-webkit-input-placeholder {
     color: #1d1d1d;
