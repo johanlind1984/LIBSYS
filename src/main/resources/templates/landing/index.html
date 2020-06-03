@@ -19,6 +19,8 @@
 
 </head>
 <body>
+
+
 <section class="section section-top">
     <a href="/login"
        class="btn btn-primary login"
@@ -30,6 +32,13 @@
         <h1>Välkommen till det digitaliserade biblioteket</h1>
         <a href="/why" class="btn btn-primary" data-toggle="tooltip"
            title="Klicka här för att läsa mer om digitaliseringen av biblioteket">Läs mer</a>
+        <div class="moving-mouse-holder">
+            <div class="mouse">
+                <div class="mouse-button">&nbsp;</div>
+            </div>
+            <div class="text">Scrolla ner <br> för att upptäcka mer!</div>
+        </div>
+
     </div>
 </section>
 
@@ -146,6 +155,7 @@
 
 </section>
 
+
 <footer class="footer">
     <a href="https://github.com/johanlind1984/LIBSYS">
         <p class="right">Java Gruppen 1</p>
@@ -155,7 +165,9 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js"
-        integrity="sha256-+xf9aJnHocnmrigq2hIDJGBSAnJdF5NH+Ooe5J2PHiI=" crossorigin="anonymous"></script>
+        integrity="sha256-+xf9aJnHocnmrigq2hIDJGBSAnJdF5NH+Ooe5J2PHiI=" crossorigin="anonymous">
+
+</script>
 <script>
     //initializing rellax
     let rellax = new Rellax('.rellax');
