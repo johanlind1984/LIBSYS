@@ -17,4 +17,7 @@ public class indexController {
 
     @RequestMapping("/about")
     public String indexAbout() { return "landing/about"; }
+
+    @RequestMapping("/aboutus")
+    public String indexAboutUs() { return "landing/aboutus"; }
 }

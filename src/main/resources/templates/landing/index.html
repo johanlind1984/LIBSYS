@@ -7,41 +7,51 @@
     <link rel="stylesheet" th:href="@{/css/index.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
           integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous"/>
-<style>
-    .tail-select input {
-        -webkit-user-select: text;
-        -khtml-user-select: text;
-        -moz-user-select: text;
-        -ms-user-select: text;
-        user-select: text;
-    }
-</style>
+    <style>
+        .tail-select input {
+            -webkit-user-select: text;
+            -khtml-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+    </style>
 
 </head>
 <body>
+
+
 <section class="section section-top">
-    <a href="http://localhost:8080/login"
+    <a href="/login"
        class="btn btn-primary login"
        data-toggle="tooltip"
-       title="Tryck här för att logga in">Logga in
+       title="Klicka här för att logga in">Logga in
         <div class="content rellax login" data-rellax-speed="8"></div>
     </a>
     <div class="content rellax" data-rellax-speed="5">
         <h1>Välkommen till det digitaliserade biblioteket</h1>
-        <a href="http://localhost:8080/why" class="btn btn-primary" data-toggle="tooltip"
-           title="Tryck här för att läsa mer om digitaliseringen av biblioteket">Läs mer</a>
+        <a href="/why" class="btn btn-primary" data-toggle="tooltip"
+           title="Klicka här för att läsa mer om digitaliseringen av biblioteket">Läs mer</a>
+        <div class="moving-mouse-holder">
+            <div class="mouse">
+                <div class="mouse-button">&nbsp;</div>
+            </div>
+            <div class="text">Scrolla ner <br> för att upptäcka mer!</div>
+        </div>
+
     </div>
 </section>
 
 <section class="section section-stream">
     <div class="play rellax" data-rellax-speed="-3.7">
-        <img class="img-yes" src="https://i.imgur.com/guZCuFD.png" alt="">
+        <img class="img-yes" src="/images/LIBSYS.png" alt="">
     </div>
     <div class="content rellax" data-rellax-speed="3">
         <div class="search_box">
             <form action="#" th:action="@{/search}" method="post" class="form-inline">
                 <label>
-                    <input type="search" name="search" th:value="${search}"  placeholder="Sök efter böcker/e-böcker/seminarium i vårt bibliotek!">
+                    <input type="search" name="search" th:value="${search}"
+                           placeholder="Sök efter böcker/e-böcker/seminarium i vårt bibliotek!">
                     <i class="fas fa-search"></i>
                 </label>
             </form>
@@ -55,20 +65,20 @@
             <h2 class="secondary-text">Veckans bok!</h2>
             <p class="text-decoration-underline">Sagan om ringen - J. R. R. Tolkien</p>
             <div>
-                <img class="img zoom" src="https://i.imgur.com/Xb3sNxr.jpg" alt="">
-                    <p>Sagan om Ringen berättar historien om den unge hoben Frodo som ärver en tillsynes oskyldig ring
-                        av sin kusin, Bilbo. Frodo upptäcker att ringens ursprunglige skapare, den onde trollkarlen
-                        Sauron, desperat letar efter ringen. För det är en ring med mycket onda krafter som kan göra det
-                        möjligt för Sauron att förslava innevånarna i landet som kallas Midgård. Det finns bara en utväg
-                        - att förstöra ringen i Domedagsklyftan. Ett litet utvalt sällskap med hoben Frodo i spetsen ger
-                        sig iväg på det ödesdigra uppdraget, en vandring fylld av äventyr och fasor.</p>
-                </div>
+                <img class="img zoom" src="/images/sor.png" alt="">
+                <p>Sagan om Ringen berättar historien om den unge hoben Frodo som ärver en tillsynes oskyldig ring
+                    av sin kusin, Bilbo. Frodo upptäcker att ringens ursprunglige skapare, den onde trollkarlen
+                    Sauron, desperat letar efter ringen. För det är en ring med mycket onda krafter som kan göra det
+                    möjligt för Sauron att förslava innevånarna i landet som kallas Midgård. Det finns bara en utväg
+                    - att förstöra ringen i Domedagsklyftan. Ett litet utvalt sällskap med hoben Frodo i spetsen ger
+                    sig iväg på det ödesdigra uppdraget, en vandring fylld av äventyr och fasor.</p>
+            </div>
         </div>
     </div>
 </section>
 
 <section class="section-grid">
-    <a href="http://localhost:8080/login"
+    <a href="/login"
        data-toggle="tooltip"
        title="Klicka här"
        class="clickable rellax btn-1" data-rellax-speed="1">
@@ -81,20 +91,19 @@
         </div>
     </a>
 
-    <a href="http://localhost:8080/login"
+    <a href="/aboutus"
        data-toggle="tooltip"
        title="Klicka här"
        class="clickable rellax btn-1" data-rellax-speed="2">
         <div class="rellax" data-rellax-speed="0">
-            <i class="fas fa-address-card fa-3x secondary-text"></i>
-            <h2>Skaffa bibliotekskort<span class="secondary-text dot">.</span></h2>
-            <p><span>Klicka här kan du registrera dig och få ett bibliotekskort som du kan
-                använda för att låna våra böcker eller e-böcker.</span>
+            <i class="fas fa-users fa-3x secondary-text"></i>
+            <h2>Om teamet<span class="secondary-text dot">.</span></h2>
+            <p><span>Här finner du information om teamet som åstadkommit denna tjänst</span>
             </p>
         </div>
     </a>
 
-    <a href="http://localhost:8080/search"
+    <a href="/search"
        data-toggle="tooltip"
        title="Klicka här"
        class="clickable rellax btn-1" data-rellax-speed="3">
@@ -109,7 +118,7 @@
 </section>
 
 <section class="section-grid">
-    <a href="http://localhost:8080/why"
+    <a href="/why"
        data-toggle="tooltip"
        title="Klicka här"
        class="clickable rellax btn-1" data-rellax-speed=".6">
@@ -121,13 +130,13 @@
         </div>
     </a>
 
-    <a href="http://localhost:8080/about"
+    <a href="/about"
        data-toggle="tooltip"
        title="Klicka här"
        class="clickable rellax btn-1" data-rellax-speed="1.5">
         <div class="rellax" data-rellax-speed="0">
             <i class="fas fa-info fa-3x secondary-text"></i>
-            <h2>Om oss<span class="secondary-text dot">.</span></h2>
+            <h2>Om biblioteket<span class="secondary-text dot">.</span></h2>
             <p><span>Klicka här för att läsa lite om biblioteket, vår historia och hur vi uppstod.</span>
             </p>
         </div>
@@ -147,16 +156,19 @@
 
 </section>
 
+
 <footer class="footer">
     <a href="https://github.com/johanlind1984/LIBSYS">
-        <p class="right">Java Gruppen 1 ©™</p>
+        <p class="right">Java Gruppen 1</p>
     </a>
 
 </footer>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js"
-        integrity="sha256-+xf9aJnHocnmrigq2hIDJGBSAnJdF5NH+Ooe5J2PHiI=" crossorigin="anonymous"></script>
+        integrity="sha256-+xf9aJnHocnmrigq2hIDJGBSAnJdF5NH+Ooe5J2PHiI=" crossorigin="anonymous">
+
+</script>
 <script>
     //initializing rellax
     let rellax = new Rellax('.rellax');

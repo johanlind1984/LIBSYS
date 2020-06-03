@@ -86,8 +86,7 @@ ul {
 }
 .section-top {
     min-height: 500px;
-    background: url('https://i.imgur.com/JLCdOVD.jpg') no-repeat center center/cover;
-
+    background: url('/images/header1.jpg') no-repeat center center/cover;
 }
 
 .section-top h1 {
@@ -101,6 +100,11 @@ ul {
     right: 20px;
     width: 55%;
 }
+
+.rearrange-top {
+    margin-top: -400px;
+}
+
 
 .section-stream {
     min-height: 860px;
@@ -186,7 +190,7 @@ ul {
 }
 
 .footer {
-    border-top: var(--text-color) 1px solid;
+    border-top: var(--secondary--color) 1px solid;
     padding: 30px;
     margin-top: 20px;
 }
@@ -209,9 +213,7 @@ img {
     position: relative;
     height: 340px;
     width: 340px;
-
 }
-
 
 .zoom {
     background-color: var(--primary-color);
@@ -254,6 +256,44 @@ img {
     display: block;
 }
 
+.links {
+    color: var(--secondary--color);
+    font-weight: bold;
+}
+
+.links:hover {
+    color: var(--text-color);
+    font-size: 20px;
+}
+
+.links:active {
+    color: black;
+}
+
+.links:visited {
+    color: purple;
+}
+
+.profileLinks {
+    float: left;
+    margin-right: 140px;
+    margin-left: 220px;
+}
+
+.studyLink {
+    position: relative;
+    color: var(--secondary--color);
+}
+.studyLink:hover {
+    text-decoration: underline;
+    color: #1e6eff;
+}
+
+.text-color {
+    color: var(--text-color);
+}
+
+
 ::-webkit-input-placeholder {
     color: #1d1d1d;
 }
@@ -264,4 +304,44 @@ img {
 
 ::-ms-input-placeholder {
     color: var(--secondary--color);
+}
+
+.moving-mouse-holder {
+    margin: 110px auto auto 880px;
+    width: 170px;
+}
+
+.moving-mouse-holder .mouse {
+    width: 26px;
+    height: 40px;
+    position: relative;
+    right: 0;
+    border-radius: 18px;
+    border: 2px solid var(--primary-color);
+}
+
+.moving-mouse-holder .mouse-button {
+    background-color: var(--primary-color);
+    width: 4px;
+    height: 10px;
+    border-radius: 2px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    margin: 0 0 0 -2px;
+    animation: mouse-scroll 1s infinite alternate;
+}
+
+.moving-mouse-holder .text {
+    margin-top: -30px;
+    margin-left: 40px;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 1em;
+}
+
+@keyframes mouse-scroll {
+    to {
+        transform: translate(0, 6px) scale(1, 0.8);
+    }
 }
