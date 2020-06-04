@@ -90,7 +90,7 @@ public class LoanController {
 
 
         if(principal == null ){
-            return "landing/about";
+            return "landing/index";
         }
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         User user = userRepository.findByUsername(principal.getName());
@@ -131,9 +131,7 @@ public class LoanController {
 
             }
         }
-        else if(getRole(user).equals("empty")){
-            return "/login";
-        }
+
 
         return "/error";
 
