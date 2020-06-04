@@ -168,9 +168,9 @@
 									<div class="row">
 										<div class="col mt-3">
 											<form th:action="@{/loan/register-loan}">
-												<button th:if="${result.available}" type="submit"
+												<button th:if="${result.available and visitor}" type="submit"
 													class="btn3" th:name="bookId" th:value="${result.id}">Låna</button>
-												<button th:unless="${result.available}" type="submit"
+												<button th:if="${not result.available and visitor}" type="submit"
 													class="btn3 disabled" th:value="${result.id}" disabled>Låna</button>
 											</form>
 										</div>
@@ -229,9 +229,9 @@
 									<div class="row">
 										<div class="col mt-3">
 											<form th:action="@{/loan/register-loan}">
-												<button th:if="${result.available}" type="submit"
+												<button th:if="${result.available and visitor}" type="submit"
 													class="btn3" th:name="eBookId" th:value="${result.id}">Låna</button>
-												<button th:unless="${result.available}" type="submit"
+												<button th:if="${not result.available and visitor}" type="submit"
 													class="btn3 disabled" th:value="${result.id}" disabled>Låna</button>
 											</form>
 										</div>

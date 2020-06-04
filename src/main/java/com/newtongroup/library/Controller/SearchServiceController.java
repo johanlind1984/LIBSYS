@@ -45,6 +45,8 @@ public class SearchServiceController {
 		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
 		List<Placement> placements = placementRepository.findAll();
 		model.addAttribute("placements", placements);
+		
+		
 		return "search/searchview";
 	}
 
@@ -57,6 +59,18 @@ public class SearchServiceController {
 			Model model,
 			Principal principal) {
 		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
+		
+		boolean visitor = true;
+		if (principal != null) {
+			User user = userRepository.findByUsername(principal.getName());
+			if (user != null) {
+				visitor = user.getAuthority().getAuthorityName().equals("ROLE_VISITOR");
+			}
+		}
+		
+		model.addAttribute("visitor", visitor);
+		
+		
 
 		List<Book> bResults = searchService.filterBooksOnCategories(searchText, categories);
 		List<EBook> ebResults = searchService.filterEBooksOnCategories(searchText, categories);
