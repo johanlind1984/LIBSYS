@@ -68,8 +68,6 @@ public class LockController {
 
         Long cardID = libraryCard.getLibraryCardNumber();
         LibraryCard tempLibraryCard = libraryCardRepository.getOne(cardID);
-        System.out.println(    tempLibraryCard.getLibraryCardNumber());
-
         Visitor visitor = tempLibraryCard.getVisitor();
 
         if(tempLibraryCard == null){

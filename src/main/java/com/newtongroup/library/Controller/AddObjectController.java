@@ -22,26 +22,24 @@ import java.util.List;
 public class AddObjectController {
 
     @Autowired
-    BookRepository bookRepository;
+    private BookRepository bookRepository;
 
     @Autowired
-    EBookRepository eBookRepository;
+    private EBookRepository eBookRepository;
 
     @Autowired
-    SeminaryRepository seminaryRepository;
+    private SeminaryRepository seminaryRepository;
 
     @Autowired
-    AuthorRepository authorRepository;
+    private AuthorRepository authorRepository;
 
     @Autowired
-    PlacementRepository placementRepository;
+    private PlacementRepository placementRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-
-
-    List<Author> authorList;
+    private List<Author> authorList;
 
 
     @GetMapping("/new-seminar")
@@ -54,7 +52,7 @@ public class AddObjectController {
     @PostMapping ("/save-seminar")
     public String saveSeminar(Seminary seminary){
         seminaryRepository.save(seminary);
-        return "redirect:/new-object/new-seminar";
+        return "redirect:new-object/new-seminar";
     }
 
     @GetMapping("/new-book")
@@ -70,7 +68,7 @@ public class AddObjectController {
         model.addAttribute("book", book);
         model.addAttribute("authors", authorList);
         model.addAttribute("placements", placementList);
-        return "/object/add-book";
+        return "object/add-book";
     }
 
     @PostMapping("/save-book")
@@ -81,7 +79,7 @@ public class AddObjectController {
         LocalDateTime now = LocalDateTime.now();
         book.setDate(dtf.format(now));
         bookRepository.save(book);
-        return "redirect:/new-object/new-book";
+        return "redirect:new-object/new-book";
     }
     @GetMapping("/new-ebook")
     public String getEBookForm(Model model, Principal principal){
@@ -96,12 +94,12 @@ public class AddObjectController {
         model.addAttribute("ebook", ebook);
         model.addAttribute("authors", authorList);
         model.addAttribute("placements", placementList);
-        return "/object/add-ebook";
+        return "object/add-ebook";
     }
     @PostMapping("/save-ebook")
     public String saveEBook(@ModelAttribute("ebook") EBook eBook){
         eBook.setAvailable(true);
         eBookRepository.save(eBook);
-        return "redirect:/new-object/new-ebook";
+        return "redirect:new-object/new-ebook";
     }
 }
