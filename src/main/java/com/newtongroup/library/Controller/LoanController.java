@@ -68,7 +68,7 @@ public class LoanController {
     }
 
     @RequestMapping("/register-loan")
-    public String registerLoan(@RequestParam(value = "bookId", required = false) Long bookIdTEST,
+    public String registerLoan(@RequestParam(value = "bookId", required = false) Long bookIdParam,
                                @RequestParam(name = "eBookId", required = false) Long eBookId,
                                @RequestParam(name = "librarycardnumber", required = false) Long librarycardnumberTEST,
                                @ModelAttribute("libraryCard") LibraryCard libraryCard,
@@ -76,18 +76,22 @@ public class LoanController {
                                Model theModel, Principal principal) {
 
 
+        if(principal == null ){
+            return "landing/index";
+        }
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-
         User user = userRepository.findByUsername(principal.getName());
+        Long librarycardnumber;
+        Long bookId;
 
-        Long librarycardnumber = libraryCard.getLibraryCardNumber();
-        Long bookId = book.getId();
+        if(bookIdParam == null) {
+            bookId = book.getId();
+            librarycardnumber = libraryCard.getLibraryCardNumber();
+        } else {
+            bookId = bookIdParam;
+            librarycardnumber = visitorRepository.findByEmail(principal.getName()).getActiveLibraryCard().getLibraryCardNumber();
+        }
 
-
-        System.out.println(librarycardnumber);
-        System.out.println(bookId);
-        System.out.println(eBookId);
-        //Book tempbook = bookrepository.findById(bookId).orElse(null);
 
         if(user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")){
             LibraryCard tempcard = libraryCardRepository.findById(librarycardnumber).orElse(null);
@@ -96,10 +100,6 @@ public class LoanController {
             }
 
         }
-//        if(tempbook == null){
-//            return "error/book-or-no-active-librarycard";
-//        }
-
 
         if(user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")){
 
@@ -118,6 +118,7 @@ public class LoanController {
 
             }
         }
+
 
         return "/error";
 
@@ -156,7 +157,7 @@ public class LoanController {
         } else if (user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")) {
             return "librarian";
         }
-        return null;
+        return "empty";
     }
 
 

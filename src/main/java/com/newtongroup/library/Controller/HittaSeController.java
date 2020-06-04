@@ -98,8 +98,10 @@ public class HittaSeController {
 
     private HttpHeaders createHeaderForApiCall(String phoneNumber) {
         String uri = getUri(phoneNumber);
-        String callerId = "lindsoft";
-        String apiKey = "7VvmJZJDgyZHBhzx1kmEIBOXDfKdO4e70hzISbdY";
+        //String callerId = "lindsoft";
+        //String apiKey = "7VvmJZJDgyZHBhzx1kmEIBOXDfKdO4e70hzISbdY";
+        String callerId = "lindstudios";
+        String apiKey = "lxiyeXwfmaer5DZc0YLjhVY9gmOeDvqpi9nzCy88";
 
         Date now = new Date();
         long unixTime = now.getTime() / 1000L;

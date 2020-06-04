@@ -1,4 +1,3 @@
-spring.jpa.hibernate.ddl-auto=update
 spring.datasource.url=jdbc:mysql://127.0.0.1:3306/libsys_db?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
 spring.datasource.username=
 spring.datasource.password=
