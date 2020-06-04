@@ -1,6 +1,6 @@
 package com.newtongroup.library.Controller;
 
-import com.newtongroup.library.Entity.Admin;
+import com.newtongroup.library.Entity.User;
 import com.newtongroup.library.Repository.AdminRepository;
 import com.newtongroup.library.Repository.UserAuthorityRepository;
 import com.newtongroup.library.Repository.UserRepository;
@@ -43,8 +43,10 @@ public class RegisterAdminController {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         userPerson.setPersonAsAdmin();
 
-        Admin admin = adminRepository.findByEmail(userPerson.getAdmin().getEmail());
-        if(admin == null) {
+        User user=userRepository.findByUsername(userPerson.getAdmin().getEmail());
+
+        if(user == null) {
+//            Admin admin = adminRepository.findByEmail(userPerson.getAdmin().getEmail());
             setAdminValues(userPerson);
             saveUserPersonAsAdminToDatabase(userPerson);
             return "register-admin/admin-registration-confirmation";
