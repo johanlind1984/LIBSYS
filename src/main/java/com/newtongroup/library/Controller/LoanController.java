@@ -45,11 +45,8 @@ public class LoanController {
     @RequestMapping("/visitor")
     public String loanvisitor(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-
         List<Book> bookList = getActiveBookList();
         Book book = new Book();
-
-
         theModel.addAttribute("book", book);
         theModel.addAttribute("bookList", bookList);
         return "loan/register-book";
@@ -58,20 +55,10 @@ public class LoanController {
     @RequestMapping("/librarian")
     public String loanlibrarian(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-
-
-
-
-
         LibraryCard libraryCard = new LibraryCard();
         Book book = new Book();
-
         List<LibraryCard> libraryCardList = getActiveCardList();
         List<Book> bookList = getActiveBookList();
-
-
-
-
 
         theModel.addAttribute("book", book);
         theModel.addAttribute("libraryCard", libraryCard);
