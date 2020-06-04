@@ -235,6 +235,12 @@ img {
     width: 95%;
     padding: 10px;
 }
+.left {
+    text-align: left;
+    margin: auto;
+    width: 5%;
+    padding: 10px;
+}
 
 .text-decoration-underline {
     text-decoration: underline;
