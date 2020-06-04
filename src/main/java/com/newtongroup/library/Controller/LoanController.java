@@ -90,7 +90,7 @@ public class LoanController {
 
 
         if(principal == null ){
-            return "landing/about";
+            return "redirect:/login";
         }
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         User user = userRepository.findByUsername(principal.getName());
