@@ -45,7 +45,7 @@ public class SearchServiceController {
 		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
 		List<Placement> placements = placementRepository.findAll();
 		model.addAttribute("placements", placements);
-		return "/search/searchview";
+		return "search/searchview";
 	}
 
 	@PostMapping()
@@ -68,7 +68,7 @@ public class SearchServiceController {
 		model.addAttribute("selectedCategories", categories);
 		model.addAttribute("search", searchText);
 
-		return "/search/searchview";
+		return "search/searchview";
 	}
 
 	@GetMapping("/book/{id}/detailedview")
@@ -92,7 +92,7 @@ public class SearchServiceController {
 
 		model.addAttribute("book", book.orElse(null));
 
-		return book.isPresent() ? "/search/detailedview" : "/error/id-error";
+		return book.isPresent() ? "search/detailedview" : "error/id-error";
 
 	}
 
@@ -105,7 +105,7 @@ public class SearchServiceController {
 
 		model.addAttribute("book", eBook.orElse(null));
 
-		return eBook.isPresent() ? "/search/detailedview" : "/error/id-error";
+		return eBook.isPresent() ? "search/detailedview" : "error/id-error";
 
 	}
 	
@@ -116,7 +116,7 @@ public class SearchServiceController {
 	public String getAuthorForm(Model model, Principal principal) {
 		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
 
-		return "/object/find-author";
+		return "object/find-author";
 	}
 
 	@PostMapping("/author")
@@ -128,7 +128,7 @@ public class SearchServiceController {
 		model.addAttribute("results", results);
 		model.addAttribute("search", searchText);
 
-		return "/object/find-author";
+		return "object/find-author";
 	}
 
 }

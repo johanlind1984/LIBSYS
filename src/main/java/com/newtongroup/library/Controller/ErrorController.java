@@ -10,12 +10,11 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
 
     @RequestMapping("/error")
     public String handleError() {
-        return "/error";
+        return "error";
     }
 
     @Override
-    public String getErrorPath() {
-        return "/error";
+    public String getErrorPath() { return "/";
     }
 }
 
