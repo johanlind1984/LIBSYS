@@ -131,9 +131,7 @@ public class LoanController {
 
             }
         }
-        else if(getRole(user).equals("empty")){
-            return "/login";
-        }
+
 
         return "/error";
 
