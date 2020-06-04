@@ -47,7 +47,7 @@
     <form th:action="@{/hitta-se-api/search-person-by-phone}">
         <div class="form-group" align="center">
             <label id="15" for="phonenumber">Sök uppgifter via Hitta.se</label>
-            <input id="phonenumber" class="form-control" type="text" th:name="phonenumber" placeholder="Telefonnummer"/>
+            <input id="phonenumber" class="form-control" type="text" th:name="phonenumber" placeholder="Telefonnummer" required/>
             <button type="submit" name="usertype" value="librarian" class="btn4 addSpace">Hämta</button>
         </div>
     </form>
