@@ -1,7 +1,7 @@
 package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.LibraryCard;
-import com.newtongroup.library.Entity.Visitor;
+import com.newtongroup.library.Entity.User;
 import com.newtongroup.library.Repository.LibraryCardRepository;
 import com.newtongroup.library.Repository.UserAuthorityRepository;
 import com.newtongroup.library.Repository.UserRepository;
@@ -49,8 +49,9 @@ public class RegisterVisitorController {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         userPerson.setPersonAsVisitor();
 
-        Visitor visitor = visitorRepository.findByEmail(userPerson.getVisitor().getEmail());
-        if(visitor == null) {
+        User user=userRepository.findByUsername(userPerson.getVisitor().getEmail());
+//        Visitor visitor = visitorRepository.findByEmail(userPerson.getVisitor().getEmail());
+        if(user == null) {
             setUserVisitorValues(userPerson);
             saveUserPersonAsVisitorToDatabase(userPerson);
             return "register-visitor/visitor-registration-confirmation";
