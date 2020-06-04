@@ -89,6 +89,9 @@ public class LoanController {
                                Model theModel, Principal principal) {
 
 
+        if(principal == null ){
+            return "landing/about";
+        }
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         User user = userRepository.findByUsername(principal.getName());
         Long librarycardnumber;
@@ -128,6 +131,9 @@ public class LoanController {
 
             }
         }
+        else if(getRole(user).equals("empty")){
+            return "/login";
+        }
 
         return "/error";
 
@@ -166,7 +172,7 @@ public class LoanController {
         } else if (user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")) {
             return "librarian";
         }
-        return null;
+        return "empty";
     }
 
 
