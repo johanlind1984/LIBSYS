@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -43,7 +44,17 @@ public class UpdateUserController {
     @RequestMapping("/visitor")
     public String updateVisitor(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-        theModel.addAttribute("visitors", visitorRepository.findByIsActive(true));
+
+        List<Visitor> activeUsers = visitorRepository.findByIsActive(true);
+        List<Visitor> activeAndLibrarycardUsers = new ArrayList<>();
+        for (Visitor visitor : activeUsers) {
+            if(visitor.getActiveLibraryCard() != null) {
+                activeAndLibrarycardUsers.add(visitor);
+            }
+        }
+
+
+        theModel.addAttribute("visitors", activeAndLibrarycardUsers);
         return "update-visitor/update-visitor-search";
     }
 
