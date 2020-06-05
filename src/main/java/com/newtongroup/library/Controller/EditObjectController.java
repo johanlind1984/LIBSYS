@@ -54,7 +54,7 @@ public class EditObjectController {
 		List<Author> authors = ar.findAll();
 		List<Placement> placements = pr.findAll();
 
-		model.addAttribute("book", book);
+		model.addAttribute("book", book.orElse(null));
 
 		model.addAttribute("placements", placements);
 		model.addAttribute("authors", authors);

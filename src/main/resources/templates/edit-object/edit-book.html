@@ -92,19 +92,20 @@
          <div class="row">
              <div class="col-md-6">
                  <label id="l7" for="select">Författare:</label><br>
-             <select multiple id="authorSelect" th:field="*{authorList}" required>
+             <select multiple id="authorSelect" name="authorList" required>
                  <option th:each="author:${authors}"
                          th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}+${author.birthYear+'&nbsp;'}"
-                         th:value="${author.authorId}"></option>
+                         th:value="${author.authorId}"
+                         th:selected="${book.authorList != null and book.authorList.contains(author)}"></option>
              </select>
              </div>
          </div>
          <label id="l5" for="placement">Placering</label><br>
          <select id="placement"
-                 th:field="*{placement}" required>
+                 name="placement" required>
              <option th:each="placementchoice:${placements}"
                      th:text="${placementchoice.ddk+'&nbsp;'}+${placementchoice.title+'&nbsp;'}"
-                     th:value="${placementchoice.placementId}"></option>
+                     th:value="${placementchoice.placementId}"  th:selected="${book.placement != null and book.placement.placementId == placementchoice.placementId}"></option>
          </select><br>
 
          <label id="l1" for="title">Titel</label>
