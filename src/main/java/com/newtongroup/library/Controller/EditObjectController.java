@@ -65,11 +65,12 @@ public class EditObjectController {
 
 		return "edit-object/edit-book";
 	}
+	
 
 	@PostMapping("/edit-book")
 	public String updateBook(Book book) {
 		br.save(book);
-		return "redirect:edit-object/edit-book/" + book.getId() + "?success=true";
+		return "redirect:/edit-object/edit-book/" + book.getId() + "?success=true";
 	}
 
 	@GetMapping("edit-author/{id}")
@@ -93,7 +94,7 @@ public class EditObjectController {
 	@PostMapping("/edit-author")
 	public String updateAuthor(Author author, Model model, Principal principal) {
 		ar.save(author);
-		return "redirect:edit-object/edit-author/" + author.getAuthorId() + "?success=true";
+		return "redirect:/edit-object/edit-author/" + author.getAuthorId() + "?success=true";
 	}
 
 }
