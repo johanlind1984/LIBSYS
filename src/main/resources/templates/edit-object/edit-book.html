@@ -95,7 +95,8 @@
              <select multiple id="authorSelect" name="authorList" required>
                  <option th:each="author:${authors}"
                          th:text="${author.firstname+'&nbsp;'}+${author.lastname+'&nbsp;'}+${author.birthYear+'&nbsp;'}"
-                         th:value="${author.authorId}"></option>
+                         th:value="${author.authorId}"
+                         th:selected="${book.authorList != null and book.authorList.contains(author)}"></option>
              </select>
              </div>
          </div>
@@ -104,7 +105,7 @@
                  name="placement" required>
              <option th:each="placementchoice:${placements}"
                      th:text="${placementchoice.ddk+'&nbsp;'}+${placementchoice.title+'&nbsp;'}"
-                     th:value="${placementchoice.placementId}"></option>
+                     th:value="${placementchoice.placementId}"  th:selected="${book.placement != null and book.placement.placementId == placementchoice.placementId}"></option>
          </select><br>
 
          <label id="l1" for="title">Titel</label>
