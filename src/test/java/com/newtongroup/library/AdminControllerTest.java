@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -19,10 +20,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
+
 @RunWith(SpringRunner.class)
+@SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class AdminControllerTest {
 
     @Autowired
@@ -45,6 +48,9 @@ public class AdminControllerTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PersonRepository personRepository;
 
     @BeforeEach
     void setUp() {
@@ -166,5 +172,27 @@ public class AdminControllerTest {
 
         Assert.assertNull(userRepository.findByUsername("librarianUser@gmail.com"));
     }
+
+    @Test
+    @WithMockUser(username = "adminUser@gmail.com", roles = { "ADMIN" })
+    public void testDeleteExistingUserVisitorIsDataHashed() throws Exception {
+        Visitor visitor = visitorRepository.findByEmail("visitorUser@gmail.com");
+        this.mockMvc.perform(get("/admin/delete-user")
+                .param("email", "visitorUser@gmail.com"))
+                .andExpect(view().name("admin/delete-confirmation"));
+
+        Visitor visitorAfterHash = visitorRepository.findById(visitor.getPersonId()).orElse(null);
+        Assert.assertNotEquals(visitor.getCity(), visitorAfterHash.getCity());
+        Assert.assertNotEquals(visitor.getFirstName(), visitorAfterHash.getFirstName());
+        Assert.assertNotEquals(visitor.getLastName(), visitorAfterHash.getLastName());
+        Assert.assertNotEquals(visitor.getPersonalNumber(), visitorAfterHash.getPersonalNumber());
+        Assert.assertNotEquals(visitor.getStreet(), visitorAfterHash.getStreet());
+        Assert.assertNotEquals(visitor.getPostalCode(), visitorAfterHash.getPostalCode());
+        Assert.assertNotEquals(visitor.getPhone(), visitorAfterHash.getPhone());
+        Assert.assertNotEquals(visitor.getEmail(), visitorAfterHash.getEmail());
+
+    }
+
+
 
 }

@@ -67,17 +67,18 @@ public class AdminController {
                     break;
                 case "ROLE_VISITOR":
                     Visitor visitor = visitorRepository.findByEmail(user.getUsername());
+                    if(visitor.getActiveLibraryCard() != null) {
+                        for (BookLoan bookLoan : visitor.getActiveLibraryCard().getBookLoans()) {
+                            if (!bookLoan.getBookReturned()) {
+                                List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
+                                        .stream()
+                                        .filter(loan -> loan.getBookReturned() == false)
+                                        .collect(Collectors.toList());
 
-                    for (BookLoan bookLoan : visitor.getActiveLibraryCard().getBookLoans()) {
-                        if(!bookLoan.getBookReturned()) {
-                            List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
-                                    .stream()
-                                    .filter(loan -> loan.getBookReturned() == false)
-                                    .collect(Collectors.toList());
-
-                            theModel.addAttribute("visitor", visitor);
-                            theModel.addAttribute("bookLoans", bookLoans);
-                            return "admin/delete-failed-user-has-loans";
+                                theModel.addAttribute("visitor", visitor);
+                                theModel.addAttribute("bookLoans", bookLoans);
+                                return "admin/delete-failed-user-has-loans";
+                            }
                         }
                     }
 
@@ -95,7 +96,6 @@ public class AdminController {
 
     private void hashAllUserData(User user) {
         // testa om det hashas
-
         long timeHash = System.currentTimeMillis() / 1000L;
         Visitor visitor = visitorRepository.findByEmail(user.getUsername());
         visitor.setFirstName(passwordEncoder.encode(visitor.getFirstName() + timeHash));
@@ -106,8 +106,12 @@ public class AdminController {
         visitor.setPhone(passwordEncoder.encode(visitor.getPhone() + timeHash));
         visitor.setPersonalNumber(passwordEncoder.encode(visitor.getPersonalNumber() + timeHash));
         visitor.setEmail(passwordEncoder.encode(visitor.getEmail() + timeHash));
-        visitor.getActiveLibraryCard().setActive(false);
         visitor.setActive(false);
+
+        if(visitor.getActiveLibraryCard() != null) {
+            visitor.getActiveLibraryCard().setActive(false);
+        }
+
         visitorRepository.save(visitor);
     }
 }
