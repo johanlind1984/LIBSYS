@@ -176,21 +176,20 @@ public class AdminControllerTest {
     @Test
     @WithMockUser(username = "adminUser@gmail.com", roles = { "ADMIN" })
     public void testDeleteExistingUserVisitorIsDataHashed() throws Exception {
-        Visitor visitor = visitorRepository.findByEmail("visitorUser@gmail.com");
+        Visitor visitorBeforeHash = visitorRepository.findByEmail("visitorUser@gmail.com");
         this.mockMvc.perform(get("/admin/delete-user")
                 .param("email", "visitorUser@gmail.com"))
                 .andExpect(view().name("admin/delete-confirmation"));
 
-        Visitor visitorAfterHash = visitorRepository.findById(visitor.getPersonId()).orElse(null);
-        Assert.assertNotEquals(visitor.getCity(), visitorAfterHash.getCity());
-        Assert.assertNotEquals(visitor.getFirstName(), visitorAfterHash.getFirstName());
-        Assert.assertNotEquals(visitor.getLastName(), visitorAfterHash.getLastName());
-        Assert.assertNotEquals(visitor.getPersonalNumber(), visitorAfterHash.getPersonalNumber());
-        Assert.assertNotEquals(visitor.getStreet(), visitorAfterHash.getStreet());
-        Assert.assertNotEquals(visitor.getPostalCode(), visitorAfterHash.getPostalCode());
-        Assert.assertNotEquals(visitor.getPhone(), visitorAfterHash.getPhone());
-        Assert.assertNotEquals(visitor.getEmail(), visitorAfterHash.getEmail());
-
+        Visitor visitorAfterHash = visitorRepository.findById(visitorBeforeHash.getPersonId()).orElse(null);
+        Assert.assertNotEquals(visitorBeforeHash.getCity(), visitorAfterHash.getCity());
+        Assert.assertNotEquals(visitorBeforeHash.getFirstName(), visitorAfterHash.getFirstName());
+        Assert.assertNotEquals(visitorBeforeHash.getLastName(), visitorAfterHash.getLastName());
+        Assert.assertNotEquals(visitorBeforeHash.getPersonalNumber(), visitorAfterHash.getPersonalNumber());
+        Assert.assertNotEquals(visitorBeforeHash.getStreet(), visitorAfterHash.getStreet());
+        Assert.assertNotEquals(visitorBeforeHash.getPostalCode(), visitorAfterHash.getPostalCode());
+        Assert.assertNotEquals(visitorBeforeHash.getPhone(), visitorAfterHash.getPhone());
+        Assert.assertNotEquals(visitorBeforeHash.getEmail(), visitorAfterHash.getEmail());
     }
 
 
