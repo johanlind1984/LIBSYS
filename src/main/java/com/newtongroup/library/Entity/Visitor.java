@@ -8,7 +8,7 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name="person_id")
 public class Visitor extends Person{
 
-    @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<LibraryCard> libraryCards;
 
     @Column(name="is_active")

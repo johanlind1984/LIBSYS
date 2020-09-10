@@ -67,20 +67,7 @@ public class AdminController {
                     break;
                 case "ROLE_VISITOR":
                     Visitor visitor = visitorRepository.findByEmail(user.getUsername());
-                    if(visitor.getActiveLibraryCard() != null) {
-                        for (BookLoan bookLoan : visitor.getActiveLibraryCard().getBookLoans()) {
-                            if (!bookLoan.getBookReturned()) {
-                                List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
-                                        .stream()
-                                        .filter(loan -> loan.getBookReturned() == false)
-                                        .collect(Collectors.toList());
-
-                                theModel.addAttribute("visitor", visitor);
-                                theModel.addAttribute("bookLoans", bookLoans);
-                                return "admin/delete-failed-user-has-loans";
-                            }
-                        }
-                    }
+                    if (LibrarianController.nymetod(theModel, visitor)) return "admin/delete-failed-user-has-loans";
 
                     hashAllUserData(user);
                     break;

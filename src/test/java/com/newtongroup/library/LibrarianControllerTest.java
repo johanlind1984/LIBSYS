@@ -68,6 +68,9 @@ public class LibrarianControllerTest {
     @Autowired
     private BookLoanRepository bookLoanRepository;
 
+    @Autowired
+    private LibraryCardRepository libraryCardRepository;
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(librarianController).build();
@@ -163,7 +166,7 @@ public class LibrarianControllerTest {
         libraryCard.setVisitor(visitorRentedBook);
         libraryCard.setBookLoans(new ArrayList<>());
         libraryCard.setEbookLoans(new ArrayList<>());
-        ArrayList<LibraryCard> libraryCards  = new ArrayList<>();
+        ArrayList<LibraryCard> libraryCards = new ArrayList<>();
         libraryCards.add(libraryCard);
         visitorRentedBook.setLibraryCards(libraryCards);
         visitorRepository.save(visitorRentedBook);
@@ -221,8 +224,9 @@ public class LibrarianControllerTest {
 
 
     // Testa lämna tillbaka icke utlånad bok som librarian
+
     @Test
-    @WithMockUser(username = "librarianUser@gmail.com", roles = { "LIBRARIAN" })
+    @WithMockUser(username = "librarianUser@gmail.com", roles = {"LIBRARIAN"})
     public void testReturnRentedBookAsLibrarian() throws Exception {
         Book book = bookRepository.findById((long) 1).orElse(null);
         BookLoan bookLoan = bookLoanRepository.findById((long) 1).orElse(null);
@@ -235,7 +239,7 @@ public class LibrarianControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "visitorUser@gmail.com", roles = { "VISITOR" })
+    @WithMockUser(username = "visitorUser@gmail.com", roles = {"VISITOR"})
     public void testDeleteUserAsVisitor() throws Exception {
         this.mockMvc.perform(get("/admin/delete-user")
                 .param("email", "librarianUser@gmail.com"))
@@ -243,7 +247,7 @@ public class LibrarianControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "librarianUser@gmail.com", roles = { "LIBRARIAN" })
+    @WithMockUser(username = "librarianUser@gmail.com", roles = {"LIBRARIAN"})
     public void testDeleteUserAsLibrarian() throws Exception {
         this.mockMvc.perform(get("/librarian/delete-visitor")
                 .param("email", "visitorUser@gmail.com"))
@@ -256,7 +260,7 @@ public class LibrarianControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "librarianUser@gmail.com", roles = { "LIBRARIAN" })
+    @WithMockUser(username = "librarianUser@gmail.com", roles = {"LIBRARIAN"})
     public void testDeleteUserWithRentalsAsLibrarian() throws Exception {
         this.mockMvc.perform(get("/librarian/delete-visitor")
                 .param("email", "visitorUserLoan@gmail.com"))
@@ -266,7 +270,7 @@ public class LibrarianControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "librarianUser@gmail.com", roles = { "LIBRARIAN" })
+    @WithMockUser(username = "librarianUser@gmail.com", roles = {"LIBRARIAN"})
     public void testDeleteNonExistingUserAsLibrarian() throws Exception {
         this.mockMvc.perform(get("/librarian/delete-visitor")
                 .param("email", "nonexistinguser@gmail.com"))
@@ -274,7 +278,7 @@ public class LibrarianControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "librarianUser@gmail.com", roles = { "LIBRARIAN" })
+    @WithMockUser(username = "librarianUser@gmail.com", roles = {"LIBRARIAN"})
     public void testDeleteExistingUserVisitorIsDataHashed() throws Exception {
         Visitor visitorBeforeHash = visitorRepository.findByEmail("visitorUser@gmail.com");
         this.mockMvc.perform(get("/librarian/delete-visitor")
@@ -290,5 +294,20 @@ public class LibrarianControllerTest {
         Assert.assertNotEquals(visitorBeforeHash.getPostalCode(), visitorAfterHash.getPostalCode());
         Assert.assertNotEquals(visitorBeforeHash.getPhone(), visitorAfterHash.getPhone());
         Assert.assertNotEquals(visitorBeforeHash.getEmail(), visitorAfterHash.getEmail());
+    }
+
+    @Test
+    @WithMockUser(username = "visitorUserLoan@gmail.com", roles = {"VISITOR"})
+    public void testBorrowBookAsVisitor() throws Exception {
+        Book book = bookRepository.findById((long) 1).orElse(null);
+        LibraryCard libraryCard = libraryCardRepository.findById((long) 1).orElse(null);
+        this.mockMvc.perform(get("/loan/register-loan")
+                .flashAttr("book", book)
+                .flashAttr("libraryCard", libraryCard)
+                .param("bookId", String.valueOf(book.getId())))
+                .andExpect(status().isOk())
+                .andExpect(view().name("loan/loan-success"));
+
+          Assert.assertFalse(visitorRepository.findByEmail("visitorUserLoan@gmail.com").getActiveLibraryCard().getBookLoans().isEmpty());
     }
 }
