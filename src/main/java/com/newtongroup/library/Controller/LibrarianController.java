@@ -62,28 +62,29 @@ public class LibrarianController {
     }
 
     @RequestMapping("/delete-visitor")
-    public String deleteUser(@RequestParam(name="email") String email, Model theModel, Principal principal) {
+    public String deleteUser(@RequestParam(name = "email") String email, Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         User user = userRepository.findByUsername(email);
-        if(user == null) {
+        if (user == null) {
             return "error/email-cannot-be-found";
         } else if (user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")) {
             Visitor visitor = visitorRepository.findByEmail(user.getUsername());
+            if (visitor.getActiveLibraryCard() != null) {
+                for (BookLoan bookLoan : visitor.getActiveLibraryCard().getBookLoans()) {
+                    if (!bookLoan.getBookReturned()) {
+                        List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
+                                .stream()
+                                .filter(loan -> loan.getBookReturned() == false)
+                                .collect(Collectors.toList());
 
-            for (BookLoan bookLoan : visitor.getActiveLibraryCard().getBookLoans()) {
-                if(!bookLoan.getBookReturned()) {
-                    List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
-                            .stream()
-                            .filter(loan -> loan.getBookReturned() == false)
-                            .collect(Collectors.toList());
-
-                    theModel.addAttribute("visitor", visitor);
-                    theModel.addAttribute("bookLoans", bookLoans);
-                    return "admin/delete-failed-user-has-loans";
+                        theModel.addAttribute("visitor", visitor);
+                        theModel.addAttribute("bookLoans", bookLoans);
+                        return "admin/delete-failed-user-has-loans";
+                    }
                 }
             }
-
             hashAllUSerData(user);
+            userRepository.delete(user);
         } else {
             return "error/email-cannot-be-found";
         }
@@ -118,8 +119,6 @@ public class LibrarianController {
 
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         Long bookId = bookLoan.getBook().getId();
-        System.out.println(bookId);
-
 
         if(bookId != null) {
             Book bookToReturn = bookrepository.findById(bookId).orElse(null);

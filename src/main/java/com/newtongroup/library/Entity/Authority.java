@@ -21,7 +21,7 @@ public class Authority {
     public Authority() {
     }
 
-    public long getAutorityId() {
+    public Long getAutorityId() {
         return autorityId;
     }
 

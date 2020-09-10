@@ -58,13 +58,9 @@ public class AddObjectController {
     @GetMapping("/new-book")
     public String getBookForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-
         Book book = new Book();
-
         authorList=authorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
-
         List<Placement>placementList=placementRepository.findAll();
-
         model.addAttribute("book", book);
         model.addAttribute("authors", authorList);
         model.addAttribute("placements", placementList);
@@ -73,7 +69,6 @@ public class AddObjectController {
 
     @PostMapping("/save-book")
     public String saveBook(@ModelAttribute("book") Book book){
-
         book.setAvailable(true);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDateTime now = LocalDateTime.now();
@@ -84,13 +79,9 @@ public class AddObjectController {
     @GetMapping("/new-ebook")
     public String getEBookForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-
         EBook ebook = new EBook();
-
         List<Placement>placementList=placementRepository.findAll();
-
         authorList=authorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
-
         model.addAttribute("ebook", ebook);
         model.addAttribute("authors", authorList);
         model.addAttribute("placements", placementList);

@@ -26,7 +26,7 @@ public class Book extends AbstractBook {
 
 	@JsonManagedReference
 	@IndexedEmbedded
-	@ManyToMany()
+	@ManyToMany(fetch = FetchType.EAGER) // detta har jag ändrat så att jag kunde lägga till författare till böcker.
 	@JoinTable(
 			name="book_author",
 			joinColumns = {@JoinColumn(name="idbook_author_book_id")},
