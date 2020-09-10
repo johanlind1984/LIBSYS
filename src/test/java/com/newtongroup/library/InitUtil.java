@@ -1,12 +1,18 @@
 package com.newtongroup.library;
 
+
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
-
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import com.newtongroup.library.Entity.Authority;
+import com.newtongroup.library.Entity.User;
+import com.newtongroup.library.Repository.AdminRepository;
+import com.newtongroup.library.Repository.UserAuthorityRepository;
+import com.newtongroup.library.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 public class InitUtil {
 
@@ -155,3 +161,5 @@ public class InitUtil {
         bookRepository.save(rentedBook);
     }
 }
+
+

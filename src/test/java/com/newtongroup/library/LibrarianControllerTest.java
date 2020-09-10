@@ -85,7 +85,6 @@ public class LibrarianControllerTest {
         Authority librarianAuthority = userAuthorityRepository.findById((long) 2).orElse(null);
         Authority visitorAuthority = userAuthorityRepository.findById((long) 3).orElse(null);
 
-
         // Setting up users
         userRepository.save(InitUtil.setupAndReturnUser(librarianAuthority, "librarianUser@gmail.com"));
         userRepository.save(InitUtil.setupAndReturnUser(visitorAuthority, "visitorUser@gmail.com"));
@@ -98,6 +97,11 @@ public class LibrarianControllerTest {
         InitUtil.initVisitorRentedBook(visitorRepository);
         InitUtil.initAuthorBookAndLoan(authorRepository, bookRepository);
     }
+
+    // Testa null bok i param
+    // Testa bok som inte finns i param
+    // Testa lämna tillbaka existerande bok med fel användare
+    // Testa lämna tillbaka icke utlånad bok som librarian
 
     @Test
     @WithMockUser(username = "librarianUser@gmail.com", roles = {"LIBRARIAN"})
