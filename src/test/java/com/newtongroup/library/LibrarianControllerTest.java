@@ -214,12 +214,8 @@ public class LibrarianControllerTest {
     }
 
     // Testa null bok i param
-
     // Testa bok som inte finns i param
-
     // Testa lämna tillbaka existerande bok med fel användare
-
-
     // Testa lämna tillbaka icke utlånad bok som librarian
     @Test
     @WithMockUser(username = "librarianUser@gmail.com", roles = { "LIBRARIAN" })
