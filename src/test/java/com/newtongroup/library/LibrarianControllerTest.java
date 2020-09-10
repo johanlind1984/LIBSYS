@@ -19,7 +19,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -63,6 +65,9 @@ public class LibrarianControllerTest {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private BookLoanRepository bookLoanRepository;
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(librarianController).build();
@@ -103,6 +108,13 @@ public class LibrarianControllerTest {
         visitorUser.setEnabled(true);
         userRepository.save(visitorUser);
 
+        User visitorUserLoan = new User();
+        visitorUserLoan.setUsername("visitorUserLoan@gmail.com");
+        visitorUserLoan.setPassword("test");
+        visitorUserLoan.setAuthority(userAuthorityRepository.findById((long) 3).orElse(null));
+        visitorUserLoan.setEnabled(true);
+        userRepository.save(visitorUserLoan);
+
         // Setting up persons
         Admin admin = new Admin();
         admin.setEmail("adminUser@gmail.com");
@@ -137,6 +149,25 @@ public class LibrarianControllerTest {
         visitor.setPersonalNumber("831021-3341");
         visitorRepository.save(visitor);
 
+        Visitor visitorRentedBook = new Visitor();
+        visitorRentedBook.setEmail("visitorUserLoan@gmail.com");
+        visitorRentedBook.setCity("Stockholm");
+        visitorRentedBook.setFirstName("Gunnar");
+        visitorRentedBook.setLastName("Pettersson");
+        visitorRentedBook.setPhone("085000000");
+        visitorRentedBook.setPostalCode("173 53");
+        visitorRentedBook.setStreet("Gökvägen 12");
+        visitorRentedBook.setPersonalNumber("831021-3341");
+        LibraryCard libraryCard = new LibraryCard();
+        libraryCard.setActive(true);
+        libraryCard.setVisitor(visitorRentedBook);
+        libraryCard.setBookLoans(new ArrayList<>());
+        libraryCard.setEbookLoans(new ArrayList<>());
+        ArrayList<LibraryCard> libraryCards  = new ArrayList<>();
+        libraryCards.add(libraryCard);
+        visitorRentedBook.setLibraryCards(libraryCards);
+        visitorRepository.save(visitorRentedBook);
+
         // Setting upp authors
         Author author1 = new Author();
         author1.setFirstname("Janne");
@@ -159,6 +190,26 @@ public class LibrarianControllerTest {
         book1.setAuthorList(authors);
         bookRepository.save(book1);
 
+        Book rentedBook = new Book();
+        rentedBook.setTitle("Testbok 1");
+        rentedBook.setPurchasePrice("200");
+        rentedBook.setPublisher("Testförlaget");
+        rentedBook.setIsbn("12132131332113");
+        rentedBook.setDescription("Detta är en testbok, inget annat");
+        rentedBook.setAvailable(false);
+        rentedBook.setLoanedBooks(new ArrayList<>());
+        authors.add(author1);
+        rentedBook.setAuthorList(authors);
+
+        BookLoan bookLoan = new BookLoan();
+        bookLoan.setBookReturned(false);
+        bookLoan.setBook(rentedBook);
+        bookLoan.setLibraryCard(libraryCard);
+        bookLoan.setDateLoanEnd(new Date(Calendar.getInstance().getTime().getTime()));
+        bookLoan.setDateLoanStart(new Date(Calendar.getInstance().getTime().getTime()));
+
+        rentedBook.getLoanedBooks().add(bookLoan);
+        bookRepository.save(rentedBook);
 
     }
 
@@ -172,12 +223,17 @@ public class LibrarianControllerTest {
     // Testa lämna tillbaka icke utlånad bok som librarian
     @Test
     @WithMockUser(username = "librarianUser@gmail.com", roles = { "LIBRARIAN" })
-    public void testReturnBookNotLeantAsLibrarian() throws Exception {
-        // FAILAR: Inget BookLoan i modellen resulterar i NullPointerException, måste reda ut hur vi lägger till objekt i modellen.
+    public void testReturnRentedBookAsLibrarian() throws Exception {
         Book book = bookRepository.findById((long) 1).orElse(null);
+        BookLoan bookLoan = bookLoanRepository.findById((long) 1).orElse(null);
+
         this.mockMvc.perform(get("/librarian/return-book")
+                .flashAttr("book", book)
+                .flashAttr("bookLoan", bookLoan)
                 .param("bookId", String.valueOf(book.getId())))
-                .andExpect(view().name("error/book-or-no-active-librarycard"));
+                .andExpect(view().name("loan/return-success"));
+
+        Assert.assertTrue(bookLoanRepository.findById((long) 1).orElse(null).getBookReturned());
     }
 
     @Test
