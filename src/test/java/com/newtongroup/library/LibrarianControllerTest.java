@@ -226,13 +226,11 @@ public class LibrarianControllerTest {
     public void testReturnRentedBookAsLibrarian() throws Exception {
         Book book = bookRepository.findById((long) 1).orElse(null);
         BookLoan bookLoan = bookLoanRepository.findById((long) 1).orElse(null);
-
         this.mockMvc.perform(get("/librarian/return-book")
                 .flashAttr("book", book)
                 .flashAttr("bookLoan", bookLoan)
                 .param("bookId", String.valueOf(book.getId())))
                 .andExpect(view().name("loan/return-success"));
-
         Assert.assertTrue(bookLoanRepository.findById((long) 1).orElse(null).getBookReturned());
     }
 
@@ -253,8 +251,18 @@ public class LibrarianControllerTest {
 
         // Användaren "User" togs aldrig bort i koden innan. Detta test upptäckte felet och nu är det årgärdat.
         // kod tillagt på rad 87 i LibrarianController.
-        User user = userRepository.findByUsername("visitorUser@gmail.com");
+        // User user = userRepository.findByUsername("visitorUser@gmail.com");
         Assert.assertNull(userRepository.findByUsername("visitorUser@gmail.com"));
+    }
+
+    @Test
+    @WithMockUser(username = "librarianUser@gmail.com", roles = { "LIBRARIAN" })
+    public void testDeleteUserWithRentalsAsLibrarian() throws Exception {
+        this.mockMvc.perform(get("/librarian/delete-visitor")
+                .param("email", "visitorUserLoan@gmail.com"))
+                .andExpect(view().name("admin/delete-failed-user-has-loans"));
+        Assert.assertNotNull(userRepository.findByUsername("visitorUserLoan@gmail.com"));
+        Assert.assertNotNull(visitorRepository.findByEmail("visitorUserLoan@gmail.com"));
     }
 
     @Test
