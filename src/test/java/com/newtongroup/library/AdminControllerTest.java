@@ -60,37 +60,17 @@ public class AdminControllerTest {
     @Before
     public void init() {
         // Setting up authorities
-        Authority adminAuth = new Authority();
-        adminAuth.setAuthorityName("ROLE_ADMIN");
-        Authority librarianAuth = new Authority();
-        librarianAuth.setAuthorityName("ROLE_LIBRARIAN");
-        Authority visitorAuth = new Authority();
-        visitorAuth.setAuthorityName("ROLE_VISITOR");
-        userAuthorityRepository.save(adminAuth);
-        userAuthorityRepository.save(librarianAuth);
-        userAuthorityRepository.save(visitorAuth);
+        InitUtil.setupAuthorities(userAuthorityRepository);
+        Authority adminAuthority = userAuthorityRepository.findById((long) 1).orElse(null);
+        Authority librarianAuthority = userAuthorityRepository.findById((long) 2).orElse(null);
+        Authority visitorAuthority = userAuthorityRepository.findById((long) 3).orElse(null);
+
 
         // Setting up users
-        User adminUser = new User();
-        adminUser.setUsername("adminUser@gmail.com");
-        adminUser.setPassword("test");
-        adminUser.setAuthority(userAuthorityRepository.findById((long) 1).orElse(null));
-        adminUser.setEnabled(true);
-        userRepository.save(adminUser);
+        userRepository.save(InitUtil.setupAndReturnUser(adminAuthority, "adminUser@gmail.com"));
+        userRepository.save(InitUtil.setupAndReturnUser(librarianAuthority, "librarianUser@gmail.com"));
+        userRepository.save(InitUtil.setupAndReturnUser(visitorAuthority, "visitorUser@gmail.com"));
 
-        User librarianUser = new User();
-        librarianUser.setUsername("librarianUser@gmail.com");
-        librarianUser.setPassword("test");
-        librarianUser.setAuthority(userAuthorityRepository.findById((long) 2).orElse(null));
-        librarianUser.setEnabled(true);
-        userRepository.save(librarianUser);
-
-        User visitorUser = new User();
-        visitorUser.setUsername("visitorUser@gmail.com");
-        visitorUser.setPassword("test");
-        visitorUser.setAuthority(userAuthorityRepository.findById((long) 3).orElse(null));
-        visitorUser.setEnabled(true);
-        userRepository.save(visitorUser);
 
         // Setting up persons
         Admin admin = new Admin();
