@@ -83,7 +83,6 @@ public class LoanController {
     @RequestMapping("/register-loan")
     public String registerLoan(@RequestParam(value = "bookId", required = false) Long bookIdParam,
                                @RequestParam(name = "eBookId", required = false) Long eBookId,
-                               @RequestParam(name = "librarycardnumber", required = false) Long librarycardnumberTEST,
                                @ModelAttribute("libraryCard") LibraryCard libraryCard,
                                @ModelAttribute("book") Book book,
                                Model theModel, Principal principal) {

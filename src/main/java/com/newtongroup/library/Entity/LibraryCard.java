@@ -15,7 +15,7 @@ public class LibraryCard {
     @Column(name = "isactive")
     private boolean isActive;
 
-    @OneToMany(mappedBy = "libraryCard")
+    @OneToMany(mappedBy = "libraryCard", fetch = FetchType.EAGER)
     private List<BookLoan> bookLoans;
 
     @OneToMany(mappedBy = "libraryCard")

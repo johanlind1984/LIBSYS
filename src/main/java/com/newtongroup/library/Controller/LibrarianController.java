@@ -43,12 +43,8 @@ public class LibrarianController {
     @Autowired
     private EBookRepository eBookRepository;
 
-
-
-    private String header = "librarian/bootstrapheader.html";
-
     @RequestMapping("/")
-    public String mainView(Model theModel, Principal principal){
+    public String mainView(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         return "librarian/start";
     }
@@ -57,7 +53,7 @@ public class LibrarianController {
     public String deleteUserMenu(Model theModel, Principal principal) {
         User user = userRepository.findByUsername(principal.getName());
         theModel.addAttribute("header", HeaderUtils.getHeaderString(user));
-        theModel.addAttribute("email", new String());
+        theModel.addAttribute("email", "");
         return "librarian/delete-user-menu";
     }
 
@@ -69,20 +65,7 @@ public class LibrarianController {
             return "error/email-cannot-be-found";
         } else if (user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")) {
             Visitor visitor = visitorRepository.findByEmail(user.getUsername());
-            if (visitor.getActiveLibraryCard() != null) {
-                for (BookLoan bookLoan : visitor.getActiveLibraryCard().getBookLoans()) {
-                    if (!bookLoan.getBookReturned()) {
-                        List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
-                                .stream()
-                                .filter(loan -> loan.getBookReturned() == false)
-                                .collect(Collectors.toList());
-
-                        theModel.addAttribute("visitor", visitor);
-                        theModel.addAttribute("bookLoans", bookLoans);
-                        return "admin/delete-failed-user-has-loans";
-                    }
-                }
-            }
+            if (nymetod(theModel, visitor)) return "admin/delete-failed-user-has-loans";
             hashAllUSerData(user);
             userRepository.delete(user);
         } else {
@@ -90,6 +73,20 @@ public class LibrarianController {
         }
 
         return "admin/delete-confirmation";
+    }
+
+    static boolean nymetod(Model theModel, Visitor visitor) {
+        if (visitor.getActiveLibraryCard() != null) {
+            List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
+                    .stream()
+                    .filter(loan -> loan.getBookReturned() == false)
+                    .collect(Collectors.toList());
+
+            theModel.addAttribute("visitor", visitor);
+            theModel.addAttribute("bookLoans", bookLoans);
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping("/input-book-to-return")
@@ -103,7 +100,6 @@ public class LibrarianController {
         Book book = new Book();
 
 
-
         theModel.addAttribute("bookList", bookList);
         theModel.addAttribute("book", book);
 
@@ -111,8 +107,8 @@ public class LibrarianController {
     }
 
     @RequestMapping("/return-book")
-    private String returnBook(@RequestParam(name="bookId", required = false) Long bookIdTEST,
-                              @RequestParam(name="eBookId", required = false) Long eBookId,
+    private String returnBook(@RequestParam(name = "bookId", required = false) Long bookIdTEST,
+                              @RequestParam(name = "eBookId", required = false) Long eBookId,
                               @ModelAttribute("book") Book book,
                               @ModelAttribute("bookLoan") BookLoan bookLoan,
                               Model theModel, Principal principal) {
@@ -120,11 +116,11 @@ public class LibrarianController {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         Long bookId = bookLoan.getBook().getId();
 
-        if(bookId != null) {
+        if (bookId != null) {
             Book bookToReturn = bookrepository.findById(bookId).orElse(null);
             BookLoan loan = bookLoanRepository.findByBookAndIsBookReturned(bookToReturn, false);
 
-            if(loan == null) {
+            if (loan == null) {
                 return "error/book-or-no-active-librarycard";
             }
 
@@ -133,11 +129,11 @@ public class LibrarianController {
             loan.setBookReturned(true);
             bookLoanRepository.save(loan);
 
-        } else if ( eBookId != null) {
+        } else if (eBookId != null) {
             EBook bookToReturn = eBookRepository.findById(eBookId).orElse(null);
             EbookLoan loan = ebookLoanRepository.findByEbookAndIsEbookReturned(bookToReturn, false);
 
-            if(loan == null) {
+            if (loan == null) {
                 return "error/book-or-no-active-librarycard";
             }
 
@@ -167,12 +163,12 @@ public class LibrarianController {
         visitorRepository.save(visitor);
     }
 
-    private List<Book> getActiveBookList(){
+    private List<Book> getActiveBookList() {
         List<Book> tempList = bookrepository.findAll();
         List<Book> bookList = new ArrayList<>();
 
-        for(Book temp : tempList){
-            if(!temp.isAvailable()){
+        for (Book temp : tempList) {
+            if (!temp.isAvailable()) {
                 bookList.add(temp);
             }
         }
