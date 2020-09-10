@@ -90,6 +90,7 @@ public class LibrarianControllerTest {
         userRepository.save(InitUtil.setupAndReturnUser(librarianAuthority, "librarianUser@gmail.com"));
         userRepository.save(InitUtil.setupAndReturnUser(visitorAuthority, "visitorUser@gmail.com"));
 
+        // Setting up books, authors, loans and user details.
         InitUtil.initVisitorUserLoan(userRepository, userAuthorityRepository);
         InitUtil.initAdminUserDetails(adminRepository);
         InitUtil.initLibrarianUserDetails(librarianRepository);

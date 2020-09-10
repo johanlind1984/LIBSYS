@@ -31,40 +31,6 @@ public class InitUtil {
         return user;
     }
 
-
-//    public static void initAdminUsernamePasswordAuthority(UserAuthorityRepository userAuthorityRepository, UserRepository userRepository) {
-//        // Setting up users
-//        User adminUser = new User();
-//        adminUser.setUsername("adminUser@gmail.com");
-//        adminUser.setPassword("test");
-//        adminUser.setAuthority(userAuthorityRepository.findById((long) 1).orElse(null));
-//        adminUser.setEnabled(true);
-//        userRepository.save(adminUser);
-//    }
-//
-//
-//    public void initLibrarianUser(UserAuthorityRepository userAuthorityRepository, UserRepository userRepository) {
-//
-//        User librarianUser = new User();
-//        librarianUser.setUsername("librarianUser@gmail.com");
-//        librarianUser.setPassword("test");
-//        librarianUser.setAuthority(userAuthorityRepository.findById((long) 2).orElse(null));
-//        librarianUser.setEnabled(true);
-//        userRepository.save(librarianUser);
-//    }
-//
-//
-//    public void initVisitorUser(UserAuthorityRepository userAuthorityRepository, UserRepository userRepository) {
-//
-//        User visitorUser = new User();
-//        visitorUser.setUsername("visitorUser@gmail.com");
-//        visitorUser.setPassword("test");
-//        visitorUser.setAuthority(userAuthorityRepository.findById((long) 3).orElse(null));
-//        visitorUser.setEnabled(true);
-//        userRepository.save(visitorUser);
-//    }
-
-
     public static void initVisitorUserLoan(UserRepository userRepository, UserAuthorityRepository userAuthorityRepository) {
 
         User visitorUserLoan = new User();
@@ -149,7 +115,7 @@ public class InitUtil {
         author1.setLastname("Josefsson");
         author1.setBirthYear("1956");
         author1.setBookList(new ArrayList<>());
-        Author savedAuthor = authorRepository.save(author1);
+        authorRepository.save(author1);
 
         Book book1 = new Book();
         book1.setTitle("Testbok 1");
