@@ -19,6 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -54,6 +56,12 @@ public class LibrarianControllerTest {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Autowired
+    private AuthorRepository authorRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
     @BeforeEach
     void setUp() {
@@ -128,6 +136,48 @@ public class LibrarianControllerTest {
         visitor.setStreet("Gökvägen 12");
         visitor.setPersonalNumber("831021-3341");
         visitorRepository.save(visitor);
+
+        // Setting upp authors
+        Author author1 = new Author();
+        author1.setFirstname("Janne");
+        author1.setLastname("Josefsson");
+        author1.setBirthYear("1956");
+        author1.setBookList(new ArrayList<>());
+        Author savedAuthor = authorRepository.save(author1);
+
+        // Setting up books
+        Book book1 = new Book();
+        book1.setTitle("Testbok 1");
+        book1.setPurchasePrice("200");
+        book1.setPublisher("Testförlaget");
+        book1.setIsbn("12132131332113");
+        book1.setDescription("Detta är en testbok, inget annat");
+        book1.setAvailable(true);
+        book1.setLoanedBooks(new ArrayList<>());
+        ArrayList<Author> authors = new ArrayList<>();
+        authors.add(author1);
+        book1.setAuthorList(authors);
+        bookRepository.save(book1);
+
+
+    }
+
+    // Testa null bok i param
+
+    // Testa bok som inte finns i param
+
+    // Testa lämna tillbaka existerande bok med fel användare
+
+
+    // Testa lämna tillbaka icke utlånad bok som librarian
+    @Test
+    @WithMockUser(username = "librarianUser@gmail.com", roles = { "LIBRARIAN" })
+    public void testReturnBookNotLeantAsLibrarian() throws Exception {
+        // FAILAR: Inget BookLoan i modellen resulterar i NullPointerException, måste reda ut hur vi lägger till objekt i modellen.
+        Book book = bookRepository.findById((long) 1).orElse(null);
+        this.mockMvc.perform(get("/librarian/return-book")
+                .param("bookId", String.valueOf(book.getId())))
+                .andExpect(view().name("error/book-or-no-active-librarycard"));
     }
 
     @Test

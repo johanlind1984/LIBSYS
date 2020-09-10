@@ -119,8 +119,6 @@ public class LibrarianController {
 
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         Long bookId = bookLoan.getBook().getId();
-        System.out.println(bookId);
-
 
         if(bookId != null) {
             Book bookToReturn = bookrepository.findById(bookId).orElse(null);
