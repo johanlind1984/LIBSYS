@@ -177,7 +177,7 @@ public class LibrarianControllerTest {
         author1.setLastname("Josefsson");
         author1.setBirthYear("1956");
         author1.setBookList(new ArrayList<>());
-        Author savedAuthor = authorRepository.save(author1);
+        authorRepository.save(author1);
 
         // Setting up books
         Book book1 = new Book();
