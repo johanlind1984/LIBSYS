@@ -169,19 +169,4 @@ public class LibrarianControllerTest {
         Assert.assertNotEquals(visitorBeforeHash.getPhone(), visitorAfterHash.getPhone());
         Assert.assertNotEquals(visitorBeforeHash.getEmail(), visitorAfterHash.getEmail());
     }
-
-    @Test
-    @WithMockUser(username = "visitorUserLoan@gmail.com", roles = {"VISITOR"})
-    public void testBorrowBookAsVisitor() throws Exception {
-        Book book = bookRepository.findById((long) 1).orElse(null);
-        LibraryCard libraryCard = libraryCardRepository.findById((long) 1).orElse(null);
-        this.mockMvc.perform(get("/loan/register-loan")
-                .flashAttr("book", book)
-                .flashAttr("libraryCard", libraryCard)
-                .param("bookId", String.valueOf(book.getId())))
-                .andExpect(status().isOk())
-                .andExpect(view().name("loan/loan-success"));
-
-          Assert.assertFalse(visitorRepository.findByEmail("visitorUserLoan@gmail.com").getActiveLibraryCard().getBookLoans().isEmpty());
-    }
 }
