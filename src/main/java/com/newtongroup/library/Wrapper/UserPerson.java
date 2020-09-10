@@ -2,6 +2,8 @@ package com.newtongroup.library.Wrapper;
 
 import com.newtongroup.library.Entity.*;
 
+import java.util.ArrayList;
+
 public class UserPerson {
 
     private User user;
@@ -97,6 +99,14 @@ public class UserPerson {
         this.visitor.setStreet(person.getStreet());
         this.visitor.setEmail(user.getUsername());
         this.visitor.setActive(true);
+        LibraryCard libraryCard = new LibraryCard();
+        libraryCard.setActive(true);
+        libraryCard.setVisitor(this.visitor);
+        libraryCard.setBookLoans(new ArrayList<>());
+        libraryCard.setEbookLoans(new ArrayList<>());
+        ArrayList<LibraryCard> libraryCards = new ArrayList<>();
+        libraryCards.add(libraryCard);
+        this.visitor.setLibraryCards(libraryCards);
     }
 
     public void setVisitorAsPerson() {
@@ -109,6 +119,7 @@ public class UserPerson {
         this.person.setPostalCode(visitor.getPostalCode());
         this.person.setStreet(visitor.getStreet());
         this.person.setEmail(visitor.getEmail());
+
     }
 
     public void setPersonAsLibrarian() {

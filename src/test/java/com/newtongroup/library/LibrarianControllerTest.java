@@ -82,20 +82,18 @@ public class LibrarianControllerTest {
     public void init() {
         // Setting up authorities
         InitUtil.setupAuthorities(userAuthorityRepository);
-        Authority librarianAuthority = userAuthorityRepository.findById((long) 2).orElse(null);
-        Authority visitorAuthority = userAuthorityRepository.findById((long) 3).orElse(null);
+        InitUtil.setUpLibrarian(userAuthorityRepository, librarianRepository, userRepository, "librarianUser@gmail.com");
+        InitUtil.setUpVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUser@gmail.com");
+        InitUtil.initAuthorBookAndLoan(authorRepository, bookRepository, bookLoanRepository);
 
-        // Setting up users
-        userRepository.save(InitUtil.setupAndReturnUser(librarianAuthority, "librarianUser@gmail.com"));
-        userRepository.save(InitUtil.setupAndReturnUser(visitorAuthority, "visitorUser@gmail.com"));
-
-        // Setting up books, authors, loans and user details.
-        InitUtil.initVisitorUserLoan(userRepository, userAuthorityRepository);
-        InitUtil.initAdminUserDetails(adminRepository);
-        InitUtil.initLibrarianUserDetails(librarianRepository);
-        InitUtil.initVisitorUserDetails(visitorRepository);
-        InitUtil.initVisitorRentedBook(visitorRepository);
-        InitUtil.initAuthorBookAndLoan(authorRepository, bookRepository);
+        Visitor visitorWithLoans = InitUtil.setUpVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUserLoan@gmail.com");
+        BookLoan bookLoan = bookLoanRepository.findById((long) 1).orElse(null);
+        bookLoan.setLibraryCard(visitorWithLoans.getActiveLibraryCard());
+        ArrayList<BookLoan> bookLoanArrayList = new ArrayList<>();
+        bookLoanArrayList.add(bookLoan);
+        visitorWithLoans.getActiveLibraryCard().setBookLoans(bookLoanArrayList);
+        visitorRepository.save(visitorWithLoans);
+        bookLoanRepository.save(bookLoan);
     }
 
     // Testa null bok i param

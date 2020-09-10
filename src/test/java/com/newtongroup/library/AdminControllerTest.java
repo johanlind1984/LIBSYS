@@ -61,50 +61,9 @@ public class AdminControllerTest {
     public void init() {
         // Setting up authorities
         InitUtil.setupAuthorities(userAuthorityRepository);
-        Authority adminAuthority = userAuthorityRepository.findById((long) 1).orElse(null);
-        Authority librarianAuthority = userAuthorityRepository.findById((long) 2).orElse(null);
-        Authority visitorAuthority = userAuthorityRepository.findById((long) 3).orElse(null);
-
-
-        // Setting up users
-        userRepository.save(InitUtil.setupAndReturnUser(adminAuthority, "adminUser@gmail.com"));
-        userRepository.save(InitUtil.setupAndReturnUser(librarianAuthority, "librarianUser@gmail.com"));
-        userRepository.save(InitUtil.setupAndReturnUser(visitorAuthority, "visitorUser@gmail.com"));
-
-
-        // Setting up persons
-        Admin admin = new Admin();
-        admin.setEmail("adminUser@gmail.com");
-        admin.setCity("Stockholm");
-        admin.setFirstName("Gunnar");
-        admin.setLastName("Pettersson");
-        admin.setPhone("085000000");
-        admin.setPostalCode("173 53");
-        admin.setStreet("Gökvägen 12");
-        admin.setPersonalNumber("831021-3341");
-        adminRepository.save(admin);
-
-        Librarian librarian = new Librarian();
-        librarian.setEmail("librarianUser@gmail.com");
-        librarian.setCity("Stockholm");
-        librarian.setFirstName("Gunnar");
-        librarian.setLastName("Pettersson");
-        librarian.setPhone("085000000");
-        librarian.setPostalCode("173 53");
-        librarian.setStreet("Gökvägen 12");
-        librarian.setPersonalNumber("831021-3341");
-        librarianRepository.save(librarian);
-
-        Visitor visitor = new Visitor();
-        visitor.setEmail("visitorUser@gmail.com");
-        visitor.setCity("Stockholm");
-        visitor.setFirstName("Gunnar");
-        visitor.setLastName("Pettersson");
-        visitor.setPhone("085000000");
-        visitor.setPostalCode("173 53");
-        visitor.setStreet("Gökvägen 12");
-        visitor.setPersonalNumber("831021-3341");
-        visitorRepository.save(visitor);
+        InitUtil.setUpAdmin(userAuthorityRepository, adminRepository, userRepository, "adminUser@gmail.com");
+        InitUtil.setUpLibrarian(userAuthorityRepository, librarianRepository, userRepository, "librarianUser@gmail.com");
+        InitUtil.setUpVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUser@gmail.com");
     }
 
     @Test
