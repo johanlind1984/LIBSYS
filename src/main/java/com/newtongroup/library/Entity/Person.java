@@ -4,38 +4,37 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="persons")
+@Table(name = "persons")
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="person_id")
+    @Column(name = "person_id")
     Long personId;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name="personal_number")
+    @Column(name = "personal_number")
     private String personalNumber;
 
-    @Column(name="first_name")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name="street")
+    @Column(name = "street")
     private String street;
 
-    @Column(name="postal_code")
+    @Column(name = "postal_code")
     private String postalCode;
 
-    @Column(name="city")
+    @Column(name = "city")
     private String city;
 
-    @Column(name="phone")
+    @Column(name = "phone")
     private String phone;
-
 
     public Person() {
     }

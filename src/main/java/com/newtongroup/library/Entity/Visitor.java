@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="visitors")
-@PrimaryKeyJoinColumn(name="person_id")
-public class Visitor extends Person{
+@Table(name = "visitors")
+@PrimaryKeyJoinColumn(name = "person_id")
+public class Visitor extends Person {
 
     @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<LibraryCard> libraryCards;
 
-    @Column(name="is_active")
+    @Column(name = "is_active")
     private boolean isActive;
 
     public Visitor() {
@@ -36,11 +36,10 @@ public class Visitor extends Person{
     public LibraryCard getActiveLibraryCard() {
 
         for (LibraryCard card : libraryCards) {
-            if(card.isActive()) {
+            if (card.isActive()) {
                 return card;
             }
         }
-
         return null;
     }
 

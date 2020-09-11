@@ -93,7 +93,7 @@ public class LoanController {
             bookId = bookIdParam;
             librarycardnumber = visitorRepository.findByEmail(principal.getName()).getActiveLibraryCard().getLibraryCardNumber();
         }
-
+      
         if (user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")) {
             LibraryCard tempcard = libraryCardRepository.findById(librarycardnumber).orElse(null);
             if (tempcard == null) {
