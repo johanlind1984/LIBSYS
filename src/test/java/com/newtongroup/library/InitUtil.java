@@ -115,55 +115,7 @@ public class InitUtil {
         bookLoanRepository.save(bookLoan);
         return bookLoanRepository.save(bookLoan);
     }
-
-    public static void initAuthorBookAndLoan(AuthorRepository authorRepository, BookRepository bookRepository, BookLoanRepository bookLoanRepository) {
-        Author author1 = new Author();
-        author1.setFirstname("Janne");
-        author1.setLastname("Josefsson");
-        author1.setBirthYear("1956");
-        author1.setBookList(new ArrayList<>());
-        authorRepository.save(author1);
-
-        Book book1 = new Book();
-        book1.setTitle("Testbok 1");
-        book1.setPurchasePrice("200");
-        book1.setPublisher("Testförlaget");
-        book1.setIsbn("12132131332113");
-        book1.setDescription("Detta är en testbok, inget annat");
-        book1.setAvailable(true);
-        book1.setLoanedBooks(new ArrayList<>());
-        ArrayList<Author> authors = new ArrayList<>();
-        authors.add(author1);
-        book1.setAuthorList(authors);
-        bookRepository.save(book1);
-
-        Book rentedBook = new Book();
-        rentedBook.setTitle("Testbok 1");
-        rentedBook.setPurchasePrice("200");
-        rentedBook.setPublisher("Testförlaget");
-        rentedBook.setIsbn("12132131332113");
-        rentedBook.setDescription("Detta är en testbok, inget annat");
-        rentedBook.setAvailable(false);
-        rentedBook.setLoanedBooks(new ArrayList<>());
-        authors.add(author1);
-        rentedBook.setAuthorList(authors);
-
-        BookLoan bookLoan = new BookLoan();
-        bookLoan.setBookReturned(false);
-        bookLoan.setBook(rentedBook);
-
-        /* Får se över denna del av koden.
-        bookLoan.setLibraryCard(libraryCard);
-         */
-
-        bookLoan.setDateLoanEnd(new Date(Calendar.getInstance().getTime().getTime()));
-        bookLoan.setDateLoanStart(new Date(Calendar.getInstance().getTime().getTime()));
-        rentedBook.getLoanedBooks().add(bookLoan);
-        bookRepository.save(rentedBook);
-        bookLoanRepository.save(bookLoan);
-
-    }
-
+    
     private static UserPerson getPersonDummyData(String email) {
         UserPerson userPerson = new UserPerson();
         userPerson.setUser(new User());

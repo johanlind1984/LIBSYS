@@ -75,8 +75,11 @@ public class LoanControllerTest {
     public void init() {
         // Setting up authorities
         InitUtil.setupAuthorities(userAuthorityRepository);
-        InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUserLoan@gmail.com");
-        InitUtil.initAuthorBookAndLoan(authorRepository, bookRepository, bookLoanRepository);
+        Visitor visitorWithLoans = InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUserLoan@gmail.com");
+
+        // Creating, Author, Book and Loan
+        Author author = InitUtil.setupAndReturnAuthor(authorRepository, "Peter", "LeMarc");
+        InitUtil.setupAndReturnBook(bookRepository, author, "Sagan om ringen");
     }
 
     @Test

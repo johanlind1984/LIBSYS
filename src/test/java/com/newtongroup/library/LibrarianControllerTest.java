@@ -83,7 +83,7 @@ public class LibrarianControllerTest {
         // Creating all users
         InitUtil.setupAndReturnLibrarian(userAuthorityRepository, librarianRepository, userRepository, "librarianUser@gmail.com");
         InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUser@gmail.com");
-        InitUtil.initAuthorBookAndLoan(authorRepository, bookRepository, bookLoanRepository);
+//        InitUtil.initAuthorBookAndLoan(authorRepository, bookRepository, bookLoanRepository);
         Visitor visitorWithLoans = InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUserLoan@gmail.com");
 
         // Creating, Author, Book and Loan
