@@ -29,120 +29,112 @@ import com.newtongroup.library.Utils.HeaderUtils;
 @RequestMapping("/search")
 public class SearchServiceController {
 
-	@Autowired
-	private SearchService searchService;
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private BookRepository bookRepository;
-	@Autowired
-	private EBookRepository ebookRepository;
-	@Autowired
-	private PlacementRepository placementRepository;
+    @Autowired
+    private SearchService searchService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private BookRepository bookRepository;
+    @Autowired
+    private EBookRepository ebookRepository;
+    @Autowired
+    private PlacementRepository placementRepository;
 
-	@GetMapping()
-	public String getSearchForm(Model model, Principal principal) {
-		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
-		List<Placement> placements = placementRepository.findAll();
-		model.addAttribute("placements", placements);
-		
-		
-		return "search/searchview";
-	}
+    @GetMapping()
+    public String getSearchForm(Model model, Principal principal) {
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
+        List<Placement> placements = placementRepository.findAll();
+        model.addAttribute("placements", placements);
 
-	@PostMapping()
-	public String postSearchForm(
-			@RequestParam(value = "search", required = false)
-			String searchText,
-			@RequestParam(value = "categories", required = false) 
-			List<String> categories,
-			Model model,
-			Principal principal) {
-		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
-		
-		boolean visitor = true;
-		if (principal != null) {
-			User user = userRepository.findByUsername(principal.getName());
-			if (user != null) {
-				visitor = user.getAuthority().getAuthorityName().equals("ROLE_VISITOR");
-			}
-		}
-		
-		model.addAttribute("visitor", visitor);
-		
-		
 
-		List<Book> bResults = searchService.filterBooksOnCategories(searchText, categories);
-		List<EBook> ebResults = searchService.filterEBooksOnCategories(searchText, categories);
-		List<Placement> placements = placementRepository.findAll();
+        return "search/searchview";
+    }
 
-		model.addAttribute("placements", placements);
-		model.addAttribute("bResults", bResults);
-		model.addAttribute("ebResults", ebResults);
-		model.addAttribute("selectedCategories", categories);
-		model.addAttribute("search", searchText);
+    @PostMapping()
+    public String postSearchForm(
+            @RequestParam(value = "search", required = false)
+                    String searchText,
+            @RequestParam(value = "categories", required = false)
+                    List<String> categories,
+            Model model,
+            Principal principal) {
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
 
-		return "search/searchview";
-	}
+        boolean visitor = true;
+        if (principal != null) {
+            User user = userRepository.findByUsername(principal.getName());
+            if (user != null) {
+                visitor = user.getAuthority().getAuthorityName().equals("ROLE_VISITOR");
+            }
+        }
 
-	@GetMapping("/book/{id}/detailedview")
-	public String getBookView(@PathVariable("id") long id,
-			@RequestParam(value = "searchText", required = false) String searchText,
-			@RequestParam(value = "categories", required = false) String categories, Model model, Principal principal) {
-		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
-		model.addAttribute("searchText", searchText != null ? searchText : "");
-		model.addAttribute("selectedCategories", categories != null ? categories : "");
+        model.addAttribute("visitor", visitor);
 
-		boolean visitor = true;
-		if (principal != null) {
-			User user = userRepository.findByUsername(principal.getName());
-			if (user != null) {
-				visitor = user.getAuthority().getAuthorityName().equals("ROLE_VISITOR");
-			}
-		}
-		
-		model.addAttribute("visitor", visitor);
-		Optional<Book> book = bookRepository.findById(id);
+        List<Book> bResults = searchService.filterBooksOnCategories(searchText, categories);
+        List<EBook> ebResults = searchService.filterEBooksOnCategories(searchText, categories);
+        List<Placement> placements = placementRepository.findAll();
 
-		model.addAttribute("book", book.orElse(null));
+        model.addAttribute("placements", placements);
+        model.addAttribute("bResults", bResults);
+        model.addAttribute("ebResults", ebResults);
+        model.addAttribute("selectedCategories", categories);
+        model.addAttribute("search", searchText);
 
-		return book.isPresent() ? "search/detailedview" : "error/id-error";
+        return "search/searchview";
+    }
 
-	}
+    @GetMapping("/book/{id}/detailedview")
+    public String getBookView(@PathVariable("id") long id,
+                              @RequestParam(value = "searchText", required = false) String searchText,
+                              @RequestParam(value = "categories", required = false) String categories, Model model, Principal principal) {
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
+        model.addAttribute("searchText", searchText != null ? searchText : "");
+        model.addAttribute("selectedCategories", categories != null ? categories : "");
 
-	@GetMapping("/ebook/{id}/detailedview")
-	public String getEBookView(@PathVariable("id") long id,
-			@RequestParam(value = "searchText", required = false) String searchText, Model model, Principal principal) {
-		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
-		model.addAttribute("searchText", searchText != null ? searchText : "");
-		Optional<EBook> eBook = ebookRepository.findById(id);
+        boolean visitor = true;
+        if (principal != null) {
+            User user = userRepository.findByUsername(principal.getName());
+            if (user != null) {
+                visitor = user.getAuthority().getAuthorityName().equals("ROLE_VISITOR");
+            }
+        }
 
-		model.addAttribute("book", eBook.orElse(null));
+        model.addAttribute("visitor", visitor);
+        Optional<Book> book = bookRepository.findById(id);
 
-		return eBook.isPresent() ? "search/detailedview" : "error/id-error";
+        model.addAttribute("book", book.orElse(null));
 
-	}
-	
-	
-	
-	
-	@GetMapping("/author")
-	public String getAuthorForm(Model model, Principal principal) {
-		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
+        return book.isPresent() ? "search/detailedview" : "error/id-error";
+    }
 
-		return "object/find-author";
-	}
+    @GetMapping("/ebook/{id}/detailedview")
+    public String getEBookView(@PathVariable("id") long id,
+                               @RequestParam(value = "searchText", required = false) String searchText, Model model, Principal principal) {
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
+        model.addAttribute("searchText", searchText != null ? searchText : "");
+        Optional<EBook> eBook = ebookRepository.findById(id);
 
-	@PostMapping("/author")
-	public String postAuthorForm(@RequestParam(value = "search", required = false) String searchText, Model model,
-			Principal principal) {
-		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
+        model.addAttribute("book", eBook.orElse(null));
 
-		List<Author> results = searchService.searchAuthor(searchText);
-		model.addAttribute("results", results);
-		model.addAttribute("search", searchText);
+        return eBook.isPresent() ? "search/detailedview" : "error/id-error";
+    }
 
-		return "object/find-author";
-	}
+    @GetMapping("/author")
+    public String getAuthorForm(Model model, Principal principal) {
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
 
+        return "object/find-author";
+    }
+
+    @PostMapping("/author")
+    public String postAuthorForm(@RequestParam(value = "search", required = false) String searchText, Model model,
+                                 Principal principal) {
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository, principal));
+
+        List<Author> results = searchService.searchAuthor(searchText);
+        model.addAttribute("results", results);
+        model.addAttribute("search", searchText);
+
+        return "object/find-author";
+    }
 }
