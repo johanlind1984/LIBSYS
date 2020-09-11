@@ -1,6 +1,5 @@
 package com.newtongroup.library.Repository;
 
-import com.newtongroup.library.Entity.BookLoan;
 import com.newtongroup.library.Entity.EBook;
 import com.newtongroup.library.Entity.EbookLoan;
 import com.newtongroup.library.Entity.LibraryCard;

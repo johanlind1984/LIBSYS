@@ -22,20 +22,16 @@ public class LibraryCard {
     private List<EbookLoan> ebookLoans;
 
     @ManyToOne()
-    @JoinColumn(name="librarycard_person_id")
+    @JoinColumn(name = "librarycard_person_id")
     private Visitor visitor;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="lock_id")
+    @JoinColumn(name = "lock_id")
     private Lock lock;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="unlock_id")
+    @JoinColumn(name = "unlock_id")
     private Unlock unlock;
-
-
-
-
 
     public LibraryCard() {
     }
@@ -84,9 +80,15 @@ public class LibraryCard {
         return lock;
     }
 
-    public void setLock(Lock lock) { this.lock = lock; }
+    public void setLock(Lock lock) {
+        this.lock = lock;
+    }
 
-    public Unlock getUnlock() { return unlock; }
+    public Unlock getUnlock() {
+        return unlock;
+    }
 
-    public void setUnlock(Unlock unlock) { this.unlock = unlock; }
+    public void setUnlock(Unlock unlock) {
+        this.unlock = unlock;
+    }
 }

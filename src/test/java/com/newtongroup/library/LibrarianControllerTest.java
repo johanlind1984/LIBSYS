@@ -43,9 +43,6 @@ public class LibrarianControllerTest {
     private UserAuthorityRepository userAuthorityRepository;
 
     @Autowired
-    private AdminRepository adminRepository;
-
-    @Autowired
     private LibrarianRepository librarianRepository;
 
     @Autowired
@@ -55,9 +52,6 @@ public class LibrarianControllerTest {
     private UserRepository userRepository;
 
     @Autowired
-    private PersonRepository personRepository;
-
-    @Autowired
     private AuthorRepository authorRepository;
 
     @Autowired
@@ -65,11 +59,6 @@ public class LibrarianControllerTest {
 
     @Autowired
     private BookLoanRepository bookLoanRepository;
-
-    @Autowired
-    private LibraryCardRepository libraryCardRepository;
-
-
 
     @BeforeEach
     void setUp() {

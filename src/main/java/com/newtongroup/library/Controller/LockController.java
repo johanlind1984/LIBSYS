@@ -36,12 +36,12 @@ public class LockController {
     UnlockRepository unlockRepository;
 
     @RequestMapping("/")
-    private String returnDoLock(Model theModel, Principal principal){
+    private String returnDoLock(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
         List<LibraryCard> libraryCardsList = libraryCardRepository.findAll()
                 .stream()
-                .filter(card -> card.getVisitor().isActive() == true)
+                .filter(card -> card.getVisitor().isActive())
                 .collect(Collectors.toList());
 
         List<Lock> locksList = lockRepository.findAll();
@@ -56,13 +56,11 @@ public class LockController {
 
         return "lock/lock-register";
     }
-
-
-
+    
     @RequestMapping("/doLock")
     public String Lock(@ModelAttribute("lock") Lock lock,
-            @ModelAttribute("libraryCard") LibraryCard libraryCard,
-            Model theModel, Principal principal){
+                       @ModelAttribute("libraryCard") LibraryCard libraryCard,
+                       Model theModel, Principal principal) {
 
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
@@ -70,10 +68,10 @@ public class LockController {
         LibraryCard tempLibraryCard = libraryCardRepository.getOne(cardID);
         Visitor visitor = tempLibraryCard.getVisitor();
 
-        if(tempLibraryCard == null){
+        if (tempLibraryCard == null) {
             return "error/not-valid-cardnumber";
         }
-        if(lock == null){
+        if (lock == null) {
             return "error/not-valid-cause";
         }
 
@@ -88,7 +86,7 @@ public class LockController {
 
     @RequestMapping("/doUnlock")
     public String Unlock(@ModelAttribute("unlock") Unlock unlock,
-                       @ModelAttribute("libraryCard") LibraryCard libraryCard,
+                         @ModelAttribute("libraryCard") LibraryCard libraryCard,
                          Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
@@ -105,7 +103,7 @@ public class LockController {
         }
     }
 
-    private void setCardToTrueAndSetUnlock(LibraryCard libraryCard, Unlock unlock){
+    private void setCardToTrueAndSetUnlock(LibraryCard libraryCard, Unlock unlock) {
         libraryCard.setActive(true);
         libraryCard.setUnlock(unlock);
         libraryCard.setLock(null);
@@ -114,7 +112,7 @@ public class LockController {
         libraryCardRepository.save(libraryCard);
     }
 
-    private void setCardToFalseAndSetLock(LibraryCard libraryCard, Lock lock){
+    private void setCardToFalseAndSetLock(LibraryCard libraryCard, Lock lock) {
         libraryCard.setActive(false);
         libraryCard.setLock(lock);
         libraryCard.setUnlock(null);

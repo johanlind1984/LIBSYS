@@ -5,10 +5,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "ebook_loans")
-public class EbookLoan extends AbstractLoan{
+public class EbookLoan extends AbstractLoan {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="ebook_id")
+    @JoinColumn(name = "ebook_id")
     private EBook ebook;
 
     @Column(name = "isEbookReturned")

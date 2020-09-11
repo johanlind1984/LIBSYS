@@ -11,7 +11,7 @@ public class Unlock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name="unlock_id")
+    @Column(name = "unlock_id")
     private Long unlockId;
 
     @Column(name = "cause")
@@ -19,7 +19,6 @@ public class Unlock {
 
     @OneToMany(mappedBy = "unlock")
     private List<LibraryCard> libraryCards;
-
 
     public Unlock() {
     }
