@@ -31,21 +31,27 @@ public class InitUtil {
     }
 
     public static Admin setupAndReturnAdmin(UserAuthorityRepository userAuthorityRepository,
-                                            AdminRepository adminRepository, UserRepository userRepository, String email) {
+                                            AdminRepository adminRepository,
+                                            UserRepository userRepository,
+                                            String email) {
 
         userRepository.save(InitUtil.setupAndReturnUser(userAuthorityRepository.findById((long) 1).orElse(null), email));
         return adminRepository.save(initAndGetAdmin(email));
     }
 
     public static Librarian setupAndReturnLibrarian(UserAuthorityRepository userAuthorityRepository,
-                                                    LibrarianRepository librarianRepository, UserRepository userRepository, String email) {
+                                                    LibrarianRepository librarianRepository,
+                                                    UserRepository userRepository,
+                                                    String email) {
 
         userRepository.save(InitUtil.setupAndReturnUser(userAuthorityRepository.findById((long) 2).orElse(null), email));
         return librarianRepository.save(initAndGetLibrarian(email));
     }
 
-    public static Visitor setupAndReturnVisitor(UserAuthorityRepository userAuthorityRepository, VisitorRepository visitorRepository,
-                                                UserRepository userRepository, String email) {
+    public static Visitor setupAndReturnVisitor(UserAuthorityRepository userAuthorityRepository,
+                                                VisitorRepository visitorRepository,
+                                                UserRepository userRepository,
+                                                String email) {
 
         userRepository.save(InitUtil.setupAndReturnUser(userAuthorityRepository.findById((long) 3).orElse(null), email));
         return visitorRepository.save(initAndGetVisitor(email));

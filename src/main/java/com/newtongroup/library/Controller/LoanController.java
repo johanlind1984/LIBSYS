@@ -60,17 +60,11 @@ public class LoanController {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
 
-
-
-
         LibraryCard libraryCard = new LibraryCard();
         Book book = new Book();
 
         List<LibraryCard> libraryCardList = getActiveCardList();
         List<Book> bookList = getActiveBookList();
-
-
-
 
 
         theModel.addAttribute("book", book);
@@ -88,7 +82,7 @@ public class LoanController {
                                Model theModel, Principal principal) {
 
 
-        if(principal == null ){
+        if (principal == null) {
             return "redirect:/login";
         }
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
@@ -96,7 +90,7 @@ public class LoanController {
         Long librarycardnumber;
         Long bookId;
 
-        if(bookIdParam == null) {
+        if (bookIdParam == null) {
             bookId = book.getId();
             librarycardnumber = libraryCard.getLibraryCardNumber();
         } else {
@@ -105,28 +99,26 @@ public class LoanController {
         }
 
 
-        if(user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")){
+        if (user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")) {
             LibraryCard tempcard = libraryCardRepository.findById(librarycardnumber).orElse(null);
-            if(tempcard == null ){
+            if (tempcard == null) {
                 return "error/book-or-no-active-librarycard";
             }
 
         }
 
-        if(user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")){
+        if (user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")) {
 
             Visitor visitor = visitorRepository.findByEmail(principal.getName());
 
-            String result = registerLoan(visitor, bookId, eBookId);
-            return result;
+            return registerLoan(visitor, bookId, eBookId);
 
-        } else if(user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")){
+        } else if (user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")) {
             LibraryCard libraryCard1 = libraryCardRepository.findById(librarycardnumber).orElse(null);
 
             if (libraryCard1 != null) {
                 Visitor visitor1 = libraryCard1.getVisitor();
-               String result = registerLoan(visitor1, bookId, eBookId);
-               return result;
+                return registerLoan(visitor1, bookId, eBookId);
 
             }
         }
@@ -137,7 +129,7 @@ public class LoanController {
     }
 
     public String registerLoan(Visitor visitor, Long bookId, Long eBookId) {
-        if (doesVisitorHaveActiveLibraryCard(visitor) == false) {
+        if (!doesVisitorHaveActiveLibraryCard(visitor)) {
             return "error/book-or-no-active-librarycard";
         }
 
@@ -152,7 +144,7 @@ public class LoanController {
         } else if (eBookId != null) {
             EBook ebook = eBookRepository.findById((eBookId)).orElse(null);
 
-            if (!ebook.isAvailable() ) {
+            if (!ebook.isAvailable()) {
                 return "error/book-is-not-available";
             }
             EbookLoan ebookLoan = getLoan(ebook, visitor);
@@ -175,10 +167,10 @@ public class LoanController {
 
     private boolean doesVisitorHaveActiveLibraryCard(Visitor visitor) {
 
-                if(visitor.getActiveLibraryCard() == null) {
-                    return false;
-                }
-                return true;
+        if (visitor.getActiveLibraryCard() == null) {
+            return false;
+        }
+        return true;
 
 
     }
@@ -211,7 +203,7 @@ public class LoanController {
         return currentLoanToRegister;
     }
 
-    private List<LibraryCard> getActiveCardList(){
+    private List<LibraryCard> getActiveCardList() {
         List<LibraryCard> tempList = libraryCardRepository.findAll()
                 .stream()
                 .filter(card -> card.getVisitor().isActive() == true)
@@ -219,20 +211,20 @@ public class LoanController {
 
         List<LibraryCard> libraryCardList = new ArrayList<>();
 
-        for(LibraryCard temp : tempList){
-            if(temp.isActive()){
+        for (LibraryCard temp : tempList) {
+            if (temp.isActive()) {
                 libraryCardList.add(temp);
             }
         }
         return libraryCardList;
     }
 
-    private List<Book> getActiveBookList(){
+    private List<Book> getActiveBookList() {
         List<Book> tempList = bookrepository.findAll();
         List<Book> bookList = new ArrayList<>();
 
-        for(Book temp : tempList){
-            if(temp.isAvailable()){
+        for (Book temp : tempList) {
+            if (temp.isAvailable()) {
                 bookList.add(temp);
             }
         }
