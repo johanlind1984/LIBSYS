@@ -81,7 +81,7 @@ public class LoanControllerTest {
     public void testBorrowBookAsVisitor() throws Exception {
         Book book = bookRepository.findById((long) 1).orElse(null);
         LibraryCard libraryCard = libraryCardRepository.findById((long) 1).orElse(null);
-        this.mockMvc.perform(get("/loan/register-book")
+        this.mockMvc.perform(get("/loan/register-loan")
                 .flashAttr("book", book)
                 .flashAttr("libraryCard", libraryCard)
                 .param("bookId", String.valueOf(book.getId())))
