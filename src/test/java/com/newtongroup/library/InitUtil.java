@@ -30,22 +30,22 @@ public class InitUtil {
         userAuthorityRepository.save(visitorAuth);
     }
 
-    public static Admin setUpAdmin(UserAuthorityRepository userAuthorityRepository,
-                                   AdminRepository adminRepository, UserRepository userRepository, String email) {
+    public static Admin setupAndReturnAdmin(UserAuthorityRepository userAuthorityRepository,
+                                            AdminRepository adminRepository, UserRepository userRepository, String email) {
 
         userRepository.save(InitUtil.setupAndReturnUser(userAuthorityRepository.findById((long) 1).orElse(null), email));
         return adminRepository.save(initAndGetAdmin(email));
     }
 
-    public static Librarian setUpLibrarian(UserAuthorityRepository userAuthorityRepository,
-                                           LibrarianRepository librarianRepository, UserRepository userRepository, String email) {
+    public static Librarian setupAndReturnLibrarian(UserAuthorityRepository userAuthorityRepository,
+                                                    LibrarianRepository librarianRepository, UserRepository userRepository, String email) {
 
         userRepository.save(InitUtil.setupAndReturnUser(userAuthorityRepository.findById((long) 2).orElse(null), email));
         return librarianRepository.save(initAndGetLibrarian(email));
     }
 
-    public static Visitor setUpVisitor(UserAuthorityRepository userAuthorityRepository, VisitorRepository visitorRepository,
-                                       UserRepository userRepository, String email) {
+    public static Visitor setupAndReturnVisitor(UserAuthorityRepository userAuthorityRepository, VisitorRepository visitorRepository,
+                                                UserRepository userRepository, String email) {
 
         userRepository.save(InitUtil.setupAndReturnUser(userAuthorityRepository.findById((long) 3).orElse(null), email));
         return visitorRepository.save(initAndGetVisitor(email));
@@ -79,26 +79,41 @@ public class InitUtil {
         return userPerson.getVisitor();
     }
 
-    // EJ KLAR
-    public static void initVisitorRentedBook(VisitorRepository visitorRepository, String visitorEmail) {
-        Visitor visitorRentedBook = new Visitor();
-        visitorRentedBook.setEmail("visitorUserLoan@gmail.com");
-        visitorRentedBook.setCity("Stockholm");
-        visitorRentedBook.setFirstName("Gunnar");
-        visitorRentedBook.setLastName("Pettersson");
-        visitorRentedBook.setPhone("085000000");
-        visitorRentedBook.setPostalCode("173 53");
-        visitorRentedBook.setStreet("Gökvägen 12");
-        visitorRentedBook.setPersonalNumber("831021-3341");
-        LibraryCard libraryCard = new LibraryCard();
-        libraryCard.setActive(true);
-        libraryCard.setVisitor(visitorRentedBook);
-        libraryCard.setBookLoans(new ArrayList<>());
-        libraryCard.setEbookLoans(new ArrayList<>());
-        ArrayList<LibraryCard> libraryCards = new ArrayList<>();
-        libraryCards.add(libraryCard);
-        visitorRentedBook.setLibraryCards(libraryCards);
-        visitorRepository.save(visitorRentedBook);
+    public static Book setupAndReturnBook(BookRepository bookRepository, Author author, String bookTitle) {
+        Book book = new Book();
+        book.setTitle(bookTitle);
+        book.setPurchasePrice("200");
+        book.setPublisher("Testförlaget");
+        book.setIsbn("12132131332113");
+        book.setDescription("Detta är en testbok, inget annat");
+        book.setAvailable(true);
+        book.setLoanedBooks(new ArrayList<>());
+        ArrayList<Author> authors = new ArrayList<>();
+        authors.add(author);
+        book.setAuthorList(authors);
+        return bookRepository.save(book);
+    }
+
+    public static Author setupAndReturnAuthor(AuthorRepository authorRepository, String firstName, String lastName) {
+        Author author1 = new Author();
+        author1.setFirstname(firstName);
+        author1.setLastname(lastName);
+        author1.setBirthYear("1956");
+        author1.setBookList(new ArrayList<>());
+        return authorRepository.save(author1);
+    }
+
+    public static BookLoan setupAndReturnBookLoan(BookLoanRepository bookLoanRepository, Visitor visitor, Book book) {
+        book.setAvailable(false);
+        BookLoan bookLoan = new BookLoan();
+        bookLoan.setBookReturned(false);
+        bookLoan.setBook(book);
+        bookLoan.setLibraryCard(visitor.getActiveLibraryCard());
+        bookLoan.setDateLoanEnd(new Date(Calendar.getInstance().getTime().getTime()));
+        bookLoan.setDateLoanStart(new Date(Calendar.getInstance().getTime().getTime()));
+        book.getLoanedBooks().add(bookLoan);
+        bookLoanRepository.save(bookLoan);
+        return bookLoanRepository.save(bookLoan);
     }
 
     public static void initAuthorBookAndLoan(AuthorRepository authorRepository, BookRepository bookRepository, BookLoanRepository bookLoanRepository) {

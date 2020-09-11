@@ -18,10 +18,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -79,7 +75,7 @@ public class LoanControllerTest {
     public void init() {
         // Setting up authorities
         InitUtil.setupAuthorities(userAuthorityRepository);
-        InitUtil.setUpVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUserLoan@gmail.com");
+        InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUserLoan@gmail.com");
         InitUtil.initAuthorBookAndLoan(authorRepository, bookRepository, bookLoanRepository);
     }
 

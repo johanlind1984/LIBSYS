@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "book_loans")
 public class BookLoan extends AbstractLoan{
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="book_id")
     private Book book;
 

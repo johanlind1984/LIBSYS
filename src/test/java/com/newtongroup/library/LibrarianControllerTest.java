@@ -1,6 +1,5 @@
 package com.newtongroup.library;
 
-import com.newtongroup.library.Controller.AdminController;
 import com.newtongroup.library.Controller.LibrarianController;
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
@@ -19,9 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -82,18 +79,17 @@ public class LibrarianControllerTest {
     public void init() {
         // Setting up authorities
         InitUtil.setupAuthorities(userAuthorityRepository);
-        InitUtil.setUpLibrarian(userAuthorityRepository, librarianRepository, userRepository, "librarianUser@gmail.com");
-        InitUtil.setUpVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUser@gmail.com");
-        InitUtil.initAuthorBookAndLoan(authorRepository, bookRepository, bookLoanRepository);
 
-        Visitor visitorWithLoans = InitUtil.setUpVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUserLoan@gmail.com");
-        BookLoan bookLoan = bookLoanRepository.findById((long) 1).orElse(null);
-        bookLoan.setLibraryCard(visitorWithLoans.getActiveLibraryCard());
-        ArrayList<BookLoan> bookLoanArrayList = new ArrayList<>();
-        bookLoanArrayList.add(bookLoan);
-        visitorWithLoans.getActiveLibraryCard().setBookLoans(bookLoanArrayList);
-        visitorRepository.save(visitorWithLoans);
-        bookLoanRepository.save(bookLoan);
+        // Creating all users
+        InitUtil.setupAndReturnLibrarian(userAuthorityRepository, librarianRepository, userRepository, "librarianUser@gmail.com");
+        InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUser@gmail.com");
+        InitUtil.initAuthorBookAndLoan(authorRepository, bookRepository, bookLoanRepository);
+        Visitor visitorWithLoans = InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUserLoan@gmail.com");
+
+        // Creating, Author, Book and Loan
+        Author author = InitUtil.setupAndReturnAuthor(authorRepository, "Peter", "LeMarc");
+        Book bookBorrowed = InitUtil.setupAndReturnBook(bookRepository, author, "Sagan om ringen");
+        InitUtil.setupAndReturnBookLoan(bookLoanRepository, visitorWithLoans, bookBorrowed);
     }
 
     // Testa null bok i param

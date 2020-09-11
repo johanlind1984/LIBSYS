@@ -61,9 +61,9 @@ public class AdminControllerTest {
     public void init() {
         // Setting up authorities
         InitUtil.setupAuthorities(userAuthorityRepository);
-        InitUtil.setUpAdmin(userAuthorityRepository, adminRepository, userRepository, "adminUser@gmail.com");
-        InitUtil.setUpLibrarian(userAuthorityRepository, librarianRepository, userRepository, "librarianUser@gmail.com");
-        InitUtil.setUpVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUser@gmail.com");
+        InitUtil.setupAndReturnAdmin(userAuthorityRepository, adminRepository, userRepository, "adminUser@gmail.com");
+        InitUtil.setupAndReturnLibrarian(userAuthorityRepository, librarianRepository, userRepository, "librarianUser@gmail.com");
+        InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUser@gmail.com");
     }
 
     @Test
