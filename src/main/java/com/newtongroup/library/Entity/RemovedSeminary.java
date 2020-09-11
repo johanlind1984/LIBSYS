@@ -19,32 +19,28 @@ public class RemovedSeminary {
     @Column(name = "information")
     private String information;
 
-    @Column(name="starttime")
+    @Column(name = "starttime")
     private String starttime;
 
-    @Column(name="endtime")
+    @Column(name = "endtime")
     private String endtime;
 
-    @Column(name= "cause")
+    @Column(name = "cause")
     private String cause;
 
-    @Column(name="deleted_at")
+    @Column(name = "deleted_at")
     private String deleted_at;
 
     @Column(name = "occurrence")
     private String occurrence;
 
-
     public RemovedSeminary() {
     }
-
-
 
     public RemovedSeminary(Long seminary_id, String title, String information, String occurrence, String starttime, String endtime, String cause) {
         this.seminary_id = seminary_id;
         this.title = title;
         this.information = information;
-
         this.cause = cause;
         this.starttime = starttime;
         this.endtime = endtime;
