@@ -1,7 +1,10 @@
 package com.newtongroup.library;
 
 import com.newtongroup.library.Controller.LibrarianController;
-import com.newtongroup.library.Entity.*;
+import com.newtongroup.library.Entity.Author;
+import com.newtongroup.library.Entity.Book;
+import com.newtongroup.library.Entity.BookLoan;
+import com.newtongroup.library.Entity.Visitor;
 import com.newtongroup.library.Repository.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,8 +20,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.util.ArrayList;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -106,6 +107,7 @@ public class LibrarianControllerTest {
                 .flashAttr("bookLoan", bookLoan)
                 .param("bookId", String.valueOf(book.getId())))
                 .andExpect(view().name("loan/return-success"));
+
         bookLoan = bookLoanRepository.findById((long) 1).orElse(null);
         Assert.assertTrue(bookLoan.getBookReturned());
         Assert.assertTrue(bookLoan.getBook().isAvailable());
@@ -126,9 +128,6 @@ public class LibrarianControllerTest {
                 .param("email", "visitorUser@gmail.com"))
                 .andExpect(status().isOk());
 
-        // Användaren "User" togs aldrig bort i koden innan. Detta test upptäckte felet och nu är det årgärdat.
-        // kod tillagt på rad 87 i LibrarianController.
-        // User user = userRepository.findByUsername("visitorUser@gmail.com");
         Assert.assertNull(userRepository.findByUsername("visitorUser@gmail.com"));
     }
 
@@ -138,6 +137,7 @@ public class LibrarianControllerTest {
         this.mockMvc.perform(get("/librarian/delete-visitor")
                 .param("email", "visitorUserLoan@gmail.com"))
                 .andExpect(view().name("admin/delete-failed-user-has-loans"));
+
         Assert.assertNotNull(userRepository.findByUsername("visitorUserLoan@gmail.com"));
         Assert.assertNotNull(visitorRepository.findByEmail("visitorUserLoan@gmail.com"));
     }

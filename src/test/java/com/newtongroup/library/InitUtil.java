@@ -3,17 +3,11 @@ package com.newtongroup.library;
 
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
+import com.newtongroup.library.Wrapper.UserPerson;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import com.newtongroup.library.Entity.Authority;
-import com.newtongroup.library.Entity.User;
-import com.newtongroup.library.Repository.AdminRepository;
-import com.newtongroup.library.Repository.UserAuthorityRepository;
-import com.newtongroup.library.Repository.UserRepository;
-import com.newtongroup.library.Wrapper.UserPerson;
 
 
 public class InitUtil {
@@ -61,24 +55,6 @@ public class InitUtil {
         return user;
     }
 
-    private static Admin initAndGetAdmin(String email) {
-        UserPerson userPerson = getPersonDummyData(email);
-        userPerson.setPersonAsAdmin();
-        return userPerson.getAdmin();
-    }
-
-    private static Librarian initAndGetLibrarian(String email) {
-        UserPerson userPerson = getPersonDummyData(email);
-        userPerson.setPersonAsLibrarian();
-        return userPerson.getLibrarian();
-    }
-
-    private static Visitor initAndGetVisitor(String email) {
-        UserPerson userPerson = getPersonDummyData(email);
-        userPerson.setPersonAsVisitor();
-        return userPerson.getVisitor();
-    }
-
     public static Book setupAndReturnBook(BookRepository bookRepository, Author author, String bookTitle) {
         Book book = new Book();
         book.setTitle(bookTitle);
@@ -114,6 +90,24 @@ public class InitUtil {
         book.getLoanedBooks().add(bookLoan);
         bookLoanRepository.save(bookLoan);
         return bookLoanRepository.save(bookLoan);
+    }
+
+    private static Admin initAndGetAdmin(String email) {
+        UserPerson userPerson = getPersonDummyData(email);
+        userPerson.setPersonAsAdmin();
+        return userPerson.getAdmin();
+    }
+
+    private static Librarian initAndGetLibrarian(String email) {
+        UserPerson userPerson = getPersonDummyData(email);
+        userPerson.setPersonAsLibrarian();
+        return userPerson.getLibrarian();
+    }
+
+    private static Visitor initAndGetVisitor(String email) {
+        UserPerson userPerson = getPersonDummyData(email);
+        userPerson.setPersonAsVisitor();
+        return userPerson.getVisitor();
     }
 
     private static UserPerson getPersonDummyData(String email) {

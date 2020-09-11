@@ -1,7 +1,7 @@
 package com.newtongroup.library;
 
 import com.newtongroup.library.Controller.AdminController;
-import com.newtongroup.library.Entity.*;
+import com.newtongroup.library.Entity.Visitor;
 import com.newtongroup.library.Repository.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,9 +16,10 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 
 @RunWith(SpringRunner.class)
