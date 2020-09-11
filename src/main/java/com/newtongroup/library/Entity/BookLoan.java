@@ -7,19 +7,17 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "book_loans")
-public class BookLoan extends AbstractLoan{
+public class BookLoan extends AbstractLoan {
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="book_id")
+    @JoinColumn(name = "book_id")
     private Book book;
 
     @Column(name = "isbookReturned")
     private Boolean isBookReturned;
 
-
     public BookLoan() {
     }
-
 
     public Book getBook() {
         return book;
