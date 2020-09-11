@@ -206,7 +206,7 @@ public class LoanController {
     private List<LibraryCard> getActiveCardList() {
         List<LibraryCard> tempList = libraryCardRepository.findAll()
                 .stream()
-                .filter(card -> card.getVisitor().isActive() == true)
+                .filter(card -> card.getVisitor().isActive())
                 .collect(Collectors.toList());
 
         List<LibraryCard> libraryCardList = new ArrayList<>();
