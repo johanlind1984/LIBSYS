@@ -34,7 +34,7 @@ public class Book extends AbstractBook {
 	private List<Author> authorList;
 
 	
-	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "book", cascade = CascadeType.MERGE)
 	private List<BookLoan> loanedBooks;
 
 	@JsonManagedReference

@@ -18,10 +18,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -79,21 +75,11 @@ public class LoanControllerTest {
     public void init() {
         // Setting up authorities
         InitUtil.setupAuthorities(userAuthorityRepository);
-        Authority librarianAuthority = userAuthorityRepository.findById((long) 2).orElse(null);
-        Authority visitorAuthority = userAuthorityRepository.findById((long) 3).orElse(null);
+        Visitor visitorWithLoans = InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUserLoan@gmail.com");
 
-
-        // Setting up users
-        userRepository.save(InitUtil.setupAndReturnUser(librarianAuthority, "librarianUser@gmail.com"));
-        userRepository.save(InitUtil.setupAndReturnUser(visitorAuthority, "visitorUser@gmail.com"));
-
-        // Setting up books, authors, loans and user details.
-        InitUtil.initVisitorUserLoan(userRepository, userAuthorityRepository);
-        InitUtil.initAdminUserDetails(adminRepository);
-        InitUtil.initLibrarianUserDetails(librarianRepository);
-        InitUtil.initVisitorUserDetails(visitorRepository);
-        InitUtil.initVisitorRentedBook(visitorRepository);
-        InitUtil.initAuthorBookAndLoan(authorRepository, bookRepository);
+        // Creating, Author, Book and Loan
+        Author author = InitUtil.setupAndReturnAuthor(authorRepository, "Peter", "LeMarc");
+        InitUtil.setupAndReturnBook(bookRepository, author, "Sagan om ringen");
     }
 
     @Test
@@ -108,6 +94,9 @@ public class LoanControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("loan/loan-success"));
 
-        Assert.assertFalse(visitorRepository.findByEmail("visitorUserLoan@gmail.com").getActiveLibraryCard().getBookLoans().isEmpty());
+        Visitor visitor = visitorRepository.findByEmail("visitorUserLoan@gmail.com");
+        Assert.assertFalse(visitor.getActiveLibraryCard().getBookLoans().isEmpty());
+        Assert.assertFalse(visitor.getActiveLibraryCard().getBookLoans().get(0).getBookReturned());
+        Assert.assertFalse(visitor.getActiveLibraryCard().getBookLoans().get(0).getBook().isAvailable());
     }
 }

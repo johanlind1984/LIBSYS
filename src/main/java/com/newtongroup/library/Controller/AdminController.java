@@ -67,8 +67,15 @@ public class AdminController {
                     break;
                 case "ROLE_VISITOR":
                     Visitor visitor = visitorRepository.findByEmail(user.getUsername());
-                    if (LibrarianController.nymetod(theModel, visitor)) return "admin/delete-failed-user-has-loans";
+                    if (visitor.getActiveLibraryCard() != null) {
+                        List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
+                                .stream()
+                                .filter(loan -> loan.getBookReturned() == false)
+                                .collect(Collectors.toList());
 
+                        theModel.addAttribute("visitor", visitor);
+                        theModel.addAttribute("bookLoans", bookLoans);
+                    }
                     hashAllUserData(user);
                     break;
                 default:

@@ -58,35 +58,30 @@ public class LibrarianController {
     }
 
     @RequestMapping("/delete-visitor")
-    public String deleteUser(@RequestParam(name = "email") String email, Model theModel, Principal principal) {
+    public String deleteUser(@RequestParam(name="email") String email, Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         User user = userRepository.findByUsername(email);
-        if (user == null) {
+        if(user == null) {
             return "error/email-cannot-be-found";
         } else if (user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")) {
             Visitor visitor = visitorRepository.findByEmail(user.getUsername());
-            if (nymetod(theModel, visitor)) return "admin/delete-failed-user-has-loans";
+            for (BookLoan bookLoan : visitor.getActiveLibraryCard().getBookLoans()) {
+                if(!bookLoan.getBookReturned()) {
+                    List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
+                            .stream()
+                            .filter(loan -> loan.getBookReturned() == false)
+                            .collect(Collectors.toList());
+                    theModel.addAttribute("visitor", visitor);
+                    theModel.addAttribute("bookLoans", bookLoans);
+                    return "admin/delete-failed-user-has-loans";
+                }
+            }
             hashAllUSerData(user);
             userRepository.delete(user);
         } else {
             return "error/email-cannot-be-found";
         }
-
         return "admin/delete-confirmation";
-    }
-
-    static boolean nymetod(Model theModel, Visitor visitor) {
-        if (visitor.getActiveLibraryCard() != null) {
-            List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
-                    .stream()
-                    .filter(loan -> loan.getBookReturned() == false)
-                    .collect(Collectors.toList());
-
-            theModel.addAttribute("visitor", visitor);
-            theModel.addAttribute("bookLoans", bookLoans);
-            return true;
-        }
-        return false;
     }
 
     @RequestMapping("/input-book-to-return")
