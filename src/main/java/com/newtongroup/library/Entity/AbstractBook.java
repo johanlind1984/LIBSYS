@@ -14,11 +14,7 @@ public class AbstractBook extends AbstractRental {
 	@Field
 	private String isbn;
 
-
-
-
 	public AbstractBook() {
-
 	}
 
 	public String getIsbn() {
