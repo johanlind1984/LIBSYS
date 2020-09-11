@@ -49,7 +49,6 @@ public class LoanController {
         List<Book> bookList = getActiveBookList();
         Book book = new Book();
 
-
         theModel.addAttribute("book", book);
         theModel.addAttribute("bookList", bookList);
         return "loan/register-book";
@@ -59,13 +58,11 @@ public class LoanController {
     public String loanlibrarian(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
-
         LibraryCard libraryCard = new LibraryCard();
         Book book = new Book();
 
         List<LibraryCard> libraryCardList = getActiveCardList();
         List<Book> bookList = getActiveBookList();
-
 
         theModel.addAttribute("book", book);
         theModel.addAttribute("libraryCard", libraryCard);
@@ -80,7 +77,6 @@ public class LoanController {
                                @ModelAttribute("libraryCard") LibraryCard libraryCard,
                                @ModelAttribute("book") Book book,
                                Model theModel, Principal principal) {
-
 
         if (principal == null) {
             return "redirect:/login";
@@ -97,14 +93,12 @@ public class LoanController {
             bookId = bookIdParam;
             librarycardnumber = visitorRepository.findByEmail(principal.getName()).getActiveLibraryCard().getLibraryCardNumber();
         }
-
-
+      
         if (user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")) {
             LibraryCard tempcard = libraryCardRepository.findById(librarycardnumber).orElse(null);
             if (tempcard == null) {
                 return "error/book-or-no-active-librarycard";
             }
-
         }
 
         if (user.getAuthority().getAuthorityName().equals("ROLE_VISITOR")) {
@@ -119,13 +113,9 @@ public class LoanController {
             if (libraryCard1 != null) {
                 Visitor visitor1 = libraryCard1.getVisitor();
                 return registerLoan(visitor1, bookId, eBookId);
-
             }
         }
-
-
         return "/error";
-
     }
 
     public String registerLoan(Visitor visitor, Long bookId, Long eBookId) {
