@@ -83,7 +83,6 @@ public class LibrarianControllerTest {
         // Creating all users
         InitUtil.setupAndReturnLibrarian(userAuthorityRepository, librarianRepository, userRepository, "librarianUser@gmail.com");
         InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUser@gmail.com");
-//        InitUtil.initAuthorBookAndLoan(authorRepository, bookRepository, bookLoanRepository);
         Visitor visitorWithLoans = InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUserLoan@gmail.com");
 
         // Creating, Author, Book and Loan
@@ -107,7 +106,9 @@ public class LibrarianControllerTest {
                 .flashAttr("bookLoan", bookLoan)
                 .param("bookId", String.valueOf(book.getId())))
                 .andExpect(view().name("loan/return-success"));
-        Assert.assertTrue(bookLoanRepository.findById((long) 1).orElse(null).getBookReturned());
+        bookLoan = bookLoanRepository.findById((long) 1).orElse(null);
+        Assert.assertTrue(bookLoan.getBookReturned());
+        Assert.assertTrue(bookLoan.getBook().isAvailable());
     }
 
     @Test

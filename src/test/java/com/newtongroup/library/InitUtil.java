@@ -115,7 +115,7 @@ public class InitUtil {
         bookLoanRepository.save(bookLoan);
         return bookLoanRepository.save(bookLoan);
     }
-    
+
     private static UserPerson getPersonDummyData(String email) {
         UserPerson userPerson = new UserPerson();
         userPerson.setUser(new User());

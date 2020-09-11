@@ -94,6 +94,9 @@ public class LoanControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("loan/loan-success"));
 
-        Assert.assertFalse(visitorRepository.findByEmail("visitorUserLoan@gmail.com").getActiveLibraryCard().getBookLoans().isEmpty());
+        Visitor visitor = visitorRepository.findByEmail("visitorUserLoan@gmail.com");
+        Assert.assertFalse(visitor.getActiveLibraryCard().getBookLoans().isEmpty());
+        Assert.assertFalse(visitor.getActiveLibraryCard().getBookLoans().get(0).getBookReturned());
+        Assert.assertFalse(visitor.getActiveLibraryCard().getBookLoans().get(0).getBook().isAvailable());
     }
 }
