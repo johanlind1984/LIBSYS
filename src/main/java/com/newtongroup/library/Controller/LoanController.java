@@ -209,7 +209,7 @@ public class LoanController {
         return libraryCardList;
     }
 
-    public List<Book> getActiveBookList() {
+    private List<Book> getActiveBookList() {
         List<Book> tempList = bookrepository.findAll();
         List<Book> bookList = new ArrayList<>();
 
