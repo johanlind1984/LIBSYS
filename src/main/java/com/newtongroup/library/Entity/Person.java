@@ -35,7 +35,7 @@ public class Person {
 
     @Column(name = "phone")
     private String phone;
-    
+
     public Person() {
     }
 
