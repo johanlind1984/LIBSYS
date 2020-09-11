@@ -1,6 +1,7 @@
 package com.newtongroup.library.Entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -24,63 +25,57 @@ import java.util.List;
 @Table(name = "books")
 public class Book extends AbstractBook {
 
-	@JsonManagedReference
-	@IndexedEmbedded
-	@ManyToMany(fetch = FetchType.EAGER) // detta har jag ändrat så att jag kunde lägga till författare till böcker.
-	@JoinTable(
-			name="book_author",
-			joinColumns = {@JoinColumn(name="idbook_author_book_id")},
-			inverseJoinColumns = {@JoinColumn(name="idbook_author_author_id")})
-	private List<Author> authorList;
+    @JsonManagedReference
+    @IndexedEmbedded
+    @ManyToMany(fetch = FetchType.EAGER) // detta har jag ändrat så att jag kunde lägga till författare till böcker.
+    @JoinTable(
+            name = "book_author",
+            joinColumns = {@JoinColumn(name = "idbook_author_book_id")},
+            inverseJoinColumns = {@JoinColumn(name = "idbook_author_author_id")})
 
-	
-	@OneToMany(mappedBy = "book", cascade = CascadeType.MERGE)
-	private List<BookLoan> loanedBooks;
+    private List<Author> authorList;
 
-	@JsonManagedReference
-	@ManyToOne()
-	@JoinColumn(name = "placement_id")
-	private Placement placement;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.MERGE)
+    private List<BookLoan> loanedBooks;
 
-	@Column(name = "date_added")
-	private String date;
+    @JsonManagedReference
+    @ManyToOne()
+    @JoinColumn(name = "placement_id")
+    private Placement placement;
 
+    @Column(name = "date_added")
+    private String date;
 
+    public Placement getPlacement() {
+        return placement;
+    }
 
+    public void setPlacement(Placement placement) {
+        this.placement = placement;
+    }
 
-	public Placement getPlacement() {
-		return placement;
-	}
+    public List<BookLoan> getLoanedBooks() {
+        return loanedBooks;
+    }
 
-	public void setPlacement(Placement placement) {
-		this.placement = placement;
-	}
+    public void setLoanedBooks(List<BookLoan> loanedBooks) {
+        this.loanedBooks = loanedBooks;
+    }
 
+    public List<Author> getAuthorList() {
+        return authorList;
+    }
 
+    public void setAuthorList(List<Author> authorList) {
+        this.authorList = authorList;
+    }
 
-	public List<BookLoan> getLoanedBooks() {
-		return loanedBooks;
-	}
+    public String getDate() {
+        return date;
+    }
 
-	public void setLoanedBooks(List<BookLoan> loanedBooks) {
-		this.loanedBooks = loanedBooks;
-	}
-
-
-
-	public List<Author> getAuthorList() {
-		return authorList;
-	}
-
-	public void setAuthorList(List<Author> authorList) {
-		this.authorList = authorList;
-	}
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date=date;
-	}
+    public void setDate(String date) {
+        this.date = date;
+    }
 
 }

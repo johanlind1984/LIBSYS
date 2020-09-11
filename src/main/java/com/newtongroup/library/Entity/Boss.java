@@ -5,7 +5,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="bosses")
-@PrimaryKeyJoinColumn(name="person_id")
-public class Boss extends Person{
+@Table(name = "bosses")
+@PrimaryKeyJoinColumn(name = "person_id")
+public class Boss extends Person {
 }

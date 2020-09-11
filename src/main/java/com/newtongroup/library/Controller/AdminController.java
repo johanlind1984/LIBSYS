@@ -42,7 +42,7 @@ public class AdminController {
     @RequestMapping("/delete-menu")
     public String deleteUserMenu(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-        theModel.addAttribute("email", new String());
+        theModel.addAttribute("email", "");
         return "admin/delete-user-menu";
     }
 
@@ -70,7 +70,7 @@ public class AdminController {
                     if (visitor.getActiveLibraryCard() != null) {
                         List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
                                 .stream()
-                                .filter(loan -> loan.getBookReturned() == false)
+                                .filter(loan -> !loan.getBookReturned())
                                 .collect(Collectors.toList());
 
                         theModel.addAttribute("visitor", visitor);
@@ -89,6 +89,7 @@ public class AdminController {
     }
 
     private void hashAllUserData(User user) {
+
         // testa om det hashas
         long timeHash = System.currentTimeMillis() / 1000L;
         Visitor visitor = visitorRepository.findByEmail(user.getUsername());

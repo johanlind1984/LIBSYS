@@ -22,9 +22,6 @@ public class RESTController {
     @Autowired
     private SearchService searchService;
 
-    @Autowired
-    private BookRepository bookRepository;
-
     @GetMapping("/search-book")
     public List<Book> postSearchFormBook(@RequestParam(value = "search", required = false, defaultValue = "")
                                                      String searchText) {
@@ -36,6 +33,4 @@ public class RESTController {
                                                        String searchText) {
         return searchService.searchEBooks(searchText);
     }
-
-
 }

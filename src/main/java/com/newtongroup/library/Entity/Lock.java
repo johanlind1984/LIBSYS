@@ -11,7 +11,7 @@ public class Lock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name="lock_id")
+    @Column(name = "lock_id")
     private Long lockId;
 
     @Column(name = "cause")
@@ -19,7 +19,6 @@ public class Lock {
 
     @OneToMany(mappedBy = "lock")
     private List<LibraryCard> libraryCards;
-
 
     public Lock() {
     }

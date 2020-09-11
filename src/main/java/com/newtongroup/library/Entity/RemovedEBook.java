@@ -12,28 +12,28 @@ public class RemovedEBook {
     @Column(name = "e_book_id")
     private Long e_book_id;
 
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name="isbn")
+    @Column(name = "isbn")
     private String isbn;
 
-    @Column(name="publisher")
+    @Column(name = "publisher")
     private String publisher;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="purchase_price")
+    @Column(name = "purchase_price")
     private String price;
 
-    @Column(name="download_link")
+    @Column(name = "download_link")
     private String download_link;
 
-    @Column(name= "cause")
+    @Column(name = "cause")
     private String cause;
 
-    @Column(name="deleted_at")
+    @Column(name = "deleted_at")
     private String deleted_at;
 
     public RemovedEBook() {
