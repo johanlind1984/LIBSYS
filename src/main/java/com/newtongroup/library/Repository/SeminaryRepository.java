@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SeminaryRepository extends JpaRepository<Seminary, String> {
+    Seminary findByTitle(String titel);
 }
