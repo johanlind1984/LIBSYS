@@ -30,9 +30,12 @@ public class Seminary {
     public Seminary() {
     }
 
-    public Seminary(String title, String occurrence) {
+    public Seminary(String title, String information, String occurrence, String startTime, String endTime) {
         this.title = title;
+        this.information = information;
         this.occurrence = occurrence;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public Long getSeminary_id() {
@@ -79,5 +82,13 @@ public class Seminary {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    @Override
+    public boolean equals (Object otherObject){
+        if (otherObject instanceof Seminary){
+            return this.seminary_id.equals(((Seminary) otherObject).getSeminary_id());
+        }
+        return false;
     }
 }
