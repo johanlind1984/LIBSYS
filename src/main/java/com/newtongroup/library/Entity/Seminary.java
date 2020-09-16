@@ -30,14 +30,6 @@ public class Seminary {
     public Seminary() {
     }
 
-    public Seminary(String title, String information, String occurrence, String startTime, String endTime) {
-        this.title = title;
-        this.information = information;
-        this.occurrence = occurrence;
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
-
     public Long getSeminary_id() {
         return seminary_id;
     }

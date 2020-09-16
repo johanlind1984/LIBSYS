@@ -1,18 +1,6 @@
 package com.newtongroup.library.Entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
@@ -82,5 +70,19 @@ public class Book extends AbstractBook {
 	public void setDate(String date) {
 		this.date=date;
 	}
+	public boolean isBookTitleThisTitle(Book book, String title){
+		if (book.getTitle().equalsIgnoreCase(title)){
+			return true;
+		}
+		return false;
+	}
+//	public boolean isAuthorListInBookThisAuthorlist(Book book, List<Author>authorList){
+//		if(book.authorList.equals(authorList)){
+//			return true;
+//		}
+//		return false;
+//
+//	}
+
 
 }
