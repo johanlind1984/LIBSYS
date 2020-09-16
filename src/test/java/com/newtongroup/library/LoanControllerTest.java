@@ -1,10 +1,7 @@
 package com.newtongroup.library;
 
 import com.newtongroup.library.Controller.LoanController;
-import com.newtongroup.library.Entity.Author;
-import com.newtongroup.library.Entity.Book;
-import com.newtongroup.library.Entity.LibraryCard;
-import com.newtongroup.library.Entity.Visitor;
+import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -58,6 +55,9 @@ public class LoanControllerTest {
     @Autowired
     private LibraryCardRepository libraryCardRepository;
 
+    @Autowired
+    private PlacementRepository placementRepository;
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(loanController).build();
@@ -72,7 +72,8 @@ public class LoanControllerTest {
 
         // Creating, Author, Book and Loan
         Author author = InitUtil.setupAndReturnAuthor(authorRepository, "Peter", "LeMarc");
-        InitUtil.setupAndReturnBook(bookRepository, author, "Sagan om ringen");
+        Placement placement = InitUtil.setUpAndReturnPlacement(placementRepository);
+        InitUtil.setupAndReturnBook(bookRepository, author, placement,"Sagan om ringen");
     }
 
     @Test
