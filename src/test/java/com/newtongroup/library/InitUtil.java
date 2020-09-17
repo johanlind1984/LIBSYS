@@ -5,6 +5,8 @@ import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -14,6 +16,7 @@ import com.newtongroup.library.Repository.AdminRepository;
 import com.newtongroup.library.Repository.UserAuthorityRepository;
 import com.newtongroup.library.Repository.UserRepository;
 import com.newtongroup.library.Wrapper.UserPerson;
+import org.hibernate.query.criteria.internal.expression.function.CurrentTimeFunction;
 
 
 public class InitUtil {
@@ -85,7 +88,17 @@ public class InitUtil {
         return userPerson.getVisitor();
     }
 
-    public static Book setupAndReturnBook(BookRepository bookRepository, Author author, String bookTitle) {
+    public static Placement setUpAndReturnPlacement(PlacementRepository placementRepository){
+        Placement placement = new Placement();
+        placement.setPlacementId((long)1);
+        placement.setDdk("??");
+        placement.setTitle("TestPlacement");
+
+
+        return placementRepository.save(placement);
+    }
+
+    public static Book setupAndReturnBook(BookRepository bookRepository, Author author, Placement placement, String bookTitle) {
         Book book = new Book();
         book.setTitle(bookTitle);
         book.setPurchasePrice("200");
@@ -93,11 +106,65 @@ public class InitUtil {
         book.setIsbn("12132131332113");
         book.setDescription("Detta är en testbok, inget annat");
         book.setAvailable(true);
+
         book.setLoanedBooks(new ArrayList<>());
         ArrayList<Author> authors = new ArrayList<>();
         authors.add(author);
         book.setAuthorList(authors);
+       book.setPlacement(placement);
         return bookRepository.save(book);
+    }
+
+    public static Seminary setupAndReturnSeminary(SeminaryRepository seminaryRepository, Long id) {
+
+        Seminary seminary = new Seminary();
+        seminary.setEndTime("12:50");
+       seminary.setInformation("TestInformation");
+       seminary.setOccurrence("2020-09-20");
+        //  seminary.setSeminary_id(id);
+       seminary.setStartTime("11:50");
+       seminary.setTitle("TestTitle");
+
+
+        return seminaryRepository.save(seminary);
+    }
+
+    public static RemovedSeminary setupAndReturnRemovedSeminary(RemovedSeminaryRepository removedSeminaryRepository,Seminary seminary, String cause) {
+
+        RemovedSeminary removedSeminary = new RemovedSeminary();
+        removedSeminary.setCause(cause);
+        removedSeminary.setEndtime(seminary.getEndTime());
+        removedSeminary.setStarttime(seminary.getStartTime());
+         removedSeminary.setSeminary_id(seminary.getSeminary_id());
+        removedSeminary.setTitle(seminary.getTitle());
+        removedSeminary.setOccurrence(seminary.getOccurrence());
+        removedSeminary.setInformation(seminary.getInformation());
+
+
+        return removedSeminaryRepository.save(removedSeminary);
+
+
+    }
+
+    public static RemovedBook setupAndReturnRemovedBook(RemovedBookRepository removedBookRepository,Book book, String cause) {
+
+        RemovedBook removedBook = new RemovedBook();
+        removedBook.setBook_id(book.getId());
+        removedBook.setTitle(book.getTitle());
+        removedBook.setIsbn(book.getIsbn());
+        removedBook.setPublisher(book.getPublisher());
+
+
+        removedBook.setDescription(book.getDescription());
+        removedBook.setPrice(book.getPurchasePrice());
+        removedBook.setCause(cause);
+        removedBook.setPlacement_id(book.getPlacement().getPlacementId());
+
+
+
+        return removedBookRepository.save(removedBook);
+
+
     }
 
     public static Author setupAndReturnAuthor(AuthorRepository authorRepository, String firstName, String lastName) {

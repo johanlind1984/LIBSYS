@@ -59,6 +59,9 @@ public class LibrarianControllerTest {
     @Autowired
     private BookLoanRepository bookLoanRepository;
 
+    @Autowired
+    private PlacementRepository placementRepository;
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(librarianController).build();
@@ -76,7 +79,8 @@ public class LibrarianControllerTest {
 
         // Creating, Author, Book and Loan
         Author author = InitUtil.setupAndReturnAuthor(authorRepository, "Peter", "LeMarc");
-        Book bookBorrowed = InitUtil.setupAndReturnBook(bookRepository, author, "Sagan om ringen");
+        Placement placement = InitUtil.setUpAndReturnPlacement(placementRepository);
+        Book bookBorrowed = InitUtil.setupAndReturnBook(bookRepository, author,placement,"Sagan om ringen");
         InitUtil.setupAndReturnBookLoan(bookLoanRepository, visitorWithLoans, bookBorrowed);
     }
 

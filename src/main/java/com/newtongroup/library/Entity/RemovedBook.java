@@ -128,4 +128,5 @@ public class RemovedBook {
         this.placement_id = placement_id;
     }
 
+
 }
