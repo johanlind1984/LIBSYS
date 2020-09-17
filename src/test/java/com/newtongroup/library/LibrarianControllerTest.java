@@ -42,9 +42,6 @@ public class LibrarianControllerTest {
     private UserAuthorityRepository userAuthorityRepository;
 
     @Autowired
-    private AdminRepository adminRepository;
-
-    @Autowired
     private LibrarianRepository librarianRepository;
 
     @Autowired
@@ -52,9 +49,6 @@ public class LibrarianControllerTest {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private PersonRepository personRepository;
 
     @Autowired
     private AuthorRepository authorRepository;
@@ -66,9 +60,7 @@ public class LibrarianControllerTest {
     private BookLoanRepository bookLoanRepository;
 
     @Autowired
-    private LibraryCardRepository libraryCardRepository;
-
-
+    private PlacementRepository placementRepository;
 
     @BeforeEach
     void setUp() {
@@ -87,7 +79,8 @@ public class LibrarianControllerTest {
 
         // Creating, Author, Book and Loan
         Author author = InitUtil.setupAndReturnAuthor(authorRepository, "Peter", "LeMarc");
-        Book bookBorrowed = InitUtil.setupAndReturnBook(bookRepository, author, "Sagan om ringen");
+        Placement placement = InitUtil.setUpAndReturnPlacement(placementRepository);
+        Book bookBorrowed = InitUtil.setupAndReturnBook(bookRepository, author,placement,"Sagan om ringen");
         InitUtil.setupAndReturnBookLoan(bookLoanRepository, visitorWithLoans, bookBorrowed);
     }
 

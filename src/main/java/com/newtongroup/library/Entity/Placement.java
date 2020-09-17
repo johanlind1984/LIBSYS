@@ -27,7 +27,7 @@ public class Placement {
     @JsonBackReference
     @OneToMany(mappedBy = "placement")
     private List<Book> bookList;
-    
+
 
     @JsonBackReference
     @OneToMany(mappedBy = "placement")
@@ -39,9 +39,9 @@ public class Placement {
     public Long getPlacementId() {
         return placementId;
     }
-    
+
     public String getIdString() {
-    	return placementId.toString();
+        return placementId.toString();
     }
 
     public void setPlacementId(Long placementId) {

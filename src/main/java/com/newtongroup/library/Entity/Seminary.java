@@ -11,7 +11,6 @@ public class Seminary {
     @Column(name = "seminary_id")
     private Long seminary_id;
 
-
     @Column(name = "title")
     private String title;
 
@@ -21,10 +20,10 @@ public class Seminary {
     @Column(name = "occurrence")
     private String occurrence;
 
-    @Column(name="endtime")
+    @Column(name = "endtime")
     private String endTime;
 
-    @Column(name="starttime")
+    @Column(name = "starttime")
     private String startTime;
 
     public Seminary() {
@@ -54,7 +53,9 @@ public class Seminary {
         this.information = information;
     }
 
-    public String getOccurrence() { return occurrence; }
+    public String getOccurrence() {
+        return occurrence;
+    }
 
     public void setOccurrence(String occurrence) {
         this.occurrence = occurrence;

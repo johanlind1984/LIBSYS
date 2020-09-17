@@ -3,30 +3,29 @@ package com.newtongroup.library.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private long id;
 
-    @Column(name="username", nullable = false, unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name="password", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name="enabled")
+    @Column(name = "enabled")
     private boolean isEnabled;
 
     @ManyToOne()
-    @JoinColumn(name="user_authority")
+    @JoinColumn(name = "user_authority")
     private Authority authority;
 
     public User() {
     }
-
 
     public Long getId() {
         return id;

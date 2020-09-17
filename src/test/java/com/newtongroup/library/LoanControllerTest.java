@@ -1,6 +1,6 @@
 package com.newtongroup.library;
 
-import com.newtongroup.library.Controller.LibrarianController;
+import com.newtongroup.library.Controller.LoanController;
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
 import org.junit.Assert;
@@ -19,9 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,13 +32,10 @@ public class LoanControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private LibrarianController librarianController;
+    private LoanController loanController;
 
     @Autowired
     private UserAuthorityRepository userAuthorityRepository;
-
-    @Autowired
-    private AdminRepository adminRepository;
 
     @Autowired
     private LibrarianRepository librarianRepository;
@@ -52,34 +47,33 @@ public class LoanControllerTest {
     private UserRepository userRepository;
 
     @Autowired
-    private PersonRepository personRepository;
-
-    @Autowired
     private AuthorRepository authorRepository;
 
     @Autowired
     private BookRepository bookRepository;
 
     @Autowired
-    private BookLoanRepository bookLoanRepository;
+    private LibraryCardRepository libraryCardRepository;
 
     @Autowired
-    private LibraryCardRepository libraryCardRepository;
+    private PlacementRepository placementRepository;
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(librarianController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(loanController).build();
     }
 
     @Before
     public void init() {
         // Setting up authorities
         InitUtil.setupAuthorities(userAuthorityRepository);
+        InitUtil.setupAndReturnLibrarian(userAuthorityRepository, librarianRepository, userRepository, "librarianUser@gmail.com");
         Visitor visitorWithLoans = InitUtil.setupAndReturnVisitor(userAuthorityRepository, visitorRepository, userRepository, "visitorUserLoan@gmail.com");
 
         // Creating, Author, Book and Loan
         Author author = InitUtil.setupAndReturnAuthor(authorRepository, "Peter", "LeMarc");
-        InitUtil.setupAndReturnBook(bookRepository, author, "Sagan om ringen");
+        Placement placement = InitUtil.setUpAndReturnPlacement(placementRepository);
+        InitUtil.setupAndReturnBook(bookRepository, author, placement,"Sagan om ringen");
     }
 
     @Test
@@ -98,5 +92,23 @@ public class LoanControllerTest {
         Assert.assertFalse(visitor.getActiveLibraryCard().getBookLoans().isEmpty());
         Assert.assertFalse(visitor.getActiveLibraryCard().getBookLoans().get(0).getBookReturned());
         Assert.assertFalse(visitor.getActiveLibraryCard().getBookLoans().get(0).getBook().isAvailable());
+    }
+
+    @Test
+    @WithMockUser(username = "visitorUserLoan@gmail.com", roles = {"VISITOR"})
+    public void showBookListAsVisitor() throws Exception {
+        this.mockMvc.perform(get("/loan/visitor"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("loan/register-book"))
+                .andExpect(model().attributeExists("bookList"));
+    }
+
+    @Test
+    @WithMockUser(username = "librarianUser@gmail.com", roles = {"LIBRARIAN"})
+    public void loanToVisitorAsLibrarian() throws Exception {
+        this.mockMvc.perform(get("/loan/librarian"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("loan/register-book-librarian"))
+                .andExpect(model().attributeExists("bookList", "book", "libraryCard", "libraryCardList"));
     }
 }

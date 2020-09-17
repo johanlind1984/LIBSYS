@@ -38,7 +38,7 @@ public class RemoveObjectController {
 
 
     @RequestMapping("/book")
-    public String book(Model theModel, Principal principal){
+    public String book(Model theModel, Principal principal) {
 
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         theModel.addAttribute("book", new Book());
@@ -49,7 +49,7 @@ public class RemoveObjectController {
     }
 
     @RequestMapping("/e-book")
-    public String ebook(Model theModel, Principal principal){
+    public String ebook(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         theModel.addAttribute("ebook", new EBook());
         theModel.addAttribute("removedEBook", new RemovedEBook());
@@ -59,7 +59,7 @@ public class RemoveObjectController {
     }
 
     @RequestMapping("/seminary")
-    public String seminarie(Model theModel, Principal principal){
+    public String seminarie(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         theModel.addAttribute("seminary", new Seminary());
         theModel.addAttribute("removedSeminary", new RemovedSeminary());
@@ -69,36 +69,36 @@ public class RemoveObjectController {
     }
 
     @GetMapping("/delete-book")
-    public String deleteBook(@ModelAttribute(name="book")Book theBook, @ModelAttribute(name="removedBook") RemovedBook theRemovedBook, Model theModel, Principal principal){
+    public String deleteBook(@ModelAttribute(name = "book") Book theBook,
+                             @ModelAttribute(name = "removedBook") RemovedBook theRemovedBook,
+                             Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
-        boolean doesIdAlreadyExist= bookRepository.findById(theBook.getId()).isPresent();
-        if(doesIdAlreadyExist){
-            Book book=bookRepository.getOne(theBook.getId());
+        boolean doesIdAlreadyExist = bookRepository.findById(theBook.getId()).isPresent();
+        if (doesIdAlreadyExist) {
+            Book book = bookRepository.getOne(theBook.getId());
+
+            saveBookAsRemoved(book, theRemovedBook);
 
 
-
-        RemovedBook removedBook= new RemovedBook(book.getId(), book.getTitle(), book.getIsbn(), book.getPublisher(),book.getDescription(),
-                                   book.getPurchasePrice(), book.getPlacement().getPlacementId(),theRemovedBook.getCause() );
-
-                removedBookRepository.save(removedBook);
-                bookRepository.delete(book);
-                return "remove-objects/remove-book-confirmation";
-            }
-            return "error/id-error";
+            bookRepository.delete(book);
+            return "remove-objects/remove-book-confirmation";
+        }
+        return "error/id-error";
 
 
     }
 
+    // legacy
     @RequestMapping("/delete-e-book")
-    public String deleteEBook(@ModelAttribute("EBook") EBook theEBook,  @ModelAttribute("removedEBook") RemovedEBook theRemovedEBook,Model theModel, Principal principal){
+    public String deleteEBook(@ModelAttribute("EBook") EBook theEBook, @ModelAttribute("removedEBook") RemovedEBook theRemovedEBook, Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         String isbn = theEBook.getIsbn();
 
         List<EBook> bookList = eBookRepository.findAll();
 
-        for(EBook temp : bookList){
-            if(temp.getIsbn().equals(isbn)){
+        for (EBook temp : bookList) {
+            if (temp.getIsbn().equals(isbn)) {
                 Long id = temp.getId();
                 String title = temp.getTitle();
                 String publisher = temp.getPublisher();
@@ -107,7 +107,7 @@ public class RemoveObjectController {
                 String description = temp.getDescription();
                 String download_link = temp.getDownloadLink();
 
-                RemovedEBook removedEBook = new RemovedEBook(id,title,isbn,publisher,description,price,download_link,cause);
+                RemovedEBook removedEBook = new RemovedEBook(id, title, isbn, publisher, description, price, download_link, cause);
                 removedEBookRepository.save(removedEBook);
                 System.out.println(removedEBook);
 
@@ -117,21 +117,87 @@ public class RemoveObjectController {
             }
 
 
-
         }
         return "error/isbn-error";
     }
 
     @RequestMapping("/delete-seminary")
-    public String deleteSeminarie(@ModelAttribute("seminary") Seminary theSeminary,@ModelAttribute("removedSeminary") RemovedSeminary theRemovedSeminary, Model theModel, Principal principal){
+    public String deleteSeminarie(@ModelAttribute("seminary") Seminary theSeminary,
+                                  @ModelAttribute("removedSeminary") RemovedSeminary theRemovedSeminary,
+                                  Model theModel,
+                                  Principal principal) {
+
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
 
-            Long id = theSeminary.getSeminary_id();
+        Long id = theSeminary.getSeminary_id();
 
         List<Seminary> seminaryList = seminaryRepository.findAll();
 
-        for(Seminary temp : seminaryList) {
+        boolean doesIdAlreadyExist = seminaryRepository.findById(theSeminary.getSeminary_id()).isPresent();
+
+               if(doesIdAlreadyExist){
+
+                   saveSeminaryAsRemoved(seminaryList,id,theRemovedSeminary);
+
+                   seminaryRepository.delete(theSeminary);
+                   return "remove-objects/remove-seminary-confirmation";
+               }
+
+
+
+
+
+        return "error/id-error";
+
+
+    }
+
+    @GetMapping("/author")
+    public String getAuthorForm(Model model, Principal principal) {
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
+        List<Author> authorList = authorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
+
+        Author author = new Author();
+
+        model.addAttribute("authors", authorList);
+        model.addAttribute("author", author);
+        return "remove-objects/remove-author";
+    }
+
+
+    @GetMapping("/delete-author")
+    public String deleteAuthor(@ModelAttribute(name = "author") Author author, Principal principal, Model model) {
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+        Author authorToRemove = authorRepository.getOne(author.getAuthorId());
+        boolean isAuthorNotInABookList = authorToRemove.getBookList().isEmpty() && authorToRemove.geteBookList().isEmpty();
+        if (isAuthorNotInABookList) {
+            authorRepository.delete(author);
+            return "redirect:/remove-object/author";
+        }
+        return "error/author-could-not-be-removed";
+    }
+
+
+
+    private void saveBookAsRemoved(Book book, RemovedBook theRemovedBook) {
+        RemovedBook removedBook = new RemovedBook
+                (book.getId(),
+                        book.getTitle(),
+                        book.getIsbn(),
+                        book.getPublisher(),
+                        book.getDescription(),
+                        book.getPurchasePrice(),
+                        book.getPlacement().getPlacementId(),
+                        theRemovedBook.getCause());
+
+        removedBookRepository.save(removedBook);
+    }
+
+    private void saveSeminaryAsRemoved(List<Seminary> seminaryList, Long id, RemovedSeminary theRemovedSeminary) {
+
+        for (Seminary temp : seminaryList) {
             if (temp.getSeminary_id().equals(id)) {
 
                 String title = temp.getTitle();
@@ -142,40 +208,10 @@ public class RemoveObjectController {
                 String occurrence = temp.getOccurrence();
 
 
-                RemovedSeminary removedSeminary = new RemovedSeminary(id, title, information, occurrence, startTime, endTime, cause);
+                RemovedSeminary removedSeminary = new RemovedSeminary
+                        (id, title, information, occurrence, startTime, endTime, cause);
                 removedSeminaryRepository.save(removedSeminary);
-
-                seminaryRepository.delete(temp);
-                return "remove-objects/remove-seminary-confirmation";
             }
-
         }
-
-        return "error/id-error";
-
-
-    }
-    @GetMapping ("/author")
-    public String getAuthorForm (Model model, Principal principal){
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-
-        List <Author>authorList=authorRepository.findAll(Sort.by(Sort.Direction.ASC, "lastname"));
-
-        Author author= new Author();
-
-        model.addAttribute("authors", authorList);
-        model.addAttribute("author", author);
-        return "remove-objects/remove-author";
-    }
-    @GetMapping ("/delete-author")
-    public String deleteAuthor(@ModelAttribute (name = "author") Author author, Principal principal, Model model) {
-        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-        Author authorToRemove = authorRepository.getOne(author.getAuthorId());
-        boolean isAuthorNotInABookList=authorToRemove.getBookList().isEmpty()&&authorToRemove.geteBookList().isEmpty();
-        if (isAuthorNotInABookList) {
-            authorRepository.delete(author);
-            return "redirect:/remove-object/author";
-        }
-        return "error/author-could-not-be-removed";
     }
 }

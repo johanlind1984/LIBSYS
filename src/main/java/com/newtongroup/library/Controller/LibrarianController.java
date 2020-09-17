@@ -69,7 +69,7 @@ public class LibrarianController {
                 if(!bookLoan.getBookReturned()) {
                     List<BookLoan> bookLoans = visitor.getActiveLibraryCard().getBookLoans()
                             .stream()
-                            .filter(loan -> loan.getBookReturned() == false)
+                            .filter(loan -> !loan.getBookReturned())
                             .collect(Collectors.toList());
                     theModel.addAttribute("visitor", visitor);
                     theModel.addAttribute("bookLoans", bookLoans);

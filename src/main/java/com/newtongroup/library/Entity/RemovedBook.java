@@ -15,34 +15,34 @@ public class RemovedBook {
     @Column(name = "book_id")
     private Long book_id;
 
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name="isbn")
+    @Column(name = "isbn")
     private String isbn;
 
-    @Column(name="publisher")
+    @Column(name = "publisher")
     private String publisher;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="purchase_price")
+    @Column(name = "purchase_price")
     private String price;
 
-    @Column(name="placement_id")
+    @Column(name = "placement_id")
     private Long placement_id;
 
-    @Column(name= "cause")
+    @Column(name = "cause")
     private String cause;
 
-    @Column(name="deleted_at")
+    @Column(name = "deleted_at")
     private String deleted_at;
 
     public RemovedBook() {
     }
 
-    public RemovedBook(Long book_id, String title, String isbn, String publisher,String description, String price, Long placement_id, String cause) {
+    public RemovedBook(Long book_id, String title, String isbn, String publisher, String description, String price, Long placement_id, String cause) {
         this.book_id = book_id;
         this.title = title;
         this.isbn = isbn;
@@ -54,7 +54,6 @@ public class RemovedBook {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         this.deleted_at = dtf.format(now);
-
     }
 
     public Long getBook_id() {
@@ -128,5 +127,6 @@ public class RemovedBook {
     public void setPlacement_id(Long placement_id) {
         this.placement_id = placement_id;
     }
+
 
 }

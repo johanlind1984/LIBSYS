@@ -48,13 +48,12 @@ public class UpdateUserController {
         List<Visitor> activeUsers = visitorRepository.findByIsActive(true);
         List<Visitor> activeAndLibrarycardUsers = new ArrayList<>();
         for (Visitor visitor : activeUsers) {
-            if(visitor.getActiveLibraryCard() != null) {
+            if (visitor.getActiveLibraryCard() != null) {
                 activeAndLibrarycardUsers.add(visitor);
             }
         }
-
-
         theModel.addAttribute("visitors", activeAndLibrarycardUsers);
+
         return "update-visitor/update-visitor-search";
     }
 
@@ -67,6 +66,7 @@ public class UpdateUserController {
         userPerson.setUser(user);
         theModel.addAttribute("userPerson", userPerson);
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
         return "update-visitor/update-visitor";
     }
 
@@ -77,6 +77,7 @@ public class UpdateUserController {
         user.setPassword(passwordEncoder.encode(userPerson.getUser().getPassword()));
         userRepository.save(user);
         visitorRepository.save(userPerson.getVisitor());
+
         return "update-visitor/visitor-update-confirmation";
     }
 
@@ -84,6 +85,7 @@ public class UpdateUserController {
     public String updateLibrarian(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         theModel.addAttribute("librarians", librarianRepository.findAll());
+
         return "update-librarian/update-librarian-search";
     }
 
@@ -96,6 +98,7 @@ public class UpdateUserController {
         userPerson.setUser(user);
         theModel.addAttribute("userPerson", userPerson);
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
         return "update-librarian/update-librarian";
     }
 
@@ -106,6 +109,7 @@ public class UpdateUserController {
         user.setPassword(passwordEncoder.encode(userPerson.getUser().getPassword()));
         userRepository.save(user);
         librarianRepository.save(userPerson.getLibrarian());
+
         return "update-librarian/update-librarian-confirmation";
     }
 
@@ -113,6 +117,7 @@ public class UpdateUserController {
     public String updateAdmin(Model theModel, Principal principal) {
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         theModel.addAttribute("admins", adminRepository.findAll());
+
         return "update-admin/update-admin-search";
     }
 
@@ -125,6 +130,7 @@ public class UpdateUserController {
         userPerson.setUser(user);
         theModel.addAttribute("userPerson", userPerson);
         theModel.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
         return "update-admin/update-admin";
     }
 
@@ -135,8 +141,7 @@ public class UpdateUserController {
         user.setPassword(passwordEncoder.encode(userPerson.getUser().getPassword()));
         userRepository.save(user);
         adminRepository.save(userPerson.getAdmin());
+
         return "update-admin/update-admin-confirmation";
     }
-
-    
 }
