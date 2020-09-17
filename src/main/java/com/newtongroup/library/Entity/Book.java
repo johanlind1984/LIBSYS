@@ -76,13 +76,8 @@ public class Book extends AbstractBook {
 		}
 		return false;
 	}
-//	public boolean isAuthorListInBookThisAuthorlist(Book book, List<Author>authorList){
-//		if(book.authorList.equals(authorList)){
-//			return true;
-//		}
-//		return false;
-//
-//	}
+
+
 
 
 }

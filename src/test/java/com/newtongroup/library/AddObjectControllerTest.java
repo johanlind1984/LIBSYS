@@ -57,6 +57,7 @@ public class AddObjectControllerTest {
     @Autowired
     private BookRepository bookRepository;
 
+    private static final Long firstIndex = 1L;
 
 
     /**
@@ -79,84 +80,75 @@ public class AddObjectControllerTest {
     /**
      * Test the form is functional and seminary is saved
      * Discovered a mistake in SeminaryRepository where seminary_id was String but Long is used in entity Seminary
-     * @throws Exception
      */
     @Test
     @WithMockUser(username = "librarian@gmail.com", roles = {"LIBRARIAN"})
     public void doesTheWebFormSaveSeminar() throws Exception{
         Seminary seminary = new Seminary();
 
+        //testing web form
         mockMvc.perform(post("/new-object/save-seminar")
             .flashAttr("seminary", seminary)
             .param("title", "Title 1")
             .param("information", "Information1"))
             .andExpect(view().name("redirect:new-object/new-seminar"));
 
-        Seminary savedSeminary=seminaryRepository.findById(1L).orElse(null);
-        System.out.println("Expected seminar "+ seminary.getTitle()+" : "+ "savedseminar "+ savedSeminary.getTitle() );
-        System.out.println("Expected seminary id "+seminary.getSeminary_id()+" : "+ "savedseminar id "+savedSeminary.getSeminary_id());
-        System.out.println("information: "+seminary.getInformation());
+        //Getting seminar from database and control some output
+        Seminary savedSeminary=seminaryRepository.findById(firstIndex).orElse(null);
+        System.out.println("Expected seminar: "+ seminary.getTitle()+ " saved seminar: "+ savedSeminary.getTitle());
+        System.out.println("Expected seminary id: "+seminary.getSeminary_id()+ " saved seminar id: "+savedSeminary.getSeminary_id());
+
+        //Test case
         Assert.assertEquals(seminary.getSeminary_id(), savedSeminary.getSeminary_id());
     }
+
     /**
      * Test the form is functional and book is saved
      */
     @Test
     @WithMockUser(username = "librarian@gmail.com", roles = {"LIBRARIAN"})
     public void doesTheWebFormSaveBook() throws Exception {
+        final String correctBookTitle = "Pippi Långstrump";
         Book book = new Book();
+
+        //setting up author
         List<Author> authorList=new ArrayList<>();
         Author author=InitUtil.setupAndReturnAuthor(authorRepository,  "Astrid", "Lindgren");
+        Author author1=InitUtil.setupAndReturnAuthor(authorRepository, "Bengt", "Öste");
         authorList.add(author);
+        authorList.add(author1);
         book.setAuthorList(authorList);
 
+        //testing web form
         mockMvc.perform(post("/new-object/save-book")
                 .flashAttr("book", book)
-                .param("title", "Pippi Långstrump"))
+                .param("title", correctBookTitle))
                 .andExpect(view().name("redirect:new-object/new-book"));
 
-        Book savedBook = bookRepository.findById(1L).orElse(null);
-        Assert.assertFalse(book.isBookTitleThisTitle(book, "Pappa Långstrum"));
-        Assert.assertTrue(book.isBookTitleThisTitle(book, "Pippi Långstrump"));
-        Assert.assertEquals(book.getId(), savedBook.getId());
+        //Getting book from database
+        Book savedBook = bookRepository.findById(firstIndex).orElse(null);
+        List<Author> savedBookAuthorList=savedBook.getAuthorList();
 
+        //Test cases
+        Assert.assertFalse(book.isBookTitleThisTitle(book, "Pappa Långstrump"));
+        Assert.assertTrue(book.isBookTitleThisTitle(book, correctBookTitle));
+        Assert.assertEquals(book.getId(), savedBook.getId());
         Assert.assertFalse(savedBook.getAuthorList().isEmpty());
 
+
+        //Extra control of first index in list
+        for(Author authors:savedBookAuthorList){
+            System.out.println(authors.getAuthorId()+" "+authors.getFirstname()+ " " +authors.getLastname());
+        }
+        for (Author originalAuthors:authorList){
+            System.out.println(originalAuthors.getAuthorId()+" "+originalAuthors.getFirstname()+" "+originalAuthors.getLastname());
+        }
 
     }
 
 
-    /**
-     * Test the form is functional and book is saved
-     */
-//    @Test
-//    @WithMockUser(username = "librarian@gmail.com", roles = {"LIBRARIAN"})
-//    public void doesTheWebFormSaveBook() throws Exception {
-//        Book book = new Book();
-////        Author Astrid = new Author();
-////        Author Bengt = new Author();
-//        List<Author> authorList=new ArrayList<>();
-////        authorList.add(Astrid);
-////        authorList.add(Bengt);
-//        Author author=InitUtil.setupAndReturnAuthor(authorRepository,  "Astrid", "Lindgren");
-////        authorList.add(author);
-////        book.setAuthorList(authorList);
-//
-//        mockMvc.perform(post("/new-object/save-book")
-//                .flashAttr("book", book)
-//                .param("authors", String.valueOf(author))
-//                .param("title", "Pippi Långstrump"))
-//                .andExpect(view().name("redirect:new-object/new-book"));
-//
-//        Book savedBook = bookRepository.findById(1L).orElse(null);
-//        Assert.assertFalse(book.isBookTitleThisTitle(book, "Pappa Långstrum"));
-//        Assert.assertTrue(book.isBookTitleThisTitle(book, "Pippi Långstrump"));
-//        Assert.assertEquals(book.getId(), savedBook.getId());
-//
-//        //System.out.println("expected boolist: "+book.getAuthorList()+"saved Booklist"+savedBook.getAuthorList());
-//        Assert.assertFalse(savedBook.getAuthorList().isEmpty());
-//
-//
-//    }
+
+
+
 
 }
