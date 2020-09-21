@@ -1,5 +1,6 @@
 package com.newtongroup.library;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,13 +113,16 @@ public class EditObjectControllerTest {
 	}
 
 	// Vyn går att komma åt trots att man saknar rätt roll
+	//går även att att ändra i edit-book formuläret som besökare.
+	// TODO 
 	@Test
 	@WithMockUser(username = "visitorUser@gmail.com", roles = { "VISITOR" })
 	public void testEditBookViewAsVisitor() throws Exception {
 		this.mockMvc.perform(get("/edit-object/edit-book/{id}", 1)).andExpect(status().isForbidden());
 
 	}
-
+	
+	
 	// Testa ändra i edit-book formuläret genom att ändra författare i bok-objektet
 	// och anropa
 	// controller metoden
@@ -157,6 +161,24 @@ public class EditObjectControllerTest {
 
 		Assert.assertEquals(author.getAuthorId(), authorWithnewName.getAuthorId());
 
+	}
+	
+	//Testa ändra fälten på boken till ogiltiga värden, på html sidan finns validering
+	//men det saknas på server-sidan. Behöver antagligen läggas till på modellklassen
+	//att vissa fält måste vara required.
+	@Test
+	@WithMockUser(username="librarianUser@gmail.com", roles= {"LIBRARIAN"})
+	public void testLeaveFieldsEmptyOnBookInEditBook() throws Exception {
+		Book book = bookRepository.findById(1l).get();
+		book.setDescription(null);
+		book.setTitle(null);
+		book.setIsbn(null);
+		book.setPublisher(null);
+		book.setAuthorList(new ArrayList<Author>());
+		book.setPlacement(null);
+		this.mockMvc.perform(post("/edit-object/edit-book").flashAttr("book", book))
+		.andExpect(status().isBadRequest());
+		
 	}
 
 }
