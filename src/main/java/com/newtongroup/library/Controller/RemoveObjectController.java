@@ -163,12 +163,14 @@ public class RemoveObjectController {
 
         model.addAttribute("authors", authorList);
         model.addAttribute("author", author);
-        return "remove-objects/remove-author";
+        return "remove-objects/delete-author";
     }
 
 
     @GetMapping("/delete-author")
-    public String deleteAuthor(@ModelAttribute(name = "author") Author author, Principal principal, Model model) {
+    public String deleteAuthor(@ModelAttribute(name = "author") Author author,
+                               Principal principal,
+                               Model model) {
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
         Author authorToRemove = authorRepository.getOne(author.getAuthorId());
         boolean isAuthorNotInABookList = authorToRemove.getBookList().isEmpty() && authorToRemove.geteBookList().isEmpty();

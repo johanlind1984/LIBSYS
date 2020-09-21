@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import com.newtongroup.library.Entity.Authority;
 import com.newtongroup.library.Entity.User;
@@ -172,7 +173,8 @@ public class InitUtil {
         author1.setFirstname(firstName);
         author1.setLastname(lastName);
         author1.setBirthYear("1956");
-        author1.setBookList(new ArrayList<>());
+        List<Book> bookList = new ArrayList<>();
+        author1.setBookList(bookList);
         return authorRepository.save(author1);
     }
 

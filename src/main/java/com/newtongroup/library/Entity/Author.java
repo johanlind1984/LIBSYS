@@ -32,7 +32,7 @@ public class Author {
 
     @JsonBackReference
     @ContainedIn
-    @ManyToMany(mappedBy = "authorList")
+    @ManyToMany(mappedBy = "authorList", fetch = FetchType.EAGER)
     private List<Book>bookList;
 
     @JsonBackReference
