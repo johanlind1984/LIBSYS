@@ -1,8 +1,9 @@
 package com.newtongroup.library.Controller;
 
-import java.security.Principal;
-import java.util.List;
-
+import com.newtongroup.library.Entity.Author;
+import com.newtongroup.library.Repository.AuthorRepository;
+import com.newtongroup.library.Repository.UserRepository;
+import com.newtongroup.library.Utils.HeaderUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.newtongroup.library.Entity.Author;
-import com.newtongroup.library.Repository.AuthorRepository;
-import com.newtongroup.library.Repository.UserRepository;
-import com.newtongroup.library.Utils.HeaderUtils;
+import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/author")
@@ -39,9 +38,9 @@ public class AuthorController {
 
 	@PostMapping("/save-author")
 	public String saveAuthor(@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName,
-			@RequestParam("birthYear") String birthYear, Model model, Principal principal, Author author) {
+			@RequestParam("birthYear") String birthYear, Principal principal, Author author) {
 
-		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+		//model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
 		List<Author> authors = authorRepository.findAll();
 		for (Author author1 : authors) {

@@ -76,4 +76,12 @@ public class Seminary {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
+    @Override
+    public boolean equals (Object otherObject){
+        if (otherObject instanceof Seminary){
+            return this.seminary_id.equals(((Seminary) otherObject).getSeminary_id());
+        }
+        return false;
+    }
 }
