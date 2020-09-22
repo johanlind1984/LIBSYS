@@ -88,9 +88,9 @@ public class InitUtil {
         return userPerson.getVisitor();
     }
 
-    public static Placement setUpAndReturnPlacement(PlacementRepository placementRepository){
+    public static Placement setUpAndReturnPlacement(PlacementRepository placementRepository) {
         Placement placement = new Placement();
-        placement.setPlacementId((long)1);
+        placement.setPlacementId((long) 1);
         placement.setDdk("??");
         placement.setTitle("TestPlacement");
 
@@ -111,7 +111,7 @@ public class InitUtil {
         ArrayList<Author> authors = new ArrayList<>();
         authors.add(author);
         book.setAuthorList(authors);
-       book.setPlacement(placement);
+        book.setPlacement(placement);
         return bookRepository.save(book);
     }
 
@@ -119,52 +119,43 @@ public class InitUtil {
 
         Seminary seminary = new Seminary();
         seminary.setEndTime("12:50");
-       seminary.setInformation("TestInformation");
-       seminary.setOccurrence("2020-09-20");
+        seminary.setInformation("TestInformation");
+        seminary.setOccurrence("2020-09-20");
         //  seminary.setSeminary_id(id);
-       seminary.setStartTime("11:50");
-       seminary.setTitle("TestTitle");
+        seminary.setStartTime("11:50");
+        seminary.setTitle("TestTitle");
 
 
         return seminaryRepository.save(seminary);
     }
 
-    public static RemovedSeminary setupAndReturnRemovedSeminary(RemovedSeminaryRepository removedSeminaryRepository,Seminary seminary, String cause) {
+    public static RemovedSeminary setupAndReturnRemovedSeminary(RemovedSeminaryRepository removedSeminaryRepository, Seminary seminary, String cause) {
 
         RemovedSeminary removedSeminary = new RemovedSeminary();
         removedSeminary.setCause(cause);
         removedSeminary.setEndtime(seminary.getEndTime());
         removedSeminary.setStarttime(seminary.getStartTime());
-         removedSeminary.setSeminary_id(seminary.getSeminary_id());
+        removedSeminary.setSeminary_id(seminary.getSeminary_id());
         removedSeminary.setTitle(seminary.getTitle());
         removedSeminary.setOccurrence(seminary.getOccurrence());
         removedSeminary.setInformation(seminary.getInformation());
 
-
         return removedSeminaryRepository.save(removedSeminary);
-
-
     }
 
-    public static RemovedBook setupAndReturnRemovedBook(RemovedBookRepository removedBookRepository,Book book, String cause) {
+    public static RemovedBook setupAndReturnRemovedBook(RemovedBookRepository removedBookRepository, Book book, String cause) {
 
         RemovedBook removedBook = new RemovedBook();
         removedBook.setBook_id(book.getId());
         removedBook.setTitle(book.getTitle());
         removedBook.setIsbn(book.getIsbn());
         removedBook.setPublisher(book.getPublisher());
-
-
         removedBook.setDescription(book.getDescription());
         removedBook.setPrice(book.getPurchasePrice());
         removedBook.setCause(cause);
         removedBook.setPlacement_id(book.getPlacement().getPlacementId());
 
-
-
         return removedBookRepository.save(removedBook);
-
-
     }
 
     public static Author setupAndReturnAuthor(AuthorRepository authorRepository, String firstName, String lastName) {
