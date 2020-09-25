@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -28,6 +25,9 @@ public class AddObjectController {
     private EBookRepository eBookRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private SeminaryRepository seminaryRepository;
 
     @Autowired
@@ -36,8 +36,14 @@ public class AddObjectController {
     @Autowired
     private PlacementRepository placementRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private Book book;
+    private User user;
+    private String title;
+    private String description;
+    private String publisher;
+    private String purchaseprice;
+    private String isbn;
+    private String dateAdded;
 
     private List<Author> authorList;
 
@@ -45,13 +51,32 @@ public class AddObjectController {
     @GetMapping("/new-seminar")
     public String getSeminarForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
-        Seminary seminary=new Seminary();
+        Seminary seminary = new Seminary();
         model.addAttribute("seminary", seminary);
         return "object/add-seminar";
     }
+    /*
+    * Corrected after testing due to visitor was able to add seminar in system
+    * */
     @PostMapping ("/save-seminar")
-    public String saveSeminar(Seminary seminary){
-        seminaryRepository.save(seminary);
+    public String saveSeminar(@RequestParam(name = "title") String title, @RequestParam(name = "information") String information,
+                              @RequestParam(name = "occurrence") String occurrence, @RequestParam(name = "starttime") String starttime,
+                              @RequestParam(name = "endtime") String endtime, Seminary seminary, Principal principal, Model model){
+
+        model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+
+        user = userRepository.findByUsername(principal.getName());
+
+        if(user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN") ||
+        user.getAuthority().getAuthorityName().equals("ROLE_ADMIN")) {
+
+            if((!title.isEmpty()) && (!information.isEmpty())
+            && (!occurrence.isEmpty()) && (!starttime.isEmpty())
+            && (!endtime.isEmpty())){
+
+                seminaryRepository.save(seminary);
+            }
+        }
         return "redirect:new-object/new-seminar";
     }
 
@@ -68,14 +93,32 @@ public class AddObjectController {
     }
 
     @PostMapping("/save-book")
-    public String saveBook(@ModelAttribute("book") Book book){
-        book.setAvailable(true);
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime now = LocalDateTime.now();
-        book.setDate(dtf.format(now));
-        bookRepository.save(book);
+    public String saveBook(@ModelAttribute("book") Book book, Principal principal,
+    @RequestParam(name = "title") String title, @RequestParam(name = "description") String description,
+                           @RequestParam(name = "publisher") String publisher,
+                           @RequestParam("purchaseprice") String purchaseprice,
+                           @RequestParam(name = "isbn") String isbn){
+
+        user = userRepository.findByUsername(principal.getName());
+
+        if(user.getAuthority().getAuthorityName().equals("ROLE_ADMIN") ||
+        user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN")){
+
+            if((!title.isEmpty()) && (!description.isEmpty()) && (!isbn.isEmpty())
+                    && (!publisher.isEmpty())
+                    && (!purchaseprice.isEmpty())){
+
+                book.setAvailable(true);
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDateTime now = LocalDateTime.now();
+                book.setDate(dtf.format(now));
+                bookRepository.save(book);
+            }
+        }
+
         return "redirect:new-object/new-book";
     }
+
     @GetMapping("/new-ebook")
     public String getEBookForm(Model model, Principal principal){
         model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
