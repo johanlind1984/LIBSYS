@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.validation.constraints.AssertTrue;
 
+import com.newtongroup.library.Entity.Placement;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -88,7 +89,8 @@ public class EditObjectControllerTest {
 
 		// Creating, Author and book
 		Author author = InitUtil.setupAndReturnAuthor(authorRepository, "Peter", "LeMarc");
-		InitUtil.setupAndReturnBook(bookRepository, author, "Sagan om ringen");
+		Placement placement = InitUtil.setUpAndReturnPlacement(placementRepository);
+		InitUtil.setupAndReturnBook(bookRepository, author,placement, "Sagan om ringen");
 		InitUtil.setupAndReturnAuthor(authorRepository, "Stephen", "Kung");
 
 	}

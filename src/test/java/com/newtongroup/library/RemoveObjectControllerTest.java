@@ -1,14 +1,11 @@
 package com.newtongroup.library;
 
 
-import com.newtongroup.library.Controller.AdminController;
-import com.newtongroup.library.Controller.LoanController;
+
 import com.newtongroup.library.Entity.*;
 import com.newtongroup.library.Repository.*;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,10 +15,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-
-import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -57,6 +50,9 @@ public class RemoveObjectControllerTest {
     private AuthorRepository authorRepository;
 
     @Autowired
+    private PlacementRepository placementRepository;
+
+    @Autowired
     private BookRepository bookRepository;
 
     @Autowired
@@ -68,11 +64,7 @@ public class RemoveObjectControllerTest {
     @Autowired
     private RemovedSeminaryRepository removedSeminaryRepository;
 
-    @Autowired
-    private LibraryCardRepository libraryCardRepository;
 
-    @Autowired
-    private PlacementRepository placementRepository;
 
 
 
@@ -92,6 +84,7 @@ public class RemoveObjectControllerTest {
         InitUtil.setupAndReturnRemovedBook(removedBookRepository,book, "damage");
         Seminary seminary = InitUtil.setupAndReturnSeminary(seminaryRepository,(long)1);
         InitUtil.setupAndReturnRemovedSeminary(removedSeminaryRepository,seminary,"Trash");
+
     }
 
 
@@ -180,6 +173,43 @@ public class RemoveObjectControllerTest {
         assertThat(isRemovedSeminaryAndSeminaryPropertiesEqual(removedSeminary,seminary)).isEqualTo(true);
     }
 
+    @Test
+    @WithMockUser(username = "visitorUser@gmail.com", roles = {" VISITOR "})
+    public void testDeleteAuthorAsVisitor() throws Exception{
+        this.mockMvc.perform(get("/remove-object/delete-author")).andExpect(status().isForbidden());
+
+
+    }
+
+    @Test
+    @WithMockUser(username = "librarianUser@gmail.com", roles = { "LIBRARIAN" })
+    public void testDeleteAuthorAsLibrarian() throws Exception {
+        Author author = authorRepository.findById( 1).orElse(null);
+
+        this.mockMvc.perform(get("/remove-object/delete-author")
+                .flashAttr("author", author))
+                .andExpect(status().isOk());
+
+
+         assertThat(author.getBookList().isEmpty()).isEqualTo(false);
+
+
+    }
+
+    @Test
+    @WithMockUser(username = "adminUser@gmail.com", roles = { "ADMIN" })
+    public void testDeleteAuthorAsAdmin() throws Exception {
+        Author author = authorRepository.findById( 1).orElse(null);
+
+        this.mockMvc.perform(get("/remove-object/delete-author")
+                .flashAttr("author", author))
+                .andExpect(status().isOk());
+
+
+        assertThat(author.getBookList().isEmpty()).isEqualTo(false);
+
+
+    }
     private boolean isRemovedBookAndBookPropertiesEqual(RemovedBook removedBook, Book book){
 
         return removedBook.getTitle() == book.getTitle() && removedBook.getBook_id() == book.getId() &&
