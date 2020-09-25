@@ -1,6 +1,7 @@
 package com.newtongroup.library.Controller;
 
 import com.newtongroup.library.Entity.Author;
+import com.newtongroup.library.Entity.User;
 import com.newtongroup.library.Repository.AuthorRepository;
 import com.newtongroup.library.Repository.UserRepository;
 import com.newtongroup.library.Utils.HeaderUtils;
@@ -38,10 +39,16 @@ public class AuthorController {
 
 	@PostMapping("/save-author")
 	public String saveAuthor(@RequestParam("firstname") String firstName, @RequestParam("lastname") String lastName,
-			@RequestParam("birthYear") String birthYear, Principal principal, Author author) {
+			@RequestParam("birthYear") String birthYear, Author author, Principal principal, Model model) {
 
-		//model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
+		model.addAttribute("header", HeaderUtils.getHeaderString(userRepository.findByUsername(principal.getName())));
 
+		User user = userRepository.findByUsername(principal.getName());
+
+		if(user.getAuthority().getAuthorityName().equals("ROLE_LIBRARIAN") ||
+		user.getAuthority().getAuthorityName().equals("ROLE_ADMIN")){
+
+			if(!firstName.isEmpty() && !lastName.isEmpty() && !birthYear.isEmpty()){
 		List<Author> authors = authorRepository.findAll();
 		for (Author author1 : authors) {
 			boolean existsAuthor = author1.getFirstname().equalsIgnoreCase(firstName)
@@ -53,6 +60,8 @@ public class AuthorController {
 			}
 		}
 		authorRepository.save(author);
+	}
+		}
 		return "redirect:/author/new";
 	}
 
